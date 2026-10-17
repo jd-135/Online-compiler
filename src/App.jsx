@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback, useMemo } from 'react';
+import React, { useState, useEffect, useCallback, useMemo, useRef } from 'react';
 import { TopBar } from './components/TopBar';
 import { ActivityBar } from './components/ActivityBar';
 import { Sidebar } from './components/Sidebar';
@@ -12,7 +12,7 @@ import { LANGUAGES } from './constants/languages';
 import { CODE_TEMPLATES } from './constants/templates';
 import { runCode } from './services/compilerService';
 
-const STORAGE_KEY = 'codepulse_workspace_v2';
+const STORAGE_KEY = 'codepulse_workspace_v3';
 
 const DEFAULT_WORKSPACE = {
   python: [
@@ -30,7 +30,6 @@ const DEFAULT_WORKSPACE = {
 };
 
 export default function App() {
-  // Current active language
   const [selectedLanguage, setSelectedLanguage] = useState(LANGUAGES[0]);
 
   // Language-scoped files dictionary
@@ -62,14 +61,19 @@ export default function App() {
   // Execution states
   const [isRunning, setIsRunning] = useState(false);
   const [executionResult, setExecutionResult] = useState(null);
-  const [stdin, setStdin] = useState('');
+  const [terminalInput, setTerminalInput] = useState('');
 
-  // UI layout states
+  // UI layout states & Resizable Split
   const [activeView, setActiveView] = useState('explorer'); // 'explorer' | 'snippets' | null
   const [isTerminalExpanded, setIsTerminalExpanded] = useState(false);
   const [cursorPosition, setCursorPosition] = useState({ line: 1, col: 1 });
   const [showShortcuts, setShowShortcuts] = useState(false);
   const [showSettings, setShowSettings] = useState(false);
+
+  // Adjustable workspace & output split percentage
+  const [editorWidthPercent, setEditorWidthPercent] = useState(55);
+  const isDraggingRef = useRef(false);
+  const containerRef = useRef(null);
 
   // Editor settings
   const [settings, setSettings] = useState({
@@ -87,6 +91,34 @@ export default function App() {
       // storage unavailable
     }
   }, [filesByLang]);
+
+  // Resizable split handler
+  const handleMouseDown = useCallback((e) => {
+    isDraggingRef.current = true;
+    document.body.style.cursor = 'col-resize';
+    document.body.style.userSelect = 'none';
+
+    const handleMouseMove = (moveEvent) => {
+      if (!isDraggingRef.current || !containerRef.current) return;
+      const rect = containerRef.current.getBoundingClientRect();
+      const offset = moveEvent.clientX - rect.left;
+      const percent = (offset / rect.width) * 100;
+      if (percent >= 20 && percent <= 80) {
+        setEditorWidthPercent(percent);
+      }
+    };
+
+    const handleMouseUp = () => {
+      isDraggingRef.current = false;
+      document.body.style.cursor = '';
+      document.body.style.userSelect = '';
+      document.removeEventListener('mousemove', handleMouseMove);
+      document.removeEventListener('mouseup', handleMouseUp);
+    };
+
+    document.addEventListener('mousemove', handleMouseMove);
+    document.addEventListener('mouseup', handleMouseUp);
+  }, []);
 
   // Current files for the active language ONLY
   const currentLangFiles = useMemo(() => {
@@ -163,7 +195,7 @@ export default function App() {
   // Close/Delete a file within current language
   const handleCloseFile = (fileId) => {
     const langFiles = filesByLang[selectedLanguage.id] || [];
-    if (langFiles.length <= 1) return; // keep at least 1 file
+    if (langFiles.length <= 1) return;
 
     const remaining = langFiles.filter((f) => f.id !== fileId);
     setFilesByLang((prev) => ({
@@ -203,15 +235,17 @@ export default function App() {
   };
 
   // Primary Run Code Execution
-  const handleRunCode = useCallback(async () => {
+  const handleRunCode = useCallback(async (customInput) => {
     if (isRunning) return;
+
+    const inputToUse = (typeof customInput === 'string') ? customInput : terminalInput;
 
     setIsRunning(true);
     try {
       const result = await runCode({
         language: selectedLanguage.id,
         code: currentCode,
-        stdin: stdin
+        stdin: inputToUse
       });
       setExecutionResult(result);
     } catch (err) {
@@ -231,7 +265,13 @@ export default function App() {
     } finally {
       setIsRunning(false);
     }
-  }, [isRunning, selectedLanguage.id, currentCode, stdin]);
+  }, [isRunning, selectedLanguage.id, currentCode, terminalInput]);
+
+  // Handle input submission directly from the Output tab
+  const handleSubmitTerminalInput = (inputVal) => {
+    setTerminalInput(inputVal);
+    handleRunCode(inputVal);
+  };
 
   // Global Keyboard Shortcuts (Ctrl+Enter, Ctrl+S, Ctrl+L, Esc, F1)
   useEffect(() => {
@@ -267,12 +307,12 @@ export default function App() {
   }, [handleRunCode]);
 
   return (
-    <div className="flex flex-col h-screen w-screen overflow-hidden bg-[#0b0f19] text-slate-200">
+    <div className="flex flex-col h-screen w-screen overflow-hidden bg-[#0d1117] text-slate-200">
       {/* Modern Top Header */}
       <TopBar
         selectedLanguage={selectedLanguage}
         onSelectLanguage={handleSelectLanguage}
-        onRunCode={handleRunCode}
+        onRunCode={() => handleRunCode()}
         isRunning={isRunning}
         onResetCode={handleResetCode}
         activeFile={activeFile}
@@ -289,7 +329,7 @@ export default function App() {
         <ActivityBar
           activeView={activeView}
           setActiveView={setActiveView}
-          onRunCode={handleRunCode}
+          onRunCode={() => handleRunCode()}
           isRunning={isRunning}
           onToggleShortcuts={() => setShowShortcuts(true)}
           onToggleSettings={() => setShowSettings(true)}
@@ -308,11 +348,17 @@ export default function App() {
           onClose={() => setActiveView(null)}
         />
 
-        {/* Split Work Area: Editor & Terminal */}
-        <div className="flex-1 flex flex-col md:flex-row overflow-hidden relative">
+        {/* Resizable Split Work Area (Editor & Terminal) */}
+        <div 
+          ref={containerRef} 
+          className="flex-1 flex flex-col md:flex-row overflow-hidden relative"
+        >
           {/* Left / Top: Code Editor */}
           {!isTerminalExpanded && (
-            <div className="flex-1 flex flex-col min-h-[300px] md:min-h-0 h-full overflow-hidden">
+            <div 
+              style={{ width: `${editorWidthPercent}%` }}
+              className="flex flex-col min-h-[300px] md:min-h-0 h-full overflow-hidden shrink-0"
+            >
               <EditorPanel
                 selectedLanguage={selectedLanguage}
                 files={currentLangFiles}
@@ -324,18 +370,33 @@ export default function App() {
                 onChangeCode={handleChangeCode}
                 settings={settings}
                 onUpdateCursor={setCursorPosition}
-                onRunCode={handleRunCode}
+                onRunCode={() => handleRunCode()}
               />
             </div>
           )}
 
+          {/* DRAGGABLE RESIZER BAR */}
+          {!isTerminalExpanded && (
+            <div
+              onMouseDown={handleMouseDown}
+              title="Drag to resize workspace and output panels"
+              className="hidden md:flex w-2 hover:w-2 bg-[#161b22] hover:bg-cyan-500/50 cursor-col-resize items-center justify-center transition-colors z-20 select-none group border-x border-slate-800"
+            >
+              <div className="w-0.5 h-8 bg-slate-600 group-hover:bg-cyan-300 rounded-full" />
+            </div>
+          )}
+
           {/* Right / Bottom: Modern Console & Stdin */}
-          <div className={`${isTerminalExpanded ? 'w-full' : 'w-full md:w-[480px] lg:w-[540px]'} flex flex-col h-full overflow-hidden`}>
+          <div 
+            style={{ width: isTerminalExpanded ? '100%' : `${100 - editorWidthPercent}%` }}
+            className="flex flex-col h-full overflow-hidden flex-1"
+          >
             <TerminalPanel
               executionResult={executionResult}
               isRunning={isRunning}
-              stdin={stdin}
-              onChangeStdin={setStdin}
+              terminalInput={terminalInput}
+              onChangeTerminalInput={setTerminalInput}
+              onSubmitTerminalInput={handleSubmitTerminalInput}
               onClearOutput={handleClearOutput}
               isExpanded={isTerminalExpanded}
               onToggleExpand={() => setIsTerminalExpanded(!isTerminalExpanded)}
@@ -352,7 +413,6 @@ export default function App() {
         executionResult={executionResult}
         cursorPosition={cursorPosition}
         settings={settings}
-        stdin={stdin}
       />
 
       {/* Modals */}
