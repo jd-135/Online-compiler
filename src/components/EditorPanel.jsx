@@ -6,7 +6,9 @@ import {
   Check, 
   CornerDownLeft,
   FilePlus2,
-  Trash2
+  Trash2,
+  FolderTree,
+  PanelLeftOpen
 } from 'lucide-react';
 
 export function EditorPanel({
@@ -20,7 +22,9 @@ export function EditorPanel({
   onChangeCode,
   settings,
   onUpdateCursor,
-  onRunCode
+  onRunCode,
+  isExplorerOpen,
+  onToggleExplorer
 }) {
   const textareaRef = useRef(null);
   const gutterRef = useRef(null);
@@ -46,7 +50,7 @@ export function EditorPanel({
   const updateCursorPosition = () => {
     if (!textareaRef.current) return;
     const pos = textareaRef.current.selectionStart;
-    const textBefore = code.substring(0, pos);
+    const textBefore = (code || '').substring(0, pos);
     const lineArr = textBefore.split('\n');
     const lineNum = lineArr.length;
     const colNum = lineArr[lineArr.length - 1].length + 1;
@@ -84,6 +88,15 @@ export function EditorPanel({
       e.preventDefault();
       if (onRunCode) {
         onRunCode();
+      }
+      return;
+    }
+
+    // Ctrl + B to toggle explorer
+    if ((e.ctrlKey || e.metaKey) && e.key === 'b') {
+      e.preventDefault();
+      if (onToggleExplorer) {
+        onToggleExplorer();
       }
       return;
     }
@@ -194,6 +207,18 @@ export function EditorPanel({
       {/* LANGUAGE-SPECIFIC FILE TABS STRIP */}
       <div className="h-10 bg-[#0d131f] border-b border-slate-800/80 flex items-center justify-between overflow-x-auto select-none px-2 shrink-0">
         <div className="flex items-center gap-1.5 h-full">
+          {/* Quick Show Workspace button when sidebar is collapsed */}
+          {!isExplorerOpen && (
+            <button
+              onClick={onToggleExplorer}
+              title="Open Workspace / File Explorer (Ctrl+B)"
+              className="h-7 px-2.5 rounded-lg bg-slate-900 hover:bg-slate-800 text-slate-300 hover:text-cyan-400 border border-slate-700/80 flex items-center gap-1.5 text-xs transition-all mr-1 animate-in fade-in duration-150"
+            >
+              <FolderTree size={13} className="text-cyan-400" />
+              <span className="font-medium text-[11px]">Workspace</span>
+            </button>
+          )}
+
           {/* Files belonging ONLY to the selected language */}
           {files.map((file) => {
             const isActive = file.id === activeFileId;
@@ -315,11 +340,16 @@ export function EditorPanel({
             onKeyUp={updateCursorPosition}
             onClick={updateCursorPosition}
             onScroll={handleScroll}
+            placeholder={
+              selectedLanguage.id === 'python'
+                ? '# Write your Python code here...\n# Press Ctrl+Enter to compile and run'
+                : `// Write your ${selectedLanguage.name} code here...\n// Press Ctrl+Enter to compile and run`
+            }
             spellCheck="false"
             autoCapitalize="none"
             autoComplete="off"
             autoCorrect="off"
-            className="w-full h-full bg-transparent text-slate-200 p-3 pl-3 resize-none outline-none font-mono code-font overflow-auto select-text whitespace-pre"
+            className="w-full h-full bg-transparent text-slate-200 p-3 pl-3 resize-none outline-none font-mono code-font overflow-auto select-text whitespace-pre placeholder:text-slate-600 placeholder:italic"
             style={{
               lineHeight: '1.6rem',
               tabSize: settings.tabSize || 4,

@@ -7,30 +7,33 @@ import { TerminalPanel } from './components/TerminalPanel';
 import { StatusBar } from './components/StatusBar';
 import { ShortcutsModal } from './components/ShortcutsModal';
 import { SettingsModal } from './components/SettingsModal';
+import { SplashScreen } from './components/SplashScreen';
 
 import { LANGUAGES } from './constants/languages';
 import { CODE_TEMPLATES } from './constants/templates';
 import { runCode } from './services/compilerService';
 
-const STORAGE_KEY = 'codepulse_workspace_v4';
+// Bumping storage key to v5 so all users get clean empty editor on first visit
+const STORAGE_KEY = 'codepulse_workspace_v5';
 
 const DEFAULT_WORKSPACE = {
   python: [
-    { id: 'py_1', name: 'main.py', code: CODE_TEMPLATES.python.hello, isDefault: true }
+    { id: 'py_1', name: 'main.py', code: '', isDefault: true }
   ],
   c: [
-    { id: 'c_1', name: 'main.c', code: CODE_TEMPLATES.c.hello, isDefault: true }
+    { id: 'c_1', name: 'main.c', code: '', isDefault: true }
   ],
   cpp: [
-    { id: 'cpp_1', name: 'main.cpp', code: CODE_TEMPLATES.cpp.hello, isDefault: true }
+    { id: 'cpp_1', name: 'main.cpp', code: '', isDefault: true }
   ],
   java: [
-    { id: 'java_1', name: 'Main.java', code: CODE_TEMPLATES.java.hello, isDefault: true }
+    { id: 'java_1', name: 'Main.java', code: '', isDefault: true }
   ]
 };
 
 export default function App() {
   const [selectedLanguage, setSelectedLanguage] = useState(LANGUAGES[0]);
+  const [showSplash, setShowSplash] = useState(true);
 
   // Language-scoped files dictionary
   const [filesByLang, setFilesByLang] = useState(() => {
@@ -171,12 +174,10 @@ export default function App() {
     }
 
     const newId = `${selectedLanguage.id}_${Date.now()}`;
-    const initialCode = `// ${cleanName}\n// ${selectedLanguage.name} Source File\n\n`;
-
     const newFileObj = {
       id: newId,
       name: cleanName,
-      code: selectedLanguage.id === 'python' ? `# ${cleanName}\n# Python Source File\n\n` : initialCode,
+      code: '',
       isDefault: false
     };
 
@@ -247,8 +248,6 @@ export default function App() {
         stdin: inputToUse
       });
 
-      // If user typed input directly into terminal, format stdout to display:
-      // prompt + input + program response (exactly as in a native terminal session)
       if (inputToUse && result.stdout) {
         setExecutionResult({
           ...result,
@@ -275,29 +274,40 @@ export default function App() {
     }
   }, [isRunning, selectedLanguage.id, currentCode]);
 
-  // Global Keyboard Shortcuts (Ctrl+Enter, Ctrl+S, Ctrl+L, Esc, F1)
+  // Global Keyboard Shortcuts (Ctrl+Enter, Ctrl+S, Ctrl+L, Ctrl+B, Esc, F1)
   useEffect(() => {
     const handleKeyDown = (e) => {
+      // Ctrl + Enter to run code
       if ((e.ctrlKey || e.metaKey) && e.key === 'Enter') {
         e.preventDefault();
         handleRunCode();
       }
 
+      // Ctrl + B to toggle explorer sidebar
+      if ((e.ctrlKey || e.metaKey) && e.key === 'b') {
+        e.preventDefault();
+        setActiveView((prev) => (prev ? null : 'explorer'));
+      }
+
+      // Ctrl + S (save / run)
       if ((e.ctrlKey || e.metaKey) && e.key === 's') {
         e.preventDefault();
         handleRunCode();
       }
 
+      // Ctrl + L (clear console)
       if ((e.ctrlKey || e.metaKey) && e.key === 'l') {
         e.preventDefault();
         handleClearOutput();
       }
 
+      // Esc to close modals
       if (e.key === 'Escape') {
         setShowShortcuts(false);
         setShowSettings(false);
       }
 
+      // F1 for shortcuts modal
       if (e.key === 'F1') {
         e.preventDefault();
         setShowShortcuts((prev) => !prev);
@@ -309,7 +319,10 @@ export default function App() {
   }, [handleRunCode]);
 
   return (
-    <div className="flex flex-col h-screen w-screen overflow-hidden bg-[#0d1117] text-slate-200">
+    <div className="flex flex-col h-screen w-screen overflow-hidden bg-[#070a11] text-slate-200">
+      {/* Attractive Initial Splash Loading Screen */}
+      {showSplash && <SplashScreen onFinish={() => setShowSplash(false)} />}
+
       {/* Modern Top Header */}
       <TopBar
         selectedLanguage={selectedLanguage}
@@ -337,7 +350,7 @@ export default function App() {
           onToggleSettings={() => setShowSettings(true)}
         />
 
-        {/* Collapsible Sidebar (Only displays active language files) */}
+        {/* Collapsible Sidebar (Toggles open/close cleanly) */}
         <Sidebar
           activeView={activeView}
           selectedLanguage={selectedLanguage}
@@ -359,7 +372,7 @@ export default function App() {
           {!isTerminalExpanded && (
             <div 
               style={{ width: `${editorWidthPercent}%` }}
-              className="flex flex-col min-h-[300px] md:min-h-0 h-full overflow-hidden shrink-0"
+              className="flex flex-col min-h-[300px] md:min-h-0 h-full overflow-hidden shrink-0 transition-[width] duration-75"
             >
               <EditorPanel
                 selectedLanguage={selectedLanguage}
@@ -373,6 +386,8 @@ export default function App() {
                 settings={settings}
                 onUpdateCursor={setCursorPosition}
                 onRunCode={() => handleRunCode()}
+                isExplorerOpen={Boolean(activeView)}
+                onToggleExplorer={() => setActiveView(activeView ? null : 'explorer')}
               />
             </div>
           )}
@@ -382,9 +397,9 @@ export default function App() {
             <div
               onMouseDown={handleMouseDown}
               title="Drag to resize editor and output terminal"
-              className="hidden md:flex w-2 hover:w-2 bg-[#131924] hover:bg-cyan-500/50 cursor-col-resize items-center justify-center transition-colors z-20 select-none group border-x border-slate-800"
+              className="hidden md:flex w-2.5 hover:w-2.5 bg-[#0d131f] hover:bg-cyan-500/50 cursor-col-resize items-center justify-center transition-colors z-20 select-none group border-x border-slate-800"
             >
-              <div className="w-0.5 h-8 bg-slate-600 group-hover:bg-cyan-300 rounded-full" />
+              <div className="w-1 h-8 bg-slate-700 group-hover:bg-cyan-300 rounded-full transition-colors" />
             </div>
           )}
 

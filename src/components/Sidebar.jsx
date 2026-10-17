@@ -7,7 +7,9 @@ import {
   Check, 
   X,
   Code2,
-  BookOpen
+  BookOpen,
+  PanelLeftClose,
+  ChevronLeft
 } from 'lucide-react';
 
 const ALGORITHM_SNIPPETS = {
@@ -99,27 +101,31 @@ export function Sidebar({
   };
 
   return (
-    <div className="w-60 bg-[#0d131f] border-r border-slate-800/80 flex flex-col shrink-0 text-slate-300 z-10 animate-in slide-in-from-left duration-150">
-      {/* Header */}
+    <div className="w-60 bg-[#0d131f] border-r border-slate-800/80 flex flex-col shrink-0 text-slate-300 z-10 animate-in slide-in-from-left-4 duration-200 ease-out select-none">
+      {/* Header with Title & Minimise Button */}
       <div className="h-10 px-3 flex items-center justify-between border-b border-slate-800/80 text-[11px] font-bold uppercase tracking-wider text-slate-400">
-        <span>{activeView === 'explorer' ? `${selectedLanguage.name} Files` : 'Algorithm Library'}</span>
+        <span className="flex items-center gap-1.5 text-slate-300">
+          <span>{activeView === 'explorer' ? `${selectedLanguage.name} Files` : 'Algorithm Library'}</span>
+        </span>
         <button 
           onClick={onClose}
-          className="text-slate-500 hover:text-white px-1"
+          title="Minimise / Close Workspace (Ctrl+B)"
+          className="flex items-center gap-1 text-slate-400 hover:text-cyan-400 hover:bg-slate-800/80 px-1.5 py-1 rounded-md transition-all text-[10px]"
         >
-          ✕
+          <ChevronLeft size={13} />
+          <span>Hide</span>
         </button>
       </div>
 
       {/* Explorer Content: ONLY SHOWS ACTIVE LANGUAGE FILES */}
       {activeView === 'explorer' && (
         <div className="flex-1 overflow-y-auto p-2">
-          <div className="flex items-center justify-between px-2 py-1 text-[11px] font-semibold text-slate-400 uppercase tracking-wider">
+          <div className="flex items-center justify-between px-2 py-1.5 text-[11px] font-semibold text-slate-400 uppercase tracking-wider">
             <span>Workspace</span>
             <button
               onClick={() => setIsAdding(true)}
               title={`Add ${selectedLanguage.name} file`}
-              className="text-cyan-400 hover:text-cyan-300 p-0.5 rounded"
+              className="text-cyan-400 hover:text-cyan-300 p-1 hover:bg-slate-800 rounded-md transition-colors"
             >
               <Plus size={14} />
             </button>
@@ -127,7 +133,7 @@ export function Sidebar({
 
           {/* Inline Add Input */}
           {isAdding && (
-            <form onSubmit={handleAddSubmit} className="flex items-center gap-1 bg-slate-800 border border-cyan-500/50 rounded-lg px-2 py-1 my-1">
+            <form onSubmit={handleAddSubmit} className="flex items-center gap-1 bg-slate-800 border border-cyan-500/50 rounded-lg px-2 py-1 my-1 animate-in zoom-in-95 duration-100">
               <input
                 type="text"
                 autoFocus
@@ -166,12 +172,12 @@ export function Sidebar({
                       : 'text-slate-400 hover:bg-slate-800/60 hover:text-slate-200'
                   }`}
                 >
-                  <div className="flex items-center gap-2">
+                  <div className="flex items-center gap-2 overflow-hidden">
                     <span
                       className="w-2 h-2 rounded-full shrink-0"
                       style={{ backgroundColor: selectedLanguage.dotColor }}
                     />
-                    <span className="font-mono">{file.name}</span>
+                    <span className="font-mono truncate">{file.name}</span>
                   </div>
 
                   {files.length > 1 && (
