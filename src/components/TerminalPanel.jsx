@@ -4,48 +4,38 @@ import {
   Trash2, 
   Copy, 
   Check, 
-  AlertCircle, 
-  CheckCircle2, 
-  Clock, 
-  Cpu, 
-  CornerDownLeft, 
-  Send,
-  Sparkles,
-  Maximize2,
-  Minimize2
+  Maximize2, 
+  Minimize2,
+  CheckCircle2,
+  AlertCircle
 } from 'lucide-react';
 
 export function TerminalPanel({
   executionResult,
   isRunning,
-  terminalInput,
-  onChangeTerminalInput,
-  onSubmitTerminalInput,
+  onRunCodeWithInput,
   onClearOutput,
   isExpanded,
   onToggleExpand
 }) {
   const [copied, setCopied] = useState(false);
-  const [inlineInput, setInlineInput] = useState('');
-  const inputRef = useRef(null);
-  const consoleBottomRef = useRef(null);
+  const [currentInput, setCurrentInput] = useState('');
+  const terminalInputRef = useRef(null);
+  const consoleContainerRef = useRef(null);
 
-  // Detect if output had an EOFError or input request
-  const isInputRequired = React.useMemo(() => {
-    if (!executionResult) return false;
-    const err = executionResult.stderr || executionResult.compileOutput || '';
-    return err.includes('EOFError') || 
-           err.includes('NoSuchElementException') || 
-           err.includes('EOF when reading') ||
-           err.includes('InputMismatchException');
-  }, [executionResult]);
-
-  // Focus input when input is required
+  // Auto-focus terminal on mount or when execution finishes
   useEffect(() => {
-    if (isInputRequired && inputRef.current) {
-      inputRef.current.focus();
+    if (!isRunning && terminalInputRef.current) {
+      terminalInputRef.current.focus();
     }
-  }, [isInputRequired]);
+  }, [isRunning, executionResult]);
+
+  // Focus terminal input when clicking anywhere in console
+  const handleConsoleClick = () => {
+    if (terminalInputRef.current) {
+      terminalInputRef.current.focus();
+    }
+  };
 
   const handleCopyOutput = async () => {
     const text = executionResult?.stdout || executionResult?.compileOutput || executionResult?.stderr || '';
@@ -59,46 +49,68 @@ export function TerminalPanel({
     }
   };
 
-  const handleInlineSubmit = (e) => {
-    e.preventDefault();
-    if (!inlineInput.trim()) return;
-    onSubmitTerminalInput(inlineInput.trim());
-    setInlineInput('');
+  // Check if an EOFError or input wait happened
+  const isWaitingForInput = React.useMemo(() => {
+    if (!executionResult) return false;
+    const err = executionResult.stderr || '';
+    return err.includes('EOFError') || 
+           err.includes('NoSuchElementException') || 
+           err.includes('EOF when reading') ||
+           err.includes('InputMismatchException');
+  }, [executionResult]);
+
+  // Clean stdout to display
+  const cleanStdout = React.useMemo(() => {
+    if (!executionResult) return '';
+    return executionResult.stdout || '';
+  }, [executionResult]);
+
+  // Handle Enter key inside the terminal
+  const handleKeyDown = (e) => {
+    if (e.key === 'Enter') {
+      e.preventDefault();
+      const val = currentInput;
+      setCurrentInput('');
+      if (onRunCodeWithInput) {
+        onRunCodeWithInput(val);
+      }
+    }
   };
 
-  const handlePromptSubmit = (e) => {
-    e.preventDefault();
-    if (!terminalInput.trim()) return;
-    onSubmitTerminalInput(terminalInput.trim());
-  };
-
-  const hasErrors = Boolean(executionResult?.compileOutput || executionResult?.stderr);
   const isSuccess = executionResult?.success;
+  const hasRealError = executionResult && !executionResult.success && !isWaitingForInput;
 
   return (
-    <div className="flex flex-col bg-[#0d1117] text-slate-200 h-full overflow-hidden select-text border-l border-slate-800">
+    <div 
+      className="flex flex-col bg-[#0b0f17] text-slate-200 h-full overflow-hidden select-text border-l border-slate-800 cursor-text"
+      onClick={handleConsoleClick}
+    >
       {/* Terminal Title Bar */}
-      <div className="h-10 bg-[#161b22] border-b border-slate-800 flex items-center justify-between px-3 select-none shrink-0">
+      <div className="h-9 bg-[#131924] border-b border-slate-800/80 flex items-center justify-between px-3 select-none shrink-0">
         <div className="flex items-center gap-2">
-          <Terminal size={14} className="text-cyan-400" />
-          <span className="text-xs font-semibold text-slate-200">Terminal Output</span>
+          {/* Terminal traffic light dots */}
+          <div className="flex items-center gap-1.5 mr-1">
+            <span className="w-2.5 h-2.5 rounded-full bg-rose-500/80" />
+            <span className="w-2.5 h-2.5 rounded-full bg-amber-500/80" />
+            <span className="w-2.5 h-2.5 rounded-full bg-emerald-500/80" />
+          </div>
+
+          <span className="text-xs font-mono font-semibold text-slate-300">console</span>
 
           {/* Status Badge */}
           {executionResult && !isRunning && (
             <div className="ml-2 font-mono text-[11px]">
               {isSuccess ? (
-                <span className="inline-flex items-center gap-1 text-emerald-400 bg-emerald-950/70 border border-emerald-500/40 px-2 py-0.5 rounded-full">
+                <span className="inline-flex items-center gap-1 text-emerald-400 text-[10px]">
                   <CheckCircle2 size={11} />
-                  <span>Passed</span>
-                  {executionResult.time && <span>• {executionResult.time}</span>}
+                  <span>Passed {executionResult.time ? `(${executionResult.time})` : ''}</span>
                 </span>
-              ) : isInputRequired ? (
-                <span className="inline-flex items-center gap-1 text-amber-400 bg-amber-950/70 border border-amber-500/40 px-2 py-0.5 rounded-full animate-pulse">
-                  <AlertCircle size={11} />
-                  <span>Input Required</span>
+              ) : isWaitingForInput ? (
+                <span className="inline-flex items-center gap-1 text-cyan-400 text-[10px]">
+                  <span>Ready for input</span>
                 </span>
               ) : (
-                <span className="inline-flex items-center gap-1 text-rose-400 bg-rose-950/70 border border-rose-500/40 px-2 py-0.5 rounded-full">
+                <span className="inline-flex items-center gap-1 text-rose-400 text-[10px]">
                   <AlertCircle size={11} />
                   <span>{executionResult.statusText || 'Error'}</span>
                 </span>
@@ -108,145 +120,103 @@ export function TerminalPanel({
         </div>
 
         {/* Console Action Tools */}
-        <div className="flex items-center gap-1.5 text-slate-400">
+        <div className="flex items-center gap-1 text-slate-400">
           <button
-            onClick={handleCopyOutput}
+            onClick={(e) => {
+              e.stopPropagation();
+              handleCopyOutput();
+            }}
             title={copied ? "Copied" : "Copy output"}
-            className="p-1.5 hover:text-white hover:bg-slate-800 rounded-md transition-colors"
+            className="p-1 hover:text-white hover:bg-slate-800 rounded transition-colors"
           >
-            {copied ? <Check size={14} className="text-emerald-400" /> : <Copy size={14} />}
+            {copied ? <Check size={13} className="text-emerald-400" /> : <Copy size={13} />}
           </button>
 
           <button
-            onClick={onClearOutput}
+            onClick={(e) => {
+              e.stopPropagation();
+              onClearOutput();
+            }}
             title="Clear output"
-            className="p-1.5 hover:text-white hover:bg-slate-800 rounded-md transition-colors"
+            className="p-1 hover:text-white hover:bg-slate-800 rounded transition-colors"
           >
-            <Trash2 size={14} />
+            <Trash2 size={13} />
           </button>
 
           <button
-            onClick={onToggleExpand}
+            onClick={(e) => {
+              e.stopPropagation();
+              onToggleExpand();
+            }}
             title={isExpanded ? "Restore split" : "Maximize terminal"}
-            className="p-1.5 hover:text-white hover:bg-slate-800 rounded-md transition-colors hidden sm:block"
+            className="p-1 hover:text-white hover:bg-slate-800 rounded transition-colors hidden sm:block"
           >
-            {isExpanded ? <Minimize2 size={14} /> : <Maximize2 size={14} />}
+            {isExpanded ? <Minimize2 size={13} /> : <Maximize2 size={13} />}
           </button>
         </div>
       </div>
 
-      {/* Main Console Output View */}
-      <div className="flex-1 overflow-auto p-4 font-mono text-xs leading-relaxed space-y-3">
+      {/* Main Terminal Screen */}
+      <div 
+        ref={consoleContainerRef}
+        className="flex-1 overflow-auto p-4 font-mono text-[13px] leading-relaxed select-text"
+      >
         {/* Loading Spinner */}
         {isRunning && (
-          <div className="h-full flex flex-col items-center justify-center gap-3 text-center py-16">
-            <div className="w-9 h-9 border-2 border-emerald-500/20 border-t-emerald-400 rounded-full animate-spin" />
-            <div className="text-sm font-semibold text-white">Running code...</div>
+          <div className="flex items-center gap-2 text-cyan-400 py-1">
+            <span className="w-3 h-3 border-2 border-cyan-400/30 border-t-cyan-400 rounded-full animate-spin" />
+            <span className="text-xs">Running program...</span>
           </div>
         )}
 
-        {/* Empty Console State */}
+        {/* Empty State */}
         {!isRunning && !executionResult && (
-          <div className="text-slate-500 text-center py-16 select-none">
-            <Terminal size={32} className="mx-auto mb-2 opacity-40 text-slate-400" />
-            <p className="text-xs font-semibold text-slate-400">Terminal is ready</p>
-            <p className="text-[11px] mt-1 text-slate-500">
-              Click <strong className="text-emerald-400">Run Code</strong> (or press <kbd className="bg-slate-800 px-1.5 py-0.5 rounded border border-slate-700 text-slate-300">Ctrl+Enter</kbd>) to compile and run.
-            </p>
+          <div className="text-slate-600 select-none py-2">
+            <div>Program output will appear here.</div>
+            <div className="text-xs mt-1 text-slate-700">Press <kbd className="text-slate-500">Ctrl+Enter</kbd> to compile and run.</div>
           </div>
         )}
 
-        {/* Standard Output (stdout) */}
+        {/* Standard Output with seamless inline typing directly in the console */}
         {!isRunning && executionResult && (
-          <div className="space-y-3">
-            {executionResult.stdout && (
-              <pre className="text-slate-100 whitespace-pre-wrap font-mono selection:bg-cyan-900/60">
-                {executionResult.stdout}
-              </pre>
-            )}
+          <div className="whitespace-pre-wrap break-words">
+            {/* Output text */}
+            <span className="text-slate-100">{cleanStdout}</span>
 
-            {/* INTERACTIVE INPUT PROMPT IF PROGRAM WAS ASKING FOR INPUT (FIXES EOFError) */}
-            {isInputRequired && (
-              <div className="bg-amber-950/40 border border-amber-500/40 rounded-xl p-3 space-y-2 animate-in fade-in zoom-in-95 duration-150">
-                <div className="flex items-center gap-1.5 text-amber-300 text-xs font-semibold">
-                  <AlertCircle size={14} className="text-amber-400 shrink-0" />
-                  <span>This program is waiting for your input:</span>
-                </div>
-                <form onSubmit={handleInlineSubmit} className="flex items-center gap-2">
-                  <input
-                    ref={inputRef}
-                    type="text"
-                    value={inlineInput}
-                    onChange={(e) => setInlineInput(e.target.value)}
-                    placeholder="Type number or input value (e.g. 4)..."
-                    className="flex-1 bg-[#161b22] border border-amber-500/60 focus:border-amber-400 text-white font-mono text-xs px-3 py-1.5 rounded-lg outline-none shadow-inner"
-                  />
-                  <button
-                    type="submit"
-                    className="px-3 py-1.5 bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold rounded-lg text-xs flex items-center gap-1 transition-all shadow-md"
-                  >
-                    <span>Submit</span>
-                    <CornerDownLeft size={12} />
-                  </button>
-                </form>
-                <div className="text-[10px] text-amber-400/80">
-                  Tip: Submitting will automatically supply your input and run the program.
-                </div>
+            {/* Inline interactive input right in the terminal flow */}
+            <span className="inline-flex items-baseline">
+              <span className="text-cyan-300 font-semibold">{currentInput}</span>
+              <span className="w-2 h-4 bg-cyan-400 inline-block translate-y-0.5 animate-pulse ml-0.5" />
+            </span>
+
+            {/* Hidden native input capturing typing anywhere in the console */}
+            <input
+              ref={terminalInputRef}
+              type="text"
+              value={currentInput}
+              onChange={(e) => setCurrentInput(e.target.value)}
+              onKeyDown={handleKeyDown}
+              className="absolute -top-[9999px] -left-[9999px] opacity-0 pointer-events-none"
+              autoFocus
+            />
+
+            {/* Non-EOF Compiler / Runtime Errors */}
+            {hasRealError && (
+              <div className="mt-3 text-rose-400">
+                {executionResult.compileOutput && (
+                  <div className="text-rose-400 whitespace-pre-wrap">
+                    {executionResult.compileOutput}
+                  </div>
+                )}
+                {executionResult.stderr && (
+                  <div className="text-rose-400 whitespace-pre-wrap">
+                    {executionResult.stderr}
+                  </div>
+                )}
               </div>
             )}
-
-            {/* Standard Error (stderr) if NOT just an input request */}
-            {executionResult.stderr && !isInputRequired && (
-              <div className="border border-rose-500/30 rounded-xl bg-rose-950/20 p-3">
-                <div className="text-xs font-semibold text-rose-400 flex items-center gap-1.5 mb-1.5">
-                  <AlertCircle size={14} />
-                  <span>Runtime Error</span>
-                </div>
-                <pre className="text-rose-200 whitespace-pre-wrap font-mono text-xs overflow-x-auto">
-                  {executionResult.stderr}
-                </pre>
-              </div>
-            )}
-
-            {/* Compiler Output (compile errors) */}
-            {executionResult.compileOutput && (
-              <div className="border border-rose-500/30 rounded-xl bg-rose-950/20 p-3">
-                <div className="text-xs font-semibold text-rose-400 flex items-center gap-1.5 mb-1.5">
-                  <AlertCircle size={14} />
-                  <span>Compilation Error</span>
-                </div>
-                <pre className="text-rose-200 whitespace-pre-wrap font-mono text-xs overflow-x-auto">
-                  {executionResult.compileOutput}
-                </pre>
-              </div>
-            )}
-
-            <div ref={consoleBottomRef} />
           </div>
         )}
-      </div>
-
-      {/* Terminal Interactive Input Prompt at the Bottom of Output */}
-      <div className="p-2.5 bg-[#161b22] border-t border-slate-800">
-        <form onSubmit={handlePromptSubmit} className="flex items-center gap-2">
-          <span className="text-cyan-400 font-mono text-xs pl-1 font-bold select-none">&gt;</span>
-          <input
-            type="text"
-            value={terminalInput}
-            onChange={(e) => onChangeTerminalInput(e.target.value)}
-            placeholder="Provide program input here (e.g. 15, or test cases)..."
-            className="flex-1 bg-[#0d1117] border border-slate-700/80 focus:border-cyan-500 text-slate-100 font-mono text-xs px-2.5 py-1.5 rounded-lg outline-none placeholder:text-slate-600"
-          />
-          <button
-            type="submit"
-            title="Send input and run"
-            disabled={isRunning}
-            className="px-3 py-1.5 bg-slate-800 hover:bg-slate-700 text-cyan-300 font-medium text-xs rounded-lg flex items-center gap-1 border border-slate-700 hover:border-cyan-500/50 transition-all shrink-0"
-          >
-            <span>Input</span>
-            <CornerDownLeft size={12} />
-          </button>
-        </form>
       </div>
     </div>
   );

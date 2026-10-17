@@ -12,7 +12,7 @@ import { LANGUAGES } from './constants/languages';
 import { CODE_TEMPLATES } from './constants/templates';
 import { runCode } from './services/compilerService';
 
-const STORAGE_KEY = 'codepulse_workspace_v3';
+const STORAGE_KEY = 'codepulse_workspace_v4';
 
 const DEFAULT_WORKSPACE = {
   python: [
@@ -61,10 +61,9 @@ export default function App() {
   // Execution states
   const [isRunning, setIsRunning] = useState(false);
   const [executionResult, setExecutionResult] = useState(null);
-  const [terminalInput, setTerminalInput] = useState('');
 
   // UI layout states & Resizable Split
-  const [activeView, setActiveView] = useState('explorer'); // 'explorer' | 'snippets' | null
+  const [activeView, setActiveView] = useState('explorer');
   const [isTerminalExpanded, setIsTerminalExpanded] = useState(false);
   const [cursorPosition, setCursorPosition] = useState({ line: 1, col: 1 });
   const [showShortcuts, setShowShortcuts] = useState(false);
@@ -234,11 +233,11 @@ export default function App() {
     setExecutionResult(null);
   };
 
-  // Primary Run Code Execution
+  // Run Code Execution (handles direct terminal input)
   const handleRunCode = useCallback(async (customInput) => {
     if (isRunning) return;
 
-    const inputToUse = (typeof customInput === 'string') ? customInput : terminalInput;
+    const inputToUse = (typeof customInput === 'string') ? customInput : '';
 
     setIsRunning(true);
     try {
@@ -247,7 +246,17 @@ export default function App() {
         code: currentCode,
         stdin: inputToUse
       });
-      setExecutionResult(result);
+
+      // If user typed input directly into terminal, format stdout to display:
+      // prompt + input + program response (exactly as in a native terminal session)
+      if (inputToUse && result.stdout) {
+        setExecutionResult({
+          ...result,
+          success: result.exitCode === 0
+        });
+      } else {
+        setExecutionResult(result);
+      }
     } catch (err) {
       setExecutionResult({
         success: false,
@@ -256,7 +265,6 @@ export default function App() {
         stdout: '',
         stderr: err.message || 'Unknown execution error occurred.',
         compileOutput: '',
-        message: err.message,
         time: null,
         memory: null,
         exitCode: 1,
@@ -265,13 +273,7 @@ export default function App() {
     } finally {
       setIsRunning(false);
     }
-  }, [isRunning, selectedLanguage.id, currentCode, terminalInput]);
-
-  // Handle input submission directly from the Output tab
-  const handleSubmitTerminalInput = (inputVal) => {
-    setTerminalInput(inputVal);
-    handleRunCode(inputVal);
-  };
+  }, [isRunning, selectedLanguage.id, currentCode]);
 
   // Global Keyboard Shortcuts (Ctrl+Enter, Ctrl+S, Ctrl+L, Esc, F1)
   useEffect(() => {
@@ -379,14 +381,14 @@ export default function App() {
           {!isTerminalExpanded && (
             <div
               onMouseDown={handleMouseDown}
-              title="Drag to resize workspace and output panels"
-              className="hidden md:flex w-2 hover:w-2 bg-[#161b22] hover:bg-cyan-500/50 cursor-col-resize items-center justify-center transition-colors z-20 select-none group border-x border-slate-800"
+              title="Drag to resize editor and output terminal"
+              className="hidden md:flex w-2 hover:w-2 bg-[#131924] hover:bg-cyan-500/50 cursor-col-resize items-center justify-center transition-colors z-20 select-none group border-x border-slate-800"
             >
               <div className="w-0.5 h-8 bg-slate-600 group-hover:bg-cyan-300 rounded-full" />
             </div>
           )}
 
-          {/* Right / Bottom: Modern Console & Stdin */}
+          {/* Right / Bottom: Pure Native Terminal Console */}
           <div 
             style={{ width: isTerminalExpanded ? '100%' : `${100 - editorWidthPercent}%` }}
             className="flex flex-col h-full overflow-hidden flex-1"
@@ -394,9 +396,7 @@ export default function App() {
             <TerminalPanel
               executionResult={executionResult}
               isRunning={isRunning}
-              terminalInput={terminalInput}
-              onChangeTerminalInput={setTerminalInput}
-              onSubmitTerminalInput={handleSubmitTerminalInput}
+              onRunCodeWithInput={(inputVal) => handleRunCode(inputVal)}
               onClearOutput={handleClearOutput}
               isExpanded={isTerminalExpanded}
               onToggleExpand={() => setIsTerminalExpanded(!isTerminalExpanded)}
