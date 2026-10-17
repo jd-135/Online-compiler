@@ -7,11 +7,11 @@ import {
   Download, 
   Settings, 
   HelpCircle, 
-  Code2, 
   ChevronDown, 
-  Sparkles,
+  Zap,
+  Plus,
   Terminal,
-  FileCode2
+  Code
 } from 'lucide-react';
 import { LANGUAGES } from '../constants/languages';
 
@@ -21,12 +21,12 @@ export function TopBar({
   onRunCode,
   isRunning,
   onResetCode,
-  code,
+  activeFile,
   activeTemplateType,
   onSwitchTemplate,
   onToggleShortcuts,
   onToggleSettings,
-  stdin
+  onNewFile
 }) {
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const [copied, setCopied] = useState(false);
@@ -44,8 +44,9 @@ export function TopBar({
   }, []);
 
   const handleCopy = async () => {
+    if (!activeFile?.code) return;
     try {
-      await navigator.clipboard.writeText(code);
+      await navigator.clipboard.writeText(activeFile.code);
       setCopied(true);
       setTimeout(() => setCopied(false), 2000);
     } catch {
@@ -53,52 +54,58 @@ export function TopBar({
     }
   };
 
-  const handleDownload = () => {
-    const blob = new Blob([code], { type: 'text/plain;charset=utf-8' });
+  const handleDownloadActiveFile = () => {
+    if (!activeFile) return;
+    const blob = new Blob([activeFile.code], { type: 'text/plain;charset=utf-8' });
     const url = URL.createObjectURL(blob);
     const a = document.createElement('a');
     a.href = url;
-    a.download = selectedLanguage.filename;
+    a.download = activeFile.name;
     a.click();
     URL.revokeObjectURL(url);
   };
 
   return (
-    <header className="h-12 bg-[#181818] border-b border-[#2b2b2b] flex items-center justify-between px-3 select-none z-30">
+    <header className="h-14 bg-[#0d131f]/95 backdrop-blur-md border-b border-slate-800/80 flex items-center justify-between px-4 select-none z-30 shadow-lg shadow-black/20">
       {/* Left: Branding & Language Selector */}
       <div className="flex items-center gap-3">
-        {/* Brand / Logo */}
-        <div className="flex items-center gap-2 pr-3 border-r border-[#2d2d2d]">
-          <div className="w-7 h-7 rounded bg-[#007acc] flex items-center justify-center text-white shadow-sm shadow-blue-500/20">
-            <Code2 size={16} strokeWidth={2.5} />
+        {/* Modern Distinctive Brand Logo */}
+        <div className="flex items-center gap-2.5 pr-3 border-r border-slate-800">
+          <div className="w-8 h-8 rounded-xl bg-gradient-to-tr from-cyan-600 via-indigo-600 to-violet-500 flex items-center justify-center text-white shadow-md shadow-indigo-500/25 ring-1 ring-white/20">
+            <Zap size={17} className="fill-current text-white" />
           </div>
-          <div className="hidden sm:block">
-            <span className="text-xs font-semibold tracking-wide text-white">CodeStudio</span>
-            <span className="text-[10px] text-[#858585] block -mt-0.5">Online Compiler</span>
+          <div>
+            <div className="flex items-center gap-1.5">
+              <span className="text-sm font-bold tracking-tight text-white font-mono">CodePulse</span>
+              <span className="text-[10px] font-semibold text-cyan-400 bg-cyan-950/70 border border-cyan-800/60 px-1.5 py-0.2 rounded-full">
+                Studio
+              </span>
+            </div>
+            <span className="text-[10px] text-slate-400 block -mt-0.5 font-sans">Online Compiler</span>
           </div>
         </div>
 
-        {/* Language Selector Dropdown */}
+        {/* Floating Language Selector Dropdown */}
         <div className="relative" ref={dropdownRef}>
           <button
             onClick={() => setDropdownOpen(!dropdownOpen)}
-            className="flex items-center gap-2 px-3 py-1.5 rounded bg-[#252526] hover:bg-[#2d2d2d] border border-[#3c3c3c] text-xs font-medium text-white transition-colors"
+            className="flex items-center gap-2 px-3 py-1.5 rounded-lg bg-slate-900/90 hover:bg-slate-800 border border-slate-700/80 text-xs font-medium text-slate-200 transition-all hover:border-cyan-500/50 shadow-xs"
           >
             <span 
-              className="w-2.5 h-2.5 rounded-full" 
+              className="w-2.5 h-2.5 rounded-full ring-2 ring-slate-800" 
               style={{ backgroundColor: selectedLanguage.dotColor }}
             />
-            <span>{selectedLanguage.name}</span>
-            <span className="text-[10px] text-[#8e8e8e] bg-[#1e1e1e] px-1.5 py-0.5 rounded border border-[#333]">
+            <span className="font-semibold text-white">{selectedLanguage.name}</span>
+            <span className="text-[10px] text-slate-400 bg-slate-800 px-1.5 py-0.5 rounded border border-slate-700">
               {selectedLanguage.version}
             </span>
-            <ChevronDown size={13} className={`text-[#858585] transition-transform duration-200 ${dropdownOpen ? 'rotate-180' : ''}`} />
+            <ChevronDown size={13} className={`text-slate-400 transition-transform duration-200 ${dropdownOpen ? 'rotate-180' : ''}`} />
           </button>
 
           {dropdownOpen && (
-            <div className="absolute left-0 top-full mt-1 w-64 bg-[#252526] border border-[#3c3c3c] rounded-md shadow-2xl py-1 z-50 animate-in fade-in zoom-in-95 duration-100">
-              <div className="px-3 py-1.5 text-[10px] uppercase font-bold tracking-wider text-[#707070] border-b border-[#333]">
-                Select Language
+            <div className="absolute left-0 top-full mt-1.5 w-64 bg-slate-900/95 backdrop-blur-xl border border-slate-700 rounded-xl shadow-2xl py-1.5 z-50 animate-in fade-in zoom-in-95 duration-100">
+              <div className="px-3 py-1 text-[10px] uppercase font-bold tracking-wider text-slate-400 border-b border-slate-800">
+                Switch Language Environment
               </div>
               {LANGUAGES.map((lang) => {
                 const isSelected = lang.id === selectedLanguage.id;
@@ -109,10 +116,10 @@ export function TopBar({
                       onSelectLanguage(lang);
                       setDropdownOpen(false);
                     }}
-                    className={`w-full text-left px-3 py-2 flex items-center justify-between text-xs transition-colors ${
+                    className={`w-full text-left px-3 py-2 flex items-center justify-between text-xs transition-all ${
                       isSelected 
-                        ? 'bg-[#007acc] text-white font-medium' 
-                        : 'text-[#cccccc] hover:bg-[#2a2d2e] hover:text-white'
+                        ? 'bg-gradient-to-r from-cyan-600/30 to-indigo-600/30 text-white font-medium border-l-2 border-cyan-400' 
+                        : 'text-slate-300 hover:bg-slate-800/80 hover:text-white'
                     }`}
                   >
                     <div className="flex items-center gap-2.5">
@@ -122,14 +129,12 @@ export function TopBar({
                       />
                       <div>
                         <div className="font-medium">{lang.name}</div>
-                        <div className={`text-[10px] ${isSelected ? 'text-blue-100' : 'text-[#858585]'}`}>
-                          {lang.filename}
+                        <div className="text-[10px] text-slate-400">
+                          {lang.extension} files
                         </div>
                       </div>
                     </div>
-                    <span className={`text-[10px] px-1.5 py-0.5 rounded ${
-                      isSelected ? 'bg-blue-700/60 text-white' : 'bg-[#1e1e1e] text-[#8e8e8e] border border-[#333]'
-                    }`}>
+                    <span className="text-[10px] px-1.5 py-0.5 rounded bg-slate-800 text-slate-300 border border-slate-700">
                       {lang.version}
                     </span>
                   </button>
@@ -140,23 +145,23 @@ export function TopBar({
         </div>
 
         {/* Template Selector (Hello World vs Interactive I/O) */}
-        <div className="hidden md:flex items-center rounded bg-[#212121] p-0.5 border border-[#333]">
+        <div className="hidden md:flex items-center rounded-lg bg-slate-900/90 p-0.5 border border-slate-800">
           <button
             onClick={() => onSwitchTemplate('hello')}
-            className={`px-2.5 py-1 text-[11px] font-medium rounded transition-colors ${
+            className={`px-2.5 py-1 text-[11px] font-medium rounded-md transition-all ${
               activeTemplateType === 'hello'
-                ? 'bg-[#333333] text-white shadow-sm'
-                : 'text-[#858585] hover:text-[#cccccc]'
+                ? 'bg-slate-800 text-cyan-300 shadow-xs border border-slate-700'
+                : 'text-slate-400 hover:text-slate-200'
             }`}
           >
             Hello World
           </button>
           <button
             onClick={() => onSwitchTemplate('io')}
-            className={`px-2.5 py-1 text-[11px] font-medium rounded transition-colors ${
+            className={`px-2.5 py-1 text-[11px] font-medium rounded-md transition-all ${
               activeTemplateType === 'io'
-                ? 'bg-[#333333] text-white shadow-sm'
-                : 'text-[#858585] hover:text-[#cccccc]'
+                ? 'bg-slate-800 text-cyan-300 shadow-xs border border-slate-700'
+                : 'text-slate-400 hover:text-slate-200'
             }`}
           >
             Standard I/O
@@ -164,23 +169,33 @@ export function TopBar({
         </div>
       </div>
 
-      {/* Center: File breadcrumb */}
-      <div className="hidden lg:flex items-center gap-1.5 text-xs text-[#858585]">
-        <span>workspace</span>
-        <span>/</span>
-        <span className="text-[#38bdf8] flex items-center gap-1">
-          <FileCode2 size={13} />
-          {selectedLanguage.filename}
-        </span>
-      </div>
-
-      {/* Right: Actions & Run Button */}
+      {/* Right: Actions & High-Speed Run Button */}
       <div className="flex items-center gap-2">
+        {/* New File for current language */}
+        <button
+          onClick={onNewFile}
+          title={`Create new ${selectedLanguage.name} file (${selectedLanguage.extension})`}
+          className="flex items-center gap-1 px-2.5 py-1.5 text-xs text-slate-300 hover:text-white bg-slate-900 hover:bg-slate-800 border border-slate-800 hover:border-slate-700 rounded-lg transition-all"
+        >
+          <Plus size={14} className="text-cyan-400" />
+          <span className="hidden sm:inline font-medium">New {selectedLanguage.extension}</span>
+        </button>
+
+        {/* Specific Download for active file */}
+        <button
+          onClick={handleDownloadActiveFile}
+          title={`Download active file: ${activeFile?.name || ''}`}
+          className="flex items-center gap-1.5 px-2.5 py-1.5 text-xs text-slate-300 hover:text-white bg-slate-900 hover:bg-slate-800 border border-slate-800 hover:border-slate-700 rounded-lg transition-all"
+        >
+          <Download size={14} className="text-indigo-400" />
+          <span className="hidden sm:inline font-medium">Download {activeFile?.name}</span>
+        </button>
+
         {/* Reset Template */}
         <button
           onClick={onResetCode}
           title="Reset to boilerplate template"
-          className="p-1.5 text-[#858585] hover:text-white hover:bg-[#2a2d2e] rounded transition-colors"
+          className="p-1.5 text-slate-400 hover:text-white hover:bg-slate-800 rounded-lg transition-colors"
         >
           <RotateCcw size={15} />
         </button>
@@ -189,25 +204,16 @@ export function TopBar({
         <button
           onClick={handleCopy}
           title={copied ? "Copied to clipboard!" : "Copy code"}
-          className="p-1.5 text-[#858585] hover:text-white hover:bg-[#2a2d2e] rounded transition-colors relative"
+          className="p-1.5 text-slate-400 hover:text-white hover:bg-slate-800 rounded-lg transition-colors relative"
         >
           {copied ? <Check size={15} className="text-emerald-400" /> : <Copy size={15} />}
-        </button>
-
-        {/* Download Code */}
-        <button
-          onClick={handleDownload}
-          title="Download source code"
-          className="p-1.5 text-[#858585] hover:text-white hover:bg-[#2a2d2e] rounded transition-colors hidden sm:block"
-        >
-          <Download size={15} />
         </button>
 
         {/* Shortcuts */}
         <button
           onClick={onToggleShortcuts}
           title="Keyboard shortcuts (F1)"
-          className="p-1.5 text-[#858585] hover:text-white hover:bg-[#2a2d2e] rounded transition-colors hidden sm:block"
+          className="p-1.5 text-slate-400 hover:text-white hover:bg-slate-800 rounded-lg transition-colors hidden sm:block"
         >
           <HelpCircle size={15} />
         </button>
@@ -216,31 +222,32 @@ export function TopBar({
         <button
           onClick={onToggleSettings}
           title="Editor settings"
-          className="p-1.5 text-[#858585] hover:text-white hover:bg-[#2a2d2e] rounded transition-colors"
+          className="p-1.5 text-slate-400 hover:text-white hover:bg-slate-800 rounded-lg transition-colors"
         >
           <Settings size={15} />
         </button>
 
-        {/* PRIMARY "RUN CODE" BUTTON */}
+        {/* PRIMARY "COMPILE & RUN" GLOWING BUTTON */}
         <button
           onClick={onRunCode}
           disabled={isRunning}
-          className={`flex items-center gap-2 px-3.5 py-1.5 rounded-md font-semibold text-xs tracking-wide transition-all shadow-md active:scale-95 ${
+          title="Compile and execute code (Ctrl+Enter)"
+          className={`flex items-center gap-2 px-4 py-1.5 rounded-lg font-semibold text-xs tracking-wide transition-all shadow-md active:scale-95 ${
             isRunning
-              ? 'bg-emerald-700/60 text-emerald-200 cursor-not-allowed border border-emerald-500/30'
-              : 'bg-emerald-600 hover:bg-emerald-500 text-white shadow-emerald-950/40 border border-emerald-400/40'
+              ? 'bg-emerald-800/50 text-emerald-300 cursor-not-allowed border border-emerald-500/30'
+              : 'bg-gradient-to-r from-emerald-500 to-teal-500 hover:from-emerald-400 hover:to-teal-400 text-slate-950 font-bold shadow-emerald-950/40 border border-emerald-300/40 anim-glow-btn'
           }`}
         >
           {isRunning ? (
             <>
-              <div className="w-3.5 h-3.5 border-2 border-white/30 border-t-white rounded-full animate-spin" />
-              <span>Running...</span>
+              <div className="w-3.5 h-3.5 border-2 border-slate-950/40 border-t-slate-950 rounded-full animate-spin" />
+              <span>Executing...</span>
             </>
           ) : (
             <>
-              <Play size={14} className="fill-current" />
+              <Play size={14} className="fill-current text-slate-950" />
               <span>Run Code</span>
-              <kbd className="hidden sm:inline-block text-[10px] font-normal bg-emerald-800/60 px-1.5 py-0.2 rounded border border-emerald-500/40 ml-0.5">
+              <kbd className="hidden sm:inline-block text-[10px] font-mono font-medium bg-slate-950/20 text-slate-900 px-1.5 py-0.2 rounded border border-slate-950/30 ml-0.5">
                 Ctrl+↵
               </kbd>
             </>

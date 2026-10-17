@@ -1,31 +1,36 @@
-import React, { useRef, useEffect, useState, useMemo } from 'react';
+import React, { useRef, useState, useMemo } from 'react';
 import { 
-  FileCode2, 
+  FileCode, 
   X, 
-  Sparkles, 
-  Maximize2, 
-  Minimize2,
-  ZoomIn,
-  ZoomOut
+  Plus, 
+  Check, 
+  CornerDownLeft,
+  FilePlus2,
+  Trash2
 } from 'lucide-react';
-import { LANGUAGES } from '../constants/languages';
 
 export function EditorPanel({
   selectedLanguage,
-  onSelectLanguage,
+  files,
+  activeFileId,
+  onSelectFile,
+  onCloseFile,
+  onAddFile,
   code,
   onChangeCode,
-  isDirty,
   settings,
-  onUpdateCursor
+  onUpdateCursor,
+  onRunCode
 }) {
   const textareaRef = useRef(null);
   const gutterRef = useRef(null);
   const [activeLine, setActiveLine] = useState(1);
+  const [isCreatingFile, setIsCreatingFile] = useState(false);
+  const [newFileName, setNewFileName] = useState('');
 
   // Calculate line numbers
   const lines = useMemo(() => {
-    return code.split('\n');
+    return (code || '').split('\n');
   }, [code]);
 
   const totalLines = lines.length;
@@ -37,7 +42,7 @@ export function EditorPanel({
     }
   };
 
-  // Track cursor position (Line & Col)
+  // Track cursor position
   const updateCursorPosition = () => {
     if (!textareaRef.current) return;
     const pos = textareaRef.current.selectionStart;
@@ -52,20 +57,48 @@ export function EditorPanel({
     }
   };
 
-  // Smart keyboard handlers: Tab indentation, auto-closing brackets, enter indentation
+  // Handle creating a new file for the current language
+  const handleCreateSubmit = (e) => {
+    e?.preventDefault();
+    let name = newFileName.trim();
+    if (!name) {
+      setIsCreatingFile(false);
+      return;
+    }
+
+    // Enforce proper extension for the current language
+    const ext = selectedLanguage.extension;
+    if (!name.endsWith(ext)) {
+      name = `${name}${ext}`;
+    }
+
+    onAddFile(name);
+    setNewFileName('');
+    setIsCreatingFile(false);
+  };
+
+  // Keystroke handler (Tab indent, Auto-close, Enter indent, and CTRL+ENTER TO RUN)
   const handleKeyDown = (e) => {
+    // Priority: Ctrl + Enter or Cmd + Enter to Compile & Run
+    if ((e.ctrlKey || e.metaKey) && e.key === 'Enter') {
+      e.preventDefault();
+      if (onRunCode) {
+        onRunCode();
+      }
+      return;
+    }
+
     const textarea = textareaRef.current;
     if (!textarea) return;
 
     const { selectionStart, selectionEnd, value } = textarea;
 
-    // Tab key handling (Indent 4 spaces)
+    // Tab key handling (4 spaces)
     if (e.key === 'Tab') {
       e.preventDefault();
       const tabStr = ' '.repeat(settings.tabSize || 4);
 
       if (!e.shiftKey) {
-        // Simple insert or multiline indent
         if (selectionStart === selectionEnd) {
           const newCode = value.substring(0, selectionStart) + tabStr + value.substring(selectionEnd);
           onChangeCode(newCode);
@@ -74,7 +107,6 @@ export function EditorPanel({
             updateCursorPosition();
           });
         } else {
-          // Multiline indent
           const startLine = value.substring(0, selectionStart).lastIndexOf('\n') + 1;
           const endLine = value.indexOf('\n', selectionEnd);
           const block = value.substring(startLine, endLine === -1 ? value.length : endLine);
@@ -88,7 +120,6 @@ export function EditorPanel({
           });
         }
       } else {
-        // Shift + Tab (Unindent)
         const tabSize = settings.tabSize || 4;
         const startLine = value.substring(0, selectionStart).lastIndexOf('\n') + 1;
         const endLine = value.indexOf('\n', selectionEnd);
@@ -109,16 +140,9 @@ export function EditorPanel({
       return;
     }
 
-    // Auto-close brackets and quotes if enabled in settings
+    // Auto-close brackets & quotes
     if (settings.autoCloseBrackets) {
-      const pairs = {
-        '(': ')',
-        '{': '}',
-        '[': ']',
-        '"': '"',
-        "'": "'"
-      };
-
+      const pairs = { '(': ')', '{': '}', '[': ']', '"': '"', "'": "'" };
       if (pairs[e.key]) {
         e.preventDefault();
         const closeChar = pairs[e.key];
@@ -133,7 +157,6 @@ export function EditorPanel({
         return;
       }
 
-      // Skip over closing bracket if typed directly before it
       if (['}', ')', ']', '"', "'"].includes(e.key) && value[selectionStart] === e.key) {
         e.preventDefault();
         textarea.selectionStart = textarea.selectionEnd = selectionStart + 1;
@@ -142,14 +165,13 @@ export function EditorPanel({
       }
     }
 
-    // Enter key: maintain existing line indentation
+    // Enter key: maintain existing indentation
     if (e.key === 'Enter') {
       const curLineStart = value.substring(0, selectionStart).lastIndexOf('\n') + 1;
       const curLine = value.substring(curLineStart, selectionStart);
       const match = curLine.match(/^(\s+)/);
       const indent = match ? match[1] : '';
 
-      // If previous line ends with { or : in Python, add an extra level of indentation
       const trimmed = curLine.trim();
       const extraIndent = (trimmed.endsWith('{') || (trimmed.endsWith(':') && selectedLanguage.id === 'python'))
         ? ' '.repeat(settings.tabSize || 4)
@@ -168,55 +190,100 @@ export function EditorPanel({
   };
 
   return (
-    <div className="flex-1 flex flex-col h-full bg-[#1e1e1e] overflow-hidden select-text border-r border-[#2b2b2b]">
-      {/* File Tabs Header */}
-      <div className="h-9 bg-[#252526] border-b border-[#181818] flex items-center justify-between overflow-x-auto select-none px-1">
-        <div className="flex items-center h-full">
-          {LANGUAGES.map((lang) => {
-            const isActive = lang.id === selectedLanguage.id;
+    <div className="flex-1 flex flex-col h-full bg-[#0b0f19] overflow-hidden select-text border-r border-slate-800/80">
+      {/* LANGUAGE-SPECIFIC FILE TABS STRIP */}
+      <div className="h-10 bg-[#0d131f] border-b border-slate-800/80 flex items-center justify-between overflow-x-auto select-none px-2 shrink-0">
+        <div className="flex items-center gap-1.5 h-full">
+          {/* Files belonging ONLY to the selected language */}
+          {files.map((file) => {
+            const isActive = file.id === activeFileId;
             return (
               <div
-                key={lang.id}
-                onClick={() => onSelectLanguage(lang)}
-                className={`h-full flex items-center gap-2 px-3.5 text-xs cursor-pointer border-r border-[#1e1e1e] transition-colors relative group ${
+                key={file.id}
+                onClick={() => onSelectFile(file.id)}
+                className={`h-7 px-3 rounded-lg flex items-center gap-2 text-xs cursor-pointer transition-all relative group ${
                   isActive
-                    ? 'bg-[#1e1e1e] text-white font-medium border-t-2 border-t-[#007acc]'
-                    : 'bg-[#2d2d2d] text-[#969696] hover:bg-[#202020] hover:text-[#cccccc]'
+                    ? 'bg-slate-800 text-cyan-300 font-semibold border border-cyan-500/30 shadow-xs'
+                    : 'bg-slate-900/60 text-slate-400 hover:bg-slate-800 hover:text-slate-200 border border-transparent'
                 }`}
               >
                 <span
                   className="w-2 h-2 rounded-full shrink-0"
-                  style={{ backgroundColor: lang.dotColor }}
+                  style={{ backgroundColor: selectedLanguage.dotColor }}
                 />
-                <span>{lang.filename}</span>
+                <span>{file.name}</span>
 
-                {/* Dirty dot or Close icon */}
-                {isActive && isDirty ? (
-                  <span className="w-2 h-2 rounded-full bg-white ml-1 opacity-80" title="Modified" />
-                ) : (
-                  <span className="text-[#666] group-hover:text-[#aaa] ml-1 text-[11px]">
-                    <X size={12} className="opacity-0 group-hover:opacity-100 transition-opacity" />
-                  </span>
+                {/* Close/delete file (allowed if more than 1 file exists) */}
+                {files.length > 1 && (
+                  <button
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      onCloseFile(file.id);
+                    }}
+                    title="Close file"
+                    className="text-slate-500 hover:text-rose-400 rounded p-0.5 ml-1 transition-colors opacity-70 group-hover:opacity-100"
+                  >
+                    <X size={12} />
+                  </button>
                 )}
               </div>
             );
           })}
+
+          {/* Inline New File Form or "+" Trigger */}
+          {isCreatingFile ? (
+            <form onSubmit={handleCreateSubmit} className="flex items-center gap-1 bg-slate-800/90 border border-cyan-500/50 rounded-lg px-2 py-0.5">
+              <input
+                type="text"
+                autoFocus
+                value={newFileName}
+                onChange={(e) => setNewFileName(e.target.value)}
+                onBlur={() => {
+                  if (!newFileName.trim()) setIsCreatingFile(false);
+                }}
+                placeholder={`filename${selectedLanguage.extension}`}
+                className="bg-transparent text-white font-mono text-xs w-28 outline-none"
+              />
+              <button type="submit" className="text-cyan-400 hover:text-cyan-300">
+                <Check size={12} />
+              </button>
+              <button 
+                type="button" 
+                onClick={() => setIsCreatingFile(false)} 
+                className="text-slate-400 hover:text-slate-200"
+              >
+                <X size={12} />
+              </button>
+            </form>
+          ) : (
+            <button
+              onClick={() => setIsCreatingFile(true)}
+              title={`Add new ${selectedLanguage.name} file (${selectedLanguage.extension})`}
+              className="h-7 px-2 rounded-lg text-slate-400 hover:text-cyan-300 hover:bg-slate-800/80 border border-dashed border-slate-700/80 flex items-center gap-1 text-xs transition-colors"
+            >
+              <Plus size={13} />
+              <span className="text-[11px]">New {selectedLanguage.extension}</span>
+            </button>
+          )}
         </div>
 
-        {/* Right side tab utilities */}
-        <div className="hidden sm:flex items-center gap-2 px-2 text-[#858585] text-xs">
-          <span className="text-[11px] bg-[#1e1e1e] px-2 py-0.5 rounded border border-[#333]">
-            {selectedLanguage.tag}
+        {/* Language Badge on right */}
+        <div className="hidden sm:flex items-center gap-2 text-slate-400 text-xs pr-2">
+          <span className="text-[11px] font-mono bg-slate-900 border border-slate-800 text-slate-300 px-2 py-0.5 rounded-md">
+            {selectedLanguage.name} Workspace
           </span>
         </div>
       </div>
 
-      {/* Editor Body with Line Numbers Gutter */}
-      <div className="flex-1 relative flex overflow-hidden font-mono" style={{ fontSize: `${settings.fontSize || 14}px` }}>
+      {/* Editor Body */}
+      <div 
+        className="flex-1 relative flex overflow-hidden font-mono" 
+        style={{ fontSize: `${settings.fontSize || 14}px` }}
+      >
         {/* Line Numbers Gutter */}
         <div
           ref={gutterRef}
-          className="w-14 bg-[#1e1e1e] text-[#6e7681] text-right pr-3 select-none py-3 overflow-hidden border-r border-[#282828] shrink-0 font-mono"
+          className="w-12 bg-[#090d16] text-slate-600 text-right pr-3 select-none py-3 overflow-hidden border-r border-slate-800/60 shrink-0 font-mono"
           style={{ lineHeight: '1.6rem' }}
         >
           {Array.from({ length: Math.max(totalLines, 20) }).map((_, idx) => {
@@ -226,7 +293,7 @@ export function EditorPanel({
               <div
                 key={lineNum}
                 className={`h-[1.6rem] transition-colors ${
-                  isCurrent ? 'text-white font-bold bg-white/5 pr-1' : ''
+                  isCurrent ? 'text-cyan-400 font-bold bg-cyan-950/20' : ''
                 }`}
               >
                 {lineNum <= totalLines ? lineNum : ''}
@@ -236,7 +303,7 @@ export function EditorPanel({
         </div>
 
         {/* Textarea Code Editor */}
-        <div className="flex-1 relative h-full overflow-hidden">
+        <div className="flex-1 relative h-full overflow-hidden bg-[#0b0f19]">
           <textarea
             ref={textareaRef}
             value={code}
@@ -252,7 +319,7 @@ export function EditorPanel({
             autoCapitalize="none"
             autoComplete="off"
             autoCorrect="off"
-            className="w-full h-full bg-[#1e1e1e] text-[#d4d4d4] p-3 pl-3 resize-none outline-none font-mono code-font overflow-auto select-text whitespace-pre"
+            className="w-full h-full bg-transparent text-slate-200 p-3 pl-3 resize-none outline-none font-mono code-font overflow-auto select-text whitespace-pre"
             style={{
               lineHeight: '1.6rem',
               tabSize: settings.tabSize || 4,

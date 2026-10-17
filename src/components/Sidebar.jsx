@@ -1,31 +1,30 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { 
   FolderTree, 
   FileCode, 
-  ChevronRight, 
-  Sparkles, 
-  BookOpen, 
+  Plus, 
+  Trash2, 
   Check, 
-  Layers,
-  FileQuestion
+  X,
+  Code2,
+  BookOpen
 } from 'lucide-react';
-import { LANGUAGES } from '../constants/languages';
 
 const ALGORITHM_SNIPPETS = {
   python: [
     {
       name: 'Fibonacci Generator',
-      desc: 'Recursive and iterative Fibonacci',
+      desc: 'Recursive and iterative Fibonacci sequence',
       code: `def fibonacci(n):\n    sequence = [0, 1]\n    while len(sequence) < n:\n        sequence.append(sequence[-1] + sequence[-2])\n    return sequence[:n]\n\nprint("Fibonacci(10):", fibonacci(10))\n`
     },
     {
-      name: 'Prime Checker',
-      desc: 'Check if integer is prime',
+      name: 'Prime Number Checker',
+      desc: 'Optimized prime testing up to sqrt(N)',
       code: `def is_prime(num: int) -> bool:\n    if num < 2: return False\n    for i in range(2, int(num**0.5) + 1):\n        if num % i == 0:\n            return False\n    return True\n\nprint("Is 97 prime?", is_prime(97))\nprint("Is 100 prime?", is_prime(100))\n`
     },
     {
-      name: 'Quick Sort',
-      desc: 'Divide & conquer sort algorithm',
+      name: 'Quick Sort Algorithm',
+      desc: 'Divide & conquer recursive sort',
       code: `def quicksort(arr):\n    if len(arr) <= 1: return arr\n    pivot = arr[len(arr) // 2]\n    left = [x for x in arr if x < pivot]\n    middle = [x for x in arr if x == pivot]\n    right = [x for x in arr if x > pivot]\n    return quicksort(left) + middle + quicksort(right)\n\ndata = [42, 17, 89, 5, 23, 67, 1]\nprint("Sorted:", quicksort(data))\n`
     }
   ],
@@ -37,7 +36,7 @@ const ALGORITHM_SNIPPETS = {
     },
     {
       name: 'Bubble Sort',
-      desc: 'Classic sorting in C',
+      desc: 'In-place array sort in C',
       code: `#include <stdio.h>\n\nvoid bubble_sort(int arr[], int n) {\n    for (int i = 0; i < n - 1; i++) {\n        for (int j = 0; j < n - i - 1; j++) {\n            if (arr[j] > arr[j + 1]) {\n                int tmp = arr[j];\n                arr[j] = arr[j + 1];\n                arr[j + 1] = tmp;\n            }\n        }\n    }\n}\n\nint main(void) {\n    int arr[] = {64, 34, 25, 12, 22, 11, 90};\n    int n = sizeof(arr)/sizeof(arr[0]);\n    bubble_sort(arr, n);\n    printf("Sorted array: ");\n    for (int i = 0; i < n; i++) printf("%d ", arr[i]);\n    printf("\\n");\n    return 0;\n}\n`
     }
   ],
@@ -49,7 +48,7 @@ const ALGORITHM_SNIPPETS = {
     },
     {
       name: 'Binary Search',
-      desc: 'O(log N) search on sorted vector',
+      desc: 'O(log N) search in sorted vector',
       code: `#include <iostream>\n#include <vector>\n#include <algorithm>\n\nint main() {\n    std::vector<int> v = {2, 5, 8, 12, 16, 23, 38, 56, 72, 91};\n    int target = 23;\n    if (std::binary_search(v.begin(), v.end(), target)) {\n        std::cout << "Element " << target << " found in vector!\\n";\n    } else {\n        std::cout << "Element " << target << " not found.\\n";\n    }\n    return 0;\n}\n`
     }
   ],
@@ -61,7 +60,7 @@ const ALGORITHM_SNIPPETS = {
     },
     {
       name: 'Matrix Multiplication',
-      desc: '2D Arrays and matrices in Java',
+      desc: '2D Arrays and linear algebra',
       code: `public class Main {\n    public static void main(String[] args) {\n        int[][] a = {{1, 2}, {3, 4}};\n        int[][] b = {{5, 6}, {7, 8}};\n        int[][] c = new int[2][2];\n        \n        for (int i = 0; i < 2; i++) {\n            for (int j = 0; j < 2; j++) {\n                for (int k = 0; k < 2; k++) {\n                    c[i][j] += a[i][k] * b[k][j];\n                }\n            }\n        }\n        System.out.println("Result matrix:");\n        for (int[] row : c) {\n            System.out.println(row[0] + " " + row[1]);\n        }\n    }\n}\n`
     }
   ]
@@ -70,55 +69,124 @@ const ALGORITHM_SNIPPETS = {
 export function Sidebar({
   activeView,
   selectedLanguage,
-  onSelectLanguage,
+  files,
+  activeFileId,
+  onSelectFile,
+  onCloseFile,
+  onAddFile,
   onLoadSnippet,
   onClose
 }) {
+  const [isAdding, setIsAdding] = useState(false);
+  const [inputName, setInputName] = useState('');
+
   if (!activeView) return null;
 
+  const handleAddSubmit = (e) => {
+    e?.preventDefault();
+    let name = inputName.trim();
+    if (!name) {
+      setIsAdding(false);
+      return;
+    }
+    const ext = selectedLanguage.extension;
+    if (!name.endsWith(ext)) {
+      name = `${name}${ext}`;
+    }
+    onAddFile(name);
+    setInputName('');
+    setIsAdding(false);
+  };
+
   return (
-    <div className="w-56 sm:w-64 bg-[#252526] border-r border-[#2b2b2b] flex flex-col shrink-0 text-[#cccccc] z-10 animate-in slide-in-from-left duration-150">
+    <div className="w-60 bg-[#0d131f] border-r border-slate-800/80 flex flex-col shrink-0 text-slate-300 z-10 animate-in slide-in-from-left duration-150">
       {/* Header */}
-      <div className="h-9 px-3 flex items-center justify-between border-b border-[#333] text-[11px] font-bold uppercase tracking-wider text-[#999999]">
-        <span>{activeView === 'explorer' ? 'Explorer' : 'Algorithm Snippets'}</span>
+      <div className="h-10 px-3 flex items-center justify-between border-b border-slate-800/80 text-[11px] font-bold uppercase tracking-wider text-slate-400">
+        <span>{activeView === 'explorer' ? `${selectedLanguage.name} Files` : 'Algorithm Library'}</span>
         <button 
           onClick={onClose}
-          className="text-[#888] hover:text-white px-1"
+          className="text-slate-500 hover:text-white px-1"
         >
           ✕
         </button>
       </div>
 
-      {/* Explorer Content */}
+      {/* Explorer Content: ONLY SHOWS ACTIVE LANGUAGE FILES */}
       {activeView === 'explorer' && (
         <div className="flex-1 overflow-y-auto p-2">
-          <div className="text-[11px] font-semibold text-[#8e8e8e] uppercase tracking-wider px-2 py-1 flex items-center gap-1.5">
-            <ChevronRight size={12} className="rotate-90 text-[#aaa]" />
+          <div className="flex items-center justify-between px-2 py-1 text-[11px] font-semibold text-slate-400 uppercase tracking-wider">
             <span>Workspace</span>
+            <button
+              onClick={() => setIsAdding(true)}
+              title={`Add ${selectedLanguage.name} file`}
+              className="text-cyan-400 hover:text-cyan-300 p-0.5 rounded"
+            >
+              <Plus size={14} />
+            </button>
           </div>
 
-          <div className="mt-1 space-y-0.5">
-            {LANGUAGES.map((lang) => {
-              const isSelected = lang.id === selectedLanguage.id;
+          {/* Inline Add Input */}
+          {isAdding && (
+            <form onSubmit={handleAddSubmit} className="flex items-center gap-1 bg-slate-800 border border-cyan-500/50 rounded-lg px-2 py-1 my-1">
+              <input
+                type="text"
+                autoFocus
+                value={inputName}
+                onChange={(e) => setInputName(e.target.value)}
+                onBlur={() => {
+                  if (!inputName.trim()) setIsAdding(false);
+                }}
+                placeholder={`filename${selectedLanguage.extension}`}
+                className="bg-transparent text-white font-mono text-xs w-full outline-none"
+              />
+              <button type="submit" className="text-cyan-400 hover:text-cyan-300">
+                <Check size={12} />
+              </button>
+              <button 
+                type="button" 
+                onClick={() => setIsAdding(false)} 
+                className="text-slate-400 hover:text-slate-200"
+              >
+                <X size={12} />
+              </button>
+            </form>
+          )}
+
+          {/* List of files for this language ONLY */}
+          <div className="mt-1 space-y-1">
+            {files.map((file) => {
+              const isSelected = file.id === activeFileId;
               return (
-                <button
-                  key={lang.id}
-                  onClick={() => onSelectLanguage(lang)}
-                  className={`w-full flex items-center justify-between px-3 py-1.5 rounded text-xs transition-colors ${
+                <div
+                  key={file.id}
+                  onClick={() => onSelectFile(file.id)}
+                  className={`w-full flex items-center justify-between px-3 py-1.5 rounded-lg text-xs cursor-pointer transition-all group ${
                     isSelected
-                      ? 'bg-[#37373d] text-white font-medium border-l-2 border-[#007acc]'
-                      : 'text-[#cccccc] hover:bg-[#2a2d2e] hover:text-white'
+                      ? 'bg-slate-800 text-cyan-300 font-semibold border-l-2 border-cyan-400 shadow-xs'
+                      : 'text-slate-400 hover:bg-slate-800/60 hover:text-slate-200'
                   }`}
                 >
                   <div className="flex items-center gap-2">
                     <span
-                      className="w-2 h-2 rounded-full"
-                      style={{ backgroundColor: lang.dotColor }}
+                      className="w-2 h-2 rounded-full shrink-0"
+                      style={{ backgroundColor: selectedLanguage.dotColor }}
                     />
-                    <span>{lang.filename}</span>
+                    <span className="font-mono">{file.name}</span>
                   </div>
-                  <span className="text-[10px] text-[#808080]">{lang.tag}</span>
-                </button>
+
+                  {files.length > 1 && (
+                    <button
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        onCloseFile(file.id);
+                      }}
+                      title="Delete file"
+                      className="text-slate-500 hover:text-rose-400 opacity-0 group-hover:opacity-100 p-0.5 rounded transition-opacity"
+                    >
+                      <Trash2 size={12} />
+                    </button>
+                  )}
+                </div>
               );
             })}
           </div>
@@ -128,25 +196,25 @@ export function Sidebar({
       {/* Snippets Content */}
       {activeView === 'snippets' && (
         <div className="flex-1 overflow-y-auto p-2 space-y-2">
-          <div className="px-2 py-1 text-[11px] text-[#999]">
-            Pre-built algorithms for <strong className="text-white">{selectedLanguage.name}</strong>:
+          <div className="px-2 py-1 text-[11px] text-slate-400">
+            Algorithms for <strong className="text-white">{selectedLanguage.name}</strong>:
           </div>
 
           {(ALGORITHM_SNIPPETS[selectedLanguage.id] || []).map((snippet, idx) => (
             <div
               key={idx}
-              className="p-2.5 rounded bg-[#1e1e1e] hover:bg-[#2c2c2d] border border-[#383838] transition-all group cursor-pointer"
+              className="p-2.5 rounded-lg bg-slate-900 hover:bg-slate-800 border border-slate-800/80 hover:border-slate-700 transition-all group cursor-pointer"
               onClick={() => onLoadSnippet(snippet.code)}
             >
               <div className="flex items-center justify-between">
-                <span className="text-xs font-medium text-white group-hover:text-blue-400">
+                <span className="text-xs font-medium text-white group-hover:text-cyan-400">
                   {snippet.name}
                 </span>
-                <span className="text-[10px] text-[#007acc] opacity-0 group-hover:opacity-100 transition-opacity">
+                <span className="text-[10px] text-cyan-400 opacity-0 group-hover:opacity-100 transition-opacity font-mono">
                   Insert →
                 </span>
               </div>
-              <p className="text-[11px] text-[#888] mt-1 line-clamp-2">
+              <p className="text-[11px] text-slate-400 mt-1 line-clamp-2">
                 {snippet.desc}
               </p>
             </div>

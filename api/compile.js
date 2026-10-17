@@ -1,5 +1,5 @@
 // Vercel Serverless Function: /api/compile
-// Secure proxy for code execution with automatic fallback
+// Optimized high-speed execution proxy with dual sandbox fallback
 
 const LANGUAGE_CONFIG = {
   python: {
@@ -21,7 +21,7 @@ const LANGUAGE_CONFIG = {
 };
 
 export default async function handler(req, res) {
-  // Set CORS headers
+  // Ultra-permissive CORS
   res.setHeader('Access-Control-Allow-Origin', '*');
   res.setHeader('Access-Control-Allow-Methods', 'POST, OPTIONS');
   res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization');
@@ -47,8 +47,11 @@ export default async function handler(req, res) {
 
   const startTime = Date.now();
 
-  // Try Judge0 first (either custom RapidAPI host or public CE)
+  // Try Judge0 with 8s fast timeout
   try {
+    const controller = new AbortController();
+    const timeout = setTimeout(() => controller.abort(), 8000);
+
     const judge0Url = process.env.JUDGE0_API_URL || 'https://ce.judge0.com/submissions?base64_encoded=false&wait=true';
     const headers = {
       'Content-Type': 'application/json',
@@ -65,12 +68,15 @@ export default async function handler(req, res) {
     const judge0Response = await fetch(judge0Url, {
       method: 'POST',
       headers,
+      signal: controller.signal,
       body: JSON.stringify({
         source_code: code,
         language_id: langConfig.judge0Id,
         stdin: stdin || ''
       })
     });
+
+    clearTimeout(timeout);
 
     if (judge0Response.ok) {
       const data = await judge0Response.json();
@@ -97,15 +103,18 @@ export default async function handler(req, res) {
         time: data.time ? `${parseFloat(data.time).toFixed(3)}s` : `${elapsed}s`,
         memory: data.memory ? `${(data.memory / 1024).toFixed(2)} MB` : null,
         exitCode: data.exit_code ?? (statusId === 3 ? 0 : 1),
-        provider: 'Judge0'
+        provider: 'Judge0 Sandbox'
       });
     }
   } catch (j0Err) {
-    console.error('Judge0 execution failed, attempting Wandbox fallback:', j0Err.message);
+    console.warn('Judge0 fast path error, attempting Wandbox:', j0Err.message);
   }
 
-  // Fallback to Wandbox
+  // Fast Fallback: Wandbox
   try {
+    const controller = new AbortController();
+    const timeout = setTimeout(() => controller.abort(), 8000);
+
     let processedCode = code;
     if (language.toLowerCase() === 'java') {
       processedCode = processedCode.replace(/\bpublic\s+class\s+([A-Za-z0-9_]+)/g, 'class $1');
@@ -117,12 +126,15 @@ export default async function handler(req, res) {
         'Content-Type': 'application/json',
         'Accept': 'application/json'
       },
+      signal: controller.signal,
       body: JSON.stringify({
         compiler: langConfig.wandboxCompiler,
         code: processedCode,
         stdin: stdin || ''
       })
     });
+
+    clearTimeout(timeout);
 
     if (wandboxResponse.ok) {
       const data = await wandboxResponse.json();
@@ -154,7 +166,7 @@ export default async function handler(req, res) {
         time: `${elapsed}s`,
         memory: null,
         exitCode,
-        provider: 'Wandbox'
+        provider: 'Wandbox Sandbox'
       });
     }
   } catch (wbErr) {
@@ -164,9 +176,9 @@ export default async function handler(req, res) {
   return res.status(502).json({
     success: false,
     statusType: 'error',
-    statusText: 'All compilation endpoints unavailable',
+    statusText: 'Execution Service Timeout',
     stdout: '',
-    stderr: 'Could not connect to code compilation servers. Please check your network connection.',
+    stderr: 'Compilation services were momentarily busy. Please try again.',
     compileOutput: '',
     time: null,
     memory: null,

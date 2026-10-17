@@ -4,13 +4,14 @@ import {
   CheckCheck, 
   AlertTriangle, 
   Cpu, 
-  Bell, 
   Zap,
-  Globe
+  Globe,
+  FileCode2
 } from 'lucide-react';
 
 export function StatusBar({
   selectedLanguage,
+  activeFileName,
   isRunning,
   executionResult,
   cursorPosition,
@@ -21,44 +22,52 @@ export function StatusBar({
   const hasError = executionResult && !executionResult.success;
 
   return (
-    <footer className="h-6 bg-[#007acc] text-white text-[11px] flex items-center justify-between px-2 select-none z-30 shrink-0 font-sans">
+    <footer className="h-6 bg-[#080c14] border-t border-slate-800/80 text-slate-400 text-[11px] flex items-center justify-between px-3 select-none z-30 shrink-0 font-sans">
       {/* Left side items */}
       <div className="flex items-center gap-3">
         {/* Branch */}
-        <div className="flex items-center gap-1 hover:bg-white/10 px-1.5 py-0.5 rounded cursor-pointer transition-colors">
-          <GitBranch size={12} />
-          <span>main*</span>
+        <div className="flex items-center gap-1.5 hover:text-slate-200 transition-colors">
+          <GitBranch size={12} className="text-cyan-400" />
+          <span className="font-mono">main</span>
         </div>
 
         {/* Cloud Sandbox Status */}
-        <div className="flex items-center gap-1 hover:bg-white/10 px-1.5 py-0.5 rounded cursor-pointer transition-colors">
+        <div className="flex items-center gap-1.5 transition-colors">
           {isRunning ? (
-            <span className="flex items-center gap-1 text-amber-200">
-              <span className="w-1.5 h-1.5 rounded-full bg-amber-300 animate-ping" />
+            <span className="flex items-center gap-1.5 text-amber-300 font-medium">
+              <span className="w-1.5 h-1.5 rounded-full bg-amber-400 animate-ping" />
               <span>Executing...</span>
             </span>
           ) : isSuccess ? (
-            <span className="flex items-center gap-1 text-emerald-100">
+            <span className="flex items-center gap-1 text-emerald-400 font-medium">
               <CheckCheck size={12} />
-              <span>Succeeded</span>
+              <span>Passed</span>
             </span>
           ) : hasError ? (
-            <span className="flex items-center gap-1 text-amber-100 font-medium">
+            <span className="flex items-center gap-1 text-rose-400 font-medium">
               <AlertTriangle size={12} />
               <span>Error</span>
             </span>
           ) : (
-            <span className="flex items-center gap-1 opacity-90">
-              <Zap size={12} />
+            <span className="flex items-center gap-1 text-slate-400">
+              <Zap size={11} className="text-cyan-400" />
               <span>Ready</span>
             </span>
           )}
         </div>
 
+        {/* Current active file */}
+        {activeFileName && (
+          <div className="hidden sm:flex items-center gap-1 text-slate-300 font-mono">
+            <FileCode2 size={11} className="text-indigo-400" />
+            <span>{activeFileName}</span>
+          </div>
+        )}
+
         {/* Stdin status */}
-        {stdin.trim() && (
-          <div className="hidden sm:flex items-center gap-1 bg-black/20 px-1.5 py-0.2 rounded text-[10px]">
-            <span>Stdin: On</span>
+        {stdin?.trim() && (
+          <div className="hidden sm:flex items-center gap-1 bg-cyan-950/80 text-cyan-300 px-1.5 py-0.2 rounded text-[10px] border border-cyan-800/60">
+            <span>Stdin: Active</span>
           </div>
         )}
       </div>
@@ -66,29 +75,25 @@ export function StatusBar({
       {/* Right side items */}
       <div className="flex items-center gap-3">
         {/* Line & Column Position */}
-        <div className="hover:bg-white/10 px-1.5 py-0.5 rounded cursor-pointer transition-colors">
+        <div className="hover:text-slate-200 transition-colors font-mono">
           <span>Ln {cursorPosition.line}, Col {cursorPosition.col}</span>
         </div>
 
         {/* Tab Size */}
-        <div className="hidden sm:block hover:bg-white/10 px-1.5 py-0.5 rounded cursor-pointer transition-colors">
+        <div className="hidden sm:block hover:text-slate-200 transition-colors">
           <span>Spaces: {settings.tabSize || 4}</span>
         </div>
 
-        {/* Encoding */}
-        <div className="hidden md:block hover:bg-white/10 px-1.5 py-0.5 rounded cursor-pointer transition-colors">
-          <span>UTF-8</span>
-        </div>
-
         {/* Language details */}
-        <div className="hover:bg-white/10 px-1.5 py-0.5 rounded cursor-pointer transition-colors font-medium">
+        <div className="hover:text-slate-200 transition-colors font-medium flex items-center gap-1">
+          <span className="w-1.5 h-1.5 rounded-full" style={{ backgroundColor: selectedLanguage.dotColor }} />
           <span>{selectedLanguage.name} ({selectedLanguage.version})</span>
         </div>
 
-        {/* Vercel Ready pill */}
-        <div className="hidden lg:flex items-center gap-1 bg-black/20 hover:bg-black/30 px-1.5 py-0.5 rounded transition-colors" title="Optimized for Vercel Serverless">
-          <Globe size={11} />
-          <span>Vercel Edge</span>
+        {/* Vercel Status */}
+        <div className="hidden lg:flex items-center gap-1 text-slate-400 hover:text-slate-200 transition-colors">
+          <Globe size={11} className="text-cyan-400" />
+          <span>Vercel Serverless</span>
         </div>
       </div>
     </footer>
