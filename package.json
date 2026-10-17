@@ -1,5 +1,5 @@
 {
-  "name": "codestudio-compiler",
+  "name": "jdcodecompiler",
   "version": "1.0.0",
   "description": "Production-ready Online Code Compiler for Python, Java, C, and C++ with VS Code Dark UI",
   "type": "module",
