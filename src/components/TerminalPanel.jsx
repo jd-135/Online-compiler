@@ -52,6 +52,7 @@ export function TerminalPanel({
   // Check if an EOFError or input wait happened
   const isWaitingForInput = React.useMemo(() => {
     if (!executionResult) return false;
+    if (executionResult.isInteractivePrompt) return true;
     const err = executionResult.stderr || '';
     return err.includes('EOFError') || 
            err.includes('NoSuchElementException') || 
@@ -72,7 +73,7 @@ export function TerminalPanel({
       const val = currentInput;
       setCurrentInput('');
       if (onRunCodeWithInput) {
-        onRunCodeWithInput(val);
+        onRunCodeWithInput(val + '\n');
       }
     }
   };
@@ -97,17 +98,28 @@ export function TerminalPanel({
 
           <span className="text-xs font-mono font-semibold text-[#e6edf3]">console</span>
 
-          {/* Status Badge */}
+          {/* Status & Latency Badge */}
           {executionResult && !isRunning && (
             <div className="ml-2 font-mono text-[11px]">
               {isSuccess ? (
-                <span className="inline-flex items-center gap-1 text-[#3fb950] text-[10px]">
+                <span className="inline-flex items-center gap-1.5 text-[#3fb950] text-[10px]">
                   <CheckCircle2 size={11} />
-                  <span>Passed {executionResult.time ? `(${executionResult.time})` : ''}</span>
+                  <span>Passed</span>
+                  {executionResult.time && (
+                    <span className="bg-[#3fb950]/15 text-[#3fb950] px-1.5 py-0.2 rounded border border-[#3fb950]/30 font-semibold font-mono">
+                      ⚡ Latency: {executionResult.time}
+                    </span>
+                  )}
+                  {executionResult.provider && (
+                    <span className="text-[#8b949e] text-[9px] hidden md:inline">
+                      • {executionResult.provider}
+                    </span>
+                  )}
                 </span>
               ) : isWaitingForInput ? (
-                <span className="inline-flex items-center gap-1 text-[#58a6ff] text-[10px]">
-                  <span>Ready for input</span>
+                <span className="inline-flex items-center gap-1.5 text-[#58a6ff] text-[10px] animate-pulse font-medium">
+                  <span className="w-1.5 h-1.5 rounded-full bg-[#58a6ff] animate-ping" />
+                  <span>Waiting for input • Type below & press ↵ Enter</span>
                 </span>
               ) : (
                 <span className="inline-flex items-center gap-1 text-[#f85149] text-[10px]">

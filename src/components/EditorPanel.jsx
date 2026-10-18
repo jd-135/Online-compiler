@@ -122,17 +122,22 @@ export function EditorPanel({
       setSuggestions(matches.slice(0, 7));
       setSelectedSuggestionIdx(0);
 
-      // Compute visual cursor offset
+      // Compute visual cursor offset anchored to code margin
       const lineArr = textBefore.split('\n');
       const lineNum = lineArr.length;
-      const colNum = lineArr[lineArr.length - 1].length;
+      const editorHeight = textareaRef.current?.clientHeight || 400;
+      const scrollTop = textareaRef.current?.scrollTop || 0;
+      const lineY = (lineNum * 25.6) - scrollTop;
 
-      const topOffset = Math.min(lineNum * 25.6 - (textareaRef.current?.scrollTop || 0) + 10, (textareaRef.current?.clientHeight || 400) - 220);
-      const leftOffset = Math.min(colNum * 8.5 + 20, (textareaRef.current?.clientWidth || 600) - 340);
+      // Position right below the active line, or above if near bottom
+      let topOffset = lineY + 28;
+      if (topOffset + 220 > editorHeight) {
+        topOffset = Math.max(12, lineY - 210);
+      }
 
       setDropdownPos({
-        top: Math.max(15, topOffset),
-        left: Math.max(15, leftOffset)
+        top: Math.max(12, Math.min(topOffset, editorHeight - 220)),
+        left: 16 // Stably anchored to left code margin
       });
       setShowAutocomplete(true);
     } else {
@@ -510,7 +515,16 @@ export function EditorPanel({
                   <Sparkles size={11} />
                   <span>Suggestions</span>
                 </span>
-                <span className="text-[9px] font-mono lowercase">Tab or ↵ to insert</span>
+                <div className="flex items-center gap-2">
+                  <span className="text-[9px] font-mono lowercase">Tab or ↵</span>
+                  <button
+                    onClick={() => setShowAutocomplete(false)}
+                    className="text-[#8b949e] hover:text-[#e6edf3] p-0.5 rounded"
+                    title="Dismiss (Esc)"
+                  >
+                    <X size={10} />
+                  </button>
+                </div>
               </div>
 
               {/* Suggestions List */}

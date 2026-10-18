@@ -11,6 +11,7 @@ import { SplashScreen } from './components/SplashScreen';
 
 import { LANGUAGES } from './constants/languages';
 import { runCode } from './services/compilerService';
+import { detectInputRequirements } from './services/inputDetector';
 
 // Bumping storage key to v5 so all users get clean empty editor on first visit
 const STORAGE_KEY = 'codepulse_workspace_v5';
@@ -243,7 +244,29 @@ export default function App() {
   const handleRunCode = useCallback(async (customInput) => {
     if (isRunning) return;
 
-    const inputToUse = (typeof customInput === 'string') ? customInput : '';
+    // Check if code expects user input and no input has been entered yet
+    const hasInput = typeof customInput === 'string' && customInput.length > 0;
+    if (!hasInput) {
+      const { requiresInput, promptText } = detectInputRequirements(currentCode, selectedLanguage.id);
+      if (requiresInput) {
+        setExecutionResult({
+          success: false,
+          isInteractivePrompt: true,
+          statusType: 'waiting_input',
+          statusText: 'Waiting for input',
+          stdout: promptText,
+          stderr: '',
+          compileOutput: '',
+          time: null,
+          memory: null,
+          exitCode: null,
+          provider: 'Interactive Terminal'
+        });
+        return;
+      }
+    }
+
+    const inputToUse = hasInput ? customInput : '';
 
     setIsRunning(true);
     try {

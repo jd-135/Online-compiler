@@ -56,6 +56,14 @@ export function StatusBar({
           )}
         </div>
 
+        {/* Latency badge */}
+        {executionResult?.time && !isRunning && (
+          <div className="hidden sm:flex items-center gap-1 text-[#3fb950] font-mono text-[10px] bg-[#3fb950]/15 px-1.5 py-0.2 rounded border border-[#3fb950]/30 font-semibold">
+            <Zap size={10} className="fill-current text-[#3fb950]" />
+            <span>{executionResult.time}</span>
+          </div>
+        )}
+
         {/* Current active file */}
         {activeFileName && (
           <div className="hidden sm:flex items-center gap-1 text-[#e6edf3] font-mono">
