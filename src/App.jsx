@@ -34,7 +34,13 @@ const DEFAULT_WORKSPACE = {
 
 export default function App() {
   const [selectedLanguage, setSelectedLanguage] = useState(LANGUAGES[0]);
-  const [showSplash, setShowSplash] = useState(true);
+  const [showSplash, setShowSplash] = useState(() => {
+    try {
+      return sessionStorage.getItem('jd_splash_seen') !== 'true';
+    } catch {
+      return false;
+    }
+  });
 
   // Language-scoped files dictionary
   const [filesByLang, setFilesByLang] = useState(() => {
@@ -283,14 +289,32 @@ export default function App() {
         stdin: inputToUse
       });
 
-      if (inputToUse && result.stdout) {
-        setExecutionResult({
-          ...result,
-          success: result.exitCode === 0
-        });
-      } else {
-        setExecutionResult(result);
+      let formattedStdout = result.stdout || '';
+      const promptToMatch = (executionResult?.isInteractivePrompt ? executionResult.stdout : '') || '';
+
+      if (hasInput && formattedStdout) {
+        if (promptToMatch && formattedStdout.includes(promptToMatch.trim())) {
+          const trimmedPrompt = promptToMatch.trim();
+          const idx = formattedStdout.indexOf(trimmedPrompt);
+          if (idx !== -1) {
+            const endIdx = idx + trimmedPrompt.length;
+            formattedStdout = 
+              formattedStdout.substring(0, endIdx) + 
+              ' ' + inputToUse.trim() + '\n' + 
+              formattedStdout.substring(endIdx).replace(/^\n*/, '');
+          }
+        } else if (promptToMatch && !formattedStdout.includes(inputToUse.trim())) {
+          formattedStdout = promptToMatch.trim() + ' ' + inputToUse.trim() + '\n' + formattedStdout;
+        } else if (!formattedStdout.includes(inputToUse.trim())) {
+          formattedStdout = inputToUse.trim() + '\n' + formattedStdout;
+        }
       }
+
+      setExecutionResult({
+        ...result,
+        stdout: formattedStdout,
+        success: result.exitCode === 0 && !result.stderr
+      });
     } catch (err) {
       setExecutionResult({
         success: false,
@@ -356,7 +380,16 @@ export default function App() {
   return (
     <div className="flex flex-col h-screen w-screen overflow-hidden bg-[#0f1117] text-[#e6edf3]">
       {/* Attractive Initial Splash Loading Screen */}
-      {showSplash && <SplashScreen onFinish={() => setShowSplash(false)} />}
+      {showSplash && (
+        <SplashScreen
+          onFinish={() => {
+            try {
+              sessionStorage.setItem('jd_splash_seen', 'true');
+            } catch {}
+            setShowSplash(false);
+          }}
+        />
+      )}
 
       {/* Modern Top Header */}
       <TopBar
