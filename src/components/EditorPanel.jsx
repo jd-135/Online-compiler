@@ -40,7 +40,8 @@ export function EditorPanel({
   // Autocomplete state
   const [suggestions, setSuggestions] = useState([]);
   const [selectedSuggestionIdx, setSelectedSuggestionIdx] = useState(0);
-  const [dropdownPos, setDropdownPos] = useState({ top: 40, left: 60 });
+  const [hasNavigatedSuggestions, setHasNavigatedSuggestions] = useState(false);
+  const [dropdownPos, setDropdownPos] = useState({ top: 40, left: 16 });
   const [showAutocomplete, setShowAutocomplete] = useState(false);
 
   // Close autocomplete on language switch
@@ -81,6 +82,50 @@ export function EditorPanel({
     }
   };
 
+  // Helper to detect if cursor is currently inside a string literal or comment
+  const isInsideStringOrComment = (textBefore, currentLine, langId) => {
+    // Check single-line comments
+    if (langId === 'python') {
+      const hashIdx = currentLine.indexOf('#');
+      if (hashIdx !== -1) return true;
+    } else {
+      const slashIdx = currentLine.indexOf('//');
+      if (slashIdx !== -1) return true;
+    }
+
+    // Check quotes: count unescaped quotes on current line up to cursor
+    let inDouble = false;
+    let inSingle = false;
+    for (let i = 0; i < currentLine.length; i++) {
+      const ch = currentLine[i];
+      const prev = i > 0 ? currentLine[i - 1] : '';
+      if (ch === '"' && prev !== '\\') {
+        if (!inSingle) inDouble = !inDouble;
+      } else if (ch === "'" && prev !== '\\') {
+        if (!inDouble) inSingle = !inSingle;
+      }
+    }
+    if (inDouble || inSingle) return true;
+
+    // Check Python triple-quote docstrings
+    if (langId === 'python') {
+      const tripleDoubleCount = (textBefore.split('"""').length - 1);
+      const tripleSingleCount = (textBefore.split("'''").length - 1);
+      if (tripleDoubleCount % 2 === 1 || tripleSingleCount % 2 === 1) {
+        return true;
+      }
+    }
+
+    // Check multi-line /* ... */ comment block
+    const lastBlockOpen = textBefore.lastIndexOf('/*');
+    const lastBlockClose = textBefore.lastIndexOf('*/');
+    if (lastBlockOpen !== -1 && lastBlockOpen > lastBlockClose) {
+      return true;
+    }
+
+    return false;
+  };
+
   // Intelligent Autocomplete Trigger & Position Calculator
   const checkSuggestions = (newCode, cursorPos) => {
     // If autocomplete is toggled off in settings, don't show
@@ -93,12 +138,19 @@ export function EditorPanel({
     const lastNewlineIdx = textBefore.lastIndexOf('\n');
     const currentLine = lastNewlineIdx === -1 ? textBefore : textBefore.substring(lastNewlineIdx + 1);
 
+    // 1. SUPPRESS AUTOCOMPLETE COMPLETELY INSIDE STRING QUOTES OR COMMENTS!
+    if (isInsideStringOrComment(textBefore, currentLine, selectedLanguage.id)) {
+      setShowAutocomplete(false);
+      return;
+    }
+
     // Extract current token (letters, numbers, underscore, '#', '.')
     const match = currentLine.match(/([#a-zA-Z0-9_\.]+)$/);
     const currentToken = match ? match[1] : '';
     const trimmedLine = currentLine.trim();
 
-    if (!currentToken && trimmedLine.length < 2) {
+    // Do not trigger on empty string or single trivial characters
+    if (!currentToken || (currentToken.length < 2 && !currentToken.startsWith('#'))) {
       setShowAutocomplete(false);
       return;
     }
@@ -107,7 +159,27 @@ export function EditorPanel({
     const tokenLower = currentToken.toLowerCase();
     const lineLower = trimmedLine.toLowerCase();
 
+    // Context filter: are we typing an import statement at the beginning of a line?
+    const isTypingImport = 
+      lineLower.startsWith('import') || 
+      lineLower.startsWith('from') || 
+      lineLower.startsWith('#include') ||
+      lineLower === 'im' || 
+      lineLower === 'imp' ||
+      lineLower === '#inc' ||
+      lineLower === '#';
+
     const matches = langList.filter((item) => {
+      // Do not suggest imports unless user is actually at the start of an import statement
+      if (item.kind === 'module' && !isTypingImport) {
+        return false;
+      }
+
+      // If user is typing an import, prioritize modules
+      if (isTypingImport && item.kind !== 'module') {
+        return false;
+      }
+
       // 1. Trigger array match
       if (item.trigger && item.trigger.some(trig => trig.startsWith(tokenLower) || tokenLower.startsWith(trig))) {
         return true;
@@ -121,8 +193,9 @@ export function EditorPanel({
     if (matches.length > 0) {
       setSuggestions(matches.slice(0, 7));
       setSelectedSuggestionIdx(0);
+      setHasNavigatedSuggestions(false); // Reset arrow navigation flag on each new suggestion list
 
-      // Compute visual cursor offset anchored to code margin
+      // Compute visual cursor offset anchored cleanly to code margin
       const lineArr = textBefore.split('\n');
       const lineNum = lineArr.length;
       const editorHeight = textareaRef.current?.clientHeight || 400;
@@ -158,11 +231,18 @@ export function EditorPanel({
     const match = currentLine.match(/([#a-zA-Z0-9_\.]+)$/);
     const currentToken = match ? match[1] : '';
 
-    const prefix = textBefore.substring(0, textBefore.length - currentToken.length);
+    // If item is full-line import or module, replace cleanly from after line indentation
+    let prefix = textBefore.substring(0, textBefore.length - currentToken.length);
+    if (item.kind === 'module') {
+      const matchIndent = currentLine.match(/^(\s*)/);
+      const indent = matchIndent ? matchIndent[1] : '';
+      prefix = (lastNewlineIdx === -1 ? '' : textBefore.substring(0, lastNewlineIdx + 1)) + indent;
+    }
     const newFullCode = prefix + item.insertText + textAfter;
 
     onChangeCode(newFullCode);
     setShowAutocomplete(false);
+    setHasNavigatedSuggestions(false);
 
     requestAnimationFrame(() => {
       const newPos = prefix.length + (item.cursorOffset ?? item.insertText.length);
@@ -217,18 +297,31 @@ export function EditorPanel({
     if (showAutocomplete && suggestions.length > 0) {
       if (e.key === 'ArrowDown') {
         e.preventDefault();
+        setHasNavigatedSuggestions(true);
         setSelectedSuggestionIdx((prev) => (prev + 1) % suggestions.length);
         return;
       }
       if (e.key === 'ArrowUp') {
         e.preventDefault();
+        setHasNavigatedSuggestions(true);
         setSelectedSuggestionIdx((prev) => (prev - 1 + suggestions.length) % suggestions.length);
         return;
       }
-      if (e.key === 'Tab' || (e.key === 'Enter' && !e.ctrlKey && !e.metaKey)) {
+      if (e.key === 'Tab') {
         e.preventDefault();
         applySuggestion(suggestions[selectedSuggestionIdx]);
         return;
+      }
+      if (e.key === 'Enter' && !e.ctrlKey && !e.metaKey) {
+        if (hasNavigatedSuggestions) {
+          e.preventDefault();
+          applySuggestion(suggestions[selectedSuggestionIdx]);
+          return;
+        } else {
+          // User pressed Enter to go to the next line: dismiss dropdown and do NOT hijack Enter!
+          setShowAutocomplete(false);
+          // Fall through to standard Enter key indentation below
+        }
       }
       if (e.key === 'Escape') {
         e.preventDefault();
