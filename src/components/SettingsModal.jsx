@@ -6,31 +6,31 @@ export function SettingsModal({ isOpen, onClose, settings, onUpdateSettings }) {
 
   return (
     <div className="fixed inset-0 bg-black/70 backdrop-blur-sm flex items-center justify-center z-50 p-4">
-      <div className="w-full max-w-md bg-slate-900 border border-slate-700/80 rounded-2xl shadow-2xl overflow-hidden animate-in fade-in zoom-in-95 duration-150">
-        <div className="h-11 px-4 bg-slate-950/60 border-b border-slate-800 flex items-center justify-between text-xs font-semibold text-white">
+      <div className="w-full max-w-md bg-[#161b22] border border-[#30363d] rounded-2xl shadow-2xl overflow-hidden animate-in fade-in zoom-in-95 duration-150">
+        <div className="h-11 px-4 bg-[#21262d] border-b border-[#30363d] flex items-center justify-between text-xs font-semibold text-[#e6edf3]">
           <div className="flex items-center gap-2">
-            <SettingsIcon size={15} className="text-cyan-400" />
+            <SettingsIcon size={15} className="text-[#58a6ff]" />
             <span>Editor Settings</span>
           </div>
           <button 
             onClick={onClose} 
-            className="text-slate-400 hover:text-white p-1 rounded-lg"
+            className="text-[#8b949e] hover:text-[#e6edf3] p-1 rounded-lg"
           >
             <X size={15} />
           </button>
         </div>
 
-        <div className="p-4 space-y-4 text-xs text-slate-300">
+        <div className="p-4 space-y-4 text-xs text-[#e6edf3]">
           {/* Font Size */}
           <div className="flex items-center justify-between">
             <div>
-              <div className="font-medium text-white">Font Size</div>
-              <div className="text-[11px] text-slate-400">Editor monospace text size</div>
+              <div className="font-medium text-[#e6edf3]">Font Size</div>
+              <div className="text-[11px] text-[#8b949e]">Editor monospace text size</div>
             </div>
             <select
               value={settings.fontSize}
               onChange={(e) => onUpdateSettings({ ...settings, fontSize: Number(e.target.value) })}
-              className="bg-slate-950 border border-slate-700 rounded-lg px-3 py-1.5 text-white text-xs outline-none focus:border-cyan-500"
+              className="bg-[#0f1117] border border-[#30363d] rounded-lg px-3 py-1.5 text-[#e6edf3] text-xs outline-none focus:border-[#58a6ff]"
             >
               <option value={12}>12 px</option>
               <option value={13}>13 px</option>
@@ -43,13 +43,13 @@ export function SettingsModal({ isOpen, onClose, settings, onUpdateSettings }) {
           {/* Tab Size */}
           <div className="flex items-center justify-between">
             <div>
-              <div className="font-medium text-white">Tab Indentation</div>
-              <div className="text-[11px] text-slate-400">Number of spaces per Tab press</div>
+              <div className="font-medium text-[#e6edf3]">Tab Indentation</div>
+              <div className="text-[11px] text-[#8b949e]">Number of spaces per Tab press</div>
             </div>
             <select
               value={settings.tabSize}
               onChange={(e) => onUpdateSettings({ ...settings, tabSize: Number(e.target.value) })}
-              className="bg-slate-950 border border-slate-700 rounded-lg px-3 py-1.5 text-white text-xs outline-none focus:border-cyan-500"
+              className="bg-[#0f1117] border border-[#30363d] rounded-lg px-3 py-1.5 text-[#e6edf3] text-xs outline-none focus:border-[#58a6ff]"
             >
               <option value={2}>2 Spaces</option>
               <option value={4}>4 Spaces (Default)</option>
@@ -60,36 +60,36 @@ export function SettingsModal({ isOpen, onClose, settings, onUpdateSettings }) {
           {/* Auto Close Brackets */}
           <div className="flex items-center justify-between">
             <div>
-              <div className="font-medium text-white">Auto-close Brackets & Quotes</div>
-              <div className="text-[11px] text-slate-400">Automatically pairs (), [], {}, "", ''</div>
+              <div className="font-medium text-[#e6edf3]">Auto-close Brackets & Quotes</div>
+              <div className="text-[11px] text-[#8b949e]">Automatically pairs (), [], {}, "", ''</div>
             </div>
             <input
               type="checkbox"
               checked={settings.autoCloseBrackets}
               onChange={(e) => onUpdateSettings({ ...settings, autoCloseBrackets: e.target.checked })}
-              className="w-4 h-4 rounded bg-slate-950 border-slate-700 text-cyan-500 focus:ring-0 cursor-pointer accent-cyan-500"
+              className="w-4 h-4 rounded bg-[#0f1117] border-[#30363d] text-[#58a6ff] focus:ring-0 cursor-pointer accent-[#58a6ff]"
             />
           </div>
 
           {/* Word Wrap */}
           <div className="flex items-center justify-between">
             <div>
-              <div className="font-medium text-white">Word Wrap</div>
-              <div className="text-[11px] text-slate-400">Wrap long lines automatically</div>
+              <div className="font-medium text-[#e6edf3]">Word Wrap</div>
+              <div className="text-[11px] text-[#8b949e]">Wrap long lines automatically</div>
             </div>
             <input
               type="checkbox"
               checked={settings.wordWrap}
               onChange={(e) => onUpdateSettings({ ...settings, wordWrap: e.target.checked })}
-              className="w-4 h-4 rounded bg-slate-950 border-slate-700 text-cyan-500 focus:ring-0 cursor-pointer accent-cyan-500"
+              className="w-4 h-4 rounded bg-[#0f1117] border-[#30363d] text-[#58a6ff] focus:ring-0 cursor-pointer accent-[#58a6ff]"
             />
           </div>
         </div>
 
-        <div className="bg-slate-950/40 px-4 py-3 text-[11px] text-slate-400 border-t border-slate-800 flex justify-end">
+        <div className="bg-[#161b22] px-4 py-3 text-[11px] text-[#8b949e] border-t border-[#30363d] flex justify-end">
           <button
             onClick={onClose}
-            className="px-4 py-1.5 bg-gradient-to-r from-cyan-600 to-indigo-600 hover:from-cyan-500 hover:to-indigo-500 text-white rounded-lg font-medium transition-all"
+            className="px-4 py-1.5 bg-[#58a6ff] hover:bg-[#388bfd] text-[#0f1117] rounded-lg font-semibold transition-all"
           >
             Done
           </button>

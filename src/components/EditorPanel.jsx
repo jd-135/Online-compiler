@@ -203,18 +203,18 @@ export function EditorPanel({
   };
 
   return (
-    <div className="flex-1 flex flex-col h-full bg-[#0b0f19] overflow-hidden select-text border-r border-slate-800/80">
+    <div className="flex-1 flex flex-col h-full bg-[#0f1117] overflow-hidden select-text border-r border-[#30363d]">
       {/* LANGUAGE-SPECIFIC FILE TABS STRIP */}
-      <div className="h-10 bg-[#0d131f] border-b border-slate-800/80 flex items-center justify-between overflow-x-auto select-none px-2 shrink-0">
+      <div className="h-10 bg-[#161b22] border-b border-[#30363d] flex items-center justify-between overflow-x-auto select-none px-2 shrink-0">
         <div className="flex items-center gap-1.5 h-full">
           {/* Quick Show Workspace button when sidebar is collapsed */}
           {!isExplorerOpen && (
             <button
               onClick={onToggleExplorer}
               title="Open Workspace / File Explorer (Ctrl+B)"
-              className="h-7 px-2.5 rounded-lg bg-slate-900 hover:bg-slate-800 text-slate-300 hover:text-cyan-400 border border-slate-700/80 flex items-center gap-1.5 text-xs transition-all mr-1 animate-in fade-in duration-150"
+              className="h-7 px-2.5 rounded-lg bg-[#21262d] hover:bg-[#30363d] text-[#e6edf3] hover:text-[#58a6ff] border border-[#30363d] flex items-center gap-1.5 text-xs transition-all mr-1 animate-in fade-in duration-150"
             >
-              <FolderTree size={13} className="text-cyan-400" />
+              <FolderTree size={13} className="text-[#58a6ff]" />
               <span className="font-medium text-[11px]">Workspace</span>
             </button>
           )}
@@ -228,8 +228,8 @@ export function EditorPanel({
                 onClick={() => onSelectFile(file.id)}
                 className={`h-7 px-3 rounded-lg flex items-center gap-2 text-xs cursor-pointer transition-all relative group ${
                   isActive
-                    ? 'bg-slate-800 text-cyan-300 font-semibold border border-cyan-500/30 shadow-xs'
-                    : 'bg-slate-900/60 text-slate-400 hover:bg-slate-800 hover:text-slate-200 border border-transparent'
+                    ? 'bg-[#21262d] text-[#58a6ff] font-semibold border border-[#58a6ff]/40 shadow-xs'
+                    : 'bg-[#161b22] text-[#8b949e] hover:bg-[#21262d] hover:text-[#e6edf3] border border-transparent'
                 }`}
               >
                 <span
@@ -246,7 +246,7 @@ export function EditorPanel({
                       onCloseFile(file.id);
                     }}
                     title="Close file"
-                    className="text-slate-500 hover:text-rose-400 rounded p-0.5 ml-1 transition-colors opacity-70 group-hover:opacity-100"
+                    className="text-[#8b949e] hover:text-[#f85149] rounded p-0.5 ml-1 transition-colors opacity-70 group-hover:opacity-100"
                   >
                     <X size={12} />
                   </button>
@@ -257,7 +257,7 @@ export function EditorPanel({
 
           {/* Inline New File Form or "+" Trigger */}
           {isCreatingFile ? (
-            <form onSubmit={handleCreateSubmit} className="flex items-center gap-1 bg-slate-800/90 border border-cyan-500/50 rounded-lg px-2 py-0.5">
+            <form onSubmit={handleCreateSubmit} className="flex items-center gap-1 bg-[#21262d] border border-[#58a6ff]/50 rounded-lg px-2 py-0.5">
               <input
                 type="text"
                 autoFocus
@@ -267,15 +267,15 @@ export function EditorPanel({
                   if (!newFileName.trim()) setIsCreatingFile(false);
                 }}
                 placeholder={`filename${selectedLanguage.extension}`}
-                className="bg-transparent text-white font-mono text-xs w-28 outline-none"
+                className="bg-transparent text-[#e6edf3] font-mono text-xs w-28 outline-none placeholder:text-[#8b949e]"
               />
-              <button type="submit" className="text-cyan-400 hover:text-cyan-300">
+              <button type="submit" className="text-[#3fb950] hover:text-[#3fb950]">
                 <Check size={12} />
               </button>
               <button 
                 type="button" 
                 onClick={() => setIsCreatingFile(false)} 
-                className="text-slate-400 hover:text-slate-200"
+                className="text-[#8b949e] hover:text-[#e6edf3]"
               >
                 <X size={12} />
               </button>
@@ -284,7 +284,7 @@ export function EditorPanel({
             <button
               onClick={() => setIsCreatingFile(true)}
               title={`Add new ${selectedLanguage.name} file (${selectedLanguage.extension})`}
-              className="h-7 px-2 rounded-lg text-slate-400 hover:text-cyan-300 hover:bg-slate-800/80 border border-dashed border-slate-700/80 flex items-center gap-1 text-xs transition-colors"
+              className="h-7 px-2 rounded-lg text-[#8b949e] hover:text-[#58a6ff] hover:bg-[#21262d] border border-dashed border-[#30363d] flex items-center gap-1 text-xs transition-colors"
             >
               <Plus size={13} />
               <span className="text-[11px]">New {selectedLanguage.extension}</span>
@@ -293,8 +293,8 @@ export function EditorPanel({
         </div>
 
         {/* Language Badge on right */}
-        <div className="hidden sm:flex items-center gap-2 text-slate-400 text-xs pr-2">
-          <span className="text-[11px] font-mono bg-slate-900 border border-slate-800 text-slate-300 px-2 py-0.5 rounded-md">
+        <div className="hidden sm:flex items-center gap-2 text-[#8b949e] text-xs pr-2">
+          <span className="text-[11px] font-mono bg-[#21262d] border border-[#30363d] text-[#8b949e] px-2 py-0.5 rounded-md">
             {selectedLanguage.name} Workspace
           </span>
         </div>
@@ -308,7 +308,7 @@ export function EditorPanel({
         {/* Line Numbers Gutter */}
         <div
           ref={gutterRef}
-          className="w-12 bg-[#090d16] text-slate-600 text-right pr-3 select-none py-3 overflow-hidden border-r border-slate-800/60 shrink-0 font-mono"
+          className="w-12 bg-[#161b22] text-[#8b949e] text-right pr-3 select-none py-3 overflow-hidden border-r border-[#30363d] shrink-0 font-mono"
           style={{ lineHeight: '1.6rem' }}
         >
           {Array.from({ length: Math.max(totalLines, 20) }).map((_, idx) => {
@@ -318,7 +318,7 @@ export function EditorPanel({
               <div
                 key={lineNum}
                 className={`h-[1.6rem] transition-colors ${
-                  isCurrent ? 'text-cyan-400 font-bold bg-cyan-950/20' : ''
+                  isCurrent ? 'text-[#58a6ff] font-bold bg-[#58a6ff]/10' : ''
                 }`}
               >
                 {lineNum <= totalLines ? lineNum : ''}
@@ -328,7 +328,7 @@ export function EditorPanel({
         </div>
 
         {/* Textarea Code Editor */}
-        <div className="flex-1 relative h-full overflow-hidden bg-[#0b0f19]">
+        <div className="flex-1 relative h-full overflow-hidden bg-[#0f1117]">
           <textarea
             ref={textareaRef}
             value={code}
@@ -349,7 +349,7 @@ export function EditorPanel({
             autoCapitalize="none"
             autoComplete="off"
             autoCorrect="off"
-            className="w-full h-full bg-transparent text-slate-200 p-3 pl-3 resize-none outline-none font-mono code-font overflow-auto select-text whitespace-pre placeholder:text-slate-600 placeholder:italic"
+            className="w-full h-full bg-transparent text-[#e6edf3] p-3 pl-3 resize-none outline-none font-mono code-font overflow-auto select-text whitespace-pre placeholder:text-[#8b949e]/60 placeholder:italic"
             style={{
               lineHeight: '1.6rem',
               tabSize: settings.tabSize || 4,

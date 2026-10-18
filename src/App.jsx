@@ -319,7 +319,7 @@ export default function App() {
   }, [handleRunCode]);
 
   return (
-    <div className="flex flex-col h-screen w-screen overflow-hidden bg-[#070a11] text-slate-200">
+    <div className="flex flex-col h-screen w-screen overflow-hidden bg-[#0f1117] text-[#e6edf3]">
       {/* Attractive Initial Splash Loading Screen */}
       {showSplash && <SplashScreen onFinish={() => setShowSplash(false)} />}
 
@@ -397,9 +397,9 @@ export default function App() {
             <div
               onMouseDown={handleMouseDown}
               title="Drag to resize editor and output terminal"
-              className="hidden md:flex w-2.5 hover:w-2.5 bg-[#0d131f] hover:bg-cyan-500/50 cursor-col-resize items-center justify-center transition-colors z-20 select-none group border-x border-slate-800"
+              className="hidden md:flex w-2 hover:w-2 bg-[#161b22] hover:bg-[#58a6ff]/40 cursor-col-resize items-center justify-center transition-colors z-20 select-none group border-x border-[#30363d]"
             >
-              <div className="w-1 h-8 bg-slate-700 group-hover:bg-cyan-300 rounded-full transition-colors" />
+              <div className="w-0.5 h-8 bg-[#30363d] group-hover:bg-[#58a6ff] rounded-full transition-colors" />
             </div>
           )}
 

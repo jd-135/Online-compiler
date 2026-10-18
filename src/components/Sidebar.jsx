@@ -101,16 +101,16 @@ export function Sidebar({
   };
 
   return (
-    <div className="w-60 bg-[#0d131f] border-r border-slate-800/80 flex flex-col shrink-0 text-slate-300 z-10 animate-in slide-in-from-left-4 duration-200 ease-out select-none">
+    <div className="w-60 bg-[#161b22] border-r border-[#30363d] flex flex-col shrink-0 text-[#e6edf3] z-10 animate-in slide-in-from-left-4 duration-200 ease-out select-none">
       {/* Header with Title & Minimise Button */}
-      <div className="h-10 px-3 flex items-center justify-between border-b border-slate-800/80 text-[11px] font-bold uppercase tracking-wider text-slate-400">
-        <span className="flex items-center gap-1.5 text-slate-300">
+      <div className="h-10 px-3 flex items-center justify-between border-b border-[#30363d] text-[11px] font-bold uppercase tracking-wider text-[#8b949e]">
+        <span className="flex items-center gap-1.5 text-[#e6edf3]">
           <span>{activeView === 'explorer' ? `${selectedLanguage.name} Files` : 'Algorithm Library'}</span>
         </span>
         <button 
           onClick={onClose}
           title="Minimise / Close Workspace (Ctrl+B)"
-          className="flex items-center gap-1 text-slate-400 hover:text-cyan-400 hover:bg-slate-800/80 px-1.5 py-1 rounded-md transition-all text-[10px]"
+          className="flex items-center gap-1 text-[#8b949e] hover:text-[#58a6ff] hover:bg-[#21262d] px-1.5 py-1 rounded-md transition-all text-[10px]"
         >
           <ChevronLeft size={13} />
           <span>Hide</span>
@@ -120,12 +120,12 @@ export function Sidebar({
       {/* Explorer Content: ONLY SHOWS ACTIVE LANGUAGE FILES */}
       {activeView === 'explorer' && (
         <div className="flex-1 overflow-y-auto p-2">
-          <div className="flex items-center justify-between px-2 py-1.5 text-[11px] font-semibold text-slate-400 uppercase tracking-wider">
+          <div className="flex items-center justify-between px-2 py-1.5 text-[11px] font-semibold text-[#8b949e] uppercase tracking-wider">
             <span>Workspace</span>
             <button
               onClick={() => setIsAdding(true)}
               title={`Add ${selectedLanguage.name} file`}
-              className="text-cyan-400 hover:text-cyan-300 p-1 hover:bg-slate-800 rounded-md transition-colors"
+              className="text-[#58a6ff] hover:text-[#58a6ff] p-1 hover:bg-[#21262d] rounded-md transition-colors"
             >
               <Plus size={14} />
             </button>
@@ -133,7 +133,7 @@ export function Sidebar({
 
           {/* Inline Add Input */}
           {isAdding && (
-            <form onSubmit={handleAddSubmit} className="flex items-center gap-1 bg-slate-800 border border-cyan-500/50 rounded-lg px-2 py-1 my-1 animate-in zoom-in-95 duration-100">
+            <form onSubmit={handleAddSubmit} className="flex items-center gap-1 bg-[#21262d] border border-[#58a6ff]/50 rounded-lg px-2 py-1 my-1 animate-in zoom-in-95 duration-100">
               <input
                 type="text"
                 autoFocus
@@ -143,15 +143,15 @@ export function Sidebar({
                   if (!inputName.trim()) setIsAdding(false);
                 }}
                 placeholder={`filename${selectedLanguage.extension}`}
-                className="bg-transparent text-white font-mono text-xs w-full outline-none"
+                className="bg-transparent text-[#e6edf3] font-mono text-xs w-full outline-none placeholder:text-[#8b949e]"
               />
-              <button type="submit" className="text-cyan-400 hover:text-cyan-300">
+              <button type="submit" className="text-[#3fb950] hover:text-[#3fb950]">
                 <Check size={12} />
               </button>
               <button 
                 type="button" 
                 onClick={() => setIsAdding(false)} 
-                className="text-slate-400 hover:text-slate-200"
+                className="text-[#8b949e] hover:text-[#e6edf3]"
               >
                 <X size={12} />
               </button>
@@ -168,8 +168,8 @@ export function Sidebar({
                   onClick={() => onSelectFile(file.id)}
                   className={`w-full flex items-center justify-between px-3 py-1.5 rounded-lg text-xs cursor-pointer transition-all group ${
                     isSelected
-                      ? 'bg-slate-800 text-cyan-300 font-semibold border-l-2 border-cyan-400 shadow-xs'
-                      : 'text-slate-400 hover:bg-slate-800/60 hover:text-slate-200'
+                      ? 'bg-[#21262d] text-[#58a6ff] font-semibold border-l-2 border-[#58a6ff] shadow-xs'
+                      : 'text-[#8b949e] hover:bg-[#21262d] hover:text-[#e6edf3]'
                   }`}
                 >
                   <div className="flex items-center gap-2 overflow-hidden">
@@ -187,7 +187,7 @@ export function Sidebar({
                         onCloseFile(file.id);
                       }}
                       title="Delete file"
-                      className="text-slate-500 hover:text-rose-400 opacity-0 group-hover:opacity-100 p-0.5 rounded transition-opacity"
+                      className="text-[#8b949e] hover:text-[#f85149] opacity-0 group-hover:opacity-100 p-0.5 rounded transition-opacity"
                     >
                       <Trash2 size={12} />
                     </button>
@@ -202,25 +202,25 @@ export function Sidebar({
       {/* Snippets Content */}
       {activeView === 'snippets' && (
         <div className="flex-1 overflow-y-auto p-2 space-y-2">
-          <div className="px-2 py-1 text-[11px] text-slate-400">
-            Algorithms for <strong className="text-white">{selectedLanguage.name}</strong>:
+          <div className="px-2 py-1 text-[11px] text-[#8b949e]">
+            Algorithms for <strong className="text-[#e6edf3]">{selectedLanguage.name}</strong>:
           </div>
 
           {(ALGORITHM_SNIPPETS[selectedLanguage.id] || []).map((snippet, idx) => (
             <div
               key={idx}
-              className="p-2.5 rounded-lg bg-slate-900 hover:bg-slate-800 border border-slate-800/80 hover:border-slate-700 transition-all group cursor-pointer"
+              className="p-2.5 rounded-lg bg-[#21262d] hover:bg-[#30363d] border border-[#30363d] hover:border-[#58a6ff]/50 transition-all group cursor-pointer"
               onClick={() => onLoadSnippet(snippet.code)}
             >
               <div className="flex items-center justify-between">
-                <span className="text-xs font-medium text-white group-hover:text-cyan-400">
+                <span className="text-xs font-medium text-[#e6edf3] group-hover:text-[#58a6ff]">
                   {snippet.name}
                 </span>
-                <span className="text-[10px] text-cyan-400 opacity-0 group-hover:opacity-100 transition-opacity font-mono">
+                <span className="text-[10px] text-[#58a6ff] opacity-0 group-hover:opacity-100 transition-opacity font-mono">
                   Insert →
                 </span>
               </div>
-              <p className="text-[11px] text-slate-400 mt-1 line-clamp-2">
+              <p className="text-[11px] text-[#8b949e] mt-1 line-clamp-2">
                 {snippet.desc}
               </p>
             </div>

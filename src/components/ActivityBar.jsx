@@ -17,17 +17,17 @@ export function ActivityBar({
   onToggleSettings
 }) {
   return (
-    <aside className="w-12 bg-[#080c14] border-r border-slate-800/80 flex flex-col justify-between items-center py-2.5 z-20 shrink-0 select-none">
+    <aside className="w-12 bg-[#161b22] border-r border-[#30363d] flex flex-col justify-between items-center py-2.5 z-20 shrink-0 select-none">
       {/* Top icons */}
       <div className="flex flex-col items-center gap-1.5 w-full">
         {/* Explorer */}
         <button
           onClick={() => setActiveView(activeView === 'explorer' ? null : 'explorer')}
           title="File Explorer"
-          className={`w-9 h-9 flex items-center justify-center rounded-xl transition-all relative ${
+          className={`w-9 h-9 flex items-center justify-center rounded-lg transition-all relative ${
             activeView === 'explorer'
-              ? 'text-cyan-300 bg-slate-800 border border-cyan-500/30 shadow-xs'
-              : 'text-slate-400 hover:text-slate-200 hover:bg-slate-800/60'
+              ? 'text-[#58a6ff] bg-[#21262d] border border-[#58a6ff]/40 shadow-xs'
+              : 'text-[#8b949e] hover:text-[#e6edf3] hover:bg-[#21262d]'
           }`}
         >
           <Files size={18} strokeWidth={1.75} />
@@ -37,10 +37,10 @@ export function ActivityBar({
         <button
           onClick={onRunCode}
           title="Compile & Run (Ctrl + Enter)"
-          className={`w-9 h-9 flex items-center justify-center rounded-xl transition-all relative ${
+          className={`w-9 h-9 flex items-center justify-center rounded-lg transition-all relative ${
             isRunning
-              ? 'text-emerald-400 bg-emerald-950/40 border border-emerald-500/30'
-              : 'text-slate-400 hover:text-emerald-400 hover:bg-slate-800/60'
+              ? 'text-[#3fb950] bg-[#3fb950]/15 border border-[#3fb950]/40'
+              : 'text-[#8b949e] hover:text-[#3fb950] hover:bg-[#21262d]'
           }`}
         >
           <Play size={17} strokeWidth={1.75} className={isRunning ? 'animate-pulse' : ''} />
@@ -50,10 +50,10 @@ export function ActivityBar({
         <button
           onClick={() => setActiveView(activeView === 'snippets' ? null : 'snippets')}
           title="Algorithm Library"
-          className={`w-9 h-9 flex items-center justify-center rounded-xl transition-all relative ${
+          className={`w-9 h-9 flex items-center justify-center rounded-lg transition-all relative ${
             activeView === 'snippets'
-              ? 'text-cyan-300 bg-slate-800 border border-cyan-500/30 shadow-xs'
-              : 'text-slate-400 hover:text-slate-200 hover:bg-slate-800/60'
+              ? 'text-[#58a6ff] bg-[#21262d] border border-[#58a6ff]/40 shadow-xs'
+              : 'text-[#8b949e] hover:text-[#e6edf3] hover:bg-[#21262d]'
           }`}
         >
           <BookOpen size={17} strokeWidth={1.75} />
@@ -65,7 +65,7 @@ export function ActivityBar({
         <button
           onClick={onToggleShortcuts}
           title="Keyboard Shortcuts (F1)"
-          className="w-9 h-9 flex items-center justify-center rounded-xl text-slate-400 hover:text-slate-200 hover:bg-slate-800/60 transition-all"
+          className="w-9 h-9 flex items-center justify-center rounded-lg text-[#8b949e] hover:text-[#e6edf3] hover:bg-[#21262d] transition-all"
         >
           <HelpCircle size={17} strokeWidth={1.75} />
         </button>
@@ -73,7 +73,7 @@ export function ActivityBar({
         <button
           onClick={onToggleSettings}
           title="Editor Settings"
-          className="w-9 h-9 flex items-center justify-center rounded-xl text-slate-400 hover:text-slate-200 hover:bg-slate-800/60 transition-all"
+          className="w-9 h-9 flex items-center justify-center rounded-lg text-[#8b949e] hover:text-[#e6edf3] hover:bg-[#21262d] transition-all"
         >
           <Settings size={17} strokeWidth={1.75} />
         </button>
