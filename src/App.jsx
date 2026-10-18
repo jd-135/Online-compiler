@@ -12,6 +12,7 @@ import { SplashScreen } from './components/SplashScreen';
 import { LANGUAGES } from './constants/languages';
 import { runCode } from './services/compilerService';
 import { detectInputRequirements } from './services/inputDetector';
+import { applyTheme, DEFAULT_THEME_ID } from './constants/themes';
 
 // Bumping storage key to v5 so all users get clean empty editor on first visit
 const STORAGE_KEY = 'codepulse_workspace_v5';
@@ -88,9 +89,15 @@ export default function App() {
       tabSize: 4,
       autoCloseBrackets: true,
       wordWrap: false,
-      autocomplete: true
+      autocomplete: true,
+      theme: DEFAULT_THEME_ID
     };
   });
+
+  // Apply theme dynamically to document root
+  useEffect(() => {
+    applyTheme(settings.theme || DEFAULT_THEME_ID);
+  }, [settings.theme]);
 
   // Persist settings
   useEffect(() => {

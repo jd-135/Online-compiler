@@ -6,8 +6,10 @@ export function ShortcutsModal({ isOpen, onClose }) {
 
   const shortcuts = [
     { key: 'Ctrl + Enter', desc: 'Compile & Run code instantly' },
+    { key: 'Ctrl + /', desc: 'Toggle line or selection comment' },
     { key: 'Tab', desc: 'Indent selection (4 spaces)' },
     { key: 'Shift + Tab', desc: 'Un-indent selection' },
+    { key: 'Ctrl + B', desc: 'Toggle Workspace / Explorer' },
     { key: 'Ctrl + L', desc: 'Clear output console' },
     { key: 'Ctrl + S', desc: 'Trigger compilation / save' },
     { key: 'Esc', desc: 'Close dialogs or modals' }

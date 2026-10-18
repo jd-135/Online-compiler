@@ -4,17 +4,14 @@ import {
   X, 
   Plus, 
   Check, 
-  CornerDownLeft,
-  FilePlus2,
-  Trash2,
   FolderTree,
-  PanelLeftOpen,
   Sparkles,
   Package,
   Braces,
   Terminal
 } from 'lucide-react';
 import { COMPLETIONS_BY_LANG } from '../constants/completions';
+import { highlightCode } from '../utils/syntaxHighlighter';
 
 export function EditorPanel({
   selectedLanguage,
@@ -33,6 +30,8 @@ export function EditorPanel({
 }) {
   const textareaRef = useRef(null);
   const gutterRef = useRef(null);
+  const preRef = useRef(null);
+
   const [activeLine, setActiveLine] = useState(1);
   const [isCreatingFile, setIsCreatingFile] = useState(false);
   const [newFileName, setNewFileName] = useState('');
@@ -49,6 +48,11 @@ export function EditorPanel({
     setShowAutocomplete(false);
   }, [selectedLanguage.id]);
 
+  // Syntax highlighting markup
+  const highlightedCodeHtml = useMemo(() => {
+    return highlightCode(code, selectedLanguage.id);
+  }, [code, selectedLanguage.id]);
+
   // Calculate line numbers
   const lines = useMemo(() => {
     return (code || '').split('\n');
@@ -56,19 +60,56 @@ export function EditorPanel({
 
   const totalLines = lines.length;
 
-  // Sync scroll between textarea and line numbers gutter
+  // Sync scroll between textarea, syntax highlighting layer, and line numbers gutter
   const handleScroll = () => {
-    if (textareaRef.current && gutterRef.current) {
-      gutterRef.current.scrollTop = textareaRef.current.scrollTop;
+    if (textareaRef.current) {
+      const top = textareaRef.current.scrollTop;
+      const left = textareaRef.current.scrollLeft;
+
+      if (gutterRef.current) {
+        gutterRef.current.scrollTop = top;
+      }
+      if (preRef.current) {
+        preRef.current.scrollTop = top;
+        preRef.current.scrollLeft = left;
+      }
     }
-    // Dismiss suggestions on aggressive scrolling
+    // Dismiss suggestions on scrolling
     if (showAutocomplete) {
       setShowAutocomplete(false);
     }
   };
 
+  // Automatically keep cursor and active line comfortably visible in the viewport
+  const ensureCursorVisible = () => {
+    if (!textareaRef.current) return;
+    const textarea = textareaRef.current;
+    const pos = textarea.selectionStart;
+    const textBefore = (textarea.value || '').substring(0, pos);
+    const lineCount = textBefore.split('\n').length;
+    const lineHeightPx = 25.6; // 1.6rem * 16px
+    const cursorY = lineCount * lineHeightPx;
+    const visibleTop = textarea.scrollTop;
+    const visibleBottom = textarea.scrollTop + textarea.clientHeight;
+
+    // Scroll down if near or below viewport bottom
+    if (cursorY + lineHeightPx * 2 > visibleBottom) {
+      textarea.scrollTop = Math.max(0, cursorY - textarea.clientHeight + (lineHeightPx * 3));
+    } else if (cursorY - lineHeightPx < visibleTop) {
+      textarea.scrollTop = Math.max(0, cursorY - (lineHeightPx * 2));
+    }
+
+    if (gutterRef.current) {
+      gutterRef.current.scrollTop = textarea.scrollTop;
+    }
+    if (preRef.current) {
+      preRef.current.scrollTop = textarea.scrollTop;
+      preRef.current.scrollLeft = textarea.scrollLeft;
+    }
+  };
+
   // Track cursor position
-  const updateCursorPosition = () => {
+  const updateCursorPosition = (shouldScroll = false) => {
     if (!textareaRef.current) return;
     const pos = textareaRef.current.selectionStart;
     const textBefore = (code || '').substring(0, pos);
@@ -79,6 +120,9 @@ export function EditorPanel({
     setActiveLine(lineNum);
     if (onUpdateCursor) {
       onUpdateCursor({ line: lineNum, col: colNum });
+    }
+    if (shouldScroll) {
+      ensureCursorVisible();
     }
   };
 
@@ -109,8 +153,8 @@ export function EditorPanel({
 
     // Check Python triple-quote docstrings
     if (langId === 'python') {
-      const tripleDoubleCount = (textBefore.split('"""').length - 1);
-      const tripleSingleCount = (textBefore.split("'''").length - 1);
+      const tripleDoubleCount = textBefore.split('"""').length - 1;
+      const tripleSingleCount = textBefore.split("'''").length - 1;
       if (tripleDoubleCount % 2 === 1 || tripleSingleCount % 2 === 1) {
         return true;
       }
@@ -144,12 +188,13 @@ export function EditorPanel({
       return;
     }
 
-    // Extract current token (letters, numbers, underscore, '#', '.')
-    const match = currentLine.match(/([#a-zA-Z0-9_\.]+)$/);
+    // Extract current token: ONLY letters, numbers, underscore, or '#' at start.
+    // Explicitly avoids symbols like '==', '=', '(', ')', etc.
+    const match = currentLine.match(/([a-zA-Z_][a-zA-Z0-9_]*|#[a-zA-Z0-9_]*)$/);
     const currentToken = match ? match[1] : '';
     const trimmedLine = currentLine.trim();
 
-    // Do not trigger on empty string or single trivial characters
+    // Do not trigger on empty string, punctuation, or single non-# characters
     if (!currentToken || (currentToken.length < 2 && !currentToken.startsWith('#'))) {
       setShowAutocomplete(false);
       return;
@@ -181,12 +226,17 @@ export function EditorPanel({
       }
 
       // 1. Trigger array match
-      if (item.trigger && item.trigger.some(trig => trig.startsWith(tokenLower) || tokenLower.startsWith(trig))) {
+      if (item.trigger && item.trigger.some(trig => trig.startsWith(tokenLower))) {
         return true;
       }
-      // 2. Starts with current line or label contains token
-      if (item.label.toLowerCase().includes(tokenLower)) return true;
-      if (item.insertText.toLowerCase().startsWith(lineLower)) return true;
+      // 2. Starts with current token
+      if (item.label.toLowerCase().startsWith(tokenLower)) return true;
+      if (item.insertText.toLowerCase().startsWith(tokenLower)) return true;
+
+      // 3. Match word prefix in multi-word labels (e.g. 'randint' in 'random.randint')
+      const words = item.label.toLowerCase().split(/[\s\._\(\)]+/);
+      if (words.some(w => w.startsWith(tokenLower))) return true;
+
       return false;
     });
 
@@ -228,7 +278,7 @@ export function EditorPanel({
 
     const lastNewlineIdx = textBefore.lastIndexOf('\n');
     const currentLine = lastNewlineIdx === -1 ? textBefore : textBefore.substring(lastNewlineIdx + 1);
-    const match = currentLine.match(/([#a-zA-Z0-9_\.]+)$/);
+    const match = currentLine.match(/([a-zA-Z_][a-zA-Z0-9_]*|#[a-zA-Z0-9_]*)$/);
     const currentToken = match ? match[1] : '';
 
     // If item is full-line import or module, replace cleanly from after line indentation
@@ -248,7 +298,7 @@ export function EditorPanel({
       const newPos = prefix.length + (item.cursorOffset ?? item.insertText.length);
       textarea.selectionStart = textarea.selectionEnd = newPos;
       textarea.focus();
-      updateCursorPosition();
+      updateCursorPosition(true);
     });
   };
 
@@ -272,7 +322,7 @@ export function EditorPanel({
     setIsCreatingFile(false);
   };
 
-  // Keystroke handler (Tab indent, Auto-close, Enter indent, and CTRL+ENTER TO RUN)
+  // Keystroke handler (Tab indent, Auto-close, Enter indent, CTRL+/, and CTRL+ENTER TO RUN)
   const handleKeyDown = (e) => {
     // Priority: Ctrl + Enter or Cmd + Enter to Compile & Run
     if ((e.ctrlKey || e.metaKey) && e.key === 'Enter') {
@@ -281,6 +331,61 @@ export function EditorPanel({
       if (onRunCode) {
         onRunCode();
       }
+      return;
+    }
+
+    // Ctrl + / (or Cmd + /) to toggle comment on current line or selection
+    if ((e.ctrlKey || e.metaKey) && (e.key === '/' || e.code === 'Slash')) {
+      e.preventDefault();
+      const textarea = textareaRef.current;
+      if (!textarea) return;
+
+      const { selectionStart, selectionEnd, value } = textarea;
+      const isPython = selectedLanguage.id === 'python';
+      const commentPrefix = isPython ? '# ' : '// ';
+      const commentRegex = isPython ? /^(\s*)#\s?(.*)$/ : /^(\s*)\/\/\s?(.*)$/;
+
+      const firstLineStart = value.substring(0, selectionStart).lastIndexOf('\n') + 1;
+      let lastLineEnd = value.indexOf('\n', selectionEnd);
+      if (lastLineEnd === -1) lastLineEnd = value.length;
+
+      const targetText = value.substring(firstLineStart, lastLineEnd);
+      const targetLines = targetText.split('\n');
+
+      // Check if all non-empty lines are commented
+      const nonEmptyLines = targetLines.filter((l) => l.trim().length > 0);
+      const allCommented =
+        nonEmptyLines.length > 0 &&
+        nonEmptyLines.every((l) => {
+          const t = l.trim();
+          return isPython ? t.startsWith('#') : t.startsWith('//');
+        });
+
+      let newLines;
+      if (allCommented) {
+        // Uncomment all
+        newLines = targetLines.map((line) => {
+          const m = line.match(commentRegex);
+          return m ? m[1] + m[2] : line;
+        });
+      } else {
+        // Comment all non-empty lines
+        newLines = targetLines.map((line) => {
+          if (targetLines.length > 1 && line.trim().length === 0) return line;
+          const m = line.match(/^(\s*)(.*)$/);
+          return m ? m[1] + commentPrefix + m[2] : commentPrefix + line;
+        });
+      }
+
+      const replacement = newLines.join('\n');
+      const newCode = value.substring(0, firstLineStart) + replacement + value.substring(lastLineEnd);
+      onChangeCode(newCode);
+
+      requestAnimationFrame(() => {
+        textarea.selectionStart = firstLineStart;
+        textarea.selectionEnd = firstLineStart + replacement.length;
+        updateCursorPosition(true);
+      });
       return;
     }
 
@@ -327,6 +432,16 @@ export function EditorPanel({
         e.preventDefault();
         setShowAutocomplete(false);
         return;
+      }
+    }
+
+    // Auto-dismiss autocomplete on navigation keys or operators/punctuation
+    if (showAutocomplete) {
+      if ([' ', '=', ';', '(', ')', '{', '}', '[', ']', ',', ':', '+', '-', '*', '/', '%', '!', '<', '>', '&', '|'].includes(e.key)) {
+        setShowAutocomplete(false);
+      }
+      if (['ArrowLeft', 'ArrowRight', 'Home', 'End', 'PageUp', 'PageDown'].includes(e.key)) {
+        setShowAutocomplete(false);
       }
     }
 
@@ -407,7 +522,7 @@ export function EditorPanel({
       }
     }
 
-    // Enter key: maintain existing indentation
+    // Enter key: maintain existing indentation and auto-scroll viewport
     if (e.key === 'Enter') {
       const curLineStart = value.substring(0, selectionStart).lastIndexOf('\n') + 1;
       const curLine = value.substring(curLineStart, selectionStart);
@@ -425,16 +540,16 @@ export function EditorPanel({
       onChangeCode(newCode);
       requestAnimationFrame(() => {
         textarea.selectionStart = textarea.selectionEnd = selectionStart + insert.length;
-        updateCursorPosition();
+        updateCursorPosition(true);
       });
       return;
     }
   };
 
   return (
-    <div className="flex-1 flex flex-col h-full bg-[#0f1117] overflow-hidden select-text border-r border-[#30363d]">
+    <div className="flex-1 flex flex-col h-full bg-[#0f1117] overflow-hidden select-text border-r border-[#30363d]" style={{ backgroundColor: 'var(--bg-primary)', borderColor: 'var(--border-color)' }}>
       {/* LANGUAGE-SPECIFIC FILE TABS STRIP */}
-      <div className="h-10 bg-[#161b22] border-b border-[#30363d] flex items-center justify-between overflow-x-auto select-none px-2 shrink-0">
+      <div className="h-10 bg-[#161b22] border-b border-[#30363d] flex items-center justify-between overflow-x-auto select-none px-2 shrink-0" style={{ backgroundColor: 'var(--bg-secondary)', borderColor: 'var(--border-color)' }}>
         <div className="flex items-center gap-1.5 h-full">
           {/* Quick Show Workspace button when sidebar is collapsed */}
           {!isExplorerOpen && (
@@ -442,8 +557,9 @@ export function EditorPanel({
               onClick={onToggleExplorer}
               title="Open Workspace / File Explorer (Ctrl+B)"
               className="h-7 px-2.5 rounded-lg bg-[#21262d] hover:bg-[#30363d] text-[#e6edf3] hover:text-[#58a6ff] border border-[#30363d] flex items-center gap-1.5 text-xs transition-all mr-1 animate-in fade-in duration-150"
+              style={{ backgroundColor: 'var(--bg-tertiary)', borderColor: 'var(--border-color)', color: 'var(--text-primary)' }}
             >
-              <FolderTree size={13} className="text-[#58a6ff]" />
+              <FolderTree size={13} className="text-[#58a6ff]" style={{ color: 'var(--accent-primary)' }} />
               <span className="font-medium text-[11px]">Workspace</span>
             </button>
           )}
@@ -460,6 +576,11 @@ export function EditorPanel({
                     ? 'bg-[#21262d] text-[#58a6ff] font-semibold border border-[#58a6ff]/40 shadow-xs'
                     : 'bg-[#161b22] text-[#8b949e] hover:bg-[#21262d] hover:text-[#e6edf3] border border-transparent'
                 }`}
+                style={
+                  isActive
+                    ? { backgroundColor: 'var(--bg-tertiary)', color: 'var(--accent-primary)', borderColor: 'var(--accent-primary)' }
+                    : { color: 'var(--text-secondary)' }
+                }
               >
                 <span
                   className="w-2 h-2 rounded-full shrink-0"
@@ -523,7 +644,7 @@ export function EditorPanel({
 
         {/* Language Badge on right */}
         <div className="hidden sm:flex items-center gap-2 text-[#8b949e] text-xs pr-2">
-          <span className="text-[11px] font-mono bg-[#21262d] border border-[#30363d] text-[#8b949e] px-2 py-0.5 rounded-md">
+          <span className="text-[11px] font-mono bg-[#21262d] border border-[#30363d] text-[#8b949e] px-2 py-0.5 rounded-md" style={{ backgroundColor: 'var(--bg-tertiary)', borderColor: 'var(--border-color)', color: 'var(--text-secondary)' }}>
             {selectedLanguage.name} Workspace
           </span>
         </div>
@@ -538,7 +659,12 @@ export function EditorPanel({
         <div
           ref={gutterRef}
           className="w-12 bg-[#161b22] text-[#8b949e] text-right pr-3 select-none py-3 overflow-hidden border-r border-[#30363d] shrink-0 font-mono"
-          style={{ lineHeight: '1.6rem' }}
+          style={{ 
+            lineHeight: '1.6rem',
+            backgroundColor: 'var(--bg-secondary)',
+            borderColor: 'var(--border-color)',
+            color: 'var(--text-secondary)'
+          }}
         >
           {Array.from({ length: Math.max(totalLines, 20) }).map((_, idx) => {
             const lineNum = idx + 1;
@@ -549,6 +675,7 @@ export function EditorPanel({
                 className={`h-[1.6rem] transition-colors ${
                   isCurrent ? 'text-[#58a6ff] font-bold bg-[#58a6ff]/10' : ''
                 }`}
+                style={isCurrent ? { color: 'var(--accent-primary)' } : {}}
               >
                 {lineNum <= totalLines ? lineNum : ''}
               </div>
@@ -556,8 +683,25 @@ export function EditorPanel({
           })}
         </div>
 
-        {/* Textarea Code Editor */}
-        <div className="flex-1 relative h-full overflow-hidden bg-[#0f1117]">
+        {/* Textarea Code Editor with Real-Time Syntax Highlighting Underlay */}
+        <div className="flex-1 relative h-full overflow-hidden bg-[#0f1117]" style={{ backgroundColor: 'var(--bg-primary)' }}>
+          {/* Syntax Highlight Preview Layer */}
+          <pre
+            ref={preRef}
+            aria-hidden="true"
+            className="absolute inset-0 m-0 p-3 pl-3 pointer-events-none font-mono code-font overflow-hidden whitespace-pre select-none"
+            style={{
+              fontSize: `${settings.fontSize || 14}px`,
+              lineHeight: '1.6rem',
+              tabSize: settings.tabSize || 4,
+              whiteSpace: settings.wordWrap ? 'pre-wrap' : 'pre',
+              wordBreak: 'break-word',
+              color: 'var(--text-primary)'
+            }}
+            dangerouslySetInnerHTML={{ __html: highlightedCodeHtml }}
+          />
+
+          {/* Interactive Textarea Layer */}
           <textarea
             ref={textareaRef}
             value={code}
@@ -568,9 +712,12 @@ export function EditorPanel({
               checkSuggestions(newCode, e.target.selectionStart);
             }}
             onKeyDown={handleKeyDown}
-            onKeyUp={updateCursorPosition}
+            onKeyUp={() => updateCursorPosition()}
             onClick={() => {
               updateCursorPosition();
+              setShowAutocomplete(false);
+            }}
+            onBlur={() => {
               setShowAutocomplete(false);
             }}
             onScroll={handleScroll}
@@ -583,11 +730,14 @@ export function EditorPanel({
             autoCapitalize="none"
             autoComplete="off"
             autoCorrect="off"
-            className="w-full h-full bg-transparent text-[#e6edf3] p-3 pl-3 resize-none outline-none font-mono code-font overflow-auto select-text whitespace-pre placeholder:text-[#8b949e]/60 placeholder:italic"
+            className="absolute inset-0 w-full h-full bg-transparent text-transparent caret-[#58a6ff] p-3 pl-3 resize-none outline-none font-mono code-font overflow-auto select-text whitespace-pre placeholder:text-[#8b949e]/60 placeholder:italic selection:bg-[#58a6ff]/35"
             style={{
+              fontSize: `${settings.fontSize || 14}px`,
               lineHeight: '1.6rem',
               tabSize: settings.tabSize || 4,
-              whiteSpace: settings.wordWrap ? 'pre-wrap' : 'pre'
+              whiteSpace: settings.wordWrap ? 'pre-wrap' : 'pre',
+              wordBreak: 'break-word',
+              caretColor: 'var(--accent-primary, #58a6ff)'
             }}
           />
 
@@ -598,13 +748,18 @@ export function EditorPanel({
                 top: `${dropdownPos.top}px`,
                 left: `${dropdownPos.left}px`,
                 maxWidth: '380px',
-                minWidth: '290px'
+                minWidth: '290px',
+                backgroundColor: 'var(--bg-secondary)',
+                borderColor: 'var(--border-color)'
               }}
-              className="absolute z-50 bg-[#161b22] border border-[#30363d] rounded-xl shadow-2xl shadow-black/90 overflow-hidden animate-in fade-in zoom-in-95 duration-100 font-sans"
+              className="absolute z-50 border rounded-xl shadow-2xl shadow-black/90 overflow-hidden animate-in fade-in zoom-in-95 duration-100 font-sans"
             >
               {/* Header */}
-              <div className="h-6 px-2.5 bg-[#21262d] border-b border-[#30363d] flex items-center justify-between text-[10px] text-[#8b949e] font-semibold tracking-wide uppercase select-none">
-                <span className="flex items-center gap-1 text-[#58a6ff]">
+              <div 
+                className="h-6 px-2.5 bg-[#21262d] border-b border-[#30363d] flex items-center justify-between text-[10px] text-[#8b949e] font-semibold tracking-wide uppercase select-none"
+                style={{ backgroundColor: 'var(--bg-tertiary)', borderColor: 'var(--border-color)', color: 'var(--text-secondary)' }}
+              >
+                <span className="flex items-center gap-1 text-[#58a6ff]" style={{ color: 'var(--accent-primary)' }}>
                   <Sparkles size={11} />
                   <span>Suggestions</span>
                 </span>
@@ -637,17 +792,25 @@ export function EditorPanel({
                           ? 'bg-[#21262d] text-[#e6edf3] border-l-2 border-[#58a6ff]'
                           : 'text-[#8b949e] hover:bg-[#21262d]/60 hover:text-[#e6edf3]'
                       }`}
+                      style={
+                        isHighlighted
+                          ? { backgroundColor: 'var(--bg-tertiary)', color: 'var(--text-primary)', borderLeftColor: 'var(--accent-primary)' }
+                          : { color: 'var(--text-secondary)' }
+                      }
                     >
                       <div className="flex items-center gap-2 overflow-hidden">
-                        {item.kind === 'module' && <Package size={13} className="text-[#58a6ff] shrink-0" />}
-                        {item.kind === 'function' && <Terminal size={13} className="text-[#3fb950] shrink-0" />}
+                        {item.kind === 'module' && <Package size={13} className="text-[#58a6ff] shrink-0" style={{ color: 'var(--accent-primary)' }} />}
+                        {item.kind === 'function' && <Terminal size={13} className="text-[#3fb950] shrink-0" style={{ color: 'var(--accent-success)' }} />}
                         {item.kind === 'snippet' && <Braces size={13} className="text-purple-400 shrink-0" />}
-                        <span className="font-mono text-xs text-[#e6edf3] truncate font-medium">
+                        <span className="font-mono text-xs text-[#e6edf3] truncate font-medium" style={{ color: 'var(--text-primary)' }}>
                           {item.label}
                         </span>
                       </div>
 
-                      <span className="text-[9px] px-1.5 py-0.2 rounded font-mono uppercase shrink-0 bg-[#0f1117] text-[#8b949e] border border-[#30363d]">
+                      <span 
+                        className="text-[9px] px-1.5 py-0.2 rounded font-mono uppercase shrink-0 bg-[#0f1117] text-[#8b949e] border border-[#30363d]"
+                        style={{ backgroundColor: 'var(--bg-primary)', borderColor: 'var(--border-color)', color: 'var(--text-secondary)' }}
+                      >
                         {item.kind}
                       </span>
                     </div>
@@ -657,7 +820,10 @@ export function EditorPanel({
 
               {/* Active Item Description Footer */}
               {suggestions[selectedSuggestionIdx]?.detail && (
-                <div className="px-2.5 py-1.5 bg-[#0f1117] border-t border-[#30363d] text-[11px] text-[#8b949e] truncate font-sans select-none">
+                <div 
+                  className="px-2.5 py-1.5 bg-[#0f1117] border-t border-[#30363d] text-[11px] text-[#8b949e] truncate font-sans select-none"
+                  style={{ backgroundColor: 'var(--bg-primary)', borderColor: 'var(--border-color)', color: 'var(--text-secondary)' }}
+                >
                   {suggestions[selectedSuggestionIdx].detail}
                 </div>
               )}
