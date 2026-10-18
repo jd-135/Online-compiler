@@ -10,7 +10,6 @@ import { SettingsModal } from './components/SettingsModal';
 import { SplashScreen } from './components/SplashScreen';
 
 import { LANGUAGES } from './constants/languages';
-import { CODE_TEMPLATES } from './constants/templates';
 import { runCode } from './services/compilerService';
 
 // Bumping storage key to v5 so all users get clean empty editor on first visit
@@ -58,8 +57,6 @@ export default function App() {
     cpp: 'cpp_1',
     java: 'java_1'
   });
-
-  const [activeTemplateType, setActiveTemplateType] = useState('hello');
 
   // Execution states
   const [isRunning, setIsRunning] = useState(false);
@@ -227,17 +224,9 @@ export default function App() {
     }
   };
 
-  // Switch template (Hello World vs Interactive I/O)
-  const handleSwitchTemplate = (type) => {
-    setActiveTemplateType(type);
-    const template = CODE_TEMPLATES[selectedLanguage.id]?.[type] || '';
-    handleChangeCode(template);
-  };
-
-  // Reset current active file to template
+  // Clear current active file code
   const handleResetCode = () => {
-    const template = CODE_TEMPLATES[selectedLanguage.id]?.[activeTemplateType] || '';
-    handleChangeCode(template);
+    handleChangeCode('');
   };
 
   // Load snippet into current active file
@@ -347,8 +336,6 @@ export default function App() {
         isRunning={isRunning}
         onResetCode={handleResetCode}
         activeFile={activeFile}
-        activeTemplateType={activeTemplateType}
-        onSwitchTemplate={handleSwitchTemplate}
         onToggleShortcuts={() => setShowShortcuts(true)}
         onToggleSettings={() => setShowSettings(true)}
         onNewFile={() => handleAddFile(`script_${currentLangFiles.length + 1}${selectedLanguage.extension}`)}

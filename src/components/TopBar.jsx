@@ -20,8 +20,6 @@ export function TopBar({
   isRunning,
   onResetCode,
   activeFile,
-  activeTemplateType,
-  onSwitchTemplate,
   onToggleShortcuts,
   onToggleSettings,
   onNewFile
@@ -135,30 +133,6 @@ export function TopBar({
             </div>
           )}
         </div>
-
-        {/* Template Selector (Hello World vs Standard I/O) */}
-        <div className="hidden md:flex items-center rounded-md bg-[#21262d] p-0.5 border border-[#30363d]">
-          <button
-            onClick={() => onSwitchTemplate('hello')}
-            className={`px-2.5 py-1 text-[11px] font-medium rounded transition-colors ${
-              activeTemplateType === 'hello'
-                ? 'bg-[#161b22] text-[#58a6ff] shadow-xs border border-[#30363d]'
-                : 'text-[#8b949e] hover:text-[#e6edf3]'
-            }`}
-          >
-            Hello World
-          </button>
-          <button
-            onClick={() => onSwitchTemplate('io')}
-            className={`px-2.5 py-1 text-[11px] font-medium rounded transition-colors ${
-              activeTemplateType === 'io'
-                ? 'bg-[#161b22] text-[#58a6ff] shadow-xs border border-[#30363d]'
-                : 'text-[#8b949e] hover:text-[#e6edf3]'
-            }`}
-          >
-            Standard I/O
-          </button>
-        </div>
       </div>
 
       {/* Right: Actions & Run Code Button */}
@@ -183,10 +157,10 @@ export function TopBar({
           <span className="hidden sm:inline font-medium">Download {activeFile?.name}</span>
         </button>
 
-        {/* Reset Template */}
+        {/* Clear Code */}
         <button
           onClick={onResetCode}
-          title="Reset code template"
+          title="Clear code"
           className="p-1.5 text-[#8b949e] hover:text-[#e6edf3] hover:bg-[#21262d] rounded-md transition-colors"
         >
           <RotateCcw size={15} />
