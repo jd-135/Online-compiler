@@ -74,7 +74,7 @@ export function TopBar({
           </div>
           <div>
             <div className="flex items-center gap-1.5">
-              <span className="text-xs font-bold tracking-tight text-[#e6edf3] font-mono">CodePulse</span>
+              <span className="text-xs font-bold tracking-tight text-[#e6edf3] font-mono">JD COMPILER</span>
               <span className="text-[10px] font-semibold text-[#58a6ff] bg-[#58a6ff]/10 border border-[#58a6ff]/30 px-1.5 py-0.2 rounded-full">
                 Studio
               </span>

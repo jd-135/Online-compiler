@@ -84,6 +84,20 @@ export function SettingsModal({ isOpen, onClose, settings, onUpdateSettings }) {
               className="w-4 h-4 rounded bg-[#0f1117] border-[#30363d] text-[#58a6ff] focus:ring-0 cursor-pointer accent-[#58a6ff]"
             />
           </div>
+
+          {/* Code Autocomplete Dropdown Toggle */}
+          <div className="flex items-center justify-between">
+            <div>
+              <div className="font-medium text-[#e6edf3]">Code Autocomplete Dropdown</div>
+              <div className="text-[11px] text-[#8b949e]">Show automatic import & code suggestions while typing</div>
+            </div>
+            <input
+              type="checkbox"
+              checked={settings.autocomplete !== false}
+              onChange={(e) => onUpdateSettings({ ...settings, autocomplete: e.target.checked })}
+              className="w-4 h-4 rounded bg-[#0f1117] border-[#30363d] text-[#58a6ff] focus:ring-0 cursor-pointer accent-[#58a6ff]"
+            />
+          </div>
         </div>
 
         <div className="bg-[#161b22] px-4 py-3 text-[11px] text-[#8b949e] border-t border-[#30363d] flex justify-end">

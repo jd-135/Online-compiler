@@ -1,19 +1,22 @@
-# 🚀 CodeStudio — VS Code-Inspired Online Compiler
+# 🚀 JD COMPILER — Ultra-Fast Multi-Language Online IDE
 
-A production-ready, high-performance Online Code Compiler web application built with **React**, **Vite**, and **Tailwind CSS**, optimized for instant one-click deployment on **Vercel**.
+A production-ready, ultra-fast Online Code Compiler web application built with **React**, **Vite**, and **Tailwind CSS**, optimized for instant deployment on **Vercel**.
 
-Designed with an authentic **VS Code Dark Modern** user interface, dual-pane layout, real-time diagnostic reporting, interactive standard input (`stdin`), and a dual-provider cloud execution engine (**Judge0 CE + Wandbox Fallback**).
+Featuring an authentic custom-themed IDE layout, intelligent **Code Autocomplete & Snippet Dropdowns** (with toggles in Settings), client-side **Python WebAssembly VM (Pyodide)** with built-in support for **NumPy, Pandas, Math, Random, and Statistics**, and high-resilience sandboxes for **C, C++, and Java**.
 
 ---
 
 ## 🌟 Core Features
 
-- **VS Code Dark Modern UI**: Authentic workbench layout featuring an Activity Bar, File Explorer, Tab bar with dirty indicators, customizable line-number gutter, status bar, and resizable console.
+- **JD COMPILER Custom Palette**: Built with deep matte charcoal (`#0f1117`), panels (`#161b22`), tech-blue (`#58a6ff`), and emerald green (`#3fb950`).
+- **Intelligent Code Autocomplete**: Instant suggestion dropdown when typing `import`, keywords, modules (`numpy`, `pandas`, `math`, `random`, `statistics`), with keyboard navigation (`↑`/`↓`, `Tab`, `Enter`).
+- **Settings Toggle**: Instant option in Settings to enable/disable code autocomplete suggestions on demand.
+- **Python WebAssembly JIT**: Zero-latency in-browser execution with complete support for `numpy`, `pandas`, `math`, `random`, `statistics`, `scipy`, and standard libraries.
 - **Full Support for 4 Core Languages**:
-  - 🐍 **Python**: CPython 3.12 / 3.10 with standard library support
-  - ☕ **Java**: OpenJDK LTS (JDK 17 / 21) with `java.util.*`, `java.io.*` support
-  - ⚡ **C**: GNU GCC 14 / 13 with C17/C23 standards
-  - 🚀 **C++**: GNU G++ 14 / 13 with modern C++20/C++23 STL support
+  - 🐍 **Python**: 3.12 (Instant WebAssembly + NumPy & Pandas)
+  - ☕ **Java**: OpenJDK 21 LTS (`java.util.*`, `java.io.*`, `java.math.*`)
+  - ⚡ **C**: GNU GCC 14 / 13 (C17 standard)
+  - 🚀 **C++**: GNU G++ 14 / 13 (C++20/C++23 STL)
 - **Pre-loaded Boilerplate Templates**:
   - Automatically loads standard **"Hello World"** or **"Standard I/O"** templates when switching languages.
   - Interactive template toggle in the top bar.

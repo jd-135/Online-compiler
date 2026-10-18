@@ -1,4 +1,5 @@
 import { LANGUAGE_MAP } from '../constants/languages';
+import { runPythonInPyodide } from './pyodideRunner';
 
 /**
  * Normalizes compilation output from Judge0 or Wandbox
@@ -155,6 +156,16 @@ async function executeViaWandbox(languageId, code, stdin = '') {
  */
 export async function runCode({ language, code, stdin }) {
   const startTime = performance.now();
+
+  // Instant Native Python VM (Pyodide): runs in WebAssembly with numpy, pandas, math, random, stats
+  if (language === 'python' && typeof window !== 'undefined') {
+    try {
+      const pyResult = await runPythonInPyodide(code, stdin);
+      return pyResult;
+    } catch (pyErr) {
+      console.warn('Pyodide engine unavailable, falling back to server sandbox:', pyErr.message);
+    }
+  }
 
   // First, if hosted on Vercel or dev server with /api proxy, try our internal endpoint
   try {

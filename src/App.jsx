@@ -77,13 +77,29 @@ export default function App() {
   const isDraggingRef = useRef(false);
   const containerRef = useRef(null);
 
-  // Editor settings
-  const [settings, setSettings] = useState({
-    fontSize: 14,
-    tabSize: 4,
-    autoCloseBrackets: true,
-    wordWrap: false
+  // Editor settings (persisted to localStorage)
+  const [settings, setSettings] = useState(() => {
+    try {
+      const savedSettings = localStorage.getItem('jd_compiler_settings');
+      if (savedSettings) {
+        return JSON.parse(savedSettings);
+      }
+    } catch {}
+    return {
+      fontSize: 14,
+      tabSize: 4,
+      autoCloseBrackets: true,
+      wordWrap: false,
+      autocomplete: true
+    };
   });
+
+  // Persist settings
+  useEffect(() => {
+    try {
+      localStorage.setItem('jd_compiler_settings', JSON.stringify(settings));
+    } catch {}
+  }, [settings]);
 
   // Persist files to localStorage
   useEffect(() => {

@@ -1,4 +1,4 @@
-import React, { useRef, useState, useMemo } from 'react';
+import React, { useRef, useState, useMemo, useEffect } from 'react';
 import { 
   FileCode, 
   X, 
@@ -8,8 +8,13 @@ import {
   FilePlus2,
   Trash2,
   FolderTree,
-  PanelLeftOpen
+  PanelLeftOpen,
+  Sparkles,
+  Package,
+  Braces,
+  Terminal
 } from 'lucide-react';
+import { COMPLETIONS_BY_LANG } from '../constants/completions';
 
 export function EditorPanel({
   selectedLanguage,
@@ -32,6 +37,17 @@ export function EditorPanel({
   const [isCreatingFile, setIsCreatingFile] = useState(false);
   const [newFileName, setNewFileName] = useState('');
 
+  // Autocomplete state
+  const [suggestions, setSuggestions] = useState([]);
+  const [selectedSuggestionIdx, setSelectedSuggestionIdx] = useState(0);
+  const [dropdownPos, setDropdownPos] = useState({ top: 40, left: 60 });
+  const [showAutocomplete, setShowAutocomplete] = useState(false);
+
+  // Close autocomplete on language switch
+  useEffect(() => {
+    setShowAutocomplete(false);
+  }, [selectedLanguage.id]);
+
   // Calculate line numbers
   const lines = useMemo(() => {
     return (code || '').split('\n');
@@ -43,6 +59,10 @@ export function EditorPanel({
   const handleScroll = () => {
     if (textareaRef.current && gutterRef.current) {
       gutterRef.current.scrollTop = textareaRef.current.scrollTop;
+    }
+    // Dismiss suggestions on aggressive scrolling
+    if (showAutocomplete) {
+      setShowAutocomplete(false);
     }
   };
 
@@ -59,6 +79,92 @@ export function EditorPanel({
     if (onUpdateCursor) {
       onUpdateCursor({ line: lineNum, col: colNum });
     }
+  };
+
+  // Intelligent Autocomplete Trigger & Position Calculator
+  const checkSuggestions = (newCode, cursorPos) => {
+    // If autocomplete is toggled off in settings, don't show
+    if (settings?.autocomplete === false) {
+      setShowAutocomplete(false);
+      return;
+    }
+
+    const textBefore = (newCode || '').substring(0, cursorPos);
+    const lastNewlineIdx = textBefore.lastIndexOf('\n');
+    const currentLine = lastNewlineIdx === -1 ? textBefore : textBefore.substring(lastNewlineIdx + 1);
+
+    // Extract current token (letters, numbers, underscore, '#', '.')
+    const match = currentLine.match(/([#a-zA-Z0-9_\.]+)$/);
+    const currentToken = match ? match[1] : '';
+    const trimmedLine = currentLine.trim();
+
+    if (!currentToken && trimmedLine.length < 2) {
+      setShowAutocomplete(false);
+      return;
+    }
+
+    const langList = COMPLETIONS_BY_LANG[selectedLanguage.id] || [];
+    const tokenLower = currentToken.toLowerCase();
+    const lineLower = trimmedLine.toLowerCase();
+
+    const matches = langList.filter((item) => {
+      // 1. Trigger array match
+      if (item.trigger && item.trigger.some(trig => trig.startsWith(tokenLower) || tokenLower.startsWith(trig))) {
+        return true;
+      }
+      // 2. Starts with current line or label contains token
+      if (item.label.toLowerCase().includes(tokenLower)) return true;
+      if (item.insertText.toLowerCase().startsWith(lineLower)) return true;
+      return false;
+    });
+
+    if (matches.length > 0) {
+      setSuggestions(matches.slice(0, 7));
+      setSelectedSuggestionIdx(0);
+
+      // Compute visual cursor offset
+      const lineArr = textBefore.split('\n');
+      const lineNum = lineArr.length;
+      const colNum = lineArr[lineArr.length - 1].length;
+
+      const topOffset = Math.min(lineNum * 25.6 - (textareaRef.current?.scrollTop || 0) + 10, (textareaRef.current?.clientHeight || 400) - 220);
+      const leftOffset = Math.min(colNum * 8.5 + 20, (textareaRef.current?.clientWidth || 600) - 340);
+
+      setDropdownPos({
+        top: Math.max(15, topOffset),
+        left: Math.max(15, leftOffset)
+      });
+      setShowAutocomplete(true);
+    } else {
+      setShowAutocomplete(false);
+    }
+  };
+
+  // Apply suggestion at cursor position
+  const applySuggestion = (item) => {
+    if (!item || !textareaRef.current) return;
+    const textarea = textareaRef.current;
+    const pos = textarea.selectionStart;
+    const textBefore = code.substring(0, pos);
+    const textAfter = code.substring(pos);
+
+    const lastNewlineIdx = textBefore.lastIndexOf('\n');
+    const currentLine = lastNewlineIdx === -1 ? textBefore : textBefore.substring(lastNewlineIdx + 1);
+    const match = currentLine.match(/([#a-zA-Z0-9_\.]+)$/);
+    const currentToken = match ? match[1] : '';
+
+    const prefix = textBefore.substring(0, textBefore.length - currentToken.length);
+    const newFullCode = prefix + item.insertText + textAfter;
+
+    onChangeCode(newFullCode);
+    setShowAutocomplete(false);
+
+    requestAnimationFrame(() => {
+      const newPos = prefix.length + (item.cursorOffset ?? item.insertText.length);
+      textarea.selectionStart = textarea.selectionEnd = newPos;
+      textarea.focus();
+      updateCursorPosition();
+    });
   };
 
   // Handle creating a new file for the current language
@@ -86,6 +192,7 @@ export function EditorPanel({
     // Priority: Ctrl + Enter or Cmd + Enter to Compile & Run
     if ((e.ctrlKey || e.metaKey) && e.key === 'Enter') {
       e.preventDefault();
+      setShowAutocomplete(false);
       if (onRunCode) {
         onRunCode();
       }
@@ -99,6 +206,30 @@ export function EditorPanel({
         onToggleExplorer();
       }
       return;
+    }
+
+    // Autocomplete dropdown navigation & selection
+    if (showAutocomplete && suggestions.length > 0) {
+      if (e.key === 'ArrowDown') {
+        e.preventDefault();
+        setSelectedSuggestionIdx((prev) => (prev + 1) % suggestions.length);
+        return;
+      }
+      if (e.key === 'ArrowUp') {
+        e.preventDefault();
+        setSelectedSuggestionIdx((prev) => (prev - 1 + suggestions.length) % suggestions.length);
+        return;
+      }
+      if (e.key === 'Tab' || (e.key === 'Enter' && !e.ctrlKey && !e.metaKey)) {
+        e.preventDefault();
+        applySuggestion(suggestions[selectedSuggestionIdx]);
+        return;
+      }
+      if (e.key === 'Escape') {
+        e.preventDefault();
+        setShowAutocomplete(false);
+        return;
+      }
     }
 
     const textarea = textareaRef.current;
@@ -333,12 +464,17 @@ export function EditorPanel({
             ref={textareaRef}
             value={code}
             onChange={(e) => {
-              onChangeCode(e.target.value);
+              const newCode = e.target.value;
+              onChangeCode(newCode);
               updateCursorPosition();
+              checkSuggestions(newCode, e.target.selectionStart);
             }}
             onKeyDown={handleKeyDown}
             onKeyUp={updateCursorPosition}
-            onClick={updateCursorPosition}
+            onClick={() => {
+              updateCursorPosition();
+              setShowAutocomplete(false);
+            }}
             onScroll={handleScroll}
             placeholder={
               selectedLanguage.id === 'python'
@@ -356,6 +492,70 @@ export function EditorPanel({
               whiteSpace: settings.wordWrap ? 'pre-wrap' : 'pre'
             }}
           />
+
+          {/* INTELLIGENT CODE AUTOCOMPLETE DROPDOWN */}
+          {showAutocomplete && suggestions.length > 0 && (
+            <div
+              style={{
+                top: `${dropdownPos.top}px`,
+                left: `${dropdownPos.left}px`,
+                maxWidth: '380px',
+                minWidth: '290px'
+              }}
+              className="absolute z-50 bg-[#161b22] border border-[#30363d] rounded-xl shadow-2xl shadow-black/90 overflow-hidden animate-in fade-in zoom-in-95 duration-100 font-sans"
+            >
+              {/* Header */}
+              <div className="h-6 px-2.5 bg-[#21262d] border-b border-[#30363d] flex items-center justify-between text-[10px] text-[#8b949e] font-semibold tracking-wide uppercase select-none">
+                <span className="flex items-center gap-1 text-[#58a6ff]">
+                  <Sparkles size={11} />
+                  <span>Suggestions</span>
+                </span>
+                <span className="text-[9px] font-mono lowercase">Tab or ↵ to insert</span>
+              </div>
+
+              {/* Suggestions List */}
+              <div className="max-h-56 overflow-y-auto p-1 space-y-0.5 select-none">
+                {suggestions.map((item, idx) => {
+                  const isHighlighted = idx === selectedSuggestionIdx;
+                  return (
+                    <div
+                      key={idx}
+                      onMouseDown={(e) => {
+                        e.preventDefault();
+                        applySuggestion(item);
+                      }}
+                      onMouseEnter={() => setSelectedSuggestionIdx(idx)}
+                      className={`px-2 py-1.5 rounded-lg flex items-center justify-between gap-2 cursor-pointer transition-colors ${
+                        isHighlighted
+                          ? 'bg-[#21262d] text-[#e6edf3] border-l-2 border-[#58a6ff]'
+                          : 'text-[#8b949e] hover:bg-[#21262d]/60 hover:text-[#e6edf3]'
+                      }`}
+                    >
+                      <div className="flex items-center gap-2 overflow-hidden">
+                        {item.kind === 'module' && <Package size={13} className="text-[#58a6ff] shrink-0" />}
+                        {item.kind === 'function' && <Terminal size={13} className="text-[#3fb950] shrink-0" />}
+                        {item.kind === 'snippet' && <Braces size={13} className="text-purple-400 shrink-0" />}
+                        <span className="font-mono text-xs text-[#e6edf3] truncate font-medium">
+                          {item.label}
+                        </span>
+                      </div>
+
+                      <span className="text-[9px] px-1.5 py-0.2 rounded font-mono uppercase shrink-0 bg-[#0f1117] text-[#8b949e] border border-[#30363d]">
+                        {item.kind}
+                      </span>
+                    </div>
+                  );
+                })}
+              </div>
+
+              {/* Active Item Description Footer */}
+              {suggestions[selectedSuggestionIdx]?.detail && (
+                <div className="px-2.5 py-1.5 bg-[#0f1117] border-t border-[#30363d] text-[11px] text-[#8b949e] truncate font-sans select-none">
+                  {suggestions[selectedSuggestionIdx].detail}
+                </div>
+              )}
+            </div>
+          )}
         </div>
       </div>
     </div>
