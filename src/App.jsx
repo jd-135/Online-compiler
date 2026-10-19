@@ -13,6 +13,7 @@ import { LANGUAGES } from './constants/languages';
 import { runCode } from './services/compilerService';
 import { detectInputRequirements } from './services/inputDetector';
 import { applyTheme, DEFAULT_THEME_ID } from './constants/themes';
+import { initPyodide } from './services/pyodideRunner';
 
 // Bumping storage key to v5 so all users get clean empty editor on first visit
 const STORAGE_KEY = 'codepulse_workspace_v5';
@@ -104,6 +105,14 @@ export default function App() {
   useEffect(() => {
     applyTheme(settings.theme || DEFAULT_THEME_ID);
   }, [settings.theme]);
+
+  // Pre-warm client-side Pyodide WebAssembly runtime for instant Python execution
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      initPyodide().catch(() => {});
+    }, 1200);
+    return () => clearTimeout(timer);
+  }, []);
 
   // Persist settings
   useEffect(() => {

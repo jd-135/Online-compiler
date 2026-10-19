@@ -7,11 +7,11 @@ export function SettingsModal({ isOpen, onClose, settings, onUpdateSettings }) {
 
   return (
     <div className="fixed inset-0 bg-black/70 backdrop-blur-sm flex items-center justify-center z-50 p-4">
-      <div className="w-full max-w-md bg-[#161b22] border border-[#30363d] rounded-2xl shadow-2xl overflow-hidden animate-in fade-in zoom-in-95 duration-150">
+      <div className="w-full max-w-xl bg-[#161b22] border border-[#30363d] rounded-2xl shadow-2xl overflow-hidden animate-in fade-in zoom-in-95 duration-150">
         <div className="h-11 px-4 bg-[#21262d] border-b border-[#30363d] flex items-center justify-between text-xs font-semibold text-[#e6edf3]">
           <div className="flex items-center gap-2">
             <SettingsIcon size={15} className="text-[#58a6ff]" />
-            <span>Editor Settings & Themes</span>
+            <span>Editor Settings & Themes (12 Available)</span>
           </div>
           <button 
             onClick={onClose} 
@@ -24,35 +24,35 @@ export function SettingsModal({ isOpen, onClose, settings, onUpdateSettings }) {
         <div className="p-4 space-y-4 text-xs text-[#e6edf3] max-h-[80vh] overflow-y-auto">
           {/* Theme & Color Version */}
           <div className="pb-3 border-b border-[#30363d]">
-            <div className="flex items-center gap-1.5 mb-1.5 font-medium text-[#e6edf3]">
+            <div className="flex items-center gap-1.5 mb-1 font-medium text-[#e6edf3]">
               <Palette size={14} className="text-[#58a6ff]" />
-              <span>Color Theme & Palette</span>
+              <span>Color Themes & Palettes</span>
             </div>
-            <div className="text-[11px] text-[#8b949e] mb-2.5">
-              Choose your workspace contrast and syntax highlighting style
+            <div className="text-[11px] text-[#8b949e] mb-3">
+              Full application theme reskinning (IDE chrome, sidebars, terminal, and syntax highlighting)
             </div>
-            <div className="grid grid-cols-2 gap-2">
+            <div className="grid grid-cols-2 sm:grid-cols-3 gap-2">
               {THEMES.map((th) => {
                 const isSelected = (settings.theme || 'dark-modern') === th.id;
                 return (
                   <button
                     key={th.id}
                     onClick={() => onUpdateSettings({ ...settings, theme: th.id })}
-                    className={`p-2 rounded-xl text-left border transition-all flex flex-col gap-1.5 ${
+                    className={`p-2.5 rounded-xl text-left border transition-all flex flex-col gap-1.5 ${
                       isSelected
-                        ? 'border-[#58a6ff] bg-[#21262d] shadow-sm ring-1 ring-[#58a6ff]'
+                        ? 'border-[#58a6ff] bg-[#21262d] shadow-md ring-1 ring-[#58a6ff]'
                         : 'border-[#30363d] bg-[#0f1117] hover:border-[#8b949e]/50'
                     }`}
                   >
                     <div className="flex items-center justify-between w-full">
                       <span className="font-semibold text-xs text-[#e6edf3] truncate">{th.name}</span>
-                      <div className="flex items-center gap-1">
+                      <div className="flex items-center gap-1 shrink-0 ml-1">
+                        <span className="w-3.5 h-3.5 rounded-full border border-white/20 shadow-xs" title="Canvas background" style={{ backgroundColor: th.colors.bgPrimary }} />
                         <span className="w-2.5 h-2.5 rounded-full" style={{ backgroundColor: th.colors.syntaxKeyword }} />
                         <span className="w-2.5 h-2.5 rounded-full" style={{ backgroundColor: th.colors.syntaxFunction }} />
-                        <span className="w-2.5 h-2.5 rounded-full" style={{ backgroundColor: th.colors.syntaxString }} />
                       </div>
                     </div>
-                    <span className="text-[10px] text-[#8b949e] truncate">{th.description}</span>
+                    <span className="text-[10px] text-[#8b949e] line-clamp-1">{th.description}</span>
                   </button>
                 );
               })}

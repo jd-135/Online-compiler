@@ -84,6 +84,24 @@
   }
 }
 
+/* Dynamic Theme Overrides for Comprehensive Application Reskinning */
+.bg-\[\#0f1117\] { background-color: var(--bg-primary) !important; }
+.bg-\[\#161b22\] { background-color: var(--bg-secondary) !important; }
+.bg-\[\#21262d\] { background-color: var(--bg-tertiary) !important; }
+.border-\[\#30363d\] { border-color: var(--border-color) !important; }
+.text-\[\#e6edf3\] { color: var(--text-primary) !important; }
+.text-\[\#8b949e\] { color: var(--text-secondary) !important; }
+.text-\[\#58a6ff\] { color: var(--accent-primary) !important; }
+.hover\:bg-\[\#21262d\]:hover { background-color: var(--bg-tertiary) !important; }
+.hover\:bg-\[\#30363d\]:hover { background-color: color-mix(in srgb, var(--border-color) 80%, var(--bg-tertiary)) !important; }
+.hover\:border-\[\#58a6ff\]\/50:hover { border-color: color-mix(in srgb, var(--accent-primary) 50%, transparent) !important; }
+.border-\[\#58a6ff\]\/40 { border-color: color-mix(in srgb, var(--accent-primary) 40%, transparent) !important; }
+.bg-\[\#58a6ff\]\/10 { background-color: color-mix(in srgb, var(--accent-primary) 10%, transparent) !important; }
+.bg-\[\#58a6ff\]\/15 { background-color: color-mix(in srgb, var(--accent-primary) 15%, transparent) !important; }
+.border-\[\#58a6ff\]\/30 { border-color: color-mix(in srgb, var(--accent-primary) 30%, transparent) !important; }
+.border-\[\#58a6ff\]\/50 { border-color: color-mix(in srgb, var(--accent-primary) 50%, transparent) !important; }
+.accent-\[\#58a6ff\] { accent-color: var(--accent-primary) !important; }
+
 /* Custom Scrollbar */
 ::-webkit-scrollbar {
   width: 7px;
@@ -100,7 +118,7 @@
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #30363d;
+  background: var(--border-color);
 }
 
 /* Line Numbers Gutter */
