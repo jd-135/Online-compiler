@@ -9,7 +9,8 @@ import {
   HelpCircle, 
   ChevronDown, 
   Zap,
-  Plus
+  Plus,
+  Share2
 } from 'lucide-react';
 import { LANGUAGES } from '../constants/languages';
 
@@ -22,7 +23,8 @@ export function TopBar({
   activeFile,
   onToggleShortcuts,
   onToggleSettings,
-  onNewFile
+  onNewFile,
+  onShare
 }) {
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const [copied, setCopied] = useState(false);
@@ -155,6 +157,16 @@ export function TopBar({
         >
           <Download size={13} className="text-[#58a6ff]" />
           <span className="hidden sm:inline font-medium">Download {activeFile?.name}</span>
+        </button>
+
+        {/* Share Button (Zero-Database Link) */}
+        <button
+          onClick={onShare}
+          title="Share code via zero-database permanent URL"
+          className="flex items-center gap-1.5 px-2.5 py-1.5 text-xs text-[#e6edf3] hover:text-[#58a6ff] bg-[#21262d] hover:bg-[#30363d] border border-[#30363d] rounded-md transition-colors"
+        >
+          <Share2 size={13} className="text-[#58a6ff]" />
+          <span className="hidden sm:inline font-medium">Share</span>
         </button>
 
         {/* Clear Code */}

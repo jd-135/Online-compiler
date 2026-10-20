@@ -7,13 +7,16 @@ import { TerminalPanel } from './components/TerminalPanel';
 import { StatusBar } from './components/StatusBar';
 import { ShortcutsModal } from './components/ShortcutsModal';
 import { SettingsModal } from './components/SettingsModal';
+import { ShareModal } from './components/ShareModal';
 import { SplashScreen } from './components/SplashScreen';
+import { CheckCircle2, X } from 'lucide-react';
 
 import { LANGUAGES } from './constants/languages';
 import { runCode } from './services/compilerService';
 import { detectInputRequirements } from './services/inputDetector';
 import { applyTheme, DEFAULT_THEME_ID } from './constants/themes';
 import { initPyodide } from './services/pyodideRunner';
+import { encodeShareUrl, decodeShareUrl } from './utils/shareUrl';
 
 // Bumping storage key to v5 so all users get clean empty editor on first visit
 const STORAGE_KEY = 'codepulse_workspace_v5';
@@ -77,6 +80,9 @@ export default function App() {
   const [cursorPosition, setCursorPosition] = useState({ line: 1, col: 1 });
   const [showShortcuts, setShowShortcuts] = useState(false);
   const [showSettings, setShowSettings] = useState(false);
+  const [showShareModal, setShowShareModal] = useState(false);
+  const [currentShareUrl, setCurrentShareUrl] = useState('');
+  const [sharedToast, setSharedToast] = useState(null);
 
   // Adjustable workspace & output split percentage
   const [editorWidthPercent, setEditorWidthPercent] = useState(55);
@@ -262,6 +268,56 @@ export default function App() {
     setExecutionResult(null);
   };
 
+  // Generate zero-database shareable URL
+  const handleShareCode = () => {
+    const url = encodeShareUrl({
+      language: selectedLanguage.id,
+      code: currentCode,
+      fileName: activeFile?.name
+    });
+    setCurrentShareUrl(url);
+    setShowShareModal(true);
+    if (typeof navigator !== 'undefined' && navigator.clipboard) {
+      navigator.clipboard.writeText(url).catch(() => {});
+    }
+  };
+
+  // Decode and load shared code from URL hash on initial load
+  useEffect(() => {
+    if (typeof window === 'undefined') return;
+    const hash = window.location.hash;
+    if (hash && (hash.includes('share=') || hash.startsWith('#share='))) {
+      const decoded = decodeShareUrl(hash);
+      if (decoded && (decoded.code || decoded.code === '')) {
+        const targetLang = LANGUAGES.find((l) => l.id === decoded.language) || LANGUAGES[0];
+        setSelectedLanguage(targetLang);
+
+        const newId = `${targetLang.id}_shared_${Date.now()}`;
+        const newFileName = decoded.fileName || `shared${targetLang.extension}`;
+        const newFileObj = {
+          id: newId,
+          name: newFileName,
+          code: decoded.code,
+          isDefault: false
+        };
+
+        setFilesByLang((prev) => ({
+          ...prev,
+          [targetLang.id]: [newFileObj, ...(prev[targetLang.id] || [])]
+        }));
+
+        setActiveFileIdByLang((prev) => ({
+          ...prev,
+          [targetLang.id]: newId
+        }));
+
+        setSharedToast(`Loaded shared ${targetLang.name} snippet (${decoded.code.length} chars)!`);
+        const timer = setTimeout(() => setSharedToast(null), 6000);
+        return () => clearTimeout(timer);
+      }
+    }
+  }, []);
+
   // Run Code Execution (handles direct terminal input)
   const handleRunCode = useCallback(async (customInput) => {
     if (isRunning) return;
@@ -411,6 +467,7 @@ export default function App() {
         onToggleShortcuts={() => setShowShortcuts(true)}
         onToggleSettings={() => setShowSettings(true)}
         onNewFile={() => handleAddFile(`script_${currentLangFiles.length + 1}${selectedLanguage.extension}`)}
+        onShare={handleShareCode}
       />
 
       {/* Main Studio Work Area */}
@@ -517,6 +574,31 @@ export default function App() {
         settings={settings}
         onUpdateSettings={setSettings}
       />
+
+      <ShareModal
+        isOpen={showShareModal}
+        onClose={() => setShowShareModal(false)}
+        shareUrl={currentShareUrl}
+        selectedLanguage={selectedLanguage}
+        codeLength={currentCode?.length || 0}
+      />
+
+      {/* Shared Code Load Notification Toast */}
+      {sharedToast && (
+        <div 
+          className="fixed top-14 left-1/2 -translate-x-1/2 z-50 flex items-center gap-2 bg-[#21262d] text-[#e6edf3] border border-[#3fb950] px-4 py-2.5 rounded-xl shadow-2xl animate-in fade-in slide-in-from-top-3 font-mono text-xs"
+          style={{ backgroundColor: 'var(--bg-tertiary)', borderColor: 'var(--accent-success)', color: 'var(--text-primary)' }}
+        >
+          <CheckCircle2 size={16} className="text-[#3fb950]" style={{ color: 'var(--accent-success)' }} />
+          <span>{sharedToast}</span>
+          <button 
+            onClick={() => setSharedToast(null)} 
+            className="ml-2 text-[#8b949e] hover:text-[#e6edf3] p-0.5 rounded"
+          >
+            <X size={13} />
+          </button>
+        </div>
+      )}
     </div>
   );
 }
