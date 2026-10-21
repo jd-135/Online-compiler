@@ -36,6 +36,11 @@ export function EditorPanel({
   const [isCreatingFile, setIsCreatingFile] = useState(false);
   const [newFileName, setNewFileName] = useState('');
 
+  // Active working file
+  const activeFile = useMemo(() => {
+    return (files || []).find((f) => f.id === activeFileId) || files?.[0];
+  }, [files, activeFileId]);
+
   // Autocomplete state
   const [suggestions, setSuggestions] = useState([]);
   const [selectedSuggestionIdx, setSelectedSuggestionIdx] = useState(0);
@@ -564,82 +569,17 @@ export function EditorPanel({
             </button>
           )}
 
-          {/* Files belonging ONLY to the selected language */}
-          {files.map((file) => {
-            const isActive = file.id === activeFileId;
-            return (
-              <div
-                key={file.id}
-                onClick={() => onSelectFile(file.id)}
-                className={`h-7 px-3 rounded-lg flex items-center gap-2 text-xs cursor-pointer transition-all relative group ${
-                  isActive
-                    ? 'bg-[#21262d] text-[#58a6ff] font-semibold border border-[#58a6ff]/40 shadow-xs'
-                    : 'bg-[#161b22] text-[#8b949e] hover:bg-[#21262d] hover:text-[#e6edf3] border border-transparent'
-                }`}
-                style={
-                  isActive
-                    ? { backgroundColor: 'var(--bg-tertiary)', color: 'var(--accent-primary)', borderColor: 'var(--accent-primary)' }
-                    : { color: 'var(--text-secondary)' }
-                }
-              >
-                <span
-                  className="w-2 h-2 rounded-full shrink-0"
-                  style={{ backgroundColor: selectedLanguage.dotColor }}
-                />
-                <span>{file.name}</span>
-
-                {/* Close/delete file (allowed if more than 1 file exists) */}
-                {files.length > 1 && (
-                  <button
-                    onClick={(e) => {
-                      e.stopPropagation();
-                      onCloseFile(file.id);
-                    }}
-                    title="Close file"
-                    className="text-[#8b949e] hover:text-[#f85149] rounded p-0.5 ml-1 transition-colors opacity-70 group-hover:opacity-100"
-                  >
-                    <X size={12} />
-                  </button>
-                )}
-              </div>
-            );
-          })}
-
-          {/* Inline New File Form or "+" Trigger */}
-          {isCreatingFile ? (
-            <form onSubmit={handleCreateSubmit} className="flex items-center gap-1 bg-[#21262d] border border-[#58a6ff]/50 rounded-lg px-2 py-0.5">
-              <input
-                type="text"
-                autoFocus
-                value={newFileName}
-                onChange={(e) => setNewFileName(e.target.value)}
-                onBlur={() => {
-                  if (!newFileName.trim()) setIsCreatingFile(false);
-                }}
-                placeholder={`filename${selectedLanguage.extension}`}
-                className="bg-transparent text-[#e6edf3] font-mono text-xs w-28 outline-none placeholder:text-[#8b949e]"
-              />
-              <button type="submit" className="text-[#3fb950] hover:text-[#3fb950]">
-                <Check size={12} />
-              </button>
-              <button 
-                type="button" 
-                onClick={() => setIsCreatingFile(false)} 
-                className="text-[#8b949e] hover:text-[#e6edf3]"
-              >
-                <X size={12} />
-              </button>
-            </form>
-          ) : (
-            <button
-              onClick={() => setIsCreatingFile(true)}
-              title={`Add new ${selectedLanguage.name} file (${selectedLanguage.extension})`}
-              className="h-7 px-2 rounded-lg text-[#8b949e] hover:text-[#58a6ff] hover:bg-[#21262d] border border-dashed border-[#30363d] flex items-center gap-1 text-xs transition-colors"
-            >
-              <Plus size={13} />
-              <span className="text-[11px]">New {selectedLanguage.extension}</span>
-            </button>
-          )}
+          {/* Only the active working file is shown for a clean, distraction-free header */}
+          <div
+            className="h-7 px-3 rounded-lg flex items-center gap-2 text-xs font-semibold bg-[#21262d] text-[#58a6ff] border border-[#58a6ff]/40 shadow-xs select-none"
+            style={{ backgroundColor: 'var(--bg-tertiary)', color: 'var(--accent-primary)', borderColor: 'var(--accent-primary)' }}
+          >
+            <span
+              className="w-2 h-2 rounded-full shrink-0"
+              style={{ backgroundColor: selectedLanguage.dotColor }}
+            />
+            <span>{activeFile ? activeFile.name : `main${selectedLanguage.extension}`}</span>
+          </div>
         </div>
 
         {/* Language Badge on right */}
