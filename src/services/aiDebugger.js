@@ -71,10 +71,13 @@ function extractLineNumber(rawErr, code, language) {
 }
 
 /**
- * Main analysis function (handles both local fast analysis and optional cloud Gemini AI)
+ * Main analysis function:
+ * 1. Calls secure backend serverless API (/api/debug) powered by OpenRouter LLM (Zero Client Key Leakage)
+ * 2. If user provided a custom Gemini API key in settings, honors that
+ * 3. Gracefully falls back to high-speed local expert engine if offline
  */
 export async function analyzeErrorAsync({ language, errorText, code, apiKey = '' }) {
-  // If user provided a free Gemini API key, try calling Gemini 1.5 Flash
+  // If user provided a personal custom Gemini API key in settings, try that first
   if (apiKey && apiKey.trim()) {
     try {
       const cloudResult = await callGeminiDebugger({
@@ -85,11 +88,36 @@ export async function analyzeErrorAsync({ language, errorText, code, apiKey = ''
       });
       if (cloudResult) return cloudResult;
     } catch {
-      // Fallback silently to built-in expert engine
+      // Fallback
     }
   }
 
-  // Built-in instant expert engine (< 1ms, 100% offline, zero key)
+  // 1. Try secure backend OpenRouter proxy (/api/debug)
+  try {
+    const response = await fetch('/api/debug', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        language,
+        code,
+        errorText
+      }),
+      signal: AbortSignal.timeout(10000)
+    });
+
+    if (response.ok) {
+      const data = await response.json();
+      if (data?.analysis) {
+        return data.analysis;
+      }
+    }
+  } catch {
+    // If backend is unreachable (e.g. offline mode), fall back seamlessly to built-in expert engine
+  }
+
+  // 2. High-speed Built-in Expert Engine (< 1ms, 100% offline, zero external dependencies)
   return analyzeError({ language, errorText, code });
 }
 

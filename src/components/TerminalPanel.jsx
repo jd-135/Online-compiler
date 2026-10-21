@@ -272,7 +272,7 @@ export function TerminalPanel({
                     )}
                     <span>{isAnalyzing ? 'Analyzing Issue...' : 'Explain & Fix with AI'}</span>
                     <span className="text-[10px] px-1.5 py-0.2 rounded bg-[#3fb950]/15 text-[#3fb950] font-mono border border-[#3fb950]/30 font-medium">
-                      {geminiApiKey ? 'Gemini 1.5 Cloud' : 'Built-in • Zero Cost'}
+                      GPT-4o Live AI
                     </span>
                   </button>
                 </div>
@@ -296,7 +296,7 @@ export function TerminalPanel({
                         </span>
                       )}
                       <span className="text-[10px] font-mono px-1.5 py-0.5 rounded bg-[#3fb950]/15 text-[#3fb950] border border-[#3fb950]/30">
-                        {aiAnalysis.isGenerative ? 'Live Cloud AI' : 'Expert Engine'}
+                        {aiAnalysis.isAI || aiAnalysis.isGenerative ? 'Live Neural AI' : 'Expert Engine'}
                       </span>
                     </div>
                       <button
