@@ -84,6 +84,10 @@ export default function App() {
   const [currentShareUrl, setCurrentShareUrl] = useState('');
   const [sharedToast, setSharedToast] = useState(null);
 
+  // PWA & Online status states
+  const [installPrompt, setInstallPrompt] = useState(null);
+  const [isOnline, setIsOnline] = useState(typeof navigator !== 'undefined' ? navigator.onLine : true);
+
   // Adjustable workspace & output split percentage
   const [editorWidthPercent, setEditorWidthPercent] = useState(55);
   const isDraggingRef = useRef(false);
@@ -119,6 +123,46 @@ export default function App() {
     }, 1200);
     return () => clearTimeout(timer);
   }, []);
+
+  // PWA beforeinstallprompt & online/offline listeners
+  useEffect(() => {
+    const handleBeforeInstall = (e) => {
+      e.preventDefault();
+      setInstallPrompt(e);
+    };
+
+    const handleAppInstalled = () => {
+      setInstallPrompt(null);
+      setSharedToast('JD COMPILER installed successfully as standalone app!');
+      setTimeout(() => setSharedToast(null), 5000);
+    };
+
+    const handleOnline = () => setIsOnline(true);
+    const handleOffline = () => setIsOnline(false);
+
+    window.addEventListener('beforeinstallprompt', handleBeforeInstall);
+    window.addEventListener('appinstalled', handleAppInstalled);
+    window.addEventListener('online', handleOnline);
+    window.addEventListener('offline', handleOffline);
+
+    return () => {
+      window.removeEventListener('beforeinstallprompt', handleBeforeInstall);
+      window.removeEventListener('appinstalled', handleAppInstalled);
+      window.removeEventListener('online', handleOnline);
+      window.removeEventListener('offline', handleOffline);
+    };
+  }, []);
+
+  const handleInstallApp = async () => {
+    if (!installPrompt) return;
+    try {
+      installPrompt.prompt();
+      const { outcome } = await installPrompt.userChoice;
+      if (outcome === 'accepted') {
+        setInstallPrompt(null);
+      }
+    } catch {}
+  };
 
   // Persist settings
   useEffect(() => {
@@ -468,6 +512,8 @@ export default function App() {
         onToggleSettings={() => setShowSettings(true)}
         onNewFile={() => handleAddFile(`script_${currentLangFiles.length + 1}${selectedLanguage.extension}`)}
         onShare={handleShareCode}
+        installPrompt={installPrompt}
+        onInstallApp={handleInstallApp}
       />
 
       {/* Main Studio Work Area */}
@@ -547,6 +593,13 @@ export default function App() {
               onClearOutput={handleClearOutput}
               isExpanded={isTerminalExpanded}
               onToggleExpand={() => setIsTerminalExpanded(!isTerminalExpanded)}
+              selectedLanguage={selectedLanguage}
+              code={currentCode}
+              onApplyFix={(fixedCode) => {
+                handleChangeCode(fixedCode);
+                setSharedToast('AI Debugger: Fix applied to code! Press Ctrl+Enter to re-run.');
+                setTimeout(() => setSharedToast(null), 5000);
+              }}
             />
           </div>
         </div>
@@ -560,6 +613,7 @@ export default function App() {
         executionResult={executionResult}
         cursorPosition={cursorPosition}
         settings={settings}
+        isOnline={isOnline}
       />
 
       {/* Modals */}

@@ -7,8 +7,12 @@ import {
   Maximize2, 
   Minimize2,
   CheckCircle2,
-  AlertCircle
+  AlertCircle,
+  Sparkles,
+  Lightbulb,
+  X
 } from 'lucide-react';
+import { analyzeError } from '../services/aiDebugger';
 
 export function TerminalPanel({
   executionResult,
@@ -16,11 +20,15 @@ export function TerminalPanel({
   onRunCodeWithInput,
   onClearOutput,
   isExpanded,
-  onToggleExpand
+  onToggleExpand,
+  selectedLanguage,
+  code,
+  onApplyFix
 }) {
   const [copied, setCopied] = useState(false);
   const [currentInput, setCurrentInput] = useState('');
   const [submittedInput, setSubmittedInput] = useState('');
+  const [aiAnalysis, setAiAnalysis] = useState(null);
   const terminalInputRef = useRef(null);
   const consoleContainerRef = useRef(null);
 
@@ -79,6 +87,17 @@ export function TerminalPanel({
         onRunCodeWithInput(val + '\n');
       }
     }
+  };
+
+  // Trigger AI error diagnostics
+  const handleRunAiDiagnostics = () => {
+    const rawError = executionResult?.compileOutput || executionResult?.stderr || executionResult?.statusText || '';
+    const analysis = analyzeError({
+      language: selectedLanguage?.id || 'python',
+      errorText: rawError,
+      code: code || ''
+    });
+    setAiAnalysis(analysis);
   };
 
   const isSuccess = executionResult?.success;
@@ -158,6 +177,7 @@ export function TerminalPanel({
               e.stopPropagation();
               setSubmittedInput('');
               setCurrentInput('');
+              setAiAnalysis(null);
               onClearOutput();
             }}
             title="Clear output"
@@ -215,6 +235,113 @@ export function TerminalPanel({
                 {executionResult.stderr && (
                   <div className="text-[#f85149] whitespace-pre-wrap">
                     {executionResult.stderr}
+                  </div>
+                )}
+
+                {/* AI Error Explainer & Debugger Trigger */}
+                <div className="mt-3 flex items-center gap-2">
+                  <button
+                    type="button"
+                    onClick={handleRunAiDiagnostics}
+                    className="flex items-center gap-2 px-3 py-1.5 rounded-lg bg-[#58a6ff]/15 hover:bg-[#58a6ff]/25 text-[#e6edf3] border border-[#58a6ff]/40 text-xs font-semibold shadow-md transition-all active:scale-95 group"
+                    style={{ borderColor: 'var(--accent-primary)', color: 'var(--text-primary)' }}
+                  >
+                    <Sparkles size={14} className="text-[#58a6ff] group-hover:rotate-12 transition-transform" style={{ color: 'var(--accent-primary)' }} />
+                    <span>Explain & Fix with AI</span>
+                    <span className="text-[10px] px-1.5 py-0.2 rounded bg-[#3fb950]/15 text-[#3fb950] font-mono border border-[#3fb950]/30 font-medium">
+                      Zero Cost • No Key
+                    </span>
+                  </button>
+                </div>
+
+                {/* AI Debugger Assistant Card */}
+                {aiAnalysis && (
+                  <div 
+                    className="mt-3 bg-[#161b22] border border-[#58a6ff]/40 rounded-xl p-3.5 space-y-3 shadow-2xl animate-in fade-in zoom-in-95 duration-150 font-sans"
+                    style={{ backgroundColor: 'var(--bg-secondary)', borderColor: 'var(--border-color)', color: 'var(--text-primary)' }}
+                  >
+                    <div 
+                      className="flex items-center justify-between border-b border-[#30363d] pb-2 text-xs"
+                      style={{ borderColor: 'var(--border-color)' }}
+                    >
+                      <div className="flex items-center gap-2">
+                        <Sparkles size={15} className="text-[#58a6ff]" style={{ color: 'var(--accent-primary)' }} />
+                        <span className="font-bold text-[#e6edf3]">AI Debugger Assistant</span>
+                        {aiAnalysis.line && (
+                          <span className="text-[10px] font-mono px-1.5 py-0.5 rounded bg-[#f85149]/15 text-[#f85149] border border-[#f85149]/30 font-semibold">
+                            Line {aiAnalysis.line}
+                          </span>
+                        )}
+                      </div>
+                      <button
+                        type="button"
+                        onClick={() => setAiAnalysis(null)}
+                        className="text-[#8b949e] hover:text-[#e6edf3] p-0.5 rounded transition-colors"
+                        style={{ color: 'var(--text-secondary)' }}
+                      >
+                        <X size={13} />
+                      </button>
+                    </div>
+
+                    <div className="space-y-2.5 text-xs">
+                      {/* Type & Explanation */}
+                      <div>
+                        <div className="text-[11px] font-semibold text-[#f85149] mb-0.5">{aiAnalysis.type}</div>
+                        <div className="text-[#e6edf3] leading-relaxed" style={{ color: 'var(--text-primary)' }}>{aiAnalysis.explanation}</div>
+                      </div>
+
+                      {/* Root cause */}
+                      {aiAnalysis.cause && (
+                        <div 
+                          className="text-[#8b949e] text-[11px] leading-relaxed bg-[#0f1117]/80 p-2.5 rounded-lg border border-[#30363d]"
+                          style={{ backgroundColor: 'var(--bg-primary)', borderColor: 'var(--border-color)', color: 'var(--text-secondary)' }}
+                        >
+                          <span className="text-[#e6edf3] font-semibold" style={{ color: 'var(--text-primary)' }}>Why this happened: </span>
+                          {aiAnalysis.cause}
+                        </div>
+                      )}
+
+                      {/* Diff comparison preview */}
+                      {aiAnalysis.originalLine && aiAnalysis.suggestedLine && (
+                        <div 
+                          className="font-mono text-[11px] rounded-lg overflow-hidden border border-[#30363d]"
+                          style={{ borderColor: 'var(--border-color)' }}
+                        >
+                          <div className="bg-[#f85149]/10 text-[#f85149] px-2.5 py-1.5 flex items-center gap-2 border-b border-[#f85149]/20">
+                            <span className="select-none text-[#f85149]/60 font-bold">-</span>
+                            <span className="truncate">{aiAnalysis.originalLine}</span>
+                          </div>
+                          <div className="bg-[#3fb950]/10 text-[#3fb950] px-2.5 py-1.5 flex items-center gap-2">
+                            <span className="select-none text-[#3fb950]/60 font-bold">+</span>
+                            <span className="truncate">{aiAnalysis.suggestedLine}</span>
+                          </div>
+                        </div>
+                      )}
+
+                      {/* Action buttons & tip */}
+                      <div className="flex items-center justify-between pt-1">
+                        {aiAnalysis.tip && (
+                          <div className="flex items-center gap-1.5 text-[10px] text-[#8b949e] truncate pr-2" style={{ color: 'var(--text-secondary)' }}>
+                            <Lightbulb size={13} className="text-amber-400 shrink-0" />
+                            <span className="truncate">{aiAnalysis.tip}</span>
+                          </div>
+                        )}
+
+                        {aiAnalysis.fixCode && onApplyFix && (
+                          <button
+                            type="button"
+                            onClick={() => {
+                              onApplyFix(aiAnalysis.fixCode);
+                              setAiAnalysis(null);
+                            }}
+                            className="px-3.5 py-1.5 rounded-lg bg-[#3fb950] hover:bg-[#2ea043] text-[#0f1117] font-semibold text-xs flex items-center gap-1.5 shadow-sm active:scale-95 shrink-0 ml-auto transition-all"
+                          >
+                            <Check size={13} />
+                            <span>Apply Fix to Code</span>
+                          </button>
+                        )}
+                      </div>
+                    </div>
                   </div>
                 )}
               </div>

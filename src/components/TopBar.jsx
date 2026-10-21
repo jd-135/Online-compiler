@@ -24,7 +24,9 @@ export function TopBar({
   onToggleShortcuts,
   onToggleSettings,
   onNewFile,
-  onShare
+  onShare,
+  installPrompt,
+  onInstallApp
 }) {
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const [copied, setCopied] = useState(false);
@@ -168,6 +170,18 @@ export function TopBar({
           <Share2 size={13} className="text-[#58a6ff]" />
           <span className="hidden sm:inline font-medium">Share</span>
         </button>
+
+        {/* PWA Install Button */}
+        {installPrompt && (
+          <button
+            onClick={onInstallApp}
+            title="Install JD Compiler as standalone desktop/mobile app"
+            className="flex items-center gap-1.5 px-2.5 py-1.5 text-xs text-[#3fb950] hover:text-[#3fb950] bg-[#3fb950]/15 hover:bg-[#3fb950]/25 border border-[#3fb950]/40 rounded-md transition-all shadow-xs animate-in fade-in"
+          >
+            <Download size={13} className="text-[#3fb950]" />
+            <span className="hidden sm:inline font-semibold">Install App</span>
+          </button>
+        )}
 
         {/* Clear Code */}
         <button

@@ -6,7 +6,9 @@ import {
   Cpu, 
   Zap,
   Globe,
-  FileCode2
+  FileCode2,
+  Wifi,
+  WifiOff
 } from 'lucide-react';
 
 export function StatusBar({
@@ -16,7 +18,8 @@ export function StatusBar({
   executionResult,
   cursorPosition,
   settings,
-  stdin
+  stdin,
+  isOnline = true
 }) {
   const isSuccess = executionResult?.success;
   const hasError = executionResult && !executionResult.success;
@@ -96,6 +99,21 @@ export function StatusBar({
         <div className="hover:text-[#e6edf3] transition-colors font-medium flex items-center gap-1">
           <span className="w-1.5 h-1.5 rounded-full" style={{ backgroundColor: selectedLanguage.dotColor }} />
           <span>{selectedLanguage.name} ({selectedLanguage.version})</span>
+        </div>
+
+        {/* Online / Offline Status */}
+        <div className="hidden sm:flex items-center gap-1 transition-colors">
+          {isOnline ? (
+            <span className="flex items-center gap-1 text-[#3fb950] text-[10px]">
+              <Wifi size={11} className="text-[#3fb950]" />
+              <span>Online</span>
+            </span>
+          ) : (
+            <span className="flex items-center gap-1 text-amber-400 font-semibold text-[10px] bg-amber-500/15 px-1.5 py-0.2 rounded border border-amber-500/30">
+              <WifiOff size={11} />
+              <span>Offline (Python WASM Ready)</span>
+            </span>
+          )}
         </div>
 
         {/* Vercel Status */}
