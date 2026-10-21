@@ -1,4 +1,4 @@
-const CACHE_NAME = 'jd-compiler-v1';
+const CACHE_NAME = 'jd-compiler-v3';
 const STATIC_ASSETS = [
   '/',
   '/index.html',
@@ -8,18 +8,19 @@ const STATIC_ASSETS = [
   '/icon-512.png'
 ];
 
-// Install: Cache critical shell assets
+// Install: Cache critical shell assets & skip waiting immediately
 self.addEventListener('install', (event) => {
+  self.skipWaiting();
   event.waitUntil(
     caches.open(CACHE_NAME).then((cache) => {
       return cache.addAll(STATIC_ASSETS).catch((err) => {
         console.warn('PWA Pre-cache partial failure:', err);
       });
-    }).then(() => self.skipWaiting())
+    })
   );
 });
 
-// Activate: Clean up old cache versions
+// Activate: Immediately purge all older cache versions and claim clients
 self.addEventListener('activate', (event) => {
   event.waitUntil(
     caches.keys().then((keys) => {
@@ -30,12 +31,12 @@ self.addEventListener('activate', (event) => {
   );
 });
 
-// Fetch: Smart Stale-While-Revalidate for app assets and offline fallback
+// Fetch: Network-First for app pages and scripts, Cache-First for WASM, Bypass API
 self.addEventListener('fetch', (event) => {
   const url = new URL(event.request.url);
 
-  // Skip non-GET requests
-  if (event.request.method !== 'GET') {
+  // Bypass all API requests & non-GET
+  if (event.request.method !== 'GET' || url.pathname.startsWith('/api/')) {
     return;
   }
 
@@ -57,28 +58,32 @@ self.addEventListener('fetch', (event) => {
     return;
   }
 
-  // Application shell & static resources: Stale-While-Revalidate
-  event.respondWith(
-    caches.match(event.request).then((cachedResponse) => {
-      const fetchPromise = fetch(event.request)
+  // Navigation requests: NETWORK FIRST so newest deploy loads immediately
+  if (event.request.mode === 'navigate' || url.pathname === '/' || url.pathname === '/index.html') {
+    event.respondWith(
+      fetch(event.request)
         .then((networkResponse) => {
-          if (networkResponse && networkResponse.status === 200 && networkResponse.type === 'basic') {
-            const responseClone = networkResponse.clone();
-            caches.open(CACHE_NAME).then((cache) => {
-              cache.put(event.request, responseClone);
-            });
+          if (networkResponse && networkResponse.status === 200) {
+            const clone = networkResponse.clone();
+            caches.open(CACHE_NAME).then((cache) => cache.put(event.request, clone));
           }
           return networkResponse;
         })
-        .catch(() => {
-          // If offline and request is navigation, return cached index.html
-          if (event.request.mode === 'navigate') {
-            return caches.match('/index.html') || cachedResponse;
-          }
-          return cachedResponse;
-        });
+        .catch(() => caches.match(event.request).then(cached => cached || caches.match('/index.html')))
+    );
+    return;
+  }
 
-      return cachedResponse || fetchPromise;
-    })
+  // Application assets: Stale-While-Revalidate with network priority
+  event.respondWith(
+    fetch(event.request)
+      .then((networkResponse) => {
+        if (networkResponse && networkResponse.status === 200) {
+          const clone = networkResponse.clone();
+          caches.open(CACHE_NAME).then((cache) => cache.put(event.request, clone));
+        }
+        return networkResponse;
+      })
+      .catch(() => caches.match(event.request))
   );
 });

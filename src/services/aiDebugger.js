@@ -136,6 +136,24 @@ export function analyzeError({ language, errorText, code }) {
   // 1. PYTHON DIAGNOSTICS & SMART REPAIR
   // ---------------------------------------------------------------------------
   if (language === 'python') {
+    // A0) Double colon '::' at end of header
+    if (faultyLine && /^\s*(if|elif|else|for|while|def|class|with|try|except|finally)\b/.test(faultyLine) && /:{2,}\s*$/.test(faultyLine)) {
+      const fixedLine = faultyLine.replace(/:{2,}\s*$/, ':');
+      const updatedLines = [...lines];
+      if (lineNum && lineNum <= updatedLines.length) updatedLines[lineNum - 1] = fixedLine;
+
+      return {
+        type: 'SyntaxError: Extra Colon (::)',
+        line: lineNum,
+        explanation: 'In Python, statement headers must end with a single colon (:), but multiple colons (::) were typed.',
+        cause: 'Double colons are invalid syntax in Python control structures.',
+        originalLine: faultyLine,
+        suggestedLine: fixedLine,
+        fixCode: updatedLines.join('\n'),
+        tip: 'Ensure if, else, for, while, and def headers end with only one colon (:).'
+      };
+    }
+
     // D0) Dynamic 'Did you mean' pattern (Python 3.10+ e.g., NameError: name 'prin' is not defined. Did you mean: 'print'?)
     const generalDidYouMean = rawErr.match(/Did you mean:\s*['"](\w+)['"]/i);
     const unrecogName = rawErr.match(/name\s+['"](\w+)['"]\s+is not defined/i)?.[1] || 
@@ -191,7 +209,7 @@ export function analyzeError({ language, errorText, code }) {
     }
 
     // B) Assignment in condition (if x = 5:)
-    if (rawErr.includes('SyntaxError') && (rawErr.includes('cannot assign') || rawErr.includes('invalid syntax') || (faultyLine && /^\s*(if|elif|while)\b.*[^=!<>]=[^=]/.test(faultyLine)))) {
+    if (rawErr.includes('SyntaxError') && (rawErr.includes('cannot assign') || (faultyLine && /^\s*(if|elif|while)\b.*[^=!<>]=[^=]/.test(faultyLine) && !faultyLine.includes('==') && !faultyLine.includes('!=')))) {
       const fixedLine = faultyLine.replace(/([^=!<>\s]+)\s*=\s*([^=]+)/, '$1 == $2');
       const updatedLines = [...lines];
       if (lineNum) updatedLines[lineNum - 1] = fixedLine;

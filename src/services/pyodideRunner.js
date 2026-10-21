@@ -114,14 +114,25 @@ sys.stdin = io.StringIO(${escapedStdin})
 
     // Clean Pyodide internal stack frames to give clean, standard Python traceback
     let rawTrace = err.message || String(err);
-    if (rawTrace.includes('Traceback (most recent call last):')) {
+
+    // If trace references the user's execution frame, discard all preceding pyodide compiler frames
+    if (rawTrace.includes('<exec>') || rawTrace.includes('<string>') || rawTrace.includes('main.py')) {
+      const execMatch = rawTrace.search(/File ["']<(?:exec|string)>["']|File ["']main\.py["']/);
+      if (execMatch !== -1) {
+        const hasTraceback = rawTrace.includes('Traceback (most recent call last):');
+        if (hasTraceback) {
+          rawTrace = 'Traceback (most recent call last):\n  ' + rawTrace.substring(execMatch);
+        } else {
+          rawTrace = '  ' + rawTrace.substring(execMatch);
+        }
+      }
+    } else if (rawTrace.includes('Traceback (most recent call last):')) {
       const tbIdx = rawTrace.indexOf('Traceback (most recent call last):');
       rawTrace = rawTrace.substring(tbIdx);
     }
 
     const tbLines = rawTrace.split('\n');
     const filteredLines = [];
-    let skipInternalFrame = false;
 
     for (let i = 0; i < tbLines.length; i++) {
       const line = tbLines[i];
@@ -133,18 +144,11 @@ sys.stdin = io.StringIO(${escapedStdin})
         line.includes('eval_code_async') ||
         line.includes('run_async') ||
         line.includes('CodeRunner') ||
+        line.includes('_parse_and_compile_gen') ||
+        line.includes('ast.PyCF_ONLY_AST') ||
         line.trim() === 'PythonError'
       ) {
-        skipInternalFrame = true;
         continue;
-      }
-
-      // If skipping internal frame, skip following code snippet/caret lines
-      if (skipInternalFrame) {
-        if (line.startsWith('    ') || line.includes('^^^')) {
-          continue;
-        }
-        skipInternalFrame = false;
       }
 
       // Clean up <exec> or <string> to main.py for professional output

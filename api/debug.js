@@ -64,20 +64,26 @@ export default async function handler(req, res) {
     return res.status(500).json({ error: 'OPENROUTER_API_KEY is not configured on server.' });
   }
 
-  const systemPrompt = `You are a world-class compiler and runtime code debugger.
-Your task is to analyze the user's source code and the exact compiler or runtime error.
-Give a distinct, deep, and customized diagnosis specifically tailored to their exact code snippet.
+  const systemPrompt = `You are a world-class code compiler and automated debugging system.
+Inspect the user's ENTIRE code snippet and compiler output.
+Detect ALL errors in the code in one single go (all syntax errors, extra/missing colons, indentation errors, typos, uninitialized variables, type mismatches), not just the first error flagged by the compiler.
 
 Return strictly a valid JSON object matching this schema:
 {
-  "type": "Precise Distinct Title (e.g. NameError: Typo in Function 'prin' -> 'print')",
-  "line": integer or null (the exact 1-based line number in user code causing the error),
-  "explanation": "Clear, distinct, plain-English explanation of exactly what went wrong in this code",
-  "cause": "Deep root cause explanation of why the compiler or runtime failed on this specific token or line",
-  "originalLine": "the exact offending line of code",
-  "suggestedLine": "the exact corrected line of code",
-  "fixCode": "the complete source code with the fix cleanly applied, ready to compile and run without error",
-  "tip": "A practical, specific tip to avoid this exact bug in the future"
+  "summary": "Clear, concise 1-sentence overview summarizing all errors found in the file",
+  "totalIssues": integer,
+  "issues": [
+    {
+      "line": integer (the 1-based line number in user code),
+      "type": "Precise error title (e.g. SyntaxError: Double Colon (::))",
+      "explanation": "Clear plain-English explanation of this specific issue",
+      "cause": "Why this specific syntax or token failed",
+      "originalLine": "the exact offending line",
+      "suggestedLine": "the exact corrected line"
+    }
+  ],
+  "fixCode": "the COMPLETE full code with ALL issues cleanly resolved and properly indented, ready to compile and run without any error",
+  "tip": "Helpful tip for preventing these errors"
 }`;
 
   const userPrompt = `Language: ${language}
@@ -93,7 +99,7 @@ ${errorText}
 
   try {
     const controller = new AbortController();
-    const timeout = setTimeout(() => controller.abort(), 12000);
+    const timeout = setTimeout(() => controller.abort(), 14000);
 
     const openRouterRes = await fetch('https://openrouter.ai/api/v1/chat/completions', {
       method: 'POST',
@@ -109,7 +115,7 @@ ${errorText}
           { role: 'system', content: systemPrompt },
           { role: 'user', content: userPrompt }
         ],
-        max_tokens: 800,
+        max_tokens: 1200,
         temperature: 0.1,
         response_format: { type: 'json_object' }
       }),
@@ -139,7 +145,6 @@ ${errorText}
     try {
       parsed = JSON.parse(rawContent);
     } catch {
-      // Extract json from markdown block if needed
       const jsonMatch = rawContent.match(/\{[\s\S]*\}/);
       if (jsonMatch) {
         parsed = JSON.parse(jsonMatch[0]);
@@ -148,15 +153,43 @@ ${errorText}
       }
     }
 
+    // Normalize issues array
+    const rawIssues = Array.isArray(parsed.issues) ? parsed.issues : [];
+    const formattedIssues = rawIssues.map((iss, idx) => ({
+      id: `issue_${idx + 1}`,
+      line: typeof iss.line === 'number' ? iss.line : null,
+      type: iss.type || 'Syntax Notice',
+      explanation: iss.explanation || '',
+      cause: iss.cause || '',
+      originalLine: iss.originalLine || iss.original || '',
+      suggestedLine: iss.suggestedLine || iss.suggested || ''
+    }));
+
+    // Backwards-compatible single issue fields
+    const primaryIssue = formattedIssues[0] || {};
+
     return res.status(200).json({
       success: true,
       analysis: {
-        type: parsed.type || `${language.toUpperCase()} Error Diagnosis`,
-        line: typeof parsed.line === 'number' ? parsed.line : null,
-        explanation: parsed.explanation || '',
-        cause: parsed.cause || '',
-        originalLine: parsed.originalLine || '',
-        suggestedLine: parsed.suggestedLine || '',
+        summary: parsed.summary || `Found ${formattedIssues.length || 1} issue(s) in code.`,
+        totalIssues: parsed.totalIssues || formattedIssues.length || 1,
+        issues: formattedIssues.length > 0 ? formattedIssues : [
+          {
+            id: 'issue_1',
+            line: parsed.line || 1,
+            type: parsed.type || `${language.toUpperCase()} Error`,
+            explanation: parsed.explanation || '',
+            cause: parsed.cause || '',
+            originalLine: parsed.originalLine || '',
+            suggestedLine: parsed.suggestedLine || ''
+          }
+        ],
+        type: primaryIssue.type || parsed.type || `${language.toUpperCase()} Diagnostics Notice`,
+        line: primaryIssue.line || parsed.line || 1,
+        explanation: parsed.summary || primaryIssue.explanation || parsed.explanation || '',
+        cause: primaryIssue.cause || parsed.cause || '',
+        originalLine: primaryIssue.originalLine || parsed.originalLine || '',
+        suggestedLine: primaryIssue.suggestedLine || parsed.suggestedLine || '',
         fixCode: parsed.fixCode || null,
         tip: parsed.tip || '',
         isAI: true

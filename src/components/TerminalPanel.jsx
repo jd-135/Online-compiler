@@ -284,21 +284,25 @@ export function TerminalPanel({
                     style={{ backgroundColor: 'var(--bg-secondary)', borderColor: 'var(--border-color)', color: 'var(--text-primary)' }}
                   >
                     <div 
-                    className="flex items-center justify-between border-b border-[#30363d] pb-2 text-xs"
-                    style={{ borderColor: 'var(--border-color)' }}
-                  >
-                    <div className="flex items-center gap-2">
-                      <Sparkles size={15} className="text-[#58a6ff]" style={{ color: 'var(--accent-primary)' }} />
-                      <span className="font-bold text-[#e6edf3]">AI Debugger Assistant</span>
-                      {aiAnalysis.line && (
-                        <span className="text-[10px] font-mono px-1.5 py-0.5 rounded bg-[#f85149]/15 text-[#f85149] border border-[#f85149]/30 font-semibold">
-                          Line {aiAnalysis.line}
+                      className="flex items-center justify-between border-b border-[#30363d] pb-2 text-xs"
+                      style={{ borderColor: 'var(--border-color)' }}
+                    >
+                      <div className="flex items-center gap-2 flex-wrap">
+                        <Sparkles size={15} className="text-[#58a6ff]" style={{ color: 'var(--accent-primary)' }} />
+                        <span className="font-bold text-[#e6edf3]">AI Debugger Assistant</span>
+                        {aiAnalysis.issues && aiAnalysis.issues.length > 1 ? (
+                          <span className="text-[10px] font-mono px-2 py-0.5 rounded-full bg-amber-500/15 text-amber-300 border border-amber-500/30 font-semibold">
+                            {aiAnalysis.issues.length} Issues Detected
+                          </span>
+                        ) : aiAnalysis.line ? (
+                          <span className="text-[10px] font-mono px-1.5 py-0.5 rounded bg-[#f85149]/15 text-[#f85149] border border-[#f85149]/30 font-semibold">
+                            Line {aiAnalysis.line}
+                          </span>
+                        ) : null}
+                        <span className="text-[10px] font-mono px-1.5 py-0.5 rounded bg-[#3fb950]/15 text-[#3fb950] border border-[#3fb950]/30">
+                          {aiAnalysis.isAI || aiAnalysis.isGenerative ? 'Live Neural AI' : 'Expert Engine'}
                         </span>
-                      )}
-                      <span className="text-[10px] font-mono px-1.5 py-0.5 rounded bg-[#3fb950]/15 text-[#3fb950] border border-[#3fb950]/30">
-                        {aiAnalysis.isAI || aiAnalysis.isGenerative ? 'Live Neural AI' : 'Expert Engine'}
-                      </span>
-                    </div>
+                      </div>
                       <button
                         type="button"
                         onClick={() => setAiAnalysis(null)}
@@ -310,38 +314,85 @@ export function TerminalPanel({
                     </div>
 
                     <div className="space-y-2.5 text-xs">
-                      {/* Type & Explanation */}
-                      <div>
-                        <div className="text-[11px] font-semibold text-[#f85149] mb-0.5">{aiAnalysis.type}</div>
-                        <div className="text-[#e6edf3] leading-relaxed" style={{ color: 'var(--text-primary)' }}>{aiAnalysis.explanation}</div>
-                      </div>
-
-                      {/* Root cause */}
-                      {aiAnalysis.cause && (
+                      {/* Summary Banner if multiple issues */}
+                      {aiAnalysis.summary && (
                         <div 
-                          className="text-[#8b949e] text-[11px] leading-relaxed bg-[#0f1117]/80 p-2.5 rounded-lg border border-[#30363d]"
-                          style={{ backgroundColor: 'var(--bg-primary)', borderColor: 'var(--border-color)', color: 'var(--text-secondary)' }}
+                          className="text-[#e6edf3] text-xs leading-relaxed bg-[#0f1117]/80 p-2.5 rounded-lg border border-[#30363d] font-medium"
+                          style={{ backgroundColor: 'var(--bg-primary)', borderColor: 'var(--border-color)', color: 'var(--text-primary)' }}
                         >
-                          <span className="text-[#e6edf3] font-semibold" style={{ color: 'var(--text-primary)' }}>Why this happened: </span>
-                          {aiAnalysis.cause}
+                          {aiAnalysis.summary}
                         </div>
                       )}
 
-                      {/* Diff comparison preview */}
-                      {aiAnalysis.originalLine && aiAnalysis.suggestedLine && (
-                        <div 
-                          className="font-mono text-[11px] rounded-lg overflow-hidden border border-[#30363d]"
-                          style={{ borderColor: 'var(--border-color)' }}
-                        >
-                          <div className="bg-[#f85149]/10 text-[#f85149] px-2.5 py-1.5 flex items-center gap-2 border-b border-[#f85149]/20">
-                            <span className="select-none text-[#f85149]/60 font-bold">-</span>
-                            <span className="truncate">{aiAnalysis.originalLine}</span>
-                          </div>
-                          <div className="bg-[#3fb950]/10 text-[#3fb950] px-2.5 py-1.5 flex items-center gap-2">
-                            <span className="select-none text-[#3fb950]/60 font-bold">+</span>
-                            <span className="truncate">{aiAnalysis.suggestedLine}</span>
-                          </div>
+                      {/* Multiple Issues Breakdown */}
+                      {aiAnalysis.issues && aiAnalysis.issues.length > 1 ? (
+                        <div className="space-y-2 max-h-[280px] overflow-y-auto pr-1">
+                          {aiAnalysis.issues.map((iss, idx) => (
+                            <div 
+                              key={iss.id || idx}
+                              className="p-2.5 rounded-lg bg-[#0f1117]/60 border border-[#30363d] space-y-1.5 text-xs"
+                              style={{ borderColor: 'var(--border-color)' }}
+                            >
+                              <div className="flex items-center justify-between">
+                                <span className="font-semibold text-[#f85149] text-[11px]">{iss.type}</span>
+                                {iss.line && (
+                                  <span className="text-[10px] font-mono px-1.5 py-0.2 rounded bg-[#f85149]/15 text-[#f85149] border border-[#f85149]/30">
+                                    Line {iss.line}
+                                  </span>
+                                )}
+                              </div>
+                              <div className="text-[#e6edf3] leading-relaxed text-[11px]" style={{ color: 'var(--text-primary)' }}>
+                                {iss.explanation}
+                              </div>
+                              {iss.originalLine && iss.suggestedLine && (
+                                <div className="font-mono text-[10px] rounded overflow-hidden border border-[#30363d]">
+                                  <div className="bg-[#f85149]/10 text-[#f85149] px-2 py-1 flex items-center gap-1.5">
+                                    <span className="select-none font-bold text-[#f85149]/70">-</span>
+                                    <span className="truncate">{iss.originalLine}</span>
+                                  </div>
+                                  <div className="bg-[#3fb950]/10 text-[#3fb950] px-2 py-1 flex items-center gap-1.5">
+                                    <span className="select-none font-bold text-[#3fb950]/70">+</span>
+                                    <span className="truncate">{iss.suggestedLine}</span>
+                                  </div>
+                                </div>
+                              )}
+                            </div>
+                          ))}
                         </div>
+                      ) : (
+                        /* Single Issue Layout */
+                        <>
+                          <div>
+                            <div className="text-[11px] font-semibold text-[#f85149] mb-0.5">{aiAnalysis.type}</div>
+                            <div className="text-[#e6edf3] leading-relaxed" style={{ color: 'var(--text-primary)' }}>{aiAnalysis.explanation}</div>
+                          </div>
+
+                          {aiAnalysis.cause && (
+                            <div 
+                              className="text-[#8b949e] text-[11px] leading-relaxed bg-[#0f1117]/80 p-2.5 rounded-lg border border-[#30363d]"
+                              style={{ backgroundColor: 'var(--bg-primary)', borderColor: 'var(--border-color)', color: 'var(--text-secondary)' }}
+                            >
+                              <span className="text-[#e6edf3] font-semibold" style={{ color: 'var(--text-primary)' }}>Why this happened: </span>
+                              {aiAnalysis.cause}
+                            </div>
+                          )}
+
+                          {aiAnalysis.originalLine && aiAnalysis.suggestedLine && (
+                            <div 
+                              className="font-mono text-[11px] rounded-lg overflow-hidden border border-[#30363d]"
+                              style={{ borderColor: 'var(--border-color)' }}
+                            >
+                              <div className="bg-[#f85149]/10 text-[#f85149] px-2.5 py-1.5 flex items-center gap-2 border-b border-[#f85149]/20">
+                                <span className="select-none text-[#f85149]/60 font-bold">-</span>
+                                <span className="truncate">{aiAnalysis.originalLine}</span>
+                              </div>
+                              <div className="bg-[#3fb950]/10 text-[#3fb950] px-2.5 py-1.5 flex items-center gap-2">
+                                <span className="select-none text-[#3fb950]/60 font-bold">+</span>
+                                <span className="truncate">{aiAnalysis.suggestedLine}</span>
+                              </div>
+                            </div>
+                          )}
+                        </>
                       )}
 
                       {/* Action buttons & tip */}
@@ -363,7 +414,7 @@ export function TerminalPanel({
                             className="px-3.5 py-1.5 rounded-lg bg-[#3fb950] hover:bg-[#2ea043] text-[#0f1117] font-semibold text-xs flex items-center gap-1.5 shadow-sm active:scale-95 shrink-0 ml-auto transition-all"
                           >
                             <Check size={13} />
-                            <span>Apply Fix to Code</span>
+                            <span>{aiAnalysis.issues && aiAnalysis.issues.length > 1 ? 'Apply All Fixes in 1-Click' : 'Apply Fix to Code'}</span>
                           </button>
                         )}
                       </div>
