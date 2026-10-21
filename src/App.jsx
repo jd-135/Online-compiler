@@ -92,6 +92,7 @@ export default function App() {
   const [editorWidthPercent, setEditorWidthPercent] = useState(55);
   const isDraggingRef = useRef(false);
   const containerRef = useRef(null);
+  const lastPromptRef = useRef('');
 
   // Editor settings (persisted to localStorage)
   const [settings, setSettings] = useState(() => {
@@ -371,6 +372,7 @@ export default function App() {
     if (!hasInput) {
       const { requiresInput, promptText } = detectInputRequirements(currentCode, selectedLanguage.id);
       if (requiresInput) {
+        lastPromptRef.current = promptText;
         setExecutionResult({
           success: false,
           isInteractivePrompt: true,
@@ -399,23 +401,21 @@ export default function App() {
       });
 
       let formattedStdout = result.stdout || '';
-      const promptToMatch = (executionResult?.isInteractivePrompt ? executionResult.stdout : '') || '';
+      const activePrompt = (lastPromptRef.current || detectInputRequirements(currentCode, selectedLanguage.id).promptText || '').trim();
 
       if (hasInput && formattedStdout) {
-        if (promptToMatch && formattedStdout.includes(promptToMatch.trim())) {
-          const trimmedPrompt = promptToMatch.trim();
-          const idx = formattedStdout.indexOf(trimmedPrompt);
-          if (idx !== -1) {
-            const endIdx = idx + trimmedPrompt.length;
-            formattedStdout = 
-              formattedStdout.substring(0, endIdx) + 
-              ' ' + inputToUse.trim() + '\n' + 
-              formattedStdout.substring(endIdx).replace(/^\n*/, '');
-          }
-        } else if (promptToMatch && !formattedStdout.includes(inputToUse.trim())) {
-          formattedStdout = promptToMatch.trim() + ' ' + inputToUse.trim() + '\n' + formattedStdout;
-        } else if (!formattedStdout.includes(inputToUse.trim())) {
-          formattedStdout = inputToUse.trim() + '\n' + formattedStdout;
+        const inputVal = inputToUse.trim();
+
+        if (activePrompt && formattedStdout.includes(activePrompt)) {
+          // Format prompt and entered value on the first line, then program output on the next line
+          const idx = formattedStdout.indexOf(activePrompt);
+          const endIdx = idx + activePrompt.length;
+          const afterPrompt = formattedStdout.substring(endIdx).replace(/^\s*/, '');
+          formattedStdout = formattedStdout.substring(0, endIdx) + ' ' + inputVal + '\n' + afterPrompt;
+        } else if (activePrompt) {
+          formattedStdout = activePrompt + ' ' + inputVal + '\n' + formattedStdout.trimStart();
+        } else if (!formattedStdout.includes(inputVal)) {
+          formattedStdout = formattedStdout ? `${inputVal}\n${formattedStdout}` : inputVal;
         }
       }
 

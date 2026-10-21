@@ -428,19 +428,22 @@ export function TerminalPanel({
 
         {/* Interactive Input Line when waiting for user input */}
         {!isRunning && isWaitingForInput && (
-          <div className="flex items-center gap-1.5 font-mono text-[13px] mt-2 bg-[#161b22]/90 border border-[#30363d] rounded-lg px-2.5 py-1.5 shadow-sm">
+          <div className="flex items-center gap-2 font-mono text-[13px] mt-2 bg-[#161b22]/95 border border-[#58a6ff]/50 rounded-lg px-3 py-2 shadow-lg ring-1 ring-[#58a6ff]/30">
             <span className="text-[#58a6ff] select-none font-bold" style={{ color: 'var(--accent-primary)' }}>&gt;</span>
+            {cleanStdout && (
+              <span className="text-[#8b949e] select-none font-semibold">{cleanStdout.trim()} </span>
+            )}
             <input
               ref={terminalInputRef}
               type="text"
               value={currentInput}
               onChange={(e) => setCurrentInput(e.target.value)}
               onKeyDown={handleKeyDown}
-              placeholder="Type your input and press Enter..."
-              className="flex-1 bg-transparent text-[#e6edf3] font-semibold font-mono text-[13px] outline-none border-none p-0 focus:ring-0 placeholder:text-[#8b949e]/60 placeholder:font-normal"
+              placeholder="Type value & press Enter ↵"
+              className="flex-1 bg-transparent text-[#e6edf3] font-bold font-mono text-[13px] outline-none border-none p-0 focus:ring-0 placeholder:text-[#8b949e]/50 placeholder:font-normal"
               autoFocus
             />
-            <span className="text-[10px] text-[#8b949e] font-mono px-1.5 py-0.5 rounded bg-[#21262d] border border-[#30363d]">
+            <span className="text-[10px] text-[#58a6ff] font-mono px-2 py-0.5 rounded bg-[#58a6ff]/15 border border-[#58a6ff]/30 font-semibold select-none">
               ↵ Enter
             </span>
           </div>
