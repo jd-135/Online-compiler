@@ -595,6 +595,7 @@ export default function App() {
               onToggleExpand={() => setIsTerminalExpanded(!isTerminalExpanded)}
               selectedLanguage={selectedLanguage}
               code={currentCode}
+              geminiApiKey={settings.geminiApiKey || ''}
               onApplyFix={(fixedCode) => {
                 handleChangeCode(fixedCode);
                 setSharedToast('AI Debugger: Fix applied to code! Press Ctrl+Enter to re-run.');

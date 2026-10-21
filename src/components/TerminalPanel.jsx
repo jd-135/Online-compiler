@@ -10,9 +10,10 @@ import {
   AlertCircle,
   Sparkles,
   Lightbulb,
-  X
+  X,
+  Loader2
 } from 'lucide-react';
-import { analyzeError } from '../services/aiDebugger';
+import { analyzeError, analyzeErrorAsync } from '../services/aiDebugger';
 
 export function TerminalPanel({
   executionResult,
@@ -23,12 +24,14 @@ export function TerminalPanel({
   onToggleExpand,
   selectedLanguage,
   code,
-  onApplyFix
+  onApplyFix,
+  geminiApiKey = ''
 }) {
   const [copied, setCopied] = useState(false);
   const [currentInput, setCurrentInput] = useState('');
   const [submittedInput, setSubmittedInput] = useState('');
   const [aiAnalysis, setAiAnalysis] = useState(null);
+  const [isAnalyzing, setIsAnalyzing] = useState(false);
   const terminalInputRef = useRef(null);
   const consoleContainerRef = useRef(null);
 
@@ -90,14 +93,29 @@ export function TerminalPanel({
   };
 
   // Trigger AI error diagnostics
-  const handleRunAiDiagnostics = () => {
-    const rawError = executionResult?.compileOutput || executionResult?.stderr || executionResult?.statusText || '';
-    const analysis = analyzeError({
-      language: selectedLanguage?.id || 'python',
-      errorText: rawError,
-      code: code || ''
-    });
-    setAiAnalysis(analysis);
+  const handleRunAiDiagnostics = async () => {
+    if (isAnalyzing) return;
+    setIsAnalyzing(true);
+    try {
+      const rawError = executionResult?.compileOutput || executionResult?.stderr || executionResult?.statusText || '';
+      const analysis = await analyzeErrorAsync({
+        language: selectedLanguage?.id || 'python',
+        errorText: rawError,
+        code: code || '',
+        apiKey: geminiApiKey || ''
+      });
+      setAiAnalysis(analysis);
+    } catch {
+      const rawError = executionResult?.compileOutput || executionResult?.stderr || executionResult?.statusText || '';
+      const analysis = analyzeError({
+        language: selectedLanguage?.id || 'python',
+        errorText: rawError,
+        code: code || ''
+      });
+      setAiAnalysis(analysis);
+    } finally {
+      setIsAnalyzing(false);
+    }
   };
 
   const isSuccess = executionResult?.success;
@@ -243,13 +261,18 @@ export function TerminalPanel({
                   <button
                     type="button"
                     onClick={handleRunAiDiagnostics}
-                    className="flex items-center gap-2 px-3 py-1.5 rounded-lg bg-[#58a6ff]/15 hover:bg-[#58a6ff]/25 text-[#e6edf3] border border-[#58a6ff]/40 text-xs font-semibold shadow-md transition-all active:scale-95 group"
+                    disabled={isAnalyzing}
+                    className="flex items-center gap-2 px-3 py-1.5 rounded-lg bg-[#58a6ff]/15 hover:bg-[#58a6ff]/25 text-[#e6edf3] border border-[#58a6ff]/40 text-xs font-semibold shadow-md transition-all active:scale-95 group disabled:opacity-50"
                     style={{ borderColor: 'var(--accent-primary)', color: 'var(--text-primary)' }}
                   >
-                    <Sparkles size={14} className="text-[#58a6ff] group-hover:rotate-12 transition-transform" style={{ color: 'var(--accent-primary)' }} />
-                    <span>Explain & Fix with AI</span>
+                    {isAnalyzing ? (
+                      <Loader2 size={14} className="text-[#58a6ff] animate-spin" style={{ color: 'var(--accent-primary)' }} />
+                    ) : (
+                      <Sparkles size={14} className="text-[#58a6ff] group-hover:rotate-12 transition-transform" style={{ color: 'var(--accent-primary)' }} />
+                    )}
+                    <span>{isAnalyzing ? 'Analyzing Issue...' : 'Explain & Fix with AI'}</span>
                     <span className="text-[10px] px-1.5 py-0.2 rounded bg-[#3fb950]/15 text-[#3fb950] font-mono border border-[#3fb950]/30 font-medium">
-                      Zero Cost • No Key
+                      {geminiApiKey ? 'Gemini 1.5 Cloud' : 'Built-in • Zero Cost'}
                     </span>
                   </button>
                 </div>
@@ -261,18 +284,21 @@ export function TerminalPanel({
                     style={{ backgroundColor: 'var(--bg-secondary)', borderColor: 'var(--border-color)', color: 'var(--text-primary)' }}
                   >
                     <div 
-                      className="flex items-center justify-between border-b border-[#30363d] pb-2 text-xs"
-                      style={{ borderColor: 'var(--border-color)' }}
-                    >
-                      <div className="flex items-center gap-2">
-                        <Sparkles size={15} className="text-[#58a6ff]" style={{ color: 'var(--accent-primary)' }} />
-                        <span className="font-bold text-[#e6edf3]">AI Debugger Assistant</span>
-                        {aiAnalysis.line && (
-                          <span className="text-[10px] font-mono px-1.5 py-0.5 rounded bg-[#f85149]/15 text-[#f85149] border border-[#f85149]/30 font-semibold">
-                            Line {aiAnalysis.line}
-                          </span>
-                        )}
-                      </div>
+                    className="flex items-center justify-between border-b border-[#30363d] pb-2 text-xs"
+                    style={{ borderColor: 'var(--border-color)' }}
+                  >
+                    <div className="flex items-center gap-2">
+                      <Sparkles size={15} className="text-[#58a6ff]" style={{ color: 'var(--accent-primary)' }} />
+                      <span className="font-bold text-[#e6edf3]">AI Debugger Assistant</span>
+                      {aiAnalysis.line && (
+                        <span className="text-[10px] font-mono px-1.5 py-0.5 rounded bg-[#f85149]/15 text-[#f85149] border border-[#f85149]/30 font-semibold">
+                          Line {aiAnalysis.line}
+                        </span>
+                      )}
+                      <span className="text-[10px] font-mono px-1.5 py-0.5 rounded bg-[#3fb950]/15 text-[#3fb950] border border-[#3fb950]/30">
+                        {aiAnalysis.isGenerative ? 'Live Cloud AI' : 'Expert Engine'}
+                      </span>
+                    </div>
                       <button
                         type="button"
                         onClick={() => setAiAnalysis(null)}

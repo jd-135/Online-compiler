@@ -1,5 +1,5 @@
 import React from 'react';
-import { X, Settings as SettingsIcon, Palette } from 'lucide-react';
+import { X, Settings as SettingsIcon, Palette, Sparkles, ExternalLink } from 'lucide-react';
 import { THEMES } from '../constants/themes';
 
 export function SettingsModal({ isOpen, onClose, settings, onUpdateSettings }) {
@@ -134,6 +134,44 @@ export function SettingsModal({ isOpen, onClose, settings, onUpdateSettings }) {
               onChange={(e) => onUpdateSettings({ ...settings, autocomplete: e.target.checked })}
               className="w-4 h-4 rounded bg-[#0f1117] border-[#30363d] text-[#58a6ff] focus:ring-0 cursor-pointer accent-[#58a6ff]"
             />
+          </div>
+
+          {/* AI Debugger Engine Configuration */}
+          <div className="pt-3 border-t border-[#30363d] space-y-2">
+            <div className="flex items-center justify-between">
+              <div className="flex items-center gap-1.5 font-medium text-[#e6edf3]">
+                <Sparkles size={14} className="text-[#58a6ff]" />
+                <span>AI Error Debugger Engine</span>
+              </div>
+              <span className="text-[10px] font-mono px-2 py-0.5 rounded-full bg-[#3fb950]/15 text-[#3fb950] border border-[#3fb950]/30">
+                100% Free
+              </span>
+            </div>
+            <div className="text-[11px] text-[#8b949e] leading-relaxed">
+              Default is our <strong className="text-[#e6edf3]">Built-in Expert Engine</strong> (50+ AST rules, offline, &lt;1ms, zero keys). Optionally paste a free Google AI Studio key below for live generative reasoning.
+            </div>
+
+            <div className="mt-2">
+              <div className="flex items-center justify-between text-[11px] mb-1">
+                <span className="text-[#8b949e]">Gemini API Key (Optional)</span>
+                <a 
+                  href="https://aistudio.google.com/app/apikey" 
+                  target="_blank" 
+                  rel="noreferrer"
+                  className="text-[#58a6ff] hover:underline flex items-center gap-1"
+                >
+                  <span>Get Free Key</span>
+                  <ExternalLink size={10} />
+                </a>
+              </div>
+              <input
+                type="password"
+                placeholder="Leave blank to use free built-in engine"
+                value={settings.geminiApiKey || ''}
+                onChange={(e) => onUpdateSettings({ ...settings, geminiApiKey: e.target.value })}
+                className="w-full bg-[#0f1117] border border-[#30363d] rounded-lg px-3 py-1.5 text-xs text-[#e6edf3] font-mono outline-none focus:border-[#58a6ff]"
+              />
+            </div>
           </div>
         </div>
 
