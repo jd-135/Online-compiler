@@ -111,12 +111,50 @@ sys.stdin = io.StringIO(${escapedStdin})
     exitCode = 1;
     statusText = 'Runtime Error';
     statusType = 'runtime_error';
-    stderr = err.message || String(err);
 
-    // Clean Pyodide internal stack frames to give clean Python traceback
-    if (stderr.includes('Traceback (most recent call last):')) {
-      const tbIdx = stderr.indexOf('Traceback (most recent call last):');
-      stderr = stderr.substring(tbIdx);
+    // Clean Pyodide internal stack frames to give clean, standard Python traceback
+    let rawTrace = err.message || String(err);
+    if (rawTrace.includes('Traceback (most recent call last):')) {
+      const tbIdx = rawTrace.indexOf('Traceback (most recent call last):');
+      rawTrace = rawTrace.substring(tbIdx);
+    }
+
+    const tbLines = rawTrace.split('\n');
+    const filteredLines = [];
+    let skipInternalFrame = false;
+
+    for (let i = 0; i < tbLines.length; i++) {
+      const line = tbLines[i];
+      // Skip lines referencing pyodide internal scripts and runner files
+      if (
+        line.includes('/_pyodide/') || 
+        line.includes('python312.zip') || 
+        line.includes('pyodide.js') || 
+        line.includes('eval_code_async') ||
+        line.includes('run_async') ||
+        line.includes('CodeRunner') ||
+        line.trim() === 'PythonError'
+      ) {
+        skipInternalFrame = true;
+        continue;
+      }
+
+      // If skipping internal frame, skip following code snippet/caret lines
+      if (skipInternalFrame) {
+        if (line.startsWith('    ') || line.includes('^^^')) {
+          continue;
+        }
+        skipInternalFrame = false;
+      }
+
+      // Clean up <exec> or <string> to main.py for professional output
+      const cleanLine = line.replace(/File ["']<(?:exec|string)>["']/g, 'File "main.py"');
+      filteredLines.push(cleanLine);
+    }
+
+    stderr = filteredLines.join('\n').trim();
+    if (!stderr) {
+      stderr = rawTrace;
     }
   }
 

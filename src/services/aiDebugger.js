@@ -5,26 +5,69 @@
  */
 
 /**
- * Extracts line number from compiler or runtime error message
+ * Extracts line number from compiler or runtime error message,
+ * strictly filtering out internal runtime/Pyodide frames and capping to valid user code lines.
  */
-function extractLineNumber(rawErr) {
-  if (!rawErr) return null;
+function extractLineNumber(rawErr, code, language) {
+  if (!rawErr) return 1;
 
-  // Python: File "...", line 4, in ...
-  const pyMatch = rawErr.match(/line (\d+)/i);
-  if (pyMatch) return parseInt(pyMatch[1], 10);
+  const lines = (code || '').split('\n');
+  const maxLines = lines.length || 1;
 
-  // C/C++ (GCC/Clang): prog.c:4:5: error: ...
-  const cMatch = rawErr.match(/:(\d+):(?:\d+:)?\s*(?:error|warning|fatal error):/i);
-  if (cMatch) return parseInt(cMatch[1], 10);
+  // 1. Python: match user frames, filtering out pyodide / lib / internal files
+  if (language === 'python') {
+    // Look specifically for user frame: File "<exec>", line 1 or File "main.py", line 1
+    const userFrameMatches = [...rawErr.matchAll(/File ["'](?:<exec>|<string>|main\.py|script_\d+\.py)["'], line (\d+)/gi)];
+    if (userFrameMatches.length > 0) {
+      const lastMatch = userFrameMatches[userFrameMatches.length - 1];
+      const num = parseInt(lastMatch[1], 10);
+      if (num > 0 && num <= maxLines) return num;
+    }
 
-  // Java: Main.java:4: error: ...
-  const javaMatch = rawErr.match(/:(\d+):\s*error:/i);
-  if (javaMatch) return parseInt(javaMatch[1], 10);
+    // Look for any File "...", line (\d+) that does NOT mention _pyodide or /lib/
+    const allFileMatches = [...rawErr.matchAll(/File ["']([^"']+)["'], line (\d+)/gi)];
+    const validFileMatches = allFileMatches.filter(m => !m[1].includes('_pyodide') && !m[1].includes('/lib/') && !m[1].includes('python3'));
+    if (validFileMatches.length > 0) {
+      const lastMatch = validFileMatches[validFileMatches.length - 1];
+      const num = parseInt(lastMatch[2], 10);
+      if (num > 0 && num <= maxLines) return num;
+    }
 
-  // Generic fallback for any ":line 4:" or "(4)"
-  const genMatch = rawErr.match(/(?:line|:)\s*(\d+)/i);
-  return genMatch ? parseInt(genMatch[1], 10) : null;
+    // SyntaxError: (line 1) or line 1
+    const syntaxMatches = [...rawErr.matchAll(/(?:line|Line)\s+(\d+)/g)];
+    for (const sm of syntaxMatches) {
+      const num = parseInt(sm[1], 10);
+      if (num > 0 && num <= maxLines) return num;
+    }
+  }
+
+  // 2. C/C++ (GCC/Clang): prog.c:4:5: error: ...
+  const cMatches = [...rawErr.matchAll(/:(\d+):(?:\d+:)?\s*(?:error|warning|fatal error):/gi)];
+  if (cMatches.length > 0) {
+    const num = parseInt(cMatches[0][1], 10);
+    if (num > 0 && num <= maxLines) return num;
+  }
+
+  // 3. Java: Main.java:4: error: ...
+  const javaMatches = [...rawErr.matchAll(/:(\d+):\s*error:/gi)];
+  if (javaMatches.length > 0) {
+    const num = parseInt(javaMatches[0][1], 10);
+    if (num > 0 && num <= maxLines) return num;
+  }
+
+  // 4. Token-based fallback: if error mentions an identifier (e.g. name 'xyz' is not defined), locate line in code!
+  const tokenMatch = rawErr.match(/name '(\w+)' is not defined/) || 
+                     rawErr.match(/undefined reference to `(\w+)'/) ||
+                     rawErr.match(/cannot find symbol.*(?:symbol:\s*(?:variable|method|class)\s+(\w+)|class\s+(\w+))/i);
+  if (tokenMatch) {
+    const token = tokenMatch[1] || tokenMatch[2];
+    if (token) {
+      const foundIdx = lines.findIndex(l => new RegExp(`\\b${token}\\b`).test(l));
+      if (foundIdx !== -1) return foundIdx + 1;
+    }
+  }
+
+  return 1;
 }
 
 /**
@@ -58,13 +101,49 @@ export function analyzeError({ language, errorText, code }) {
 
   const rawErr = String(errorText || '');
   const lines = (code || '').split('\n');
-  const lineNum = extractLineNumber(rawErr);
+  const lineNum = extractLineNumber(rawErr, code, language);
   const faultyLine = (lineNum && lineNum <= lines.length) ? lines[lineNum - 1] : '';
 
   // ---------------------------------------------------------------------------
   // 1. PYTHON DIAGNOSTICS & SMART REPAIR
   // ---------------------------------------------------------------------------
   if (language === 'python') {
+    // D0) Dynamic 'Did you mean' pattern (Python 3.10+ e.g., NameError: name 'prin' is not defined. Did you mean: 'print'?)
+    const generalDidYouMean = rawErr.match(/Did you mean:\s*['"](\w+)['"]/i);
+    const unrecogName = rawErr.match(/name\s+['"](\w+)['"]\s+is not defined/i)?.[1] || 
+                        rawErr.match(/attribute\s+['"](\w+)['"]/i)?.[1] ||
+                        rawErr.match(/['"](\w+)['"]\s+is not defined/i)?.[1];
+
+    if (generalDidYouMean && unrecogName) {
+      const wrongWord = unrecogName;
+      const correctWord = generalDidYouMean[1];
+
+      // Find line with wrongWord if faultyLine does not contain it
+      let targetLineNum = lineNum;
+      if (!new RegExp(`\\b${wrongWord}\\b`).test(faultyLine)) {
+        const foundIdx = lines.findIndex(l => new RegExp(`\\b${wrongWord}\\b`).test(l));
+        if (foundIdx !== -1) targetLineNum = foundIdx + 1;
+      }
+
+      const targetLine = (targetLineNum && targetLineNum <= lines.length) ? lines[targetLineNum - 1] : faultyLine;
+      const fixedLine = targetLine.replace(new RegExp(`\\b${wrongWord}\\b`), correctWord);
+      const updatedLines = [...lines];
+      if (targetLineNum && targetLineNum <= updatedLines.length) {
+        updatedLines[targetLineNum - 1] = fixedLine;
+      }
+
+      return {
+        type: `NameError: Typo in '${correctWord}' ('${wrongWord}')`,
+        line: targetLineNum,
+        explanation: `Python detected that "${wrongWord}" is a typo for "${correctWord}".`,
+        cause: `The identifier "${wrongWord}" does not exist. Did you mean to call "${correctWord}()"?`,
+        originalLine: targetLine,
+        suggestedLine: fixedLine,
+        fixCode: updatedLines.join('\n'),
+        tip: `Replace "${wrongWord}" with "${correctWord}".`
+      };
+    }
+
     // A) Missing colon ':' at end of header
     if (rawErr.includes('SyntaxError') && (rawErr.includes("expected ':'") || (faultyLine && /^\s*(if|elif|else|for|while|def|class|with|try|except|finally)\b/.test(faultyLine) && !faultyLine.trim().endsWith(':')))) {
       const fixedLine = faultyLine.trimEnd() + ':';
@@ -122,13 +201,13 @@ export function analyzeError({ language, errorText, code }) {
       };
     }
 
-    // D) Typo in print() function: prnt, pirnt, pinrt, ptint, prin, pritn
+    // D) Typo in print() function: prin, prnt, pirnt, pinrt, ptint, pritn, printf
     const printTypoMatch = faultyLine.match(/\b(prnt|pirnt|pinrt|ptint|prin|pritn|printf)\s*\(/);
-    if (printTypoMatch || (rawErr.includes("name 'prnt' is not defined") || rawErr.includes("name 'pirnt' is not defined") || rawErr.includes("name 'printf' is not defined"))) {
-      const typoWord = printTypoMatch ? printTypoMatch[1] : (rawErr.match(/name '(\w+)' is not defined/)?.[1] || 'prnt');
+    if (printTypoMatch || (rawErr.includes("name 'prin' is not defined") || rawErr.includes("name 'prnt' is not defined") || rawErr.includes("name 'pirnt' is not defined") || rawErr.includes("name 'printf' is not defined"))) {
+      const typoWord = printTypoMatch ? printTypoMatch[1] : (rawErr.match(/name '(\w+)' is not defined/)?.[1] || 'prin');
       const fixedLine = faultyLine.replace(new RegExp(`\\b${typoWord}\\b`), 'print');
       const updatedLines = [...lines];
-      if (lineNum) updatedLines[lineNum - 1] = fixedLine;
+      if (lineNum && lineNum <= updatedLines.length) updatedLines[lineNum - 1] = fixedLine;
 
       return {
         type: `NameError: Typo in 'print' ('${typoWord}')`,
@@ -673,7 +752,20 @@ export function analyzeError({ language, errorText, code }) {
   // ---------------------------------------------------------------------------
   const cleanErrMsg = rawErr
     .split('\n')
-    .filter(l => l.trim() && !l.includes('internal error') && !l.includes('at org.') && !l.includes('at java.'))
+    .filter(l => {
+      const trimmed = l.trim();
+      return trimmed && 
+        !trimmed.startsWith('File "/lib/python') &&
+        !trimmed.includes('_pyodide') &&
+        !trimmed.includes('python312.zip') &&
+        !trimmed.includes('eval_code_async') &&
+        !trimmed.includes('run_async') &&
+        !trimmed.includes('CodeRunner') &&
+        trimmed !== 'PythonError' &&
+        !trimmed.includes('internal error') && 
+        !trimmed.includes('at org.') && 
+        !trimmed.includes('at java.');
+    })
     .slice(0, 3)
     .join('\n');
 
