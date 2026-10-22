@@ -9,6 +9,7 @@ import { ShortcutsModal } from './components/ShortcutsModal';
 import { SettingsModal } from './components/SettingsModal';
 import { ShareModal } from './components/ShareModal';
 import { SplashScreen } from './components/SplashScreen';
+import { UniversityView } from './components/UniversityView';
 import { CheckCircle2, X } from 'lucide-react';
 
 import { LANGUAGES } from './constants/languages';
@@ -38,6 +39,7 @@ const DEFAULT_WORKSPACE = {
 
 export default function App() {
   const [selectedLanguage, setSelectedLanguage] = useState(LANGUAGES[0]);
+  const [appMode, setAppMode] = useState('compiler'); // 'compiler' | 'university'
   const [showSplash, setShowSplash] = useState(() => {
     try {
       return sessionStorage.getItem('jd_splash_seen') !== 'true';
@@ -514,108 +516,131 @@ export default function App() {
         onShare={handleShareCode}
         installPrompt={installPrompt}
         onInstallApp={handleInstallApp}
+        appMode={appMode}
+        onToggleAppMode={setAppMode}
       />
 
-      {/* Main Studio Work Area */}
-      <div className="flex-1 flex overflow-hidden relative">
-        {/* Leftmost Activity Bar */}
-        <ActivityBar
-          activeView={activeView}
-          setActiveView={setActiveView}
-          onRunCode={() => handleRunCode()}
-          isRunning={isRunning}
-          onToggleShortcuts={() => setShowShortcuts(true)}
-          onToggleSettings={() => setShowSettings(true)}
-        />
+      {/* Main Work Area: JD University Page vs Compiler IDE Studio */}
+      {appMode === 'university' ? (
+        <div className="flex-1 flex overflow-hidden relative">
+          <UniversityView
+            onBackToCompiler={() => setAppMode('compiler')}
+            onLoadCodeInCompiler={(code, langId) => {
+              const langObj = LANGUAGES.find(l => l.id === langId) || LANGUAGES[0];
+              setSelectedLanguage(langObj);
+              handleChangeCode(code);
+              setAppMode('compiler');
+              setSharedToast(`Loaded ${langObj.name} challenge code into Compiler IDE!`);
+              setTimeout(() => setSharedToast(null), 4000);
+            }}
+            settings={settings}
+          />
+        </div>
+      ) : (
+        <div className="flex-1 flex overflow-hidden relative">
+          {/* Leftmost Activity Bar */}
+          <ActivityBar
+            activeView={activeView}
+            setActiveView={setActiveView}
+            onRunCode={() => handleRunCode()}
+            isRunning={isRunning}
+            onToggleShortcuts={() => setShowShortcuts(true)}
+            onToggleSettings={() => setShowSettings(true)}
+            appMode={appMode}
+            onToggleAppMode={setAppMode}
+          />
 
-        {/* Collapsible Sidebar (Toggles open/close cleanly) */}
-        <Sidebar
-          activeView={activeView}
-          selectedLanguage={selectedLanguage}
-          files={currentLangFiles}
-          activeFileId={activeFile?.id}
-          onSelectFile={handleSelectFile}
-          onCloseFile={handleCloseFile}
-          onAddFile={handleAddFile}
-          onLoadSnippet={handleLoadSnippet}
-          onClose={() => setActiveView(null)}
-        />
+          {/* Collapsible Sidebar (Toggles open/close cleanly) */}
+          <Sidebar
+            activeView={activeView}
+            selectedLanguage={selectedLanguage}
+            files={currentLangFiles}
+            activeFileId={activeFile?.id}
+            onSelectFile={handleSelectFile}
+            onCloseFile={handleCloseFile}
+            onAddFile={handleAddFile}
+            onLoadSnippet={handleLoadSnippet}
+            onClose={() => setActiveView(null)}
+          />
 
-        {/* Resizable Split Work Area (Editor & Terminal) */}
-        <div 
-          ref={containerRef} 
-          className="flex-1 flex flex-col md:flex-row overflow-hidden relative"
-        >
-          {/* Left / Top: Code Editor */}
-          {!isTerminalExpanded && (
+          {/* Resizable Split Work Area (Editor & Terminal) */}
+          <div 
+            ref={containerRef} 
+            className="flex-1 flex flex-col md:flex-row overflow-hidden relative"
+          >
+            {/* Left / Top: Code Editor */}
+            {!isTerminalExpanded && (
+              <div 
+                style={{ width: `${editorWidthPercent}%` }}
+                className="flex flex-col min-h-[300px] md:min-h-0 h-full overflow-hidden shrink-0 transition-[width] duration-75"
+              >
+                <EditorPanel
+                  selectedLanguage={selectedLanguage}
+                  files={currentLangFiles}
+                  activeFileId={activeFile?.id}
+                  onSelectFile={handleSelectFile}
+                  onCloseFile={handleCloseFile}
+                  onAddFile={handleAddFile}
+                  code={currentCode}
+                  onChangeCode={handleChangeCode}
+                  settings={settings}
+                  onUpdateCursor={setCursorPosition}
+                  onRunCode={() => handleRunCode()}
+                  isExplorerOpen={Boolean(activeView)}
+                  onToggleExplorer={() => setActiveView(activeView ? null : 'explorer')}
+                />
+              </div>
+            )}
+
+            {/* DRAGGABLE RESIZER BAR */}
+            {!isTerminalExpanded && (
+              <div
+                onMouseDown={handleMouseDown}
+                title="Drag to resize editor and output terminal"
+                className="hidden md:flex w-2 hover:w-2 bg-[#161b22] hover:bg-[#58a6ff]/40 cursor-col-resize items-center justify-center transition-colors z-20 select-none group border-x border-[#30363d]"
+              >
+                <div className="w-0.5 h-8 bg-[#30363d] group-hover:bg-[#58a6ff] rounded-full transition-colors" />
+              </div>
+            )}
+
+            {/* Right / Bottom: Pure Native Terminal Console */}
             <div 
-              style={{ width: `${editorWidthPercent}%` }}
-              className="flex flex-col min-h-[300px] md:min-h-0 h-full overflow-hidden shrink-0 transition-[width] duration-75"
+              style={{ width: isTerminalExpanded ? '100%' : `${100 - editorWidthPercent}%` }}
+              className="flex flex-col h-full overflow-hidden flex-1"
             >
-              <EditorPanel
+              <TerminalPanel
+                executionResult={executionResult}
+                isRunning={isRunning}
+                onRunCodeWithInput={(inputVal) => handleRunCode(inputVal)}
+                onClearOutput={handleClearOutput}
+                isExpanded={isTerminalExpanded}
+                onToggleExpand={() => setIsTerminalExpanded(!isTerminalExpanded)}
                 selectedLanguage={selectedLanguage}
-                files={currentLangFiles}
-                activeFileId={activeFile?.id}
-                onSelectFile={handleSelectFile}
-                onCloseFile={handleCloseFile}
-                onAddFile={handleAddFile}
                 code={currentCode}
-                onChangeCode={handleChangeCode}
-                settings={settings}
-                onUpdateCursor={setCursorPosition}
-                onRunCode={() => handleRunCode()}
-                isExplorerOpen={Boolean(activeView)}
-                onToggleExplorer={() => setActiveView(activeView ? null : 'explorer')}
+                geminiApiKey={settings.geminiApiKey || ''}
+                onApplyFix={(fixedCode) => {
+                  handleChangeCode(fixedCode);
+                  setSharedToast('AI Debugger: Fix applied to code! Press Ctrl+Enter to re-run.');
+                  setTimeout(() => setSharedToast(null), 5000);
+                }}
               />
             </div>
-          )}
-
-          {/* DRAGGABLE RESIZER BAR */}
-          {!isTerminalExpanded && (
-            <div
-              onMouseDown={handleMouseDown}
-              title="Drag to resize editor and output terminal"
-              className="hidden md:flex w-2 hover:w-2 bg-[#161b22] hover:bg-[#58a6ff]/40 cursor-col-resize items-center justify-center transition-colors z-20 select-none group border-x border-[#30363d]"
-            >
-              <div className="w-0.5 h-8 bg-[#30363d] group-hover:bg-[#58a6ff] rounded-full transition-colors" />
-            </div>
-          )}
-
-          {/* Right / Bottom: Pure Native Terminal Console */}
-          <div 
-            style={{ width: isTerminalExpanded ? '100%' : `${100 - editorWidthPercent}%` }}
-            className="flex flex-col h-full overflow-hidden flex-1"
-          >
-            <TerminalPanel
-              executionResult={executionResult}
-              isRunning={isRunning}
-              onRunCodeWithInput={(inputVal) => handleRunCode(inputVal)}
-              onClearOutput={handleClearOutput}
-              isExpanded={isTerminalExpanded}
-              onToggleExpand={() => setIsTerminalExpanded(!isTerminalExpanded)}
-              selectedLanguage={selectedLanguage}
-              code={currentCode}
-              geminiApiKey={settings.geminiApiKey || ''}
-              onApplyFix={(fixedCode) => {
-                handleChangeCode(fixedCode);
-                setSharedToast('AI Debugger: Fix applied to code! Press Ctrl+Enter to re-run.');
-                setTimeout(() => setSharedToast(null), 5000);
-              }}
-            />
           </div>
         </div>
-      </div>
+      )}
 
-      {/* Bottom Status Bar */}
-      <StatusBar
-        selectedLanguage={selectedLanguage}
-        activeFileName={activeFile?.name}
-        isRunning={isRunning}
-        executionResult={executionResult}
-        cursorPosition={cursorPosition}
-        settings={settings}
-        isOnline={isOnline}
-      />
+      {/* Bottom Status Bar (Active in Compiler IDE mode) */}
+      {appMode === 'compiler' && (
+        <StatusBar
+          selectedLanguage={selectedLanguage}
+          activeFileName={activeFile?.name}
+          isRunning={isRunning}
+          executionResult={executionResult}
+          cursorPosition={cursorPosition}
+          settings={settings}
+          isOnline={isOnline}
+        />
+      )}
 
       {/* Modals */}
       <ShortcutsModal

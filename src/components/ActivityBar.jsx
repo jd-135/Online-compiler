@@ -5,7 +5,8 @@ import {
   Settings, 
   HelpCircle, 
   BookOpen,
-  Sparkles
+  Sparkles,
+  GraduationCap
 } from 'lucide-react';
 
 export function ActivityBar({
@@ -14,7 +15,9 @@ export function ActivityBar({
   onRunCode,
   isRunning,
   onToggleShortcuts,
-  onToggleSettings
+  onToggleSettings,
+  appMode,
+  onToggleAppMode
 }) {
   return (
     <aside className="w-12 bg-[#161b22] border-r border-[#30363d] flex flex-col justify-between items-center py-2.5 z-20 shrink-0 select-none">
@@ -57,6 +60,20 @@ export function ActivityBar({
           }`}
         >
           <BookOpen size={17} strokeWidth={1.75} />
+        </button>
+
+        {/* JD University Academy Shortcut */}
+        <button
+          onClick={() => onToggleAppMode && onToggleAppMode(appMode === 'university' ? 'compiler' : 'university')}
+          title="JD University (Interactive Programming Academy)"
+          className={`w-9 h-9 flex items-center justify-center rounded-lg transition-all relative group ${
+            appMode === 'university'
+              ? 'text-[#a371f7] bg-[#a371f7]/20 border border-[#a371f7]/50 shadow-xs'
+              : 'text-[#8b949e] hover:text-[#d2a8ff] hover:bg-[#21262d]'
+          }`}
+        >
+          <GraduationCap size={18} strokeWidth={1.75} />
+          <span className="absolute top-1.5 right-1.5 w-1.5 h-1.5 rounded-full bg-[#a371f7] ring-2 ring-[#161b22]" />
         </button>
       </div>
 
