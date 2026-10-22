@@ -1,0 +1,4577 @@
+// Generator script for comprehensive JD University curriculum
+const fs = require('fs');
+const path = require('path');
+
+const curriculum = {
+  // =========================================================================
+  // 1. C PROGRAMMING UNIVERSITY
+  // =========================================================================
+  c: {
+    languageId: 'c',
+    languageName: 'C',
+    color: '#555555',
+    accentColor: '#58a6ff',
+    badge: 'GCC 14',
+    description: 'Master procedural programming, memory management, pointers, and data structures from scratch.',
+    modules: [
+      {
+        id: 'c_mod_1',
+        title: 'Module 1: Fundamentals & Variables',
+        summary: 'Learn syntax, data types, arithmetic operators, and standard I/O (printf, scanf).',
+        level: 1,
+        problems: [
+          {
+            id: 'c_m1_p1',
+            title: 'Basic Arithmetic Operations',
+            difficulty: 'Easy',
+            xp: 30,
+            concept: 'In C, standard input and output functions are scanf() and printf() from <stdio.h>. Common arithmetic operators include +, -, *, /, and % (modulo).',
+            description: 'Read two integers a and b. Print their sum (a + b), difference (a - b), and product (a * b) each on a separate line.',
+            starterCode: `#include <stdio.h>
+
+int main(void) {
+    int a, b;
+    if (scanf("%d %d", &a, &b) == 2) {
+        // TODO: Calculate and print sum, difference, and product on separate lines
+        
+    }
+    return 0;
+}
+`,
+            solutionCode: `#include <stdio.h>
+
+int main(void) {
+    int a, b;
+    if (scanf("%d %d", &a, &b) == 2) {
+        printf("%d\\n", a + b);
+        printf("%d\\n", a - b);
+        printf("%d\\n", a * b);
+    }
+    return 0;
+}
+`,
+            testCases: [
+              { input: '10 5\n', expectedOutput: '15\n5\n50' },
+              { input: '20 4\n', expectedOutput: '24\n16\n80' }
+            ],
+            hints: ['Use %d in printf with \\n for newlines.', 'Difference is a - b.']
+          },
+          {
+            id: 'c_m1_p2',
+            title: 'Swap Two Numbers Without Temporary Variable',
+            difficulty: 'Easy',
+            xp: 35,
+            concept: 'Swapping values without a temporary variable can be achieved using arithmetic addition and subtraction:\na = a + b;\nb = a - b;\na = a - b;',
+            description: 'Read two integers a and b. Swap their values without using any third/temporary variable, and print them separated by a space.',
+            starterCode: `#include <stdio.h>
+
+int main(void) {
+    int a, b;
+    if (scanf("%d %d", &a, &b) == 2) {
+        // TODO: Swap a and b without using any third variable
+        
+        printf("%d %d\\n", a, b);
+    }
+    return 0;
+}
+`,
+            solutionCode: `#include <stdio.h>
+
+int main(void) {
+    int a, b;
+    if (scanf("%d %d", &a, &b) == 2) {
+        a = a + b;
+        b = a - b;
+        a = a - b;
+        printf("%d %d\\n", a, b);
+    }
+    return 0;
+}
+`,
+            testCases: [
+              { input: '3 7\n', expectedOutput: '7 3' },
+              { input: '100 200\n', expectedOutput: '200 100' }
+            ],
+            hints: ['Add b to a, then subtract b from new a, then subtract new b from new a.', 'Check with simple numbers first.']
+          },
+          {
+            id: 'c_m1_p3',
+            title: 'Temperature Converter (Celsius to Fahrenheit)',
+            difficulty: 'Easy',
+            xp: 35,
+            concept: 'The formula to convert Celsius (C) to Fahrenheit (F) is:\nF = (C * 9 / 5) + 32.\nUsing integers, perform multiplication before division to preserve precision.',
+            description: 'Read an integer representing temperature in Celsius. Print the corresponding temperature in Fahrenheit (as an integer).',
+            starterCode: `#include <stdio.h>
+
+int main(void) {
+    int c;
+    if (scanf("%d", &c) == 1) {
+        // TODO: Convert Celsius to Fahrenheit and print integer result
+        
+    }
+    return 0;
+}
+`,
+            solutionCode: `#include <stdio.h>
+
+int main(void) {
+    int c;
+    if (scanf("%d", &c) == 1) {
+        int f = (c * 9 / 5) + 32;
+        printf("%d\\n", f);
+    }
+    return 0;
+}
+`,
+            testCases: [
+              { input: '0\n', expectedOutput: '32' },
+              { input: '100\n', expectedOutput: '212' },
+              { input: '25\n', expectedOutput: '77' }
+            ],
+            hints: ['Multiply by 9 first, divide by 5, then add 32.']
+          },
+          {
+            id: 'c_m1_p4',
+            title: 'Rectangle Area and Perimeter',
+            difficulty: 'Easy',
+            xp: 35,
+            concept: 'For a rectangle with length L and width W:\nArea = L * W\nPerimeter = 2 * (L + W)',
+            description: 'Given two integers representing length and width of a rectangle, compute and print the Area on the first line and Perimeter on the second line.',
+            starterCode: `#include <stdio.h>
+
+int main(void) {
+    int length, width;
+    if (scanf("%d %d", &length, &width) == 2) {
+        // TODO: Compute and print Area and Perimeter on separate lines
+        
+    }
+    return 0;
+}
+`,
+            solutionCode: `#include <stdio.h>
+
+int main(void) {
+    int length, width;
+    if (scanf("%d %d", &length, &width) == 2) {
+        printf("%d\\n", length * width);
+        printf("%d\\n", 2 * (length + width));
+    }
+    return 0;
+}
+`,
+            testCases: [
+              { input: '5 3\n', expectedOutput: '15\n16' },
+              { input: '10 8\n', expectedOutput: '80\n36' }
+            ],
+            hints: ['Area is length * width.', 'Perimeter is 2 * (length + width).']
+          },
+          {
+            id: 'c_m1_p5',
+            title: 'ASCII Value & Case Converter',
+            difficulty: 'Easy',
+            xp: 40,
+            concept: 'In C, every char is stored as an integer ASCII code. For instance, \'A\' is 65 and \'a\' is 97. The difference between lowercase and uppercase is 32.',
+            description: 'Read a single lowercase character (from \'a\' to \'z\'). Print its ASCII integer value on the first line, and its uppercase equivalent on the second line.',
+            starterCode: `#include <stdio.h>
+
+int main(void) {
+    char ch;
+    if (scanf(" %c", &ch) == 1) {
+        // TODO: Print ASCII integer code, then print uppercase character on next line
+        
+    }
+    return 0;
+}
+`,
+            solutionCode: `#include <stdio.h>
+
+int main(void) {
+    char ch;
+    if (scanf(" %c", &ch) == 1) {
+        printf("%d\\n", (int)ch);
+        printf("%c\\n", ch - 32);
+    }
+    return 0;
+}
+`,
+            testCases: [
+              { input: 'a\n', expectedOutput: '97\nA' },
+              { input: 'z\n', expectedOutput: '122\nZ' }
+            ],
+            hints: ['To convert lowercase to uppercase, subtract 32 from the char code.', 'Use %d to print ASCII integer code, %c to print character.']
+          }
+        ]
+      },
+
+      // Module 2: Conditionals
+      {
+        id: 'c_mod_2',
+        title: 'Module 2: Conditionals & Branching',
+        summary: 'Master if-else conditions, nested statements, and switch-case branching.',
+        level: 2,
+        problems: [
+          {
+            id: 'c_m2_p1',
+            title: 'Even or Odd Number Checker',
+            difficulty: 'Easy',
+            xp: 30,
+            concept: 'An integer is even if divisible by 2 with remainder 0 (n % 2 == 0); otherwise, it is odd.',
+            description: 'Read an integer n. Print "Even" if the number is even, or "Odd" if it is odd.',
+            starterCode: `#include <stdio.h>
+
+int main(void) {
+    int n;
+    if (scanf("%d", &n) == 1) {
+        // TODO: Check if n is Even or Odd and print "Even" or "Odd"
+        
+    }
+    return 0;
+}
+`,
+            solutionCode: `#include <stdio.h>
+
+int main(void) {
+    int n;
+    if (scanf("%d", &n) == 1) {
+        if (n % 2 == 0) {
+            printf("Even\\n");
+        } else {
+            printf("Odd\\n");
+        }
+    }
+    return 0;
+}
+`,
+            testCases: [
+              { input: '42\n', expectedOutput: 'Even' },
+              { input: '17\n', expectedOutput: 'Odd' },
+              { input: '0\n', expectedOutput: 'Even' }
+            ],
+            hints: ['Use the modulo operator % 2.']
+          },
+          {
+            id: 'c_m2_p2',
+            title: 'Leap Year Detector',
+            difficulty: 'Medium',
+            xp: 45,
+            concept: 'A year is a leap year if it is divisible by 4, except end-of-century years which must be divisible by 400.\nFormula: (year % 400 == 0) || (year % 4 == 0 && year % 100 != 0)',
+            description: 'Read an integer year. Print "Leap Year" if it is a leap year, otherwise print "Not Leap Year".',
+            starterCode: `#include <stdio.h>
+
+int main(void) {
+    int year;
+    if (scanf("%d", &year) == 1) {
+        // TODO: Determine if year is a Leap Year
+        
+    }
+    return 0;
+}
+`,
+            solutionCode: `#include <stdio.h>
+
+int main(void) {
+    int year;
+    if (scanf("%d", &year) == 1) {
+        if ((year % 400 == 0) || (year % 4 == 0 && year % 100 != 0)) {
+            printf("Leap Year\\n");
+        } else {
+            printf("Not Leap Year\\n");
+        }
+    }
+    return 0;
+}
+`,
+            testCases: [
+              { input: '2024\n', expectedOutput: 'Leap Year' },
+              { input: '1900\n', expectedOutput: 'Not Leap Year' },
+              { input: '2000\n', expectedOutput: 'Leap Year' }
+            ],
+            hints: ['Centuries like 1900 are not leap years because 1900 % 400 != 0.', 'Combine conditions with logical OR (||) and AND (&&).']
+          },
+          {
+            id: 'c_m2_p3',
+            title: 'Maximum of Three Numbers',
+            difficulty: 'Easy',
+            xp: 35,
+            concept: 'To find the largest of three numbers a, b, and c, compare them using relational operators or nested if-else statements.',
+            description: 'Given three integers, print the maximum value among them.',
+            starterCode: `#include <stdio.h>
+
+int main(void) {
+    int a, b, c;
+    if (scanf("%d %d %d", &a, &b, &c) == 3) {
+        // TODO: Find and print the maximum value
+        
+    }
+    return 0;
+}
+`,
+            solutionCode: `#include <stdio.h>
+
+int main(void) {
+    int a, b, c;
+    if (scanf("%d %d %d", &a, &b, &c) == 3) {
+        int max = a;
+        if (b > max) max = b;
+        if (c > max) max = c;
+        printf("%d\\n", max);
+    }
+    return 0;
+}
+`,
+            testCases: [
+              { input: '12 85 45\n', expectedOutput: '85' },
+              { input: '99 2 4\n', expectedOutput: '99' },
+              { input: '7 7 7\n', expectedOutput: '7' }
+            ],
+            hints: ['Initialize max with a, then compare with b, then with c.']
+          },
+          {
+            id: 'c_m2_p4',
+            title: 'Triangle Classification by Sides',
+            difficulty: 'Medium',
+            xp: 40,
+            concept: 'A triangle with side lengths a, b, and c is:\n- Equilateral: all three sides are equal (a == b && b == c)\n- Isosceles: any two sides are equal\n- Scalene: all three sides are different',
+            description: 'Read three positive integers representing side lengths. Print "Equilateral", "Isosceles", or "Scalene".',
+            starterCode: `#include <stdio.h>
+
+int main(void) {
+    int a, b, c;
+    if (scanf("%d %d %d", &a, &b, &c) == 3) {
+        // TODO: Classify triangle as "Equilateral", "Isosceles", or "Scalene"
+        
+    }
+    return 0;
+}
+`,
+            solutionCode: `#include <stdio.h>
+
+int main(void) {
+    int a, b, c;
+    if (scanf("%d %d %d", &a, &b, &c) == 3) {
+        if (a == b && b == c) {
+            printf("Equilateral\\n");
+        } else if (a == b || b == c || a == c) {
+            printf("Isosceles\\n");
+        } else {
+            printf("Scalene\\n");
+        }
+    }
+    return 0;
+}
+`,
+            testCases: [
+              { input: '5 5 5\n', expectedOutput: 'Equilateral' },
+              { input: '5 5 8\n', expectedOutput: 'Isosceles' },
+              { input: '3 4 5\n', expectedOutput: 'Scalene' }
+            ],
+            hints: ['Check for Equilateral first, then Isosceles, then else Scalene.']
+          },
+          {
+            id: 'c_m2_p5',
+            title: 'Switch-Case Arithmetic Calculator',
+            difficulty: 'Medium',
+            xp: 45,
+            concept: 'The switch-case construct is ideal for multi-way branching based on discrete character or integer values.\nRemember to include a break; statement in each case.',
+            description: 'Read an integer a, an operator character op (+, -, *, /), and an integer b. Compute and print the result. For division, output integer division.',
+            starterCode: `#include <stdio.h>
+
+int main(void) {
+    int a, b;
+    char op;
+    if (scanf("%d %c %d", &a, &op, &b) == 3) {
+        // TODO: Use switch-case on op to compute and print the result
+        
+    }
+    return 0;
+}
+`,
+            solutionCode: `#include <stdio.h>
+
+int main(void) {
+    int a, b;
+    char op;
+    if (scanf("%d %c %d", &a, &op, &b) == 3) {
+        switch (op) {
+            case '+': printf("%d\\n", a + b); break;
+            case '-': printf("%d\\n", a - b); break;
+            case '*': printf("%d\\n", a * b); break;
+            case '/': printf("%d\\n", a / b); break;
+        }
+    }
+    return 0;
+}
+`,
+            testCases: [
+              { input: '14 + 6\n', expectedOutput: '20' },
+              { input: '50 - 15\n', expectedOutput: '35' },
+              { input: '8 * 7\n', expectedOutput: '56' },
+              { input: '100 / 4\n', expectedOutput: '25' }
+            ],
+            hints: ['In scanf, " %c" with a leading space ignores whitespace characters.']
+          }
+        ]
+      },
+
+      // Module 3: Loops
+      {
+        id: 'c_mod_3',
+        title: 'Module 3: Loops & Iterations (for, while, do-while)',
+        summary: 'Iterate through series, factorials, digit extraction, and prime checks.',
+        level: 3,
+        problems: [
+          {
+            id: 'c_m3_p1',
+            title: 'Factorial of a Number (for loop)',
+            difficulty: 'Easy',
+            xp: 35,
+            concept: 'The factorial of n (written n!) is the product of all positive integers less than or equal to n. 0! = 1.',
+            description: 'Read a non-negative integer n (n <= 12). Using a for loop, compute and print n!.',
+            starterCode: `#include <stdio.h>
+
+int main(void) {
+    int n;
+    if (scanf("%d", &n) == 1) {
+        // TODO: Compute factorial of n using a for loop
+        
+    }
+    return 0;
+}
+`,
+            solutionCode: `#include <stdio.h>
+
+int main(void) {
+    int n;
+    if (scanf("%d", &n) == 1) {
+        long long fact = 1;
+        for (int i = 1; i <= n; i++) {
+            fact *= i;
+        }
+        printf("%lld\\n", fact);
+    }
+    return 0;
+}
+`,
+            testCases: [
+              { input: '5\n', expectedOutput: '120' },
+              { input: '0\n', expectedOutput: '1' },
+              { input: '6\n', expectedOutput: '720' }
+            ],
+            hints: ['Initialize fact = 1.', 'Loop from 1 to n inclusive.']
+          },
+          {
+            id: 'c_m3_p2',
+            title: 'Sum of Digits (while loop)',
+            difficulty: 'Easy',
+            xp: 35,
+            concept: 'To extract digits of a positive number n in a while loop:\nRemainder n % 10 yields the last digit.\nDivision n /= 10 removes the last digit.',
+            description: 'Read a positive integer n. Using a while loop, calculate and print the sum of its digits.',
+            starterCode: `#include <stdio.h>
+
+int main(void) {
+    int n;
+    if (scanf("%d", &n) == 1) {
+        // TODO: Calculate and print sum of digits using while loop
+        
+    }
+    return 0;
+}
+`,
+            solutionCode: `#include <stdio.h>
+
+int main(void) {
+    int n;
+    if (scanf("%d", &n) == 1) {
+        int sum = 0;
+        while (n > 0) {
+            sum += (n % 10);
+            n /= 10;
+        }
+        printf("%d\\n", sum);
+    }
+    return 0;
+}
+`,
+            testCases: [
+              { input: '12345\n', expectedOutput: '15' },
+              { input: '908\n', expectedOutput: '17' },
+              { input: '7\n', expectedOutput: '7' }
+            ],
+            hints: ['Use while (n > 0) with n % 10 and n /= 10.']
+          },
+          {
+            id: 'c_m3_p3',
+            title: 'Palindrome Number Checker',
+            difficulty: 'Medium',
+            xp: 40,
+            concept: 'A number is a palindrome if it reads the same backwards as forwards (e.g., 121, 1331). Reverse the number mathematically and compare with the original.',
+            description: 'Read an integer n. Print "Palindrome" if it is a palindrome, or "Not Palindrome" otherwise.',
+            starterCode: `#include <stdio.h>
+
+int main(void) {
+    int n;
+    if (scanf("%d", &n) == 1) {
+        // TODO: Reverse the integer and check if original == reversed
+        
+    }
+    return 0;
+}
+`,
+            solutionCode: `#include <stdio.h>
+
+int main(void) {
+    int n;
+    if (scanf("%d", &n) == 1) {
+        int original = n;
+        long long reversed = 0;
+        while (n > 0) {
+            reversed = reversed * 10 + (n % 10);
+            n /= 10;
+        }
+        if (original == reversed) {
+            printf("Palindrome\\n");
+        } else {
+            printf("Not Palindrome\\n");
+        }
+    }
+    return 0;
+}
+`,
+            testCases: [
+              { input: '1221\n', expectedOutput: 'Palindrome' },
+              { input: '1234\n', expectedOutput: 'Not Palindrome' },
+              { input: '7\n', expectedOutput: 'Palindrome' }
+            ],
+            hints: ['Save the original value before modifying n in the loop.', 'Reversed formula: rev = rev * 10 + rem;']
+          },
+          {
+            id: 'c_m3_p4',
+            title: 'Prime Number Verifier',
+            difficulty: 'Medium',
+            xp: 45,
+            concept: 'A prime number is greater than 1 and has no positive divisors other than 1 and itself. We only need to test divisors up to sqrt(n).',
+            description: 'Read an integer n. Print "Prime" if it is a prime number, otherwise print "Not Prime". (Numbers <= 1 are not prime).',
+            starterCode: `#include <stdio.h>
+
+int main(void) {
+    int n;
+    if (scanf("%d", &n) == 1) {
+        // TODO: Determine if n is Prime or Not Prime
+        
+    }
+    return 0;
+}
+`,
+            solutionCode: `#include <stdio.h>
+
+int main(void) {
+    int n;
+    if (scanf("%d", &n) == 1) {
+        if (n <= 1) {
+            printf("Not Prime\\n");
+            return 0;
+        }
+        int isPrime = 1;
+        for (int i = 2; i * i <= n; i++) {
+            if (n % i == 0) {
+                isPrime = 0;
+                break;
+            }
+        }
+        if (isPrime) {
+            printf("Prime\\n");
+        } else {
+            printf("Not Prime\\n");
+        }
+    }
+    return 0;
+}
+`,
+            testCases: [
+              { input: '29\n', expectedOutput: 'Prime' },
+              { input: '1\n', expectedOutput: 'Not Prime' },
+              { input: '49\n', expectedOutput: 'Not Prime' },
+              { input: '2\n', expectedOutput: 'Prime' }
+            ],
+            hints: ['Check if n <= 1 first.', 'Loop i * i <= n for optimal efficiency.']
+          },
+          {
+            id: 'c_m3_p5',
+            title: 'Multiplication Table Generator (do-while loop)',
+            difficulty: 'Easy',
+            xp: 35,
+            concept: 'A do-while loop executes the loop body at least once before testing the loop condition at the end.',
+            description: 'Read an integer n. Using a do-while loop, print the first 5 multiples of n in the format "n x i = res" each on a new line (i from 1 to 5).',
+            starterCode: `#include <stdio.h>
+
+int main(void) {
+    int n;
+    if (scanf("%d", &n) == 1) {
+        // TODO: Print first 5 multiples using a do-while loop (i = 1 to 5)
+        
+    }
+    return 0;
+}
+`,
+            solutionCode: `#include <stdio.h>
+
+int main(void) {
+    int n;
+    if (scanf("%d", &n) == 1) {
+        int i = 1;
+        do {
+            printf("%d x %d = %d\\n", n, i, n * i);
+            i++;
+        } while (i <= 5);
+    }
+    return 0;
+}
+`,
+            testCases: [
+              { input: '7\n', expectedOutput: '7 x 1 = 7\n7 x 2 = 14\n7 x 3 = 21\n7 x 4 = 28\n7 x 5 = 35' },
+              { input: '3\n', expectedOutput: '3 x 1 = 3\n3 x 2 = 6\n3 x 3 = 9\n3 x 4 = 12\n3 x 5 = 15' }
+            ],
+            hints: ['do { ... } while (i <= 5);']
+          }
+        ]
+      },
+
+      // Module 4: Arrays & Sorting
+      {
+        id: 'c_mod_4',
+        title: 'Module 4: Arrays & Sorting Algorithms',
+        summary: 'Reverse, Left Rotate, Right Rotate, Bubble Sort, Merge Sort, and Element Search.',
+        level: 4,
+        problems: [
+          {
+            id: 'c_m4_p1',
+            title: 'Reverse Array In-Place',
+            difficulty: 'Easy',
+            xp: 45,
+            concept: 'Reversing an array in-place uses two pointers: left starting at 0, right starting at n - 1. Swap elements and increment left, decrement right until they meet.',
+            description: 'Read n followed by n integers. Reverse the array in-place and print the elements separated by spaces.',
+            starterCode: `#include <stdio.h>
+
+int main(void) {
+    int n;
+    if (scanf("%d", &n) == 1) {
+        int arr[100];
+        for (int i = 0; i < n; i++) scanf("%d", &arr[i]);
+        
+        // TODO: Reverse arr in-place using two pointers
+        
+        for (int i = 0; i < n; i++) printf("%d%c", arr[i], i == n - 1 ? '\\n' : ' ');
+    }
+    return 0;
+}
+`,
+            solutionCode: `#include <stdio.h>
+
+int main(void) {
+    int n;
+    if (scanf("%d", &n) == 1) {
+        int arr[100];
+        for (int i = 0; i < n; i++) scanf("%d", &arr[i]);
+        int left = 0, right = n - 1;
+        while (left < right) {
+            int temp = arr[left];
+            arr[left] = arr[right];
+            arr[right] = temp;
+            left++;
+            right--;
+        }
+        for (int i = 0; i < n; i++) printf("%d%c", arr[i], i == n - 1 ? '\\n' : ' ');
+    }
+    return 0;
+}
+`,
+            testCases: [
+              { input: '5\n1 2 3 4 5\n', expectedOutput: '5 4 3 2 1' },
+              { input: '4\n10 20 30 40\n', expectedOutput: '40 30 20 10' }
+            ],
+            hints: ['Swap arr[left] and arr[right] until left >= right.']
+          },
+          {
+            id: 'c_m4_p2',
+            title: 'Left Rotate Array by K Positions',
+            difficulty: 'Medium',
+            xp: 50,
+            concept: 'Left rotating an array by k shifts elements to the left by k places. Element at index i moves to (i - k + n) % n.',
+            description: 'Read n and k, followed by n integers. Rotate the array to the left by k positions and print the resulting array.',
+            starterCode: `#include <stdio.h>
+
+int main(void) {
+    int n, k;
+    if (scanf("%d %d", &n, &k) == 2) {
+        int arr[100];
+        for (int i = 0; i < n; i++) scanf("%d", &arr[i]);
+        
+        // TODO: Left rotate arr by k positions
+        
+    }
+    return 0;
+}
+`,
+            solutionCode: `#include <stdio.h>
+
+int main(void) {
+    int n, k;
+    if (scanf("%d %d", &n, &k) == 2) {
+        int arr[100], res[100];
+        for (int i = 0; i < n; i++) scanf("%d", &arr[i]);
+        k = k % n;
+        for (int i = 0; i < n; i++) {
+            res[i] = arr[(i + k) % n];
+        }
+        for (int i = 0; i < n; i++) printf("%d%c", res[i], i == n - 1 ? '\\n' : ' ');
+    }
+    return 0;
+}
+`,
+            testCases: [
+              { input: '5 2\n1 2 3 4 5\n', expectedOutput: '3 4 5 1 2' },
+              { input: '6 1\n10 20 30 40 50 60\n', expectedOutput: '20 30 40 50 60 10' }
+            ],
+            hints: ['k = k % n handles rotations larger than array size.', 'New element at index i is original element at (i + k) % n.']
+          },
+          {
+            id: 'c_m4_p3',
+            title: 'Right Rotate Array by K Positions',
+            difficulty: 'Medium',
+            xp: 50,
+            concept: 'Right rotating shifts elements to the right. Element at index i moves to (i + k) % n.',
+            description: 'Read n and k, followed by n integers. Rotate the array to the right by k positions and print the resulting array.',
+            starterCode: `#include <stdio.h>
+
+int main(void) {
+    int n, k;
+    if (scanf("%d %d", &n, &k) == 2) {
+        int arr[100];
+        for (int i = 0; i < n; i++) scanf("%d", &arr[i]);
+        
+        // TODO: Right rotate arr by k positions
+        
+    }
+    return 0;
+}
+`,
+            solutionCode: `#include <stdio.h>
+
+int main(void) {
+    int n, k;
+    if (scanf("%d %d", &n, &k) == 2) {
+        int arr[100], res[100];
+        for (int i = 0; i < n; i++) scanf("%d", &arr[i]);
+        k = k % n;
+        for (int i = 0; i < n; i++) {
+            res[(i + k) % n] = arr[i];
+        }
+        for (int i = 0; i < n; i++) printf("%d%c", res[i], i == n - 1 ? '\\n' : ' ');
+    }
+    return 0;
+}
+`,
+            testCases: [
+              { input: '5 2\n1 2 3 4 5\n', expectedOutput: '4 5 1 2 3' },
+              { input: '4 1\n10 20 30 40\n', expectedOutput: '40 10 20 30' }
+            ],
+            hints: ['Target position for index i is (i + k) % n.']
+          },
+          {
+            id: 'c_m4_p4',
+            title: 'Bubble Sort Algorithm',
+            difficulty: 'Medium',
+            xp: 50,
+            concept: 'Bubble Sort repeatedly steps through the list, compares adjacent elements and swaps them if they are in the wrong order. Time complexity is O(N^2).',
+            description: 'Read n followed by n integers. Sort the array in ascending order using Bubble Sort and print the sorted array.',
+            starterCode: `#include <stdio.h>
+
+int main(void) {
+    int n;
+    if (scanf("%d", &n) == 1) {
+        int arr[100];
+        for (int i = 0; i < n; i++) scanf("%d", &arr[i]);
+        
+        // TODO: Implement Bubble Sort
+        
+        for (int i = 0; i < n; i++) printf("%d%c", arr[i], i == n - 1 ? '\\n' : ' ');
+    }
+    return 0;
+}
+`,
+            solutionCode: `#include <stdio.h>
+
+int main(void) {
+    int n;
+    if (scanf("%d", &n) == 1) {
+        int arr[100];
+        for (int i = 0; i < n; i++) scanf("%d", &arr[i]);
+        for (int i = 0; i < n - 1; i++) {
+            for (int j = 0; j < n - i - 1; j++) {
+                if (arr[j] > arr[j + 1]) {
+                    int temp = arr[j];
+                    arr[j] = arr[j + 1];
+                    arr[j + 1] = temp;
+                }
+            }
+        }
+        for (int i = 0; i < n; i++) printf("%d%c", arr[i], i == n - 1 ? '\\n' : ' ');
+    }
+    return 0;
+}
+`,
+            testCases: [
+              { input: '6\n64 34 25 12 22 11\n', expectedOutput: '11 12 22 25 34 64' },
+              { input: '5\n5 1 4 2 8\n', expectedOutput: '1 2 4 5 8' }
+            ],
+            hints: ['Outer loop runs from 0 to n - 2.', 'Inner loop compares arr[j] and arr[j + 1].']
+          },
+          {
+            id: 'c_m4_p5',
+            title: 'Merge Sort Algorithm',
+            difficulty: 'Hard',
+            xp: 65,
+            concept: 'Merge Sort is an O(N log N) divide-and-conquer algorithm. It divides the array into halves, recursively sorts them, and merges the two sorted halves.',
+            description: 'Read n followed by n integers. Sort the array using Merge Sort and print the sorted array separated by spaces.',
+            starterCode: `#include <stdio.h>
+
+// TODO: Implement merge and mergeSort functions
+
+int main(void) {
+    int n;
+    if (scanf("%d", &n) == 1) {
+        int arr[100];
+        for (int i = 0; i < n; i++) scanf("%d", &arr[i]);
+        
+        // TODO: Call mergeSort on arr
+        
+        for (int i = 0; i < n; i++) printf("%d%c", arr[i], i == n - 1 ? '\\n' : ' ');
+    }
+    return 0;
+}
+`,
+            solutionCode: `#include <stdio.h>
+
+void merge(int arr[], int l, int m, int r) {
+    int n1 = m - l + 1;
+    int n2 = r - m;
+    int L[100], R[100];
+    for (int i = 0; i < n1; i++) L[i] = arr[l + i];
+    for (int j = 0; j < n2; j++) R[j] = arr[m + 1 + j];
+    int i = 0, j = 0, k = l;
+    while (i < n1 && j < n2) {
+        if (L[i] <= R[j]) {
+            arr[k++] = L[i++];
+        } else {
+            arr[k++] = R[j++];
+        }
+    }
+    while (i < n1) arr[k++] = L[i++];
+    while (j < n2) arr[k++] = R[j++];
+}
+
+void mergeSort(int arr[], int l, int r) {
+    if (l < r) {
+        int m = l + (r - l) / 2;
+        mergeSort(arr, l, m);
+        mergeSort(arr, m + 1, r);
+        merge(arr, l, m, r);
+    }
+}
+
+int main(void) {
+    int n;
+    if (scanf("%d", &n) == 1) {
+        int arr[100];
+        for (int i = 0; i < n; i++) scanf("%d", &arr[i]);
+        mergeSort(arr, 0, n - 1);
+        for (int i = 0; i < n; i++) printf("%d%c", arr[i], i == n - 1 ? '\\n' : ' ');
+    }
+    return 0;
+}
+`,
+            testCases: [
+              { input: '6\n12 11 13 5 6 7\n', expectedOutput: '5 6 7 11 12 13' },
+              { input: '5\n38 27 43 3 9\n', expectedOutput: '3 9 27 38 43' }
+            ],
+            hints: ['Midpoint calculation: m = l + (r - l) / 2.', 'Merge two sorted subarrays into the main array.']
+          },
+          {
+            id: 'c_m4_p6',
+            title: 'Second Largest Element in Array',
+            difficulty: 'Medium',
+            xp: 45,
+            concept: 'To find the second largest element in a single pass O(N), keep track of first_max and second_max while iterating through the array.',
+            description: 'Read n (n >= 2) followed by n distinct integers. Find and print the second largest element.',
+            starterCode: `#include <stdio.h>
+
+int main(void) {
+    int n;
+    if (scanf("%d", &n) == 1) {
+        int arr[100];
+        for (int i = 0; i < n; i++) scanf("%d", &arr[i]);
+        
+        // TODO: Find and print the second largest element
+        
+    }
+    return 0;
+}
+`,
+            solutionCode: `#include <stdio.h>
+
+int main(void) {
+    int n;
+    if (scanf("%d", &n) == 1) {
+        int arr[100];
+        for (int i = 0; i < n; i++) scanf("%d", &arr[i]);
+        int max1 = -1000000, max2 = -1000000;
+        for (int i = 0; i < n; i++) {
+            if (arr[i] > max1) {
+                max2 = max1;
+                max1 = arr[i];
+            } else if (arr[i] > max2 && arr[i] != max1) {
+                max2 = arr[i];
+            }
+        }
+        printf("%d\\n", max2);
+    }
+    return 0;
+}
+`,
+            testCases: [
+              { input: '5\n10 5 20 8 15\n', expectedOutput: '15' },
+              { input: '4\n1 99 50 75\n', expectedOutput: '75' }
+            ],
+            hints: ['When a new max is found, the previous max becomes max2.']
+          }
+        ]
+      },
+
+      // Module 5: Strings
+      {
+        id: 'c_mod_5',
+        title: 'Module 5: Strings & Text Processing',
+        summary: 'String reversal, palindrome check, vowel counting, and case toggling.',
+        level: 5,
+        problems: [
+          {
+            id: 'c_m5_p1',
+            title: 'String Length Without strlen()',
+            difficulty: 'Easy',
+            xp: 35,
+            concept: 'In C, strings are null-terminated character arrays ending with \'\\0\'. You can find length by counting characters until reaching \'\\0\'.',
+            description: 'Read a word (without spaces). Calculate and print its length without using the library function strlen().',
+            starterCode: `#include <stdio.h>
+
+int main(void) {
+    char str[100];
+    if (scanf("%s", str) == 1) {
+        // TODO: Compute and print the string length without strlen()
+        
+    }
+    return 0;
+}
+`,
+            solutionCode: `#include <stdio.h>
+
+int main(void) {
+    char str[100];
+    if (scanf("%s", str) == 1) {
+        int len = 0;
+        while (str[len] != '\\0') {
+            len++;
+        }
+        printf("%d\\n", len);
+    }
+    return 0;
+}
+`,
+            testCases: [
+              { input: 'HelloWorld\n', expectedOutput: '10' },
+              { input: 'Antigravity\n', expectedOutput: '11' }
+            ],
+            hints: ['Loop while str[len] != \'\\0\'.']
+          },
+          {
+            id: 'c_m5_p2',
+            title: 'Reverse a String',
+            difficulty: 'Easy',
+            xp: 40,
+            concept: 'To reverse a string in-place, swap characters from both ends using left = 0 and right = len - 1 until left >= right.',
+            description: 'Read a single word and print it reversed.',
+            starterCode: `#include <stdio.h>
+#include <string.h>
+
+int main(void) {
+    char str[100];
+    if (scanf("%s", str) == 1) {
+        // TODO: Reverse the string and print it
+        
+    }
+    return 0;
+}
+`,
+            solutionCode: `#include <stdio.h>
+#include <string.h>
+
+int main(void) {
+    char str[100];
+    if (scanf("%s", str) == 1) {
+        int len = strlen(str);
+        for (int i = 0; i < len / 2; i++) {
+            char temp = str[i];
+            str[i] = str[len - 1 - i];
+            str[len - 1 - i] = temp;
+        }
+        printf("%s\\n", str);
+    }
+    return 0;
+}
+`,
+            testCases: [
+              { input: 'coding\n', expectedOutput: 'gnidoc' },
+              { input: 'racecar\n', expectedOutput: 'racecar' }
+            ],
+            hints: ['Swap str[i] and str[len - 1 - i] up to len / 2.']
+          },
+          {
+            id: 'c_m5_p3',
+            title: 'Palindrome String Checker',
+            difficulty: 'Easy',
+            xp: 40,
+            concept: 'A string is a palindrome if it reads identically forwards and backwards (e.g. "madam", "level").',
+            description: 'Read a single word. Print "Palindrome" if it is a palindrome, or "Not Palindrome" otherwise.',
+            starterCode: `#include <stdio.h>
+#include <string.h>
+
+int main(void) {
+    char str[100];
+    if (scanf("%s", str) == 1) {
+        // TODO: Check if str is a palindrome
+        
+    }
+    return 0;
+}
+`,
+            solutionCode: `#include <stdio.h>
+#include <string.h>
+
+int main(void) {
+    char str[100];
+    if (scanf("%s", str) == 1) {
+        int len = strlen(str);
+        int isPal = 1;
+        for (int i = 0; i < len / 2; i++) {
+            if (str[i] != str[len - 1 - i]) {
+                isPal = 0;
+                break;
+            }
+        }
+        if (isPal) printf("Palindrome\\n");
+        else printf("Not Palindrome\\n");
+    }
+    return 0;
+}
+`,
+            testCases: [
+              { input: 'madam\n', expectedOutput: 'Palindrome' },
+              { input: 'compiler\n', expectedOutput: 'Not Palindrome' }
+            ],
+            hints: ['Compare characters from start and end towards the center.']
+          },
+          {
+            id: 'c_m5_p4',
+            title: 'Count Vowels and Consonants',
+            difficulty: 'Medium',
+            xp: 45,
+            concept: 'Vowels are \'a\', \'e\', \'i\', \'o\', \'u\' (and uppercase equivalents). Other alphabetic characters are consonants.',
+            description: 'Read a lowercase word. Print the number of vowels on the first line, and the number of consonants on the second line.',
+            starterCode: `#include <stdio.h>
+
+int main(void) {
+    char str[100];
+    if (scanf("%s", str) == 1) {
+        // TODO: Count vowels and consonants, print each on a new line
+        
+    }
+    return 0;
+}
+`,
+            solutionCode: `#include <stdio.h>
+
+int main(void) {
+    char str[100];
+    if (scanf("%s", str) == 1) {
+        int vowels = 0, consonants = 0;
+        for (int i = 0; str[i] != '\\0'; i++) {
+            char c = str[i];
+            if (c == 'a' || c == 'e' || c == 'i' || c == 'o' || c == 'u') {
+                vowels++;
+            } else if (c >= 'a' && c <= 'z') {
+                consonants++;
+            }
+        }
+        printf("%d\\n%d\\n", vowels, consonants);
+    }
+    return 0;
+}
+`,
+            testCases: [
+              { input: 'education\n', expectedOutput: '5\n4' },
+              { input: 'rhythm\n', expectedOutput: '0\n6' }
+            ],
+            hints: ['Check if char is one of a, e, i, o, u.']
+          },
+          {
+            id: 'c_m5_p5',
+            title: 'Toggle Case of Every Letter',
+            difficulty: 'Medium',
+            xp: 45,
+            concept: 'To toggle case: if a letter is uppercase (\'A\'-\'Z\'), add 32 to make it lowercase; if lowercase (\'a\'-\'z\'), subtract 32 to make it uppercase.',
+            description: 'Given a word containing letters, toggle the case of each character and print the modified word.',
+            starterCode: `#include <stdio.h>
+
+int main(void) {
+    char str[100];
+    if (scanf("%s", str) == 1) {
+        // TODO: Toggle case of each letter in str
+        
+        printf("%s\\n", str);
+    }
+    return 0;
+}
+`,
+            solutionCode: `#include <stdio.h>
+
+int main(void) {
+    char str[100];
+    if (scanf("%s", str) == 1) {
+        for (int i = 0; str[i] != '\\0'; i++) {
+            if (str[i] >= 'a' && str[i] <= 'z') {
+                str[i] -= 32;
+            } else if (str[i] >= 'A' && str[i] <= 'Z') {
+                str[i] += 32;
+            }
+        }
+        printf("%s\\n", str);
+    }
+    return 0;
+}
+`,
+            testCases: [
+              { input: 'HelloWORLD\n', expectedOutput: 'hELLOworld' },
+              { input: 'cODE\n', expectedOutput: 'Code' }
+            ],
+            hints: ['\'a\' - 32 = \'A\', and \'A\' + 32 = \'a\'.']
+          }
+        ]
+      },
+
+      // Module 6: Functions & Recursion
+      {
+        id: 'c_mod_6',
+        title: 'Module 6: Functions & Recursion',
+        summary: 'Recursive power, GCD Euclidean algorithm, Fibonacci numbers, and sum of series.',
+        level: 6,
+        problems: [
+          {
+            id: 'c_m6_p1',
+            title: 'Recursive Factorial Function',
+            difficulty: 'Easy',
+            xp: 40,
+            concept: 'A recursive function calls itself to break down a problem into smaller instances. Base case: fact(0) = 1. Recursive step: fact(n) = n * fact(n - 1).',
+            description: 'Write a recursive function fact(n). Read n (0 <= n <= 10) and print its factorial.',
+            starterCode: `#include <stdio.h>
+
+// TODO: Implement recursive factorial function
+long long fact(int n) {
+    
+}
+
+int main(void) {
+    int n;
+    if (scanf("%d", &n) == 1) {
+        printf("%lld\\n", fact(n));
+    }
+    return 0;
+}
+`,
+            solutionCode: `#include <stdio.h>
+
+long long fact(int n) {
+    if (n <= 1) return 1;
+    return n * fact(n - 1);
+}
+
+int main(void) {
+    int n;
+    if (scanf("%d", &n) == 1) {
+        printf("%lld\\n", fact(n));
+    }
+    return 0;
+}
+`,
+            testCases: [
+              { input: '4\n', expectedOutput: '24' },
+              { input: '7\n', expectedOutput: '5040' }
+            ],
+            hints: ['Base case: if (n <= 1) return 1;']
+          },
+          {
+            id: 'c_m6_p2',
+            title: 'Greatest Common Divisor (Euclidean Algorithm)',
+            difficulty: 'Medium',
+            xp: 45,
+            concept: 'Euclidean Algorithm: gcd(a, b) = gcd(b, a % b), with base case gcd(a, 0) = a.',
+            description: 'Read two positive integers a and b. Write a recursive function to compute and print their GCD.',
+            starterCode: `#include <stdio.h>
+
+// TODO: Implement recursive gcd function
+int gcd(int a, int b) {
+    
+}
+
+int main(void) {
+    int a, b;
+    if (scanf("%d %d", &a, &b) == 2) {
+        printf("%d\\n", gcd(a, b));
+    }
+    return 0;
+}
+`,
+            solutionCode: `#include <stdio.h>
+
+int gcd(int a, int b) {
+    if (b == 0) return a;
+    return gcd(b, a % b);
+}
+
+int main(void) {
+    int a, b;
+    if (scanf("%d %d", &a, &b) == 2) {
+        printf("%d\\n", gcd(a, b));
+    }
+    return 0;
+}
+`,
+            testCases: [
+              { input: '48 18\n', expectedOutput: '6' },
+              { input: '100 25\n', expectedOutput: '25' },
+              { input: '17 13\n', expectedOutput: '1' }
+            ],
+            hints: ['If b == 0, return a; otherwise recurse with gcd(b, a % b).']
+          },
+          {
+            id: 'c_m6_p3',
+            title: 'N-th Fibonacci Number (Recursion)',
+            difficulty: 'Medium',
+            xp: 45,
+            concept: 'Fibonacci sequence: F(0) = 0, F(1) = 1, and F(n) = F(n - 1) + F(n - 2).',
+            description: 'Read an integer n (0 <= n <= 20). Write a function to calculate and print the N-th Fibonacci number.',
+            starterCode: `#include <stdio.h>
+
+// TODO: Implement fibonacci function
+int fib(int n) {
+    
+}
+
+int main(void) {
+    int n;
+    if (scanf("%d", &n) == 1) {
+        printf("%d\\n", fib(n));
+    }
+    return 0;
+}
+`,
+            solutionCode: `#include <stdio.h>
+
+int fib(int n) {
+    if (n <= 0) return 0;
+    if (n == 1) return 1;
+    return fib(n - 1) + fib(n - 2);
+}
+
+int main(void) {
+    int n;
+    if (scanf("%d", &n) == 1) {
+        printf("%d\\n", fib(n));
+    }
+    return 0;
+}
+`,
+            testCases: [
+              { input: '7\n', expectedOutput: '13' },
+              { input: '10\n', expectedOutput: '55' },
+              { input: '0\n', expectedOutput: '0' }
+            ],
+            hints: ['Handle base cases n == 0 and n == 1.']
+          },
+          {
+            id: 'c_m6_p4',
+            title: 'Power Function (X raised to N)',
+            difficulty: 'Medium',
+            xp: 50,
+            concept: 'Power calculation: power(x, n) = x * power(x, n - 1), with base case power(x, 0) = 1.',
+            description: 'Given two integers base x and exponent n (n >= 0), compute x^n using recursion.',
+            starterCode: `#include <stdio.h>
+
+// TODO: Implement recursive power function
+long long power(int x, int n) {
+    
+}
+
+int main(void) {
+    int x, n;
+    if (scanf("%d %d", &x, &n) == 2) {
+        printf("%lld\\n", power(x, n));
+    }
+    return 0;
+}
+`,
+            solutionCode: `#include <stdio.h>
+
+long long power(int x, int n) {
+    if (n == 0) return 1;
+    return x * power(x, n - 1);
+}
+
+int main(void) {
+    int x, n;
+    if (scanf("%d %d", &x, &n) == 2) {
+        printf("%lld\\n", power(x, n));
+    }
+    return 0;
+}
+`,
+            testCases: [
+              { input: '2 5\n', expectedOutput: '32' },
+              { input: '3 4\n', expectedOutput: '81' },
+              { input: '5 0\n', expectedOutput: '1' }
+            ],
+            hints: ['x^0 is always 1.']
+          },
+          {
+            id: 'c_m6_p5',
+            title: 'Sum of Natural Numbers (Recursion)',
+            difficulty: 'Easy',
+            xp: 40,
+            concept: 'Sum of first n natural numbers can be expressed recursively as:\nsum(n) = n + sum(n - 1), where sum(1) = 1.',
+            description: 'Read an integer n. Using a recursive function, compute and print the sum of numbers from 1 to n.',
+            starterCode: `#include <stdio.h>
+
+// TODO: Implement recursive sum function
+int sumNatural(int n) {
+    
+}
+
+int main(void) {
+    int n;
+    if (scanf("%d", &n) == 1) {
+        printf("%d\\n", sumNatural(n));
+    }
+    return 0;
+}
+`,
+            solutionCode: `#include <stdio.h>
+
+int sumNatural(int n) {
+    if (n <= 1) return n;
+    return n + sumNatural(n - 1);
+}
+
+int main(void) {
+    int n;
+    if (scanf("%d", &n) == 1) {
+        printf("%d\\n", sumNatural(n));
+    }
+    return 0;
+}
+`,
+            testCases: [
+              { input: '10\n', expectedOutput: '55' },
+              { input: '5\n', expectedOutput: '15' }
+            ],
+            hints: ['Base case is n <= 1.']
+          }
+        ]
+      },
+
+      // Module 7: Pointers & Memory Management
+      {
+        id: 'c_mod_7',
+        title: 'Module 7: Pointers & Memory Management',
+        summary: 'Pass-by-reference swap, pointer arithmetic, dynamic arrays with malloc & free.',
+        level: 7,
+        problems: [
+          {
+            id: 'c_m7_p1',
+            title: 'Swap Two Variables Using Pointers',
+            difficulty: 'Easy',
+            xp: 40,
+            concept: 'In C, functions pass arguments by value. To modify caller variables, pass memory addresses using pointers (&a, &b) and dereference them with (*p).',
+            description: 'Implement a function void swap(int *x, int *y) to swap the values of two variables.',
+            starterCode: `#include <stdio.h>
+
+void swap(int *x, int *y) {
+    // TODO: Swap the values pointed to by x and y
+    
+}
+
+int main(void) {
+    int a, b;
+    if (scanf("%d %d", &a, &b) == 2) {
+        swap(&a, &b);
+        printf("%d %d\\n", a, b);
+    }
+    return 0;
+}
+`,
+            solutionCode: `#include <stdio.h>
+
+void swap(int *x, int *y) {
+    int temp = *x;
+    *x = *y;
+    *y = temp;
+}
+
+int main(void) {
+    int a, b;
+    if (scanf("%d %d", &a, &b) == 2) {
+        swap(&a, &b);
+        printf("%d %d\\n", a, b);
+    }
+    return 0;
+}
+`,
+            testCases: [
+              { input: '15 25\n', expectedOutput: '25 15' },
+              { input: '9 2\n', expectedOutput: '2 9' }
+            ],
+            hints: ['Use *x to read or write the value at pointer x.']
+          },
+          {
+            id: 'c_m7_p2',
+            title: 'Sum of Array Elements Using Pointer Arithmetic',
+            difficulty: 'Medium',
+            xp: 45,
+            concept: 'An array name arr decays into a pointer to its first element (&arr[0]). You can traverse elements using *(arr + i) or by incrementing a pointer.',
+            description: 'Read n followed by n integers. Calculate and print the sum using pointer traversal instead of array brackets [].',
+            starterCode: `#include <stdio.h>
+
+int main(void) {
+    int n;
+    if (scanf("%d", &n) == 1) {
+        int arr[100];
+        for (int i = 0; i < n; i++) scanf("%d", &arr[i]);
+        
+        // TODO: Sum all elements using pointer arithmetic *(ptr + i)
+        
+    }
+    return 0;
+}
+`,
+            solutionCode: `#include <stdio.h>
+
+int main(void) {
+    int n;
+    if (scanf("%d", &n) == 1) {
+        int arr[100];
+        for (int i = 0; i < n; i++) scanf("%d", &arr[i]);
+        int *ptr = arr;
+        int sum = 0;
+        for (int i = 0; i < n; i++) {
+            sum += *(ptr + i);
+        }
+        printf("%d\\n", sum);
+    }
+    return 0;
+}
+`,
+            testCases: [
+              { input: '4\n10 20 30 40\n', expectedOutput: '100' },
+              { input: '3\n5 15 25\n', expectedOutput: '45' }
+            ],
+            hints: ['*(ptr + i) accesses the i-th element.']
+          },
+          {
+            id: 'c_m7_p3',
+            title: 'Reverse Array In-Place Using Two Pointers',
+            difficulty: 'Medium',
+            xp: 50,
+            concept: 'Pointer reversal uses two pointer variables: int *left = arr and int *right = arr + n - 1. Dereference and swap values, advancing pointers inward.',
+            description: 'Given n and n integers, reverse the array in-place using two pointer variables.',
+            starterCode: `#include <stdio.h>
+
+int main(void) {
+    int n;
+    if (scanf("%d", &n) == 1) {
+        int arr[100];
+        for (int i = 0; i < n; i++) scanf("%d", &arr[i]);
+        
+        // TODO: Reverse array using pointer variables left and right
+        
+        for (int i = 0; i < n; i++) printf("%d%c", arr[i], i == n - 1 ? '\\n' : ' ');
+    }
+    return 0;
+}
+`,
+            solutionCode: `#include <stdio.h>
+
+int main(void) {
+    int n;
+    if (scanf("%d", &n) == 1) {
+        int arr[100];
+        for (int i = 0; i < n; i++) scanf("%d", &arr[i]);
+        int *left = arr;
+        int *right = arr + n - 1;
+        while (left < right) {
+            int temp = *left;
+            *left = *right;
+            *right = temp;
+            left++;
+            right--;
+        }
+        for (int i = 0; i < n; i++) printf("%d%c", arr[i], i == n - 1 ? '\\n' : ' ');
+    }
+    return 0;
+}
+`,
+            testCases: [
+              { input: '5\n1 2 3 4 5\n', expectedOutput: '5 4 3 2 1' },
+              { input: '3\n9 8 7\n', expectedOutput: '7 8 9' }
+            ],
+            hints: ['left starts at arr, right starts at arr + n - 1.', 'Increment left, decrement right.']
+          },
+          {
+            id: 'c_m7_p4',
+            title: 'Find Min and Max Using Pointers',
+            difficulty: 'Medium',
+            xp: 50,
+            concept: 'Functions can return multiple results by accepting pointer arguments for min and max.',
+            description: 'Implement void findMinMax(int *arr, int n, int *min, int *max). Print min on first line and max on second line.',
+            starterCode: `#include <stdio.h>
+
+void findMinMax(int *arr, int n, int *min, int *max) {
+    // TODO: Find min and max and assign to *min and *max
+    
+}
+
+int main(void) {
+    int n;
+    if (scanf("%d", &n) == 1) {
+        int arr[100];
+        for (int i = 0; i < n; i++) scanf("%d", &arr[i]);
+        int min, max;
+        findMinMax(arr, n, &min, &max);
+        printf("%d\\n%d\\n", min, max);
+    }
+    return 0;
+}
+`,
+            solutionCode: `#include <stdio.h>
+
+void findMinMax(int *arr, int n, int *min, int *max) {
+    *min = arr[0];
+    *max = arr[0];
+    for (int i = 1; i < n; i++) {
+        if (arr[i] < *min) *min = arr[i];
+        if (arr[i] > *max) *max = arr[i];
+    }
+}
+
+int main(void) {
+    int n;
+    if (scanf("%d", &n) == 1) {
+        int arr[100];
+        for (int i = 0; i < n; i++) scanf("%d", &arr[i]);
+        int min, max;
+        findMinMax(arr, n, &min, &max);
+        printf("%d\\n%d\\n", min, max);
+    }
+    return 0;
+}
+`,
+            testCases: [
+              { input: '5\n34 12 89 5 21\n', expectedOutput: '5\n89' },
+              { input: '3\n-10 0 10\n', expectedOutput: '-10\n10' }
+            ],
+            hints: ['Initialize *min and *max with arr[0].']
+          },
+          {
+            id: 'c_m7_p5',
+            title: 'Dynamic Array Allocation with malloc() and free()',
+            difficulty: 'Hard',
+            xp: 60,
+            concept: 'malloc(size_t bytes) allocates heap memory dynamically during runtime. Always free() memory when done to prevent memory leaks.',
+            description: 'Read integer n, dynamically allocate memory for an array of n integers using malloc, read the elements, compute their product, and free the allocated memory.',
+            starterCode: `#include <stdio.h>
+#include <stdlib.h>
+
+int main(void) {
+    int n;
+    if (scanf("%d", &n) == 1) {
+        // TODO: Allocate memory with malloc, read elements, compute product, free memory
+        
+    }
+    return 0;
+}
+`,
+            solutionCode: `#include <stdio.h>
+#include <stdlib.h>
+
+int main(void) {
+    int n;
+    if (scanf("%d", &n) == 1) {
+        int *arr = (int *)malloc(n * sizeof(int));
+        long long prod = 1;
+        for (int i = 0; i < n; i++) {
+            scanf("%d", &arr[i]);
+            prod *= arr[i];
+        }
+        printf("%lld\\n", prod);
+        free(arr);
+    }
+    return 0;
+}
+`,
+            testCases: [
+              { input: '4\n1 2 3 4\n', expectedOutput: '24' },
+              { input: '3\n2 5 10\n', expectedOutput: '100' }
+            ],
+            hints: ['int *arr = (int*)malloc(n * sizeof(int));', 'Call free(arr) before program exit.']
+          }
+        ]
+      }
+    ]
+  },
+
+  // =========================================================================
+  // 2. PYTHON UNIVERSITY
+  // =========================================================================
+  python: {
+    languageId: 'python',
+    languageName: 'Python',
+    color: '#3572A5',
+    accentColor: '#58a6ff',
+    badge: 'Python 3.12',
+    description: 'Master readable, expressive Python for data structures, automation, algorithms, and scripting.',
+    modules: [
+      {
+        id: 'py_mod_1',
+        title: 'Module 1: Basics, Math & Input/Output',
+        summary: 'Learn variables, dynamic types, input(), formatted print(), and arithmetic operators.',
+        level: 1,
+        problems: [
+          {
+            id: 'py_m1_p1',
+            title: 'Arithmetic Operations & Modulo',
+            difficulty: 'Easy',
+            xp: 30,
+            concept: 'Python supports arithmetic operators: +, -, *, / (float division), // (integer floor division), and % (modulo).',
+            description: 'Read two integers a and b from input(). Print their sum, difference (a - b), product (a * b), and floor quotient (a // b) on separate lines.',
+            starterCode: `# Read two integers
+a, b = map(int, input().split())
+
+# TODO: Compute and print sum, difference, product, and floor quotient on separate lines
+`,
+            solutionCode: `a, b = map(int, input().split())
+print(a + b)
+print(a - b)
+print(a * b)
+print(a // b)
+`,
+            testCases: [
+              { input: '15 4\n', expectedOutput: '19\n11\n60\n3' },
+              { input: '20 5\n', expectedOutput: '25\n15\n100\n4' }
+            ],
+            hints: ['Use // for integer floor division in Python.']
+          },
+          {
+            id: 'py_m1_p2',
+            title: 'Swap Two Variables in Python',
+            difficulty: 'Easy',
+            xp: 30,
+            concept: 'Python provides tuple unpacking syntax: a, b = b, a, allowing simultaneous value swapping in a single line without temporary variables.',
+            description: 'Read two words a and b. Swap their values in one line, and print them separated by a space.',
+            starterCode: `a, b = input().split()
+
+# TODO: Swap a and b in one line using tuple unpacking
+a, b = b, a
+
+print(f"{a} {b}")
+`,
+            solutionCode: `a, b = input().split()
+a, b = b, a
+print(f"{a} {b}")
+`,
+            testCases: [
+              { input: 'Hello World\n', expectedOutput: 'World Hello' },
+              { input: 'Python Coding\n', expectedOutput: 'Coding Python' }
+            ],
+            hints: ['In Python, a, b = b, a cleanly swaps two values.']
+          },
+          {
+            id: 'py_m1_p3',
+            title: 'Temperature Converter (Celsius to Fahrenheit)',
+            difficulty: 'Easy',
+            xp: 35,
+            concept: 'Formula: F = (C * 9 / 5) + 32. Using round() or int(), convert to nearest integer.',
+            description: 'Read integer Celsius temperature. Print the corresponding Fahrenheit value as an integer.',
+            starterCode: `c = int(input())
+
+# TODO: Convert Celsius to Fahrenheit and print integer result
+`,
+            solutionCode: `c = int(input())
+f = int((c * 9 / 5) + 32)
+print(f)
+`,
+            testCases: [
+              { input: '0\n', expectedOutput: '32' },
+              { input: '100\n', expectedOutput: '212' },
+              { input: '37\n', expectedOutput: '98' }
+            ],
+            hints: ['int((c * 9 / 5) + 32)']
+          },
+          {
+            id: 'py_m1_p4',
+            title: 'Circle Area and Circumference',
+            difficulty: 'Easy',
+            xp: 35,
+            concept: 'Area = pi * r^2 and Circumference = 2 * pi * r. For integer output with pi approx 3.14159, round to nearest integer.',
+            description: 'Read integer radius r. Using pi = 3.14159, print integer area on line 1, and integer circumference on line 2 (using round()).',
+            starterCode: `r = int(input())
+PI = 3.14159
+
+# TODO: Compute and print round(Area) and round(Circumference)
+`,
+            solutionCode: `r = int(input())
+PI = 3.14159
+area = round(PI * r * r)
+circ = round(2 * PI * r)
+print(area)
+print(circ)
+`,
+            testCases: [
+              { input: '5\n', expectedOutput: '79\n31' },
+              { input: '10\n', expectedOutput: '314\n63' }
+            ],
+            hints: ['Use round() on both expressions.']
+          },
+          {
+            id: 'py_m1_p5',
+            title: 'Simple Interest Calculator',
+            difficulty: 'Easy',
+            xp: 35,
+            concept: 'Simple Interest SI = (P * R * T) / 100.',
+            description: 'Read principal P, rate R, and time T (integers). Compute and print the integer simple interest using round().',
+            starterCode: `p, r, t = map(int, input().split())
+
+# TODO: Calculate Simple Interest and print round(SI)
+`,
+            solutionCode: `p, r, t = map(int, input().split())
+si = round((p * r * t) / 100)
+print(si)
+`,
+            testCases: [
+              { input: '1000 5 2\n', expectedOutput: '100' },
+              { input: '5000 8 3\n', expectedOutput: '1200' }
+            ],
+            hints: ['round((p * r * t) / 100)']
+          }
+        ]
+      },
+
+      {
+        id: 'py_mod_2',
+        title: 'Module 2: Conditionals & Logic',
+        summary: 'if, elif, else, boolean logic (and, or, not), and truthy/falsy rules.',
+        level: 2,
+        problems: [
+          {
+            id: 'py_m2_p1',
+            title: 'Even or Odd Number Checker',
+            difficulty: 'Easy',
+            xp: 30,
+            concept: 'Use n % 2 == 0 to test evenness.',
+            description: 'Read an integer n. Print "Even" if even, else "Odd".',
+            starterCode: `n = int(input())
+
+# TODO: Check if n is Even or Odd and print result
+`,
+            solutionCode: `n = int(input())
+if n % 2 == 0:
+    print("Even")
+else:
+    print("Odd")
+`,
+            testCases: [
+              { input: '10\n', expectedOutput: 'Even' },
+              { input: '7\n', expectedOutput: 'Odd' }
+            ],
+            hints: ['if n % 2 == 0: print("Even")']
+          },
+          {
+            id: 'py_m2_p2',
+            title: 'Leap Year Detector in Python',
+            difficulty: 'Medium',
+            xp: 40,
+            concept: 'A year is a leap year if (year % 400 == 0) or (year % 4 == 0 and year % 100 != 0).',
+            description: 'Read year. Print "Leap Year" or "Not Leap Year".',
+            starterCode: `year = int(input())
+
+# TODO: Determine if year is Leap Year
+`,
+            solutionCode: `year = int(input())
+if (year % 400 == 0) or (year % 4 == 0 and year % 100 != 0):
+    print("Leap Year")
+else:
+    print("Not Leap Year")
+`,
+            testCases: [
+              { input: '2024\n', expectedOutput: 'Leap Year' },
+              { input: '2023\n', expectedOutput: 'Not Leap Year' }
+            ],
+            hints: ['Combine conditions with logical or and and.']
+          },
+          {
+            id: 'py_m2_p3',
+            title: 'Maximum of Three Numbers',
+            difficulty: 'Easy',
+            xp: 35,
+            concept: 'Find maximum using if-elif statements or max() built-in.',
+            description: 'Read three integers a, b, c and print the maximum value.',
+            starterCode: `a, b, c = map(int, input().split())
+
+# TODO: Find and print the maximum value
+`,
+            solutionCode: `a, b, c = map(int, input().split())
+print(max(a, b, c))
+`,
+            testCases: [
+              { input: '15 42 27\n', expectedOutput: '42' },
+              { input: '99 100 98\n', expectedOutput: '100' }
+            ],
+            hints: ['max(a, b, c)']
+          },
+          {
+            id: 'py_m2_p4',
+            title: 'Grade Calculator (A, B, C, D, F)',
+            difficulty: 'Easy',
+            xp: 35,
+            concept: 'Score mapping:\n>= 90: A\n>= 80: B\n>= 70: C\n>= 60: D\nElse: F',
+            description: 'Read integer score (0 to 100). Print the corresponding letter grade.',
+            starterCode: `score = int(input())
+
+# TODO: Print corresponding letter grade
+`,
+            solutionCode: `score = int(input())
+if score >= 90:
+    print("A")
+elif score >= 80:
+    print("B")
+elif score >= 70:
+    print("C")
+elif score >= 60:
+    print("D")
+else:
+    print("F")
+`,
+            testCases: [
+              { input: '95\n', expectedOutput: 'A' },
+              { input: '72\n', expectedOutput: 'C' },
+              { input: '45\n', expectedOutput: 'F' }
+            ],
+            hints: ['Use elif chain starting from highest score down.']
+          },
+          {
+            id: 'py_m2_p5',
+            title: 'Triangle Validity Checker',
+            difficulty: 'Medium',
+            xp: 40,
+            concept: 'Triangle Inequality Theorem: Three sides form a valid triangle if and only if the sum of any two sides is strictly greater than the third side: a + b > c and a + c > b and b + c > a.',
+            description: 'Read three integers a, b, c. Print "Valid" if they can form a triangle, otherwise "Invalid".',
+            starterCode: `a, b, c = map(int, input().split())
+
+# TODO: Check if a, b, c form a Valid triangle
+`,
+            solutionCode: `a, b, c = map(int, input().split())
+if a + b > c and a + c > b and b + c > a:
+    print("Valid")
+else:
+    print("Invalid")
+`,
+            testCases: [
+              { input: '3 4 5\n', expectedOutput: 'Valid' },
+              { input: '1 2 10\n', expectedOutput: 'Invalid' }
+            ],
+            hints: ['Check all 3 conditions: a + b > c, a + c > b, b + c > a.']
+          }
+        ]
+      },
+
+      {
+        id: 'py_mod_3',
+        title: 'Module 3: Loops & Number Patterns',
+        summary: 'for loops, while loops, range(), break, continue, and pattern generation.',
+        level: 3,
+        problems: [
+          {
+            id: 'py_m3_p1',
+            title: 'Factorial of a Number',
+            difficulty: 'Easy',
+            xp: 35,
+            concept: 'Compute factorial using a for loop with math or range(1, n + 1).',
+            description: 'Read integer n (0 <= n <= 15). Print n!.',
+            starterCode: `n = int(input())
+
+# TODO: Calculate and print n!
+`,
+            solutionCode: `n = int(input())
+fact = 1
+for i in range(1, n + 1):
+    fact *= i
+print(fact)
+`,
+            testCases: [
+              { input: '5\n', expectedOutput: '120' },
+              { input: '0\n', expectedOutput: '1' }
+            ],
+            hints: ['Loop over range(1, n + 1).']
+          },
+          {
+            id: 'py_m3_p2',
+            title: 'Fibonacci Series Generator',
+            difficulty: 'Medium',
+            xp: 40,
+            concept: 'Generate first n terms of Fibonacci sequence: 0, 1, 1, 2, 3, 5, ...',
+            description: 'Read integer n (n >= 1). Print the first n Fibonacci numbers separated by spaces.',
+            starterCode: `n = int(input())
+
+# TODO: Generate and print first n Fibonacci numbers separated by spaces
+`,
+            solutionCode: `n = int(input())
+fibs = []
+a, b = 0, 1
+for _ in range(n):
+    fibs.append(str(a))
+    a, b = b, a + b
+print(" ".join(fibs))
+`,
+            testCases: [
+              { input: '6\n', expectedOutput: '0 1 1 2 3 5' },
+              { input: '3\n', expectedOutput: '0 1 1' }
+            ],
+            hints: ['Start with a, b = 0, 1 and update a, b = b, a + b.']
+          },
+          {
+            id: 'py_m3_p3',
+            title: 'Sum of Digits of an Integer',
+            difficulty: 'Easy',
+            xp: 35,
+            concept: 'Sum digits either by converting to string sum(int(d) for d in str(n)) or modulo arithmetic.',
+            description: 'Read positive integer n. Calculate and print the sum of its digits.',
+            starterCode: `n = input().strip()
+
+# TODO: Calculate and print the sum of digits of n
+`,
+            solutionCode: `n = input().strip()
+print(sum(int(d) for d in n))
+`,
+            testCases: [
+              { input: '12345\n', expectedOutput: '15' },
+              { input: '987\n', expectedOutput: '24' }
+            ],
+            hints: ['sum(int(c) for c in n)']
+          },
+          {
+            id: 'py_m3_p4',
+            title: 'Prime Number Range Count',
+            difficulty: 'Medium',
+            xp: 45,
+            concept: 'Count how many prime numbers exist between 2 and n inclusive.',
+            description: 'Read integer n. Print the count of prime numbers in the range [2, n].',
+            starterCode: `n = int(input())
+
+# TODO: Count and print number of prime numbers in [2, n]
+`,
+            solutionCode: `n = int(input())
+def is_prime(num):
+    if num <= 1: return False
+    i = 2
+    while i * i <= num:
+        if num % i == 0: return False
+        i += 1
+    return True
+
+count = sum(1 for x in range(2, n + 1) if is_prime(x))
+print(count)
+`,
+            testCases: [
+              { input: '10\n', expectedOutput: '4' },
+              { input: '20\n', expectedOutput: '8' }
+            ],
+            hints: ['Primes up to 10 are 2, 3, 5, 7 (total 4).']
+          },
+          {
+            id: 'py_m3_p5',
+            title: 'Multiplication Table Formatter',
+            difficulty: 'Easy',
+            xp: 35,
+            concept: 'Format lines: f"{n} x {i} = {n * i}".',
+            description: 'Read integer n. Print the first 5 multiples in format "n x i = res" (i from 1 to 5).',
+            starterCode: `n = int(input())
+
+# TODO: Print first 5 multiples formatted as "n x i = res"
+`,
+            solutionCode: `n = int(input())
+for i in range(1, 6):
+    print(f"{n} x {i} = {n * i}")
+`,
+            testCases: [
+              { input: '4\n', expectedOutput: '4 x 1 = 4\n4 x 2 = 8\n4 x 3 = 12\n4 x 4 = 16\n4 x 5 = 20' }
+            ],
+            hints: ['for i in range(1, 6): print(f"{n} x {i} = {n * i}")']
+          }
+        ]
+      },
+
+      {
+        id: 'py_mod_4',
+        title: 'Module 4: Lists, Tuples & Comprehensions',
+        summary: 'List slicing, sorting, filtering, comprehensions, and rotations.',
+        level: 4,
+        problems: [
+          {
+            id: 'py_m4_p1',
+            title: 'Find Minimum and Maximum in List',
+            difficulty: 'Easy',
+            xp: 35,
+            concept: 'Built-in functions min() and max() return the smallest and largest elements of an iterable.',
+            description: 'Read n followed by a list of n integers. Print the minimum on line 1, and the maximum on line 2.',
+            starterCode: `n = int(input())
+arr = list(map(int, input().split()))
+
+# TODO: Print min(arr) and max(arr) on separate lines
+`,
+            solutionCode: `n = int(input())
+arr = list(map(int, input().split()))
+print(min(arr))
+print(max(arr))
+`,
+            testCases: [
+              { input: '5\n12 45 2 89 33\n', expectedOutput: '2\n89' },
+              { input: '3\n-5 0 10\n', expectedOutput: '-5\n10' }
+            ],
+            hints: ['print(min(arr)) then print(max(arr))']
+          },
+          {
+            id: 'py_m4_p2',
+            title: 'Remove Duplicates Preserving Order',
+            difficulty: 'Medium',
+            xp: 45,
+            concept: 'To eliminate duplicates while maintaining original insertion order, use a set for seen tracking or dict.fromkeys().',
+            description: 'Given a space-separated list of integers, remove duplicates while keeping their first appearance order. Print separated by spaces.',
+            starterCode: `arr = input().split()
+
+# TODO: Remove duplicates preserving first appearance order
+`,
+            solutionCode: `arr = input().split()
+seen = set()
+res = []
+for x in arr:
+    if x not in seen:
+        seen.add(x)
+        res.append(x)
+print(" ".join(res))
+`,
+            testCases: [
+              { input: '1 2 2 3 4 4 1 5\n', expectedOutput: '1 2 3 4 5' },
+              { input: '9 9 9 9\n', expectedOutput: '9' }
+            ],
+            hints: ['Keep a set of seen elements.']
+          },
+          {
+            id: 'py_m4_p3',
+            title: 'List Comprehension: Even Squares',
+            difficulty: 'Easy',
+            xp: 40,
+            concept: 'List comprehension syntax: [x**2 for x in arr if x % 2 == 0].',
+            description: 'Read space-separated integers. Using a list comprehension, extract only even numbers, square them, and print them separated by spaces.',
+            starterCode: `arr = list(map(int, input().split()))
+
+# TODO: Use list comprehension to square even numbers
+`,
+            solutionCode: `arr = list(map(int, input().split()))
+res = [x ** 2 for x in arr if x % 2 == 0]
+print(" ".join(map(str, res)))
+`,
+            testCases: [
+              { input: '1 2 3 4 5 6\n', expectedOutput: '4 16 36' },
+              { input: '7 9 11\n', expectedOutput: '' }
+            ],
+            hints: ['[x**2 for x in arr if x % 2 == 0]']
+          },
+          {
+            id: 'py_m4_p4',
+            title: 'Rotate List by K Positions',
+            difficulty: 'Medium',
+            xp: 45,
+            concept: 'Python slicing makes list rotation elegant: arr[-k:] + arr[:-k] right rotates by k.',
+            description: 'Read list of integers on line 1, and integer k on line 2. Rotate the list to the right by k positions and print.',
+            starterCode: `arr = input().split()
+k = int(input())
+
+# TODO: Right rotate list by k positions using slicing
+`,
+            solutionCode: `arr = input().split()
+k = int(input())
+if len(arr) > 0:
+    k = k % len(arr)
+    arr = arr[-k:] + arr[:-k]
+print(" ".join(arr))
+`,
+            testCases: [
+              { input: '1 2 3 4 5\n2\n', expectedOutput: '4 5 1 2 3' },
+              { input: '10 20 30\n1\n', expectedOutput: '30 10 20' }
+            ],
+            hints: ['k = k % len(arr)', 'arr[-k:] + arr[:-k]']
+          },
+          {
+            id: 'py_m4_p5',
+            title: 'Merge and Sort Two Lists',
+            difficulty: 'Easy',
+            xp: 35,
+            concept: 'Combine lists with + or extend(), and sort with sorted().',
+            description: 'Read two lines of space-separated integers. Merge both lists, sort in ascending order, and print separated by spaces.',
+            starterCode: `l1 = list(map(int, input().split()))
+l2 = list(map(int, input().split()))
+
+# TODO: Merge l1 and l2, sort in ascending order, print
+`,
+            solutionCode: `l1 = list(map(int, input().split()))
+l2 = list(map(int, input().split()))
+res = sorted(l1 + l2)
+print(" ".join(map(str, res)))
+`,
+            testCases: [
+              { input: '1 5 9\n2 4 8\n', expectedOutput: '1 2 4 5 8 9' }
+            ],
+            hints: ['sorted(l1 + l2)']
+          }
+        ]
+      },
+
+      {
+        id: 'py_mod_5',
+        title: 'Module 5: Strings, Dictionaries & Functions',
+        summary: 'String algorithms, dictionaries, anagrams, and frequency counters.',
+        level: 5,
+        problems: [
+          {
+            id: 'py_m5_p1',
+            title: 'Palindrome Phrase Checker',
+            difficulty: 'Easy',
+            xp: 35,
+            concept: 'Filter string to alphanumeric characters in lowercase: s = "".join(c.lower() for c in text if c.isalnum()), then test s == s[::-1].',
+            description: 'Read a phrase. Print "Palindrome" if it reads the same backwards ignoring non-alphanumeric chars and case, else "Not Palindrome".',
+            starterCode: `text = input()
+
+# TODO: Check if text is a palindrome ignoring non-alphanumeric characters and case
+`,
+            solutionCode: `text = input()
+clean = "".join(c.lower() for c in text if c.isalnum())
+if clean == clean[::-1]:
+    print("Palindrome")
+else:
+    print("Not Palindrome")
+`,
+            testCases: [
+              { input: 'A man, a plan, a canal: Panama\n', expectedOutput: 'Palindrome' },
+              { input: 'race a car\n', expectedOutput: 'Not Palindrome' }
+            ],
+            hints: ['Use [::-1] for reversal.']
+          },
+          {
+            id: 'py_m5_p2',
+            title: 'Word Frequency Counter',
+            difficulty: 'Medium',
+            xp: 45,
+            concept: 'Use a dictionary or collections.Counter to count occurrences of each word.',
+            description: 'Read a sentence of words. Count occurrences of each word and print in alphabetical order: "word: count".',
+            starterCode: `words = input().split()
+
+# TODO: Count word frequencies and print sorted alphabetically as "word: count"
+`,
+            solutionCode: `words = input().split()
+freq = {}
+for w in words:
+    freq[w] = freq.get(w, 0) + 1
+for w in sorted(freq.keys()):
+    print(f"{w}: {freq[w]}")
+`,
+            testCases: [
+              { input: 'apple banana apple cherry banana apple\n', expectedOutput: 'apple: 3\nbanana: 2\ncherry: 1' }
+            ],
+            hints: ['Use freq.get(w, 0) + 1 and sorted(freq.keys()).']
+          },
+          {
+            id: 'py_m5_p3',
+            title: 'Anagram Checker in Python',
+            difficulty: 'Easy',
+            xp: 40,
+            concept: 'Two words are anagrams if sorting their characters yields the same sequence (sorted(s1) == sorted(s2)).',
+            description: 'Read two space-separated words. Print "Anagram" if they are anagrams, or "Not Anagram" otherwise.',
+            starterCode: `w1, w2 = input().split()
+
+# TODO: Check if w1 and w2 are anagrams
+`,
+            solutionCode: `w1, w2 = input().split()
+if sorted(w1) == sorted(w2):
+    print("Anagram")
+else:
+    print("Not Anagram")
+`,
+            testCases: [
+              { input: 'listen silent\n', expectedOutput: 'Anagram' },
+              { input: 'hello world\n', expectedOutput: 'Not Anagram' }
+            ],
+            hints: ['Compare sorted(w1) == sorted(w2).']
+          },
+          {
+            id: 'py_m5_p4',
+            title: 'Count Vowels and Consonants in Python',
+            difficulty: 'Easy',
+            xp: 35,
+            concept: 'Iterate characters checking c in "aeiou".',
+            description: 'Read lowercase word. Print vowels on line 1 and consonants on line 2.',
+            starterCode: `word = input().strip()
+
+# TODO: Count and print vowels and consonants on separate lines
+`,
+            solutionCode: `word = input().strip()
+vowels = sum(1 for c in word if c in 'aeiou')
+consonants = sum(1 for c in word if c.isalpha() and c not in 'aeiou')
+print(vowels)
+print(consonants)
+`,
+            testCases: [
+              { input: 'algorithm\n', expectedOutput: '3\n6' }
+            ],
+            hints: ['c in "aeiou"']
+          },
+          {
+            id: 'py_m5_p5',
+            title: 'Recursive Sum of a List',
+            difficulty: 'Medium',
+            xp: 45,
+            concept: 'Recursive function sum_list(lst): return 0 if not lst else lst[0] + sum_list(lst[1:]).',
+            description: 'Read space-separated integers. Compute their sum using a recursive function.',
+            starterCode: `def rec_sum(arr):
+    # TODO: Implement recursive sum
+    pass
+
+numbers = list(map(int, input().split()))
+print(rec_sum(numbers))
+`,
+            solutionCode: `def rec_sum(arr):
+    if not arr:
+        return 0
+    return arr[0] + rec_sum(arr[1:])
+
+numbers = list(map(int, input().split()))
+print(rec_sum(numbers))
+`,
+            testCases: [
+              { input: '1 2 3 4 5\n', expectedOutput: '15' },
+              { input: '10 20 30\n', expectedOutput: '60' }
+            ],
+            hints: ['Base case: if not arr: return 0.']
+          }
+        ]
+      }
+    ]
+  },
+
+  // =========================================================================
+  // 3. C++ UNIVERSITY
+  // =========================================================================
+  cpp: {
+    languageId: 'cpp',
+    languageName: 'C++',
+    color: '#f34b7d',
+    accentColor: '#f34b7d',
+    badge: 'C++20 (GCC)',
+    description: 'Learn modern competitive C++, STL containers (vector, map, set), algorithms, and templates.',
+    modules: [
+      {
+        id: 'cpp_mod_1',
+        title: 'Module 1: Modern C++ & Fast I/O',
+        summary: 'std::cin, std::cout, references (&), type casting, and fast I/O.',
+        level: 1,
+        problems: [
+          {
+            id: 'cpp_m1_p1',
+            title: 'Fast I/O & Basic Arithmetic',
+            difficulty: 'Easy',
+            xp: 30,
+            concept: 'Modern C++ uses std::cin and std::cout from <iostream>. Adding ios_base::sync_with_stdio(false); cin.tie(NULL); optimizes I/O performance.',
+            description: 'Read two integers a and b. Print their sum, difference, and product on separate lines.',
+            starterCode: `#include <iostream>
+using namespace std;
+
+int main() {
+    int a, b;
+    if (cin >> a >> b) {
+        // TODO: Print sum, difference, product on separate lines
+        
+    }
+    return 0;
+}
+`,
+            solutionCode: `#include <iostream>
+using namespace std;
+
+int main() {
+    int a, b;
+    if (cin >> a >> b) {
+        cout << a + b << "\\n";
+        cout << a - b << "\\n";
+        cout << a * b << "\\n";
+    }
+    return 0;
+}
+`,
+            testCases: [
+              { input: '10 4\n', expectedOutput: '14\n6\n40' },
+              { input: '25 5\n', expectedOutput: '30\n20\n125' }
+            ],
+            hints: ['Use cout << a + b << "\\n";']
+          },
+          {
+            id: 'cpp_m1_p2',
+            title: 'Swap by Reference in C++',
+            difficulty: 'Easy',
+            xp: 35,
+            concept: 'In C++, passing by reference using void swapVals(int &x, int &y) allows direct modification of arguments without explicit pointer syntax.',
+            description: 'Implement a function void swapVals(int &a, int &b) and print the swapped values.',
+            starterCode: `#include <iostream>
+using namespace std;
+
+void swapVals(int &a, int &b) {
+    // TODO: Swap a and b using references
+    
+}
+
+int main() {
+    int a, b;
+    if (cin >> a >> b) {
+        swapVals(a, b);
+        cout << a << " " << b << "\\n";
+    }
+    return 0;
+}
+`,
+            solutionCode: `#include <iostream>
+using namespace std;
+
+void swapVals(int &a, int &b) {
+    int temp = a;
+    a = b;
+    b = temp;
+}
+
+int main() {
+    int a, b;
+    if (cin >> a >> b) {
+        swapVals(a, b);
+        cout << a << " " << b << "\\n";
+    }
+    return 0;
+}
+`,
+            testCases: [
+              { input: '100 200\n', expectedOutput: '200 100' },
+              { input: '5 9\n', expectedOutput: '9 5' }
+            ],
+            hints: ['int temp = a; a = b; b = temp;']
+          },
+          {
+            id: 'cpp_m1_p3',
+            title: 'Formatted Precision with std::setprecision',
+            difficulty: 'Easy',
+            xp: 35,
+            concept: '#include <iomanip> provides std::fixed and std::setprecision(n) to format floating-point output to exact decimal places.',
+            description: 'Read two integers a and b. Print the float division result a / b rounded to exactly 2 decimal places.',
+            starterCode: `#include <iostream>
+#include <iomanip>
+using namespace std;
+
+int main() {
+    int a, b;
+    if (cin >> a >> b) {
+        // TODO: Print float division result (double)a / b to 2 decimal places
+        
+    }
+    return 0;
+}
+`,
+            solutionCode: `#include <iostream>
+#include <iomanip>
+using namespace std;
+
+int main() {
+    int a, b;
+    if (cin >> a >> b) {
+        cout << fixed << setprecision(2) << (double)a / b << "\\n";
+    }
+    return 0;
+}
+`,
+            testCases: [
+              { input: '10 3\n', expectedOutput: '3.33' },
+              { input: '7 2\n', expectedOutput: '3.50' }
+            ],
+            hints: ['cout << fixed << setprecision(2) << (double)a / b;']
+          },
+          {
+            id: 'cpp_m1_p4',
+            title: 'Min & Max Using std::min and std::max',
+            difficulty: 'Easy',
+            xp: 35,
+            concept: '<algorithm> provides std::min({a, b, c}) and std::max({a, b, c}) which accept initializer lists.',
+            description: 'Read three integers. Print the minimum on line 1 and maximum on line 2 using std::min and std::max.',
+            starterCode: `#include <iostream>
+#include <algorithm>
+using namespace std;
+
+int main() {
+    int a, b, c;
+    if (cin >> a >> b >> c) {
+        // TODO: Print min and max using std::min and std::max
+        
+    }
+    return 0;
+}
+`,
+            solutionCode: `#include <iostream>
+#include <algorithm>
+using namespace std;
+
+int main() {
+    int a, b, c;
+    if (cin >> a >> b >> c) {
+        cout << min({a, b, c}) << "\\n";
+        cout << max({a, b, c}) << "\\n";
+    }
+    return 0;
+}
+`,
+            testCases: [
+              { input: '45 12 88\n', expectedOutput: '12\n88' },
+              { input: '9 9 9\n', expectedOutput: '9\n9' }
+            ],
+            hints: ['min({a, b, c}) and max({a, b, c})']
+          },
+          {
+            id: 'cpp_m1_p5',
+            title: 'Bitwise Operators in C++',
+            difficulty: 'Easy',
+            xp: 40,
+            concept: 'Bitwise operators: & (AND), | (OR), and ^ (XOR).',
+            description: 'Read two integers a and b. Print a & b, a | b, and a ^ b on separate lines.',
+            starterCode: `#include <iostream>
+using namespace std;
+
+int main() {
+    int a, b;
+    if (cin >> a >> b) {
+        // TODO: Compute and print a & b, a | b, and a ^ b on separate lines
+        
+    }
+    return 0;
+}
+`,
+            solutionCode: `#include <iostream>
+using namespace std;
+
+int main() {
+    int a, b;
+    if (cin >> a >> b) {
+        cout << (a & b) << "\\n";
+        cout << (a | b) << "\\n";
+        cout << (a ^ b) << "\\n";
+    }
+    return 0;
+}
+`,
+            testCases: [
+              { input: '12 25\n', expectedOutput: '8\n29\n21' }
+            ],
+            hints: ['Bitwise operations take place at the bit level.']
+          }
+        ]
+      },
+
+      {
+        id: 'cpp_mod_2',
+        title: 'Module 2: Conditionals & Flow Control',
+        summary: 'if-else, ternary operator, switch-case, and quadrant detection.',
+        level: 2,
+        problems: [
+          {
+            id: 'cpp_m2_p1',
+            title: 'Quadrant Finder of Point (X, Y)',
+            difficulty: 'Easy',
+            xp: 35,
+            concept: 'Given 2D coordinates (x, y):\nQ1: x > 0, y > 0\nQ2: x < 0, y > 0\nQ3: x < 0, y < 0\nQ4: x > 0, y < 0\nOrigin: x == 0 && y == 0.',
+            description: 'Read non-zero integers x and y. Print "Q1", "Q2", "Q3", or "Q4".',
+            starterCode: `#include <iostream>
+using namespace std;
+
+int main() {
+    int x, y;
+    if (cin >> x >> y) {
+        // TODO: Determine quadrant Q1, Q2, Q3, or Q4
+        
+    }
+    return 0;
+}
+`,
+            solutionCode: `#include <iostream>
+using namespace std;
+
+int main() {
+    int x, y;
+    if (cin >> x >> y) {
+        if (x > 0 && y > 0) cout << "Q1\\n";
+        else if (x < 0 && y > 0) cout << "Q2\\n";
+        else if (x < 0 && y < 0) cout << "Q3\\n";
+        else cout << "Q4\\n";
+    }
+    return 0;
+}
+`,
+            testCases: [
+              { input: '5 3\n', expectedOutput: 'Q1' },
+              { input: '-4 7\n', expectedOutput: 'Q2' },
+              { input: '-2 -8\n', expectedOutput: 'Q3' },
+              { input: '6 -1\n', expectedOutput: 'Q4' }
+            ],
+            hints: ['Check signs of x and y.']
+          },
+          {
+            id: 'cpp_m2_p2',
+            title: 'Leap Year Checker in C++',
+            difficulty: 'Medium',
+            xp: 40,
+            concept: 'Year is leap if (y % 400 == 0) || (y % 4 == 0 && y % 100 != 0).',
+            description: 'Read year. Print "Leap Year" or "Not Leap Year".',
+            starterCode: `#include <iostream>
+using namespace std;
+
+int main() {
+    int y;
+    if (cin >> y) {
+        // TODO: Check if year is Leap Year
+        
+    }
+    return 0;
+}
+`,
+            solutionCode: `#include <iostream>
+using namespace std;
+
+int main() {
+    int y;
+    if (cin >> y) {
+        if ((y % 400 == 0) || (y % 4 == 0 && y % 100 != 0)) {
+            cout << "Leap Year\\n";
+        } else {
+            cout << "Not Leap Year\\n";
+        }
+    }
+    return 0;
+}
+`,
+            testCases: [
+              { input: '2024\n', expectedOutput: 'Leap Year' },
+              { input: '2021\n', expectedOutput: 'Not Leap Year' }
+            ],
+            hints: ['(y % 400 == 0) || (y % 4 == 0 && y % 100 != 0)']
+          },
+          {
+            id: 'cpp_m2_p3',
+            title: 'Ternary Operator Even / Odd',
+            difficulty: 'Easy',
+            xp: 30,
+            concept: 'The ternary operator (condition ? val_true : val_false) provides concise conditional evaluation.',
+            description: 'Read integer n. Print "Even" or "Odd" using the ternary operator.',
+            starterCode: `#include <iostream>
+using namespace std;
+
+int main() {
+    int n;
+    if (cin >> n) {
+        // TODO: Use ternary operator to print "Even" or "Odd"
+        
+    }
+    return 0;
+}
+`,
+            solutionCode: `#include <iostream>
+using namespace std;
+
+int main() {
+    int n;
+    if (cin >> n) {
+        cout << (n % 2 == 0 ? "Even" : "Odd") << "\\n";
+    }
+    return 0;
+}
+`,
+            testCases: [
+              { input: '44\n', expectedOutput: 'Even' },
+              { input: '91\n', expectedOutput: 'Odd' }
+            ],
+            hints: ['cout << (n % 2 == 0 ? "Even" : "Odd");']
+          },
+          {
+            id: 'cpp_m2_p4',
+            title: 'Simple Calculator with Switch',
+            difficulty: 'Medium',
+            xp: 40,
+            concept: 'Use switch(op) to evaluate +, -, *, /.',
+            description: 'Read an expression: a op b. Print the integer result.',
+            starterCode: `#include <iostream>
+using namespace std;
+
+int main() {
+    int a, b;
+    char op;
+    if (cin >> a >> op >> b) {
+        // TODO: Compute and print result using switch
+        
+    }
+    return 0;
+}
+`,
+            solutionCode: `#include <iostream>
+using namespace std;
+
+int main() {
+    int a, b;
+    char op;
+    if (cin >> a >> op >> b) {
+        switch (op) {
+            case '+': cout << a + b << "\\n"; break;
+            case '-': cout << a - b << "\\n"; break;
+            case '*': cout << a * b << "\\n"; break;
+            case '/': cout << a / b << "\\n"; break;
+        }
+    }
+    return 0;
+}
+`,
+            testCases: [
+              { input: '12 + 18\n', expectedOutput: '30' },
+              { input: '40 / 5\n', expectedOutput: '8' }
+            ],
+            hints: ['Switch on op character.']
+          },
+          {
+            id: 'cpp_m2_p5',
+            title: 'Age Category Classifier',
+            difficulty: 'Easy',
+            xp: 35,
+            concept: 'Age mapping:\n< 13: Child\n13 - 19: Teen\n20 - 64: Adult\n>= 65: Senior',
+            description: 'Read an integer age. Print "Child", "Teen", "Adult", or "Senior".',
+            starterCode: `#include <iostream>
+using namespace std;
+
+int main() {
+    int age;
+    if (cin >> age) {
+        // TODO: Classify age into Child, Teen, Adult, Senior
+        
+    }
+    return 0;
+}
+`,
+            solutionCode: `#include <iostream>
+using namespace std;
+
+int main() {
+    int age;
+    if (cin >> age) {
+        if (age < 13) cout << "Child\\n";
+        else if (age <= 19) cout << "Teen\\n";
+        else if (age <= 64) cout << "Adult\\n";
+        else cout << "Senior\\n";
+    }
+    return 0;
+}
+`,
+            testCases: [
+              { input: '10\n', expectedOutput: 'Child' },
+              { input: '16\n', expectedOutput: 'Teen' },
+              { input: '25\n', expectedOutput: 'Adult' },
+              { input: '70\n', expectedOutput: 'Senior' }
+            ],
+            hints: ['Use an if-else chain.']
+          }
+        ]
+      },
+
+      {
+        id: 'cpp_mod_3',
+        title: 'Module 3: Loops & Series',
+        summary: 'for, while, digit algorithms, Collatz sequence, and Armstrong numbers.',
+        level: 3,
+        problems: [
+          {
+            id: 'cpp_m3_p1',
+            title: 'Sum of First N Natural Numbers',
+            difficulty: 'Easy',
+            xp: 30,
+            concept: 'Sum = n * (n + 1) / 2 or using a for loop.',
+            description: 'Read integer n. Print the sum of integers from 1 to n.',
+            starterCode: `#include <iostream>
+using namespace std;
+
+int main() {
+    long long n;
+    if (cin >> n) {
+        // TODO: Compute and print sum from 1 to n
+        
+    }
+    return 0;
+}
+`,
+            solutionCode: `#include <iostream>
+using namespace std;
+
+int main() {
+    long long n;
+    if (cin >> n) {
+        cout << n * (n + 1) / 2 << "\\n";
+    }
+    return 0;
+}
+`,
+            testCases: [
+              { input: '10\n', expectedOutput: '55' },
+              { input: '100\n', expectedOutput: '5050' }
+            ],
+            hints: ['Formula: n * (n + 1) / 2']
+          },
+          {
+            id: 'cpp_m3_p2',
+            title: 'Reverse Digits of an Integer',
+            difficulty: 'Easy',
+            xp: 35,
+            concept: 'Reverse an integer using while (n > 0): rev = rev * 10 + (n % 10); n /= 10.',
+            description: 'Read positive integer n. Reverse its digits and print the reversed number.',
+            starterCode: `#include <iostream>
+using namespace std;
+
+int main() {
+    int n;
+    if (cin >> n) {
+        // TODO: Reverse digits of n and print
+        
+    }
+    return 0;
+}
+`,
+            solutionCode: `#include <iostream>
+using namespace std;
+
+int main() {
+    int n;
+    if (cin >> n) {
+        int rev = 0;
+        while (n > 0) {
+            rev = rev * 10 + (n % 10);
+            n /= 10;
+        }
+        cout << rev << "\\n";
+    }
+    return 0;
+}
+`,
+            testCases: [
+              { input: '1234\n', expectedOutput: '4321' },
+              { input: '9080\n', expectedOutput: '809' }
+            ],
+            hints: ['rev = rev * 10 + (n % 10); n /= 10;']
+          },
+          {
+            id: 'cpp_m3_p3',
+            title: 'Check Armstrong Number',
+            difficulty: 'Medium',
+            xp: 45,
+            concept: 'A 3-digit number is an Armstrong number if the sum of cubes of its digits equals the number itself (e.g. 153 = 1^3 + 5^3 + 3^3 = 1 + 125 + 27 = 153).',
+            description: 'Read a 3-digit positive integer n. Print "Armstrong" if it is an Armstrong number, or "Not Armstrong" otherwise.',
+            starterCode: `#include <iostream>
+using namespace std;
+
+int main() {
+    int n;
+    if (cin >> n) {
+        // TODO: Check if n is an Armstrong number
+        
+    }
+    return 0;
+}
+`,
+            solutionCode: `#include <iostream>
+using namespace std;
+
+int main() {
+    int n;
+    if (cin >> n) {
+        int original = n;
+        int sum = 0;
+        while (n > 0) {
+            int d = n % 10;
+            sum += (d * d * d);
+            n /= 10;
+        }
+        if (sum == original) cout << "Armstrong\\n";
+        else cout << "Not Armstrong\\n";
+    }
+    return 0;
+}
+`,
+            testCases: [
+              { input: '153\n', expectedOutput: 'Armstrong' },
+              { input: '370\n', expectedOutput: 'Armstrong' },
+              { input: '123\n', expectedOutput: 'Not Armstrong' }
+            ],
+            hints: ['Calculate sum of cubes of each digit.']
+          },
+          {
+            id: 'cpp_m3_p4',
+            title: 'Prime Number Verifier in C++',
+            difficulty: 'Medium',
+            xp: 40,
+            concept: 'Check divisibility from 2 up to sqrt(n).',
+            description: 'Read integer n. Print "Prime" or "Not Prime".',
+            starterCode: `#include <iostream>
+using namespace std;
+
+int main() {
+    int n;
+    if (cin >> n) {
+        // TODO: Determine if n is Prime
+        
+    }
+    return 0;
+}
+`,
+            solutionCode: `#include <iostream>
+using namespace std;
+
+int main() {
+    int n;
+    if (cin >> n) {
+        if (n <= 1) {
+            cout << "Not Prime\\n";
+            return 0;
+        }
+        bool isPrime = true;
+        for (int i = 2; i * i <= n; i++) {
+            if (n % i == 0) {
+                isPrime = false;
+                break;
+            }
+        }
+        cout << (isPrime ? "Prime" : "Not Prime") << "\\n";
+    }
+    return 0;
+}
+`,
+            testCases: [
+              { input: '17\n', expectedOutput: 'Prime' },
+              { input: '1\n', expectedOutput: 'Not Prime' },
+              { input: '25\n', expectedOutput: 'Not Prime' }
+            ],
+            hints: ['Loop i * i <= n.']
+          },
+          {
+            id: 'cpp_m3_p5',
+            title: 'Collatz Conjecture Steps',
+            difficulty: 'Medium',
+            xp: 45,
+            concept: 'Start with integer n:\nIf n is even: n = n / 2\nIf n is odd: n = 3 * n + 1\nRepeat until n becomes 1. Count the number of steps.',
+            description: 'Read integer n (n >= 1). Count and print the total number of steps required to reach 1.',
+            starterCode: `#include <iostream>
+using namespace std;
+
+int main() {
+    long long n;
+    if (cin >> n) {
+        // TODO: Count and print Collatz steps until n == 1
+        
+    }
+    return 0;
+}
+`,
+            solutionCode: `#include <iostream>
+using namespace std;
+
+int main() {
+    long long n;
+    if (cin >> n) {
+        int steps = 0;
+        while (n > 1) {
+            if (n % 2 == 0) n /= 2;
+            else n = 3 * n + 1;
+            steps++;
+        }
+        cout << steps << "\\n";
+    }
+    return 0;
+}
+`,
+            testCases: [
+              { input: '6\n', expectedOutput: '8' },
+              { input: '1\n', expectedOutput: '0' },
+              { input: '11\n', expectedOutput: '14' }
+            ],
+            hints: ['While n > 1, update n and increment steps.']
+          }
+        ]
+      },
+
+      {
+        id: 'cpp_mod_4',
+        title: 'Module 4: Vectors & STL Algorithms',
+        summary: 'std::vector, std::sort, std::reverse, std::count, and std::unique.',
+        level: 4,
+        problems: [
+          {
+            id: 'cpp_m4_p1',
+            title: 'Vector Sorting (Ascending & Descending)',
+            difficulty: 'Easy',
+            xp: 40,
+            concept: 'std::sort(v.begin(), v.end()) sorts ascending. std::sort(v.rbegin(), v.rend()) sorts descending.',
+            description: 'Read n followed by n integers into a std::vector. Print the vector sorted ascending on line 1, and descending on line 2.',
+            starterCode: `#include <iostream>
+#include <vector>
+#include <algorithm>
+using namespace std;
+
+int main() {
+    int n;
+    if (cin >> n) {
+        vector<int> v(n);
+        for (int i = 0; i < n; i++) cin >> v[i];
+        
+        // TODO: Sort ascending and print, then sort descending and print
+        
+    }
+    return 0;
+}
+`,
+            solutionCode: `#include <iostream>
+#include <vector>
+#include <algorithm>
+using namespace std;
+
+int main() {
+    int n;
+    if (cin >> n) {
+        vector<int> v(n);
+        for (int i = 0; i < n; i++) cin >> v[i];
+        sort(v.begin(), v.end());
+        for (int i = 0; i < n; i++) cout << v[i] << (i == n - 1 ? "" : " ");
+        cout << "\\n";
+        sort(v.rbegin(), v.rend());
+        for (int i = 0; i < n; i++) cout << v[i] << (i == n - 1 ? "" : " ");
+        cout << "\\n";
+    }
+    return 0;
+}
+`,
+            testCases: [
+              { input: '5\n5 2 9 1 6\n', expectedOutput: '1 2 5 6 9\n9 6 5 2 1' }
+            ],
+            hints: ['sort(v.begin(), v.end()) and sort(v.rbegin(), v.rend())']
+          },
+          {
+            id: 'cpp_m4_p2',
+            title: 'Reverse Vector with std::reverse',
+            difficulty: 'Easy',
+            xp: 35,
+            concept: 'std::reverse(v.begin(), v.end()) reverses the elements in linear time.',
+            description: 'Read n followed by n integers. Reverse the vector and print separated by spaces.',
+            starterCode: `#include <iostream>
+#include <vector>
+#include <algorithm>
+using namespace std;
+
+int main() {
+    int n;
+    if (cin >> n) {
+        vector<int> v(n);
+        for (int i = 0; i < n; i++) cin >> v[i];
+        
+        // TODO: Reverse v using std::reverse and print
+        
+    }
+    return 0;
+}
+`,
+            solutionCode: `#include <iostream>
+#include <vector>
+#include <algorithm>
+using namespace std;
+
+int main() {
+    int n;
+    if (cin >> n) {
+        vector<int> v(n);
+        for (int i = 0; i < n; i++) cin >> v[i];
+        reverse(v.begin(), v.end());
+        for (int i = 0; i < n; i++) cout << v[i] << (i == n - 1 ? "" : " ");
+        cout << "\\n";
+    }
+    return 0;
+}
+`,
+            testCases: [
+              { input: '4\n10 20 30 40\n', expectedOutput: '40 30 20 10' }
+            ],
+            hints: ['reverse(v.begin(), v.end());']
+          },
+          {
+            id: 'cpp_m4_p3',
+            title: 'Count Element Frequency with std::count',
+            difficulty: 'Easy',
+            xp: 35,
+            concept: 'std::count(v.begin(), v.end(), target) returns how many times target appears in the range.',
+            description: 'Read n followed by n integers, and target integer x. Print the frequency of x in the vector.',
+            starterCode: `#include <iostream>
+#include <vector>
+#include <algorithm>
+using namespace std;
+
+int main() {
+    int n;
+    if (cin >> n) {
+        vector<int> v(n);
+        for (int i = 0; i < n; i++) cin >> v[i];
+        int x;
+        cin >> x;
+        
+        // TODO: Count and print occurrences of x in v
+        
+    }
+    return 0;
+}
+`,
+            solutionCode: `#include <iostream>
+#include <vector>
+#include <algorithm>
+using namespace std;
+
+int main() {
+    int n;
+    if (cin >> n) {
+        vector<int> v(n);
+        for (int i = 0; i < n; i++) cin >> v[i];
+        int x;
+        cin >> x;
+        cout << count(v.begin(), v.end(), x) << "\\n";
+    }
+    return 0;
+}
+`,
+            testCases: [
+              { input: '6\n1 2 3 2 4 2\n2\n', expectedOutput: '3' },
+              { input: '4\n5 5 5 5\n7\n', expectedOutput: '0' }
+            ],
+            hints: ['count(v.begin(), v.end(), x)']
+          },
+          {
+            id: 'cpp_m4_p4',
+            title: 'Remove Consecutive Duplicates with std::unique',
+            difficulty: 'Medium',
+            xp: 45,
+            concept: 'std::unique moves duplicate elements to the end. Combine with v.erase() to resize the vector.',
+            description: 'Read a sorted vector of n integers. Remove duplicates using std::unique and print the unique elements separated by spaces.',
+            starterCode: `#include <iostream>
+#include <vector>
+#include <algorithm>
+using namespace std;
+
+int main() {
+    int n;
+    if (cin >> n) {
+        vector<int> v(n);
+        for (int i = 0; i < n; i++) cin >> v[i];
+        
+        // TODO: Remove consecutive duplicates using std::unique
+        
+    }
+    return 0;
+}
+`,
+            solutionCode: `#include <iostream>
+#include <vector>
+#include <algorithm>
+using namespace std;
+
+int main() {
+    int n;
+    if (cin >> n) {
+        vector<int> v(n);
+        for (int i = 0; i < n; i++) cin >> v[i];
+        auto it = unique(v.begin(), v.end());
+        v.erase(it, v.end());
+        for (size_t i = 0; i < v.size(); i++) cout << v[i] << (i == v.size() - 1 ? "" : " ");
+        cout << "\\n";
+    }
+    return 0;
+}
+`,
+            testCases: [
+              { input: '7\n1 1 2 2 3 4 4\n', expectedOutput: '1 2 3 4' }
+            ],
+            hints: ['v.erase(unique(v.begin(), v.end()), v.end());']
+          },
+          {
+            id: 'cpp_m4_p5',
+            title: 'Find Second Largest in Vector',
+            difficulty: 'Medium',
+            xp: 45,
+            concept: 'Maintain max1 and max2 while iterating or sort unique elements.',
+            description: 'Read n followed by n distinct integers. Find and print the second largest element.',
+            starterCode: `#include <iostream>
+#include <vector>
+#include <algorithm>
+using namespace std;
+
+int main() {
+    int n;
+    if (cin >> n) {
+        vector<int> v(n);
+        for (int i = 0; i < n; i++) cin >> v[i];
+        
+        // TODO: Find and print the second largest element
+        
+    }
+    return 0;
+}
+`,
+            solutionCode: `#include <iostream>
+#include <vector>
+#include <algorithm>
+using namespace std;
+
+int main() {
+    int n;
+    if (cin >> n) {
+        vector<int> v(n);
+        for (int i = 0; i < n; i++) cin >> v[i];
+        sort(v.begin(), v.end());
+        cout << v[n - 2] << "\\n";
+    }
+    return 0;
+}
+`,
+            testCases: [
+              { input: '5\n10 40 20 50 30\n', expectedOutput: '40' }
+            ],
+            hints: ['Since elements are distinct, sort and access v[n - 2].']
+          }
+        ]
+      },
+
+      {
+        id: 'cpp_mod_5',
+        title: 'Module 5: Modern Strings & Functions',
+        summary: 'std::string operations, palindromes, anagrams, pangrams, and binary search.',
+        level: 5,
+        problems: [
+          {
+            id: 'cpp_m5_p1',
+            title: 'String Palindrome Checker in C++',
+            difficulty: 'Easy',
+            xp: 35,
+            concept: 'In C++, compare string s with a reversed copy using std::reverse.',
+            description: 'Read a word. Print "Palindrome" or "Not Palindrome".',
+            starterCode: `#include <iostream>
+#include <string>
+#include <algorithm>
+using namespace std;
+
+int main() {
+    string s;
+    if (cin >> s) {
+        // TODO: Check if s is a palindrome
+        
+    }
+    return 0;
+}
+`,
+            solutionCode: `#include <iostream>
+#include <string>
+#include <algorithm>
+using namespace std;
+
+int main() {
+    string s;
+    if (cin >> s) {
+        string rev = s;
+        reverse(rev.begin(), rev.end());
+        if (s == rev) cout << "Palindrome\\n";
+        else cout << "Not Palindrome\\n";
+    }
+    return 0;
+}
+`,
+            testCases: [
+              { input: 'racecar\n', expectedOutput: 'Palindrome' },
+              { input: 'antigravity\n', expectedOutput: 'Not Palindrome' }
+            ],
+            hints: ['string rev = s; reverse(rev.begin(), rev.end());']
+          },
+          {
+            id: 'cpp_m5_p2',
+            title: 'Check Anagrams with std::sort',
+            difficulty: 'Easy',
+            xp: 40,
+            concept: 'Sort both strings; if equal, they are anagrams.',
+            description: 'Read two words. Print "Anagram" if they are anagrams, or "Not Anagram" otherwise.',
+            starterCode: `#include <iostream>
+#include <string>
+#include <algorithm>
+using namespace std;
+
+int main() {
+    string s1, s2;
+    if (cin >> s1 >> s2) {
+        // TODO: Check if s1 and s2 are anagrams
+        
+    }
+    return 0;
+}
+`,
+            solutionCode: `#include <iostream>
+#include <string>
+#include <algorithm>
+using namespace std;
+
+int main() {
+    string s1, s2;
+    if (cin >> s1 >> s2) {
+        sort(s1.begin(), s1.end());
+        sort(s2.begin(), s2.end());
+        if (s1 == s2) cout << "Anagram\\n";
+        else cout << "Not Anagram\\n";
+    }
+    return 0;
+}
+`,
+            testCases: [
+              { input: 'triangle integral\n', expectedOutput: 'Anagram' },
+              { input: 'apple orange\n', expectedOutput: 'Not Anagram' }
+            ],
+            hints: ['sort both strings and compare with ==.']
+          },
+          {
+            id: 'cpp_m5_p3',
+            title: 'Binary Search with std::binary_search',
+            difficulty: 'Medium',
+            xp: 45,
+            concept: 'std::binary_search(v.begin(), v.end(), val) returns true if val is present in a sorted vector.',
+            description: 'Read n followed by n sorted integers, and target x. Print "Found" or "Not Found".',
+            starterCode: `#include <iostream>
+#include <vector>
+#include <algorithm>
+using namespace std;
+
+int main() {
+    int n;
+    if (cin >> n) {
+        vector<int> v(n);
+        for (int i = 0; i < n; i++) cin >> v[i];
+        int x;
+        cin >> x;
+        
+        // TODO: Use std::binary_search to find x
+        
+    }
+    return 0;
+}
+`,
+            solutionCode: `#include <iostream>
+#include <vector>
+#include <algorithm>
+using namespace std;
+
+int main() {
+    int n;
+    if (cin >> n) {
+        vector<int> v(n);
+        for (int i = 0; i < n; i++) cin >> v[i];
+        int x;
+        cin >> x;
+        if (binary_search(v.begin(), v.end(), x)) cout << "Found\\n";
+        else cout << "Not Found\\n";
+    }
+    return 0;
+}
+`,
+            testCases: [
+              { input: '5\n10 20 30 40 50\n30\n', expectedOutput: 'Found' },
+              { input: '4\n2 4 6 8\n5\n', expectedOutput: 'Not Found' }
+            ],
+            hints: ['binary_search(v.begin(), v.end(), x)']
+          },
+          {
+            id: 'cpp_m5_p4',
+            title: 'Count Vowels and Consonants in C++',
+            difficulty: 'Easy',
+            xp: 35,
+            concept: 'Iterate characters checking c == \'a\' || c == \'e\' ...',
+            description: 'Read a lowercase word. Print vowels on line 1 and consonants on line 2.',
+            starterCode: `#include <iostream>
+#include <string>
+using namespace std;
+
+int main() {
+    string s;
+    if (cin >> s) {
+        // TODO: Count vowels and consonants
+        
+    }
+    return 0;
+}
+`,
+            solutionCode: `#include <iostream>
+#include <string>
+using namespace std;
+
+int main() {
+    string s;
+    if (cin >> s) {
+        int v = 0, c = 0;
+        for (char ch : s) {
+            if (ch == 'a' || ch == 'e' || ch == 'i' || ch == 'o' || ch == 'u') v++;
+            else if (ch >= 'a' && ch <= 'z') c++;
+        }
+        cout << v << "\\n" << c << "\\n";
+    }
+    return 0;
+}
+`,
+            testCases: [
+              { input: 'developer\n', expectedOutput: '4\n5' }
+            ],
+            hints: ['Check each character against vowels.']
+          },
+          {
+            id: 'cpp_m5_p5',
+            title: 'Check Pangram (Contains Every English Letter)',
+            difficulty: 'Medium',
+            xp: 50,
+            concept: 'A string is a pangram if it contains every letter from a to z at least once.',
+            description: 'Read a lowercase single-word or string. Print "Pangram" if it contains all 26 English letters, else "Not Pangram".',
+            starterCode: `#include <iostream>
+#include <string>
+#include <set>
+using namespace std;
+
+int main() {
+    string s;
+    if (cin >> s) {
+        // TODO: Check if s contains all 26 letters
+        
+    }
+    return 0;
+}
+`,
+            solutionCode: `#include <iostream>
+#include <string>
+#include <set>
+using namespace std;
+
+int main() {
+    string s;
+    if (cin >> s) {
+        set<char> letters;
+        for (char ch : s) {
+            if (ch >= 'a' && ch <= 'z') letters.insert(ch);
+        }
+        if (letters.size() == 26) cout << "Pangram\\n";
+        else cout << "Not Pangram\\n";
+    }
+    return 0;
+}
+`,
+            testCases: [
+              { input: 'abcdefghijklmnopqrstuvwxyz\n', expectedOutput: 'Pangram' },
+              { input: 'antigravity\n', expectedOutput: 'Not Pangram' }
+            ],
+            hints: ['Insert characters into a set and check if size() == 26.']
+          }
+        ]
+      }
+    ]
+  },
+
+  // =========================================================================
+  // 4. JAVA UNIVERSITY
+  // =========================================================================
+  java: {
+    languageId: 'java',
+    languageName: 'Java',
+    color: '#b07219',
+    accentColor: '#58a6ff',
+    badge: 'OpenJDK 21',
+    description: 'Learn object-oriented enterprise Java, classes, collections, stream APIs, and standard input/output.',
+    modules: [
+      {
+        id: 'java_mod_1',
+        title: 'Module 1: Java Basics & Scanner I/O',
+        summary: 'Class Main, public static void main, Scanner, and arithmetic operations.',
+        level: 1,
+        problems: [
+          {
+            id: 'java_m1_p1',
+            title: 'Scanner Sum and Average',
+            difficulty: 'Easy',
+            xp: 30,
+            concept: 'Java uses java.util.Scanner for reading input. Every program defines a class with public static void main(String[] args).',
+            description: 'Read two integers a and b. Print their sum on the first line and integer average (a + b) / 2 on the second line.',
+            starterCode: `import java.util.Scanner;
+
+public class Main {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        if (sc.hasNextInt()) {
+            int a = sc.nextInt();
+            int b = sc.nextInt();
+            // TODO: Print sum on line 1, integer average on line 2
+            
+        }
+    }
+}
+`,
+            solutionCode: `import java.util.Scanner;
+
+public class Main {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        if (sc.hasNextInt()) {
+            int a = sc.nextInt();
+            int b = sc.nextInt();
+            System.out.println(a + b);
+            System.out.println((a + b) / 2);
+        }
+    }
+}
+`,
+            testCases: [
+              { input: '10 20\n', expectedOutput: '30\n15' },
+              { input: '8 4\n', expectedOutput: '12\n6' }
+            ],
+            hints: ['System.out.println(a + b);']
+          },
+          {
+            id: 'java_m1_p2',
+            title: 'Swap Two Variables Without Temp',
+            difficulty: 'Easy',
+            xp: 35,
+            concept: 'Swap using arithmetic: a = a + b; b = a - b; a = a - b;',
+            description: 'Read two integers a and b. Swap their values and print them separated by a space.',
+            starterCode: `import java.util.Scanner;
+
+public class Main {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        if (sc.hasNextInt()) {
+            int a = sc.nextInt();
+            int b = sc.nextInt();
+            // TODO: Swap a and b without using a third variable
+            
+            System.out.println(a + " " + b);
+        }
+    }
+}
+`,
+            solutionCode: `import java.util.Scanner;
+
+public class Main {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        if (sc.hasNextInt()) {
+            int a = sc.nextInt();
+            int b = sc.nextInt();
+            a = a + b;
+            b = a - b;
+            a = a - b;
+            System.out.println(a + " " + b);
+        }
+    }
+}
+`,
+            testCases: [
+              { input: '7 14\n', expectedOutput: '14 7' }
+            ],
+            hints: ['a = a + b; b = a - b; a = a - b;']
+          },
+          {
+            id: 'java_m1_p3',
+            title: 'Fahrenheit to Celsius Converter',
+            difficulty: 'Easy',
+            xp: 35,
+            concept: 'Formula: C = (F - 32) * 5 / 9.',
+            description: 'Read integer temperature in Fahrenheit. Print the integer Celsius value.',
+            starterCode: `import java.util.Scanner;
+
+public class Main {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        if (sc.hasNextInt()) {
+            int f = sc.nextInt();
+            // TODO: Convert to Celsius and print
+            
+        }
+    }
+}
+`,
+            solutionCode: `import java.util.Scanner;
+
+public class Main {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        if (sc.hasNextInt()) {
+            int f = sc.nextInt();
+            int c = (f - 32) * 5 / 9;
+            System.out.println(c);
+        }
+    }
+}
+`,
+            testCases: [
+              { input: '212\n', expectedOutput: '100' },
+              { input: '32\n', expectedOutput: '0' }
+            ],
+            hints: ['(f - 32) * 5 / 9']
+          },
+          {
+            id: 'java_m1_p4',
+            title: 'Rectangle Area and Perimeter',
+            difficulty: 'Easy',
+            xp: 35,
+            concept: 'Area = L * W; Perimeter = 2 * (L + W).',
+            description: 'Read length and width. Print Area on line 1 and Perimeter on line 2.',
+            starterCode: `import java.util.Scanner;
+
+public class Main {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        if (sc.hasNextInt()) {
+            int l = sc.nextInt();
+            int w = sc.nextInt();
+            // TODO: Print Area and Perimeter
+            
+        }
+    }
+}
+`,
+            solutionCode: `import java.util.Scanner;
+
+public class Main {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        if (sc.hasNextInt()) {
+            int l = sc.nextInt();
+            int w = sc.nextInt();
+            System.out.println(l * w);
+            System.out.println(2 * (l + w));
+        }
+    }
+}
+`,
+            testCases: [
+              { input: '10 5\n', expectedOutput: '50\n30' }
+            ],
+            hints: ['System.out.println(l * w);']
+          },
+          {
+            id: 'java_m1_p5',
+            title: 'Extract Last Digit of a Number',
+            difficulty: 'Easy',
+            xp: 30,
+            concept: 'Modulo by 10 (n % 10) retrieves the units digit.',
+            description: 'Read an integer n. Print its last digit.',
+            starterCode: `import java.util.Scanner;
+
+public class Main {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        if (sc.hasNextInt()) {
+            int n = sc.nextInt();
+            // TODO: Print last digit
+            
+        }
+    }
+}
+`,
+            solutionCode: `import java.util.Scanner;
+
+public class Main {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        if (sc.hasNextInt()) {
+            int n = sc.nextInt();
+            System.out.println(Math.abs(n) % 10);
+        }
+    }
+}
+`,
+            testCases: [
+              { input: '987\n', expectedOutput: '7' },
+              { input: '40\n', expectedOutput: '0' }
+            ],
+            hints: ['n % 10']
+          }
+        ]
+      },
+
+      {
+        id: 'java_mod_2',
+        title: 'Module 2: Conditionals & Decisions',
+        summary: 'if-else chains, switch statements, and logical operators.',
+        level: 2,
+        problems: [
+          {
+            id: 'java_m2_p1',
+            title: 'Positive, Negative or Zero',
+            difficulty: 'Easy',
+            xp: 30,
+            concept: 'Compare n > 0, n < 0, or n == 0.',
+            description: 'Read an integer n. Print "Positive", "Negative", or "Zero".',
+            starterCode: `import java.util.Scanner;
+
+public class Main {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        if (sc.hasNextInt()) {
+            int n = sc.nextInt();
+            // TODO: Determine if n is Positive, Negative, or Zero
+            
+        }
+    }
+}
+`,
+            solutionCode: `import java.util.Scanner;
+
+public class Main {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        if (sc.hasNextInt()) {
+            int n = sc.nextInt();
+            if (n > 0) System.out.println("Positive");
+            else if (n < 0) System.out.println("Negative");
+            else System.out.println("Zero");
+        }
+    }
+}
+`,
+            testCases: [
+              { input: '15\n', expectedOutput: 'Positive' },
+              { input: '-7\n', expectedOutput: 'Negative' },
+              { input: '0\n', expectedOutput: 'Zero' }
+            ],
+            hints: ['if (n > 0) ... else if (n < 0) ...']
+          },
+          {
+            id: 'java_m2_p2',
+            title: 'Leap Year Detector in Java',
+            difficulty: 'Medium',
+            xp: 40,
+            concept: '(year % 400 == 0) || (year % 4 == 0 && year % 100 != 0)',
+            description: 'Read year. Print "Leap Year" or "Not Leap Year".',
+            starterCode: `import java.util.Scanner;
+
+public class Main {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        if (sc.hasNextInt()) {
+            int year = sc.nextInt();
+            // TODO: Check Leap Year
+            
+        }
+    }
+}
+`,
+            solutionCode: `import java.util.Scanner;
+
+public class Main {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        if (sc.hasNextInt()) {
+            int year = sc.nextInt();
+            if ((year % 400 == 0) || (year % 4 == 0 && year % 100 != 0)) {
+                System.out.println("Leap Year");
+            } else {
+                System.out.println("Not Leap Year");
+            }
+        }
+    }
+}
+`,
+            testCases: [
+              { input: '2024\n', expectedOutput: 'Leap Year' },
+              { input: '2100\n', expectedOutput: 'Not Leap Year' }
+            ],
+            hints: ['Combine conditions with || and &&.']
+          },
+          {
+            id: 'java_m2_p3',
+            title: 'Greatest of Three Numbers',
+            difficulty: 'Easy',
+            xp: 35,
+            concept: 'Use Math.max(a, Math.max(b, c)).',
+            description: 'Read three integers and print the largest value.',
+            starterCode: `import java.util.Scanner;
+
+public class Main {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        if (sc.hasNextInt()) {
+            int a = sc.nextInt();
+            int b = sc.nextInt();
+            int c = sc.nextInt();
+            // TODO: Find and print maximum value
+            
+        }
+    }
+}
+`,
+            solutionCode: `import java.util.Scanner;
+
+public class Main {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        if (sc.hasNextInt()) {
+            int a = sc.nextInt();
+            int b = sc.nextInt();
+            int c = sc.nextInt();
+            System.out.println(Math.max(a, Math.max(b, c)));
+        }
+    }
+}
+`,
+            testCases: [
+              { input: '12 85 45\n', expectedOutput: '85' },
+              { input: '9 9 9\n', expectedOutput: '9' }
+            ],
+            hints: ['Math.max(a, Math.max(b, c))']
+          },
+          {
+            id: 'java_m2_p4',
+            title: 'Grade Classifier in Java',
+            difficulty: 'Easy',
+            xp: 35,
+            concept: '>= 90: A, >= 80: B, >= 70: C, >= 60: D, else F.',
+            description: 'Read score (0 to 100). Print grade letter.',
+            starterCode: `import java.util.Scanner;
+
+public class Main {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        if (sc.hasNextInt()) {
+            int score = sc.nextInt();
+            // TODO: Print grade
+            
+        }
+    }
+}
+`,
+            solutionCode: `import java.util.Scanner;
+
+public class Main {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        if (sc.hasNextInt()) {
+            int score = sc.nextInt();
+            if (score >= 90) System.out.println("A");
+            else if (score >= 80) System.out.println("B");
+            else if (score >= 70) System.out.println("C");
+            else if (score >= 60) System.out.println("D");
+            else System.out.println("F");
+        }
+    }
+}
+`,
+            testCases: [
+              { input: '88\n', expectedOutput: 'B' },
+              { input: '55\n', expectedOutput: 'F' }
+            ],
+            hints: ['if-else ladder.']
+          },
+          {
+            id: 'java_m2_p5',
+            title: 'Days in Month Switch',
+            difficulty: 'Medium',
+            xp: 40,
+            concept: 'Months 1, 3, 5, 7, 8, 10, 12 have 31 days. Months 4, 6, 9, 11 have 30 days. Month 2 has 28 days.',
+            description: 'Read month number (1 to 12). Print number of days in that month.',
+            starterCode: `import java.util.Scanner;
+
+public class Main {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        if (sc.hasNextInt()) {
+            int month = sc.nextInt();
+            // TODO: Print days in month using switch
+            
+        }
+    }
+}
+`,
+            solutionCode: `import java.util.Scanner;
+
+public class Main {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        if (sc.hasNextInt()) {
+            int month = sc.nextInt();
+            switch (month) {
+                case 1: case 3: case 5: case 7: case 8: case 10: case 12:
+                    System.out.println(31);
+                    break;
+                case 4: case 6: case 9: case 11:
+                    System.out.println(30);
+                    break;
+                case 2:
+                    System.out.println(28);
+                    break;
+            }
+        }
+    }
+}
+`,
+            testCases: [
+              { input: '2\n', expectedOutput: '28' },
+              { input: '7\n', expectedOutput: '31' },
+              { input: '4\n', expectedOutput: '30' }
+            ],
+            hints: ['Use fall-through cases in switch.']
+          }
+        ]
+      },
+
+      {
+        id: 'java_mod_3',
+        title: 'Module 3: Loops & Iteration',
+        summary: 'for loop, while loop, factorials, digit sums, and prime checks.',
+        level: 3,
+        problems: [
+          {
+            id: 'java_m3_p1',
+            title: 'Factorial of a Number in Java',
+            difficulty: 'Easy',
+            xp: 35,
+            concept: 'Loop from 1 to n multiplying result.',
+            description: 'Read integer n. Print n!.',
+            starterCode: `import java.util.Scanner;
+
+public class Main {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        if (sc.hasNextInt()) {
+            int n = sc.nextInt();
+            // TODO: Compute and print n!
+            
+        }
+    }
+}
+`,
+            solutionCode: `import java.util.Scanner;
+
+public class Main {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        if (sc.hasNextInt()) {
+            int n = sc.nextInt();
+            long fact = 1;
+            for (int i = 1; i <= n; i++) fact *= i;
+            System.out.println(fact);
+        }
+    }
+}
+`,
+            testCases: [
+              { input: '5\n', expectedOutput: '120' },
+              { input: '0\n', expectedOutput: '1' }
+            ],
+            hints: ['fact *= i in loop.']
+          },
+          {
+            id: 'java_m3_p2',
+            title: 'Sum of First N Natural Numbers in Java',
+            difficulty: 'Easy',
+            xp: 30,
+            concept: 'Sum = (long)n * (n + 1) / 2.',
+            description: 'Read n. Print sum of numbers from 1 to n.',
+            starterCode: `import java.util.Scanner;
+
+public class Main {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        if (sc.hasNextInt()) {
+            long n = sc.nextLong();
+            // TODO: Print sum from 1 to n
+            
+        }
+    }
+}
+`,
+            solutionCode: `import java.util.Scanner;
+
+public class Main {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        if (sc.hasNextLong()) {
+            long n = sc.nextLong();
+            System.out.println(n * (n + 1) / 2);
+        }
+    }
+}
+`,
+            testCases: [
+              { input: '10\n', expectedOutput: '55' }
+            ],
+            hints: ['n * (n + 1) / 2']
+          },
+          {
+            id: 'java_m3_p3',
+            title: 'Reverse an Integer in Java',
+            difficulty: 'Easy',
+            xp: 35,
+            concept: 'rev = rev * 10 + (n % 10); n /= 10.',
+            description: 'Read integer n. Print the reversed number.',
+            starterCode: `import java.util.Scanner;
+
+public class Main {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        if (sc.hasNextInt()) {
+            int n = sc.nextInt();
+            // TODO: Reverse integer and print
+            
+        }
+    }
+}
+`,
+            solutionCode: `import java.util.Scanner;
+
+public class Main {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        if (sc.hasNextInt()) {
+            int n = sc.nextInt();
+            int rev = 0;
+            while (n > 0) {
+                rev = rev * 10 + (n % 10);
+                n /= 10;
+            }
+            System.out.println(rev);
+        }
+    }
+}
+`,
+            testCases: [
+              { input: '12345\n', expectedOutput: '54321' }
+            ],
+            hints: ['rev = rev * 10 + (n % 10);']
+          },
+          {
+            id: 'java_m3_p4',
+            title: 'Check Prime in Java',
+            difficulty: 'Medium',
+            xp: 40,
+            concept: 'Check divisors from 2 to sqrt(n).',
+            description: 'Read integer n. Print "Prime" or "Not Prime".',
+            starterCode: `import java.util.Scanner;
+
+public class Main {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        if (sc.hasNextInt()) {
+            int n = sc.nextInt();
+            // TODO: Check if n is Prime
+            
+        }
+    }
+}
+`,
+            solutionCode: `import java.util.Scanner;
+
+public class Main {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        if (sc.hasNextInt()) {
+            int n = sc.nextInt();
+            if (n <= 1) {
+                System.out.println("Not Prime");
+                return;
+            }
+            boolean isPrime = true;
+            for (int i = 2; i * i <= n; i++) {
+                if (n % i == 0) {
+                    isPrime = false;
+                    break;
+                }
+            }
+            System.out.println(isPrime ? "Prime" : "Not Prime");
+        }
+    }
+}
+`,
+            testCases: [
+              { input: '23\n', expectedOutput: 'Prime' },
+              { input: '4\n', expectedOutput: 'Not Prime' }
+            ],
+            hints: ['Check i * i <= n.']
+          },
+          {
+            id: 'java_m3_p5',
+            title: 'Print Multiplication Table in Java',
+            difficulty: 'Easy',
+            xp: 35,
+            concept: 'Print lines: n + " x " + i + " = " + (n * i).',
+            description: 'Read integer n. Print first 5 multiples.',
+            starterCode: `import java.util.Scanner;
+
+public class Main {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        if (sc.hasNextInt()) {
+            int n = sc.nextInt();
+            // TODO: Print first 5 multiples
+            
+        }
+    }
+}
+`,
+            solutionCode: `import java.util.Scanner;
+
+public class Main {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        if (sc.hasNextInt()) {
+            int n = sc.nextInt();
+            for (int i = 1; i <= 5; i++) {
+                System.out.println(n + " x " + i + " = " + (n * i));
+            }
+        }
+    }
+}
+`,
+            testCases: [
+              { input: '9\n', expectedOutput: '9 x 1 = 9\n9 x 2 = 18\n9 x 3 = 27\n9 x 4 = 36\n9 x 5 = 45' }
+            ],
+            hints: ['Loop i from 1 to 5.']
+          }
+        ]
+      },
+
+      {
+        id: 'java_mod_4',
+        title: 'Module 4: Arrays & Operations',
+        summary: '1D arrays, min/max, array reversal, linear search, and bubble sort.',
+        level: 4,
+        problems: [
+          {
+            id: 'java_m4_p1',
+            title: 'Array Sum and Average in Java',
+            difficulty: 'Easy',
+            xp: 35,
+            concept: 'Iterate through int[] arr, accumulate sum, divide by n for average.',
+            description: 'Read n followed by n integers. Print sum on line 1, and integer average on line 2.',
+            starterCode: `import java.util.Scanner;
+
+public class Main {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        if (sc.hasNextInt()) {
+            int n = sc.nextInt();
+            int[] arr = new int[n];
+            for (int i = 0; i < n; i++) arr[i] = sc.nextInt();
+            // TODO: Print sum on line 1 and integer average on line 2
+            
+        }
+    }
+}
+`,
+            solutionCode: `import java.util.Scanner;
+
+public class Main {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        if (sc.hasNextInt()) {
+            int n = sc.nextInt();
+            int[] arr = new int[n];
+            int sum = 0;
+            for (int i = 0; i < n; i++) {
+                arr[i] = sc.nextInt();
+                sum += arr[i];
+            }
+            System.out.println(sum);
+            System.out.println(sum / n);
+        }
+    }
+}
+`,
+            testCases: [
+              { input: '4\n10 20 30 40\n', expectedOutput: '100\n25' }
+            ],
+            hints: ['sum += arr[i] in loop.']
+          },
+          {
+            id: 'java_m4_p2',
+            title: 'Find Minimum and Maximum in Java Array',
+            difficulty: 'Easy',
+            xp: 35,
+            concept: 'Track min and max starting from arr[0].',
+            description: 'Read n followed by n integers. Print min on line 1 and max on line 2.',
+            starterCode: `import java.util.Scanner;
+
+public class Main {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        if (sc.hasNextInt()) {
+            int n = sc.nextInt();
+            int[] arr = new int[n];
+            for (int i = 0; i < n; i++) arr[i] = sc.nextInt();
+            // TODO: Print min on line 1, max on line 2
+            
+        }
+    }
+}
+`,
+            solutionCode: `import java.util.Scanner;
+
+public class Main {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        if (sc.hasNextInt()) {
+            int n = sc.nextInt();
+            int[] arr = new int[n];
+            for (int i = 0; i < n; i++) arr[i] = sc.nextInt();
+            int min = arr[0], max = arr[0];
+            for (int x : arr) {
+                if (x < min) min = x;
+                if (x > max) max = x;
+            }
+            System.out.println(min);
+            System.out.println(max);
+        }
+    }
+}
+`,
+            testCases: [
+              { input: '5\n15 42 7 99 23\n', expectedOutput: '7\n99' }
+            ],
+            hints: ['Compare each element with min and max.']
+          },
+          {
+            id: 'java_m4_p3',
+            title: 'Reverse an Array in Java',
+            difficulty: 'Easy',
+            xp: 40,
+            concept: 'Swap arr[left] and arr[right] moving inward.',
+            description: 'Read n followed by n integers. Reverse the array and print separated by spaces.',
+            starterCode: `import java.util.Scanner;
+
+public class Main {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        if (sc.hasNextInt()) {
+            int n = sc.nextInt();
+            int[] arr = new int[n];
+            for (int i = 0; i < n; i++) arr[i] = sc.nextInt();
+            // TODO: Reverse arr and print
+            
+        }
+    }
+}
+`,
+            solutionCode: `import java.util.Scanner;
+
+public class Main {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        if (sc.hasNextInt()) {
+            int n = sc.nextInt();
+            int[] arr = new int[n];
+            for (int i = 0; i < n; i++) arr[i] = sc.nextInt();
+            int left = 0, right = n - 1;
+            while (left < right) {
+                int temp = arr[left];
+                arr[left] = arr[right];
+                arr[right] = temp;
+                left++;
+                right--;
+            }
+            for (int i = 0; i < n; i++) {
+                System.out.print(arr[i] + (i == n - 1 ? "\\n" : " "));
+            }
+        }
+    }
+}
+`,
+            testCases: [
+              { input: '4\n1 2 3 4\n', expectedOutput: '4 3 2 1' }
+            ],
+            hints: ['Two pointers left and right.']
+          },
+          {
+            id: 'java_m4_p4',
+            title: 'Linear Search in Java Array',
+            difficulty: 'Easy',
+            xp: 35,
+            concept: 'Scan from index 0 to n - 1 looking for target.',
+            description: 'Read n followed by n integers, and target x. Print the 0-based index of x, or -1 if not found.',
+            starterCode: `import java.util.Scanner;
+
+public class Main {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        if (sc.hasNextInt()) {
+            int n = sc.nextInt();
+            int[] arr = new int[n];
+            for (int i = 0; i < n; i++) arr[i] = sc.nextInt();
+            int x = sc.nextInt();
+            // TODO: Find and print 0-based index of x, or -1
+            
+        }
+    }
+}
+`,
+            solutionCode: `import java.util.Scanner;
+
+public class Main {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        if (sc.hasNextInt()) {
+            int n = sc.nextInt();
+            int[] arr = new int[n];
+            for (int i = 0; i < n; i++) arr[i] = sc.nextInt();
+            int x = sc.nextInt();
+            int idx = -1;
+            for (int i = 0; i < n; i++) {
+                if (arr[i] == x) {
+                    idx = i;
+                    break;
+                }
+            }
+            System.out.println(idx);
+        }
+    }
+}
+`,
+            testCases: [
+              { input: '5\n10 20 30 40 50\n30\n', expectedOutput: '2' },
+              { input: '3\n1 2 3\n7\n', expectedOutput: '-1' }
+            ],
+            hints: ['Break as soon as element is found.']
+          },
+          {
+            id: 'java_m4_p5',
+            title: 'Bubble Sort in Java',
+            difficulty: 'Medium',
+            xp: 45,
+            concept: 'Bubble Sort repeatedly steps through the array, comparing adjacent elements and swapping them if arr[j] > arr[j + 1].',
+            description: 'Read n followed by n integers. Sort using Bubble Sort and print separated by spaces.',
+            starterCode: `import java.util.Scanner;
+
+public class Main {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        if (sc.hasNextInt()) {
+            int n = sc.nextInt();
+            int[] arr = new int[n];
+            for (int i = 0; i < n; i++) arr[i] = sc.nextInt();
+            // TODO: Sort using Bubble Sort and print
+            
+        }
+    }
+}
+`,
+            solutionCode: `import java.util.Scanner;
+
+public class Main {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        if (sc.hasNextInt()) {
+            int n = sc.nextInt();
+            int[] arr = new int[n];
+            for (int i = 0; i < n; i++) arr[i] = sc.nextInt();
+            for (int i = 0; i < n - 1; i++) {
+                for (int j = 0; j < n - i - 1; j++) {
+                    if (arr[j] > arr[j + 1]) {
+                        int temp = arr[j];
+                        arr[j] = arr[j + 1];
+                        arr[j + 1] = temp;
+                    }
+                }
+            }
+            for (int i = 0; i < n; i++) {
+                System.out.print(arr[i] + (i == n - 1 ? "\\n" : " "));
+            }
+        }
+    }
+}
+`,
+            testCases: [
+              { input: '5\n64 25 12 22 11\n', expectedOutput: '11 12 22 25 64' }
+            ],
+            hints: ['Nested loops with swap condition arr[j] > arr[j + 1].']
+          }
+        ]
+      },
+
+      {
+        id: 'java_mod_5',
+        title: 'Module 5: Strings & Methods',
+        summary: 'String methods, StringBuilder, anagrams, palindromes, and case manipulation.',
+        level: 5,
+        problems: [
+          {
+            id: 'java_m5_p1',
+            title: 'Reverse a String with StringBuilder',
+            difficulty: 'Easy',
+            xp: 35,
+            concept: 'new StringBuilder(s).reverse().toString() reverses a string efficiently.',
+            description: 'Read a word. Print it reversed.',
+            starterCode: `import java.util.Scanner;
+
+public class Main {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        if (sc.hasNext()) {
+            String s = sc.next();
+            // TODO: Reverse s and print
+            
+        }
+    }
+}
+`,
+            solutionCode: `import java.util.Scanner;
+
+public class Main {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        if (sc.hasNext()) {
+            String s = sc.next();
+            System.out.println(new StringBuilder(s).reverse().toString());
+        }
+    }
+}
+`,
+            testCases: [
+              { input: 'java\n', expectedOutput: 'avaj' },
+              { input: 'developer\n', expectedOutput: 'repoleved' }
+            ],
+            hints: ['new StringBuilder(s).reverse().toString()']
+          },
+          {
+            id: 'java_m5_p2',
+            title: 'Palindrome String Checker in Java',
+            difficulty: 'Easy',
+            xp: 40,
+            concept: 'Compare s with its reversed version using .equals().',
+            description: 'Read a word. Print "Palindrome" or "Not Palindrome".',
+            starterCode: `import java.util.Scanner;
+
+public class Main {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        if (sc.hasNext()) {
+            String s = sc.next();
+            // TODO: Check if s is Palindrome
+            
+        }
+    }
+}
+`,
+            solutionCode: `import java.util.Scanner;
+
+public class Main {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        if (sc.hasNext()) {
+            String s = sc.next();
+            String rev = new StringBuilder(s).reverse().toString();
+            if (s.equals(rev)) System.out.println("Palindrome");
+            else System.out.println("Not Palindrome");
+        }
+    }
+}
+`,
+            testCases: [
+              { input: 'racecar\n', expectedOutput: 'Palindrome' },
+              { input: 'java\n', expectedOutput: 'Not Palindrome' }
+            ],
+            hints: ['s.equals(rev)']
+          },
+          {
+            id: 'java_m5_p3',
+            title: 'Count Vowels in Java String',
+            difficulty: 'Easy',
+            xp: 35,
+            concept: 'Iterate characters using s.charAt(i) or toCharArray().',
+            description: 'Read a lowercase word. Print the count of vowels.',
+            starterCode: `import java.util.Scanner;
+
+public class Main {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        if (sc.hasNext()) {
+            String s = sc.next();
+            // TODO: Count vowels and print
+            
+        }
+    }
+}
+`,
+            solutionCode: `import java.util.Scanner;
+
+public class Main {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        if (sc.hasNext()) {
+            String s = sc.next();
+            int count = 0;
+            for (char c : s.toCharArray()) {
+                if ("aeiou".indexOf(c) != -1) count++;
+            }
+            System.out.println(count);
+        }
+    }
+}
+`,
+            testCases: [
+              { input: 'programming\n', expectedOutput: '3' },
+              { input: 'sky\n', expectedOutput: '0' }
+            ],
+            hints: ['"aeiou".indexOf(c) != -1']
+          },
+          {
+            id: 'java_m5_p4',
+            title: 'Check Anagrams with Arrays.sort',
+            difficulty: 'Easy',
+            xp: 40,
+            concept: 'Convert strings to char[] arrays, sort with Arrays.sort(), and compare with Arrays.equals().',
+            description: 'Read two words. Print "Anagram" or "Not Anagram".',
+            starterCode: `import java.util.Scanner;
+import java.util.Arrays;
+
+public class Main {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        if (sc.hasNext()) {
+            String s1 = sc.next();
+            String s2 = sc.next();
+            // TODO: Check if s1 and s2 are Anagrams
+            
+        }
+    }
+}
+`,
+            solutionCode: `import java.util.Scanner;
+import java.util.Arrays;
+
+public class Main {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        if (sc.hasNext()) {
+            String s1 = sc.next();
+            String s2 = sc.next();
+            char[] a1 = s1.toCharArray();
+            char[] a2 = s2.toCharArray();
+            Arrays.sort(a1);
+            Arrays.sort(a2);
+            if (Arrays.equals(a1, a2)) System.out.println("Anagram");
+            else System.out.println("Not Anagram");
+        }
+    }
+}
+`,
+            testCases: [
+              { input: 'silent listen\n', expectedOutput: 'Anagram' },
+              { input: 'cat dog\n', expectedOutput: 'Not Anagram' }
+            ],
+            hints: ['Arrays.equals(a1, a2)']
+          },
+          {
+            id: 'java_m5_p5',
+            title: 'Toggle Case in Java String',
+            difficulty: 'Medium',
+            xp: 45,
+            concept: 'Character.isLowerCase(c) and Character.toUpperCase(c).',
+            description: 'Read a word. Toggle case of each letter and print.',
+            starterCode: `import java.util.Scanner;
+
+public class Main {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        if (sc.hasNext()) {
+            String s = sc.next();
+            // TODO: Toggle case of each letter and print
+            
+        }
+    }
+}
+`,
+            solutionCode: `import java.util.Scanner;
+
+public class Main {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        if (sc.hasNext()) {
+            String s = sc.next();
+            StringBuilder sb = new StringBuilder();
+            for (char c : s.toCharArray()) {
+                if (Character.isLowerCase(c)) sb.append(Character.toUpperCase(c));
+                else if (Character.isUpperCase(c)) sb.append(Character.toLowerCase(c));
+                else sb.append(c);
+            }
+            System.out.println(sb.toString());
+        }
+    }
+}
+`,
+            testCases: [
+              { input: 'JavaSTUDIO\n', expectedOutput: 'jAVAstudio' }
+            ],
+            hints: ['Character.isLowerCase(c)']
+          }
+        ]
+      }
+    ]
+  }
+};
+
+const outputContent = `/**
+ * Comprehensive Programming University & Interactive Curriculum
+ * Covers Python, C, C++, and Java with progressive locking/unlocking,
+ * theory concepts, practical challenges, and test cases.
+ * Every topic contains at least 5 interactive challenges with hidden answers.
+ */
+
+export const CURRICULUM = ${JSON.stringify(curriculum, null, 2)};
+`;
+
+fs.writeFileSync(path.join(__dirname, '..', 'src', 'constants', 'curriculum.js'), outputContent, 'utf8');
+console.log('Successfully generated curriculum.js with at least 5 problems per module!');

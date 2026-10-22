@@ -17,7 +17,11 @@ import {
   HelpCircle,
   ExternalLink,
   Zap,
-  AlertCircle
+  AlertCircle,
+  Eye,
+  EyeOff,
+  Copy,
+  Check
 } from 'lucide-react';
 import { CURRICULUM } from '../constants/curriculum';
 import { runCode } from '../services/compilerService';
@@ -97,12 +101,18 @@ export function UniversityView({ onBackToCompiler, onLoadCodeInCompiler, setting
 
   // Code editor state for current problem
   const [userCode, setUserCode] = useState('');
+  const [showSolution, setShowSolution] = useState(false);
+  const [solutionCopied, setSolutionCopied] = useState(false);
+
   useEffect(() => {
     if (activeProblem) {
       setUserCode(activeProblem.starterCode || '');
     }
     setTestResults(null);
     setAiHint(null);
+    setShowSolution(false); // Answer automatically hidden on every problem!
+    setShowHints(false);
+    setSolutionCopied(false);
   }, [activeProblemId]);
 
   // Testing & execution states
@@ -477,6 +487,81 @@ export function UniversityView({ onBackToCompiler, onLoadCodeInCompiler, setting
                           <span>{hint}</span>
                         </div>
                       ))}
+                    </div>
+                  )}
+                </div>
+              )}
+
+              {/* Automatically Hidden Solution Accordion (Forces Active Self Practice) */}
+              {activeProblem?.solutionCode && (
+                <div className="border border-[#30363d] rounded-xl overflow-hidden bg-[#0f1117]/60">
+                  <div className="p-2.5 bg-[#21262d] flex items-center justify-between text-xs border-b border-[#30363d]">
+                    <div className="flex items-center gap-2">
+                      {showSolution ? (
+                        <Eye size={14} className="text-[#3fb950]" />
+                      ) : (
+                        <EyeOff size={14} className="text-amber-400" />
+                      )}
+                      <span className="font-semibold text-[#e6edf3]">
+                        {showSolution ? 'Official Reference Solution' : 'Answer Hidden (Practice First!)'}
+                      </span>
+                    </div>
+                    <button
+                      onClick={() => setShowSolution(!showSolution)}
+                      className={`px-2.5 py-1 rounded-md text-[11px] font-semibold transition-all flex items-center gap-1.5 ${
+                        showSolution
+                          ? 'bg-[#21262d] text-[#8b949e] hover:text-[#e6edf3] border border-[#30363d]'
+                          : 'bg-amber-400/15 text-amber-400 hover:bg-amber-400/25 border border-amber-400/40'
+                      }`}
+                    >
+                      {showSolution ? (
+                        <>
+                          <EyeOff size={12} />
+                          <span>Hide Answer</span>
+                        </>
+                      ) : (
+                        <>
+                          <Eye size={12} />
+                          <span>Reveal Answer</span>
+                        </>
+                      )}
+                    </button>
+                  </div>
+
+                  {showSolution ? (
+                    <div className="p-3 bg-[#0d1117] space-y-2 border-t border-[#30363d]">
+                      <div className="flex items-center justify-between">
+                        <span className="text-[11px] text-[#8b949e] font-sans">Verified optimal code:</span>
+                        <div className="flex items-center gap-2">
+                          <button
+                            onClick={async () => {
+                              try {
+                                await navigator.clipboard.writeText(activeProblem.solutionCode);
+                                setSolutionCopied(true);
+                                setTimeout(() => setSolutionCopied(false), 2000);
+                              } catch {}
+                            }}
+                            className="text-[11px] text-[#8b949e] hover:text-[#e6edf3] flex items-center gap-1"
+                          >
+                            {solutionCopied ? <Check size={11} className="text-[#3fb950]" /> : <Copy size={11} />}
+                            <span>{solutionCopied ? 'Copied' : 'Copy'}</span>
+                          </button>
+                          <button
+                            onClick={() => setUserCode(activeProblem.solutionCode)}
+                            className="text-[11px] text-[#58a6ff] hover:underline flex items-center gap-1 font-mono"
+                          >
+                            <span>Load into Editor</span>
+                          </button>
+                        </div>
+                      </div>
+                      <pre className="p-2.5 rounded-lg bg-[#161b22] border border-[#30363d] text-[#e6edf3] font-mono text-[11px] overflow-x-auto whitespace-pre leading-relaxed">
+                        {activeProblem.solutionCode}
+                      </pre>
+                    </div>
+                  ) : (
+                    <div className="p-2.5 text-[11px] text-[#8b949e] leading-relaxed flex items-center gap-2 bg-[#0f1117]/80">
+                      <Lock size={12} className="text-amber-400 shrink-0" />
+                      <span>The answer is locked & hidden automatically to let you practice on your own. Test your code or use AI Tutor hints if you get stuck!</span>
                     </div>
                   )}
                 </div>
