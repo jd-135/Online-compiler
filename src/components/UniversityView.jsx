@@ -472,7 +472,7 @@ export function UniversityView({ onBackToCompiler, onLoadCodeInCompiler, setting
                           key={prob.id}
                           disabled={!isUnlocked}
                           onClick={() => setActiveProblemId(prob.id)}
-                          className={`w-full text-left p-2 rounded-lg text-xs transition-all flex items-center justify-between ${
+                          className={`w-full text-left p-2 rounded-lg text-xs transition-all duration-150 active:scale-[0.98] flex items-center justify-between ${
                             isActive
                               ? 'bg-[#58a6ff]/15 text-[#58a6ff] font-semibold border border-[#58a6ff]/40 shadow-xs'
                               : isUnlocked
@@ -545,11 +545,11 @@ export function UniversityView({ onBackToCompiler, onLoadCodeInCompiler, setting
               )}
             </div>
 
-            {/* Theory & Instructions scroll area */}
-            <div className="flex-1 overflow-y-auto p-4 space-y-4">
+            {/* Theory & Instructions scroll area with Silky Slide Animation on Problem Switch */}
+            <div key={activeProblemId} className="flex-1 overflow-y-auto p-4 space-y-4 anim-slide-up">
               {/* 1. Real-World Story & Everyday Analogy Card */}
               {activeProblem?.analogy && (
-                <div className="bg-gradient-to-br from-amber-500/10 via-purple-500/10 to-indigo-500/10 p-3.5 rounded-xl border border-amber-400/35 space-y-2 shadow-sm">
+                <div className="bg-gradient-to-br from-amber-500/10 via-purple-500/10 to-indigo-500/10 p-3.5 rounded-xl border border-amber-400/35 space-y-2 shadow-sm smooth-hover">
                   <div className="flex items-center justify-between">
                     <div className="flex items-center gap-2 text-xs font-bold text-amber-300">
                       <Sparkles size={14} className="text-amber-400" />
@@ -567,7 +567,7 @@ export function UniversityView({ onBackToCompiler, onLoadCodeInCompiler, setting
 
               {/* 2. The 3-Step Human Recipe (Think Before You Code) */}
               {activeProblem?.stepByStep && activeProblem.stepByStep.length > 0 && (
-                <div className="bg-[#0f1117] p-3.5 rounded-xl border border-[#30363d] space-y-2.5 shadow-sm" style={{ backgroundColor: 'var(--bg-primary)', borderColor: 'var(--border-color)' }}>
+                <div className="bg-[#0f1117] p-3.5 rounded-xl border border-[#30363d] space-y-2.5 shadow-sm smooth-hover" style={{ backgroundColor: 'var(--bg-primary)', borderColor: 'var(--border-color)' }}>
                   <div className="flex items-center gap-2 text-xs font-bold text-[#3fb950]">
                     <Lightbulb size={14} />
                     <span>🪜 How to Think Like a Programmer (3-Step Recipe)</span>
@@ -586,7 +586,7 @@ export function UniversityView({ onBackToCompiler, onLoadCodeInCompiler, setting
               )}
 
               {/* 3. Language Concept & Syntax Rules */}
-              <div className="bg-[#0f1117] p-3.5 rounded-xl border border-[#30363d] space-y-2 shadow-sm" style={{ backgroundColor: 'var(--bg-primary)', borderColor: 'var(--border-color)' }}>
+              <div className="bg-[#0f1117] p-3.5 rounded-xl border border-[#30363d] space-y-2 shadow-sm smooth-hover" style={{ backgroundColor: 'var(--bg-primary)', borderColor: 'var(--border-color)' }}>
                 <div className="flex items-center gap-2 text-xs font-semibold text-[#58a6ff]">
                   <BookOpen size={14} />
                   <span>Language Syntax & Rules</span>
@@ -598,7 +598,7 @@ export function UniversityView({ onBackToCompiler, onLoadCodeInCompiler, setting
 
               {/* 4. Common Beginner Pitfall to Avoid */}
               {activeProblem?.beginnerTrap && (
-                <div className="bg-amber-400/10 border border-amber-400/30 p-3 rounded-xl flex items-start gap-2.5 text-xs text-amber-200">
+                <div className="bg-amber-400/10 border border-amber-400/30 p-3 rounded-xl flex items-start gap-2.5 text-xs text-amber-200 smooth-hover">
                   <ShieldAlert size={16} className="text-amber-400 shrink-0 mt-0.5" />
                   <div className="leading-relaxed text-[11.5px]">
                     <strong className="text-amber-300">⚠️ Beginner Pitfall to Avoid:</strong> {activeProblem.beginnerTrap}
@@ -844,17 +844,17 @@ export function UniversityView({ onBackToCompiler, onLoadCodeInCompiler, setting
                 )}
               </div>
 
-              {/* Celebration Banner when newly unlocked! */}
+              {/* Celebration Banner when newly unlocked (Smooth Spring Animation) */}
               {showCelebration && (
-                <div className="p-3 bg-[#3fb950]/15 border border-[#3fb950]/40 rounded-xl flex items-center justify-between animate-in fade-in slide-in-from-bottom-2">
+                <div className="p-3 bg-[#3fb950]/15 border border-[#3fb950]/40 rounded-xl flex items-center justify-between anim-spring-pop">
                   <div className="flex items-center gap-2 text-[#3fb950] text-xs font-bold">
-                    <Award size={18} />
+                    <Award size={18} className="animate-bounce" />
                     <span>🎉 Challenge Completed! +{activeProblem?.xp} XP Earned! Next challenge unlocked!</span>
                   </div>
                   {activeProbIndex < allProblems.length - 1 && (
                     <button
                       onClick={handleProceedNext}
-                      className="px-3 py-1 bg-[#3fb950] text-[#0f1117] rounded-lg font-bold text-xs hover:bg-[#2ea043] transition-colors"
+                      className="px-3 py-1 bg-[#3fb950] text-[#0f1117] rounded-lg font-bold text-xs hover:bg-[#2ea043] transition-all duration-150 active:scale-95"
                     >
                       Next Challenge ➔
                     </button>
@@ -864,7 +864,7 @@ export function UniversityView({ onBackToCompiler, onLoadCodeInCompiler, setting
 
               {/* Test Results Output */}
               {testResults && (
-                <div className="p-3 bg-[#0f1117] border border-[#30363d] rounded-xl space-y-2 text-xs font-mono max-h-40 overflow-y-auto">
+                <div className="p-3 bg-[#0f1117] border border-[#30363d] rounded-xl space-y-2 text-xs font-mono max-h-40 overflow-y-auto anim-slide-up">
                   <div className="flex items-center justify-between border-b border-[#30363d] pb-1.5 text-xs font-sans">
                     <span className="font-bold text-[#e6edf3]">
                       {testResults.allPassed ? '✅ All Test Cases Passed!' : '❌ Some Test Cases Failed'}
@@ -875,10 +875,11 @@ export function UniversityView({ onBackToCompiler, onLoadCodeInCompiler, setting
                   </div>
 
                   <div className="space-y-1.5">
-                    {testResults.cases.map((c) => (
+                    {testResults.cases.map((c, cIdx) => (
                       <div 
                         key={c.caseNum}
-                        className={`p-2 rounded-lg border ${
+                        style={{ animationDelay: `${cIdx * 40}ms` }}
+                        className={`p-2 rounded-lg border anim-slide-up ${
                           c.passed
                             ? 'bg-[#3fb950]/10 border-[#3fb950]/30 text-[#3fb950]'
                             : 'bg-[#f85149]/10 border-[#f85149]/30 text-[#f85149]'
@@ -903,7 +904,7 @@ export function UniversityView({ onBackToCompiler, onLoadCodeInCompiler, setting
 
               {/* AI Tutor Diagnostic Advice */}
               {aiHint && (
-                <div className="p-3 bg-[#58a6ff]/10 border border-[#58a6ff]/30 rounded-xl space-y-1.5 text-xs font-sans animate-in fade-in">
+                <div className="p-3 bg-[#58a6ff]/10 border border-[#58a6ff]/30 rounded-xl space-y-1.5 text-xs font-sans anim-slide-up">
                   <div className="flex items-center gap-1.5 font-bold text-[#58a6ff]">
                     <Sparkles size={14} />
                     <span>AI Tutor Guidance</span>
@@ -919,7 +920,7 @@ export function UniversityView({ onBackToCompiler, onLoadCodeInCompiler, setting
                   {aiHint.fixCode && (
                     <button
                       onClick={() => setUserCode(aiHint.fixCode)}
-                      className="mt-1 px-2.5 py-1 bg-[#58a6ff] text-[#0f1117] rounded-md text-[11px] font-bold hover:bg-[#388bfd]"
+                      className="mt-1 px-2.5 py-1 bg-[#58a6ff] text-[#0f1117] rounded-md text-[11px] font-bold hover:bg-[#388bfd] active:scale-95 transition-all"
                     >
                       Apply Suggested Fix to Editor
                     </button>
@@ -931,10 +932,10 @@ export function UniversityView({ onBackToCompiler, onLoadCodeInCompiler, setting
         </main>
       </div>
 
-      {/* Beginner Pocket Dictionary Modal */}
+      {/* Beginner Pocket Dictionary Modal (Silky Backdrop & Pop-In Animation) */}
       {showDictionary && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm animate-in fade-in duration-150">
-          <div className="bg-[#161b22] border border-[#30363d] rounded-2xl max-w-2xl w-full max-h-[85vh] flex flex-col shadow-2xl overflow-hidden font-sans">
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm anim-modal-backdrop">
+          <div className="bg-[#161b22] border border-[#30363d] rounded-2xl max-w-2xl w-full max-h-[85vh] flex flex-col shadow-2xl overflow-hidden font-sans anim-modal-content">
             {/* Modal Header */}
             <div className="p-4 border-b border-[#30363d] flex items-center justify-between bg-[#21262d]">
               <div className="flex items-center gap-2.5">

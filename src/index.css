@@ -143,3 +143,112 @@
 .anim-glow-btn {
   animation: glowPulse 2s infinite ease-in-out;
 }
+
+/* =========================================================================
+   HIGH-PERFORMANCE BUTTERY SMOOTH ANIMATIONS (GPU COMPOSITED)
+   Strictly uses transform & opacity for 60/120fps with zero layout reflow
+   ========================================================================= */
+
+@keyframes modeFadeIn {
+  0% {
+    opacity: 0;
+    transform: translateY(8px) scale(0.992);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes smoothSlideUp {
+  0% {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes springPop {
+  0% {
+    opacity: 0;
+    transform: scale(0.92) translateY(8px);
+  }
+  65% {
+    opacity: 1;
+    transform: scale(1.015) translateY(-1px);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
+@keyframes modalBackdrop {
+  0% { opacity: 0; }
+  100% { opacity: 1; }
+}
+
+@keyframes modalContent {
+  0% {
+    opacity: 0;
+    transform: scale(0.95) translateY(12px);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
+@keyframes pulseGlowSubtle {
+  0%, 100% {
+    box-shadow: 0 0 0 rgba(163, 113, 247, 0);
+  }
+  50% {
+    box-shadow: 0 0 16px rgba(163, 113, 247, 0.35);
+  }
+}
+
+.anim-mode-enter {
+  animation: modeFadeIn 0.28s cubic-bezier(0.16, 1, 0.3, 1) both;
+  will-change: transform, opacity;
+}
+
+.anim-slide-up {
+  animation: smoothSlideUp 0.22s cubic-bezier(0.16, 1, 0.3, 1) both;
+  will-change: transform, opacity;
+}
+
+.anim-spring-pop {
+  animation: springPop 0.38s cubic-bezier(0.175, 0.885, 0.32, 1.25) both;
+  will-change: transform, opacity;
+}
+
+.anim-modal-backdrop {
+  animation: modalBackdrop 0.2s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+.anim-modal-content {
+  animation: modalContent 0.26s cubic-bezier(0.16, 1, 0.3, 1) both;
+  will-change: transform, opacity;
+}
+
+.anim-pulse-subtle {
+  animation: pulseGlowSubtle 3s infinite ease-in-out;
+}
+
+/* Micro-interaction tactile hover states */
+.smooth-hover {
+  transition: transform 0.16s cubic-bezier(0.16, 1, 0.3, 1), 
+              box-shadow 0.16s cubic-bezier(0.16, 1, 0.3, 1),
+              background-color 0.14s ease,
+              border-color 0.14s ease;
+}
+.smooth-hover:hover {
+  transform: translateY(-1px);
+}
+.smooth-hover:active {
+  transform: translateY(0.5px) scale(0.985);
+}

@@ -520,9 +520,9 @@ export default function App() {
         onToggleAppMode={setAppMode}
       />
 
-      {/* Main Work Area: JD University Page vs Compiler IDE Studio */}
+      {/* Main Work Area: JD University Page vs Compiler IDE Studio (Smooth Animated Transition) */}
       {appMode === 'university' ? (
-        <div className="flex-1 flex overflow-hidden relative">
+        <div key="mode-university" className="flex-1 flex overflow-hidden relative anim-mode-enter">
           <UniversityView
             onBackToCompiler={() => setAppMode('compiler')}
             onLoadCodeInCompiler={(code, langId) => {
@@ -537,7 +537,7 @@ export default function App() {
           />
         </div>
       ) : (
-        <div className="flex-1 flex overflow-hidden relative">
+        <div key="mode-compiler" className="flex-1 flex overflow-hidden relative anim-mode-enter">
           {/* Leftmost Activity Bar */}
           <ActivityBar
             activeView={activeView}
@@ -663,10 +663,10 @@ export default function App() {
         codeLength={currentCode?.length || 0}
       />
 
-      {/* Shared Code Load Notification Toast */}
+      {/* Shared Code Load Notification Toast (Spring Pop) */}
       {sharedToast && (
         <div 
-          className="fixed top-14 left-1/2 -translate-x-1/2 z-50 flex items-center gap-2 bg-[#21262d] text-[#e6edf3] border border-[#3fb950] px-4 py-2.5 rounded-xl shadow-2xl animate-in fade-in slide-in-from-top-3 font-mono text-xs"
+          className="fixed top-14 left-1/2 -translate-x-1/2 z-50 flex items-center gap-2 bg-[#21262d] text-[#e6edf3] border border-[#3fb950] px-4 py-2.5 rounded-xl shadow-2xl anim-spring-pop font-mono text-xs"
           style={{ backgroundColor: 'var(--bg-tertiary)', borderColor: 'var(--accent-success)', color: 'var(--text-primary)' }}
         >
           <CheckCircle2 size={16} className="text-[#3fb950]" style={{ color: 'var(--accent-success)' }} />

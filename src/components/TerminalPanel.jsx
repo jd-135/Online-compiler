@@ -277,10 +277,10 @@ export function TerminalPanel({
                   </button>
                 </div>
 
-                {/* AI Debugger Assistant Card */}
+                {/* AI Debugger Assistant Card (Silky Slide Entrance) */}
                 {aiAnalysis && (
                   <div 
-                    className="mt-3 bg-[#161b22] border border-[#58a6ff]/40 rounded-xl p-3.5 space-y-3 shadow-2xl animate-in fade-in zoom-in-95 duration-150 font-sans"
+                    className="mt-3 bg-[#161b22] border border-[#58a6ff]/40 rounded-xl p-3.5 space-y-3 shadow-2xl anim-slide-up font-sans"
                     style={{ backgroundColor: 'var(--bg-secondary)', borderColor: 'var(--border-color)', color: 'var(--text-primary)' }}
                   >
                     <div 
@@ -428,7 +428,7 @@ export function TerminalPanel({
 
         {/* Interactive Input Line when waiting for user input */}
         {!isRunning && isWaitingForInput && (
-          <div className="flex items-center gap-2 font-mono text-[13px] mt-2 bg-[#161b22]/95 border border-[#58a6ff]/50 rounded-lg px-3 py-2 shadow-lg ring-1 ring-[#58a6ff]/30">
+          <div className="flex items-center gap-2 font-mono text-[13px] mt-2 bg-[#161b22]/95 border border-[#58a6ff]/50 rounded-lg px-3 py-2 shadow-lg ring-1 ring-[#58a6ff]/30 anim-slide-up">
             <span className="text-[#58a6ff] select-none font-bold" style={{ color: 'var(--accent-primary)' }}>&gt;</span>
             {cleanStdout && (
               <span className="text-[#8b949e] select-none font-semibold">{cleanStdout.trim()} </span>

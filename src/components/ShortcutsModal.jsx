@@ -16,8 +16,8 @@ export function ShortcutsModal({ isOpen, onClose }) {
   ];
 
   return (
-    <div className="fixed inset-0 bg-black/70 backdrop-blur-sm flex items-center justify-center z-50 p-4">
-      <div className="w-full max-w-md bg-[#161b22] border border-[#30363d] rounded-2xl shadow-2xl overflow-hidden animate-in fade-in zoom-in-95 duration-150">
+    <div className="fixed inset-0 bg-black/70 backdrop-blur-sm flex items-center justify-center z-50 p-4 anim-modal-backdrop">
+      <div className="w-full max-w-md bg-[#161b22] border border-[#30363d] rounded-2xl shadow-2xl overflow-hidden anim-modal-content">
         <div className="h-11 px-4 bg-[#21262d] border-b border-[#30363d] flex items-center justify-between text-xs font-semibold text-[#e6edf3]">
           <div className="flex items-center gap-2">
             <Keyboard size={15} className="text-[#58a6ff]" />

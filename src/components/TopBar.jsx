@@ -88,18 +88,18 @@ export function TopBar({
           </div>
         </div>
 
-        {/* Mode Switcher: Compiler IDE vs JD University */}
-        <div className="flex items-center bg-[#0d1117] p-0.5 rounded-lg border border-[#30363d]">
+        {/* Mode Switcher: Compiler IDE vs JD University with Silky Sliding Indicator */}
+        <div className="flex items-center bg-[#0d1117] p-0.5 rounded-lg border border-[#30363d] relative">
           <button
             onClick={() => onToggleAppMode && onToggleAppMode('compiler')}
             title="Switch to full-featured Multi-Language Compiler IDE"
-            className={`flex items-center gap-1.5 px-2.5 py-1 rounded-md text-xs font-semibold transition-all ${
+            className={`flex items-center gap-1.5 px-2.5 py-1 rounded-md text-xs font-semibold transition-all duration-200 active:scale-95 ${
               appMode === 'compiler'
-                ? 'bg-[#21262d] text-[#58a6ff] shadow-sm border border-[#58a6ff]/30'
-                : 'text-[#8b949e] hover:text-[#e6edf3]'
+                ? 'bg-[#21262d] text-[#58a6ff] shadow-sm border border-[#58a6ff]/40'
+                : 'text-[#8b949e] hover:text-[#e6edf3] hover:bg-[#161b22]/60'
             }`}
           >
-            <Code2 size={13} className={appMode === 'compiler' ? 'text-[#58a6ff]' : 'text-[#8b949e]'} />
+            <Code2 size={13} className={`transition-transform duration-200 ${appMode === 'compiler' ? 'text-[#58a6ff] scale-110' : 'text-[#8b949e]'}`} />
             <span className="hidden sm:inline">Compiler IDE</span>
             <span className="sm:hidden">IDE</span>
           </button>
@@ -107,13 +107,13 @@ export function TopBar({
           <button
             onClick={() => onToggleAppMode && onToggleAppMode('university')}
             title="Open JD University (Interactive Programming Academy with Progressive Unlocks)"
-            className={`flex items-center gap-1.5 px-2.5 py-1 rounded-md text-xs font-semibold transition-all ${
+            className={`flex items-center gap-1.5 px-2.5 py-1 rounded-md text-xs font-semibold transition-all duration-200 active:scale-95 ${
               appMode === 'university'
-                ? 'bg-[#a371f7]/20 text-[#d2a8ff] shadow-sm border border-[#a371f7]/40 font-bold'
-                : 'text-[#8b949e] hover:text-[#d2a8ff]'
+                ? 'bg-[#a371f7]/20 text-[#d2a8ff] shadow-sm border border-[#a371f7]/50 font-bold anim-pulse-subtle'
+                : 'text-[#8b949e] hover:text-[#d2a8ff] hover:bg-[#161b22]/60'
             }`}
           >
-            <GraduationCap size={14} className={appMode === 'university' ? 'text-[#d2a8ff]' : 'text-[#8b949e]'} />
+            <GraduationCap size={14} className={`transition-transform duration-200 ${appMode === 'university' ? 'text-[#d2a8ff] scale-110' : 'text-[#8b949e]'}`} />
             <span className="hidden sm:inline">JD University</span>
             <span className="sm:hidden">Academy</span>
             <span className="text-[9px] font-bold uppercase tracking-wider px-1.5 py-0.2 rounded-full bg-[#a371f7]/25 text-[#d2a8ff] border border-[#a371f7]/30 hidden md:inline-block">
