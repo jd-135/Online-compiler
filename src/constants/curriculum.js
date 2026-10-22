@@ -51,7 +51,88 @@ export const CURRICULUM = {
               "Step 3 (Output): Print the final result clearly on the screen exactly as requested."
             ],
             "whyItMatters": "Foundational logic used in smartphone apps, smart microwaves, ATM cash dispensers, and space rovers.",
-            "beginnerTrap": "In C, scanf() needs the '&' address symbol before variable names, but printf() does not! Also, remember \\n to print on a new line."
+            "beginnerTrap": "In C, scanf() needs the '&' address symbol before variable names, but printf() does not! Also, remember \\n to print on a new line.",
+            "quiz": {
+              "question": "What is the core objective when solving \"Basic Arithmetic Operations\"?",
+              "options": [
+                "Accept the input format, apply logical operations, and output the required result",
+                "Ignore user input and hardcode random values",
+                "Create an infinite loop",
+                "Shut down the compiler"
+              ],
+              "correctIndex": 0,
+              "explanation": "Every algorithm takes well-defined input, applies deterministic step-by-step logic, and produces the exact output expected."
+            },
+            "memoryTrace": {
+              "registers": [
+                {
+                  "name": "input",
+                  "value": "User Input",
+                  "role": "Buffered standard input stream"
+                },
+                {
+                  "name": "result",
+                  "value": "Computed Value",
+                  "role": "Register holding final evaluated result"
+                }
+              ],
+              "steps": [
+                {
+                  "step": 1,
+                  "title": "Input Reading",
+                  "state": {
+                    "input": "Received",
+                    "result": "Unset"
+                  },
+                  "explanation": "Program captures raw bytes from stdin into memory variables."
+                },
+                {
+                  "step": 2,
+                  "title": "CPU ALU Execution",
+                  "state": {
+                    "input": "Processed",
+                    "result": "Calculated"
+                  },
+                  "explanation": "Processor executes arithmetic/logical instructions according to program code."
+                },
+                {
+                  "step": 3,
+                  "title": "Output Emission",
+                  "state": {
+                    "input": "Done",
+                    "result": "Flushed to stdout"
+                  },
+                  "explanation": "Result formatted and flushed to the terminal screen."
+                }
+              ]
+            },
+            "anatomy": [
+              {
+                "line": "#include <stdio.h>",
+                "role": "Header Library",
+                "plainEnglish": "Imports the Standard Input/Output toolbox containing printf() and scanf()."
+              },
+              {
+                "line": "int main(void) { ... }",
+                "role": "Program Entry",
+                "plainEnglish": "The universal starting gate where operating systems initiate execution of C programs."
+              },
+              {
+                "line": "scanf(\"%d\", &var);",
+                "role": "Input Reader",
+                "plainEnglish": "Listens for typed numbers. The & symbol passes the RAM memory address of the variable."
+              },
+              {
+                "line": "printf(\"%d\\n\", result);",
+                "role": "Output Writer",
+                "plainEnglish": "Prints the calculated integer to terminal, followed by \\n (jump to next line)."
+              },
+              {
+                "line": "return 0;",
+                "role": "Success Exit",
+                "plainEnglish": "Reports exit code 0 back to the OS, signaling \"Everything completed successfully without errors\"."
+              }
+            ]
           },
           {
             "id": "c_m1_p2",
@@ -83,7 +164,88 @@ export const CURRICULUM = {
               "Step 3 (Output): Print the final result clearly on the screen exactly as requested."
             ],
             "whyItMatters": "Foundational logic used in smartphone apps, smart microwaves, ATM cash dispensers, and space rovers.",
-            "beginnerTrap": "In C, scanf() needs the '&' address symbol before variable names, but printf() does not! Also, remember \\n to print on a new line."
+            "beginnerTrap": "In C, scanf() needs the '&' address symbol before variable names, but printf() does not! Also, remember \\n to print on a new line.",
+            "quiz": {
+              "question": "How does the arithmetic swap 'a = a + b; b = a - b; a = a - b;' exchange values without a temporary variable?",
+              "options": [
+                "It deletes both numbers and generates new ones",
+                "The combined sum stores both values; subtracting b isolates original a, then subtracting again isolates original b",
+                "The compiler automatically adds a secret variable behind the scenes",
+                "It only works if both numbers are negative"
+              ],
+              "correctIndex": 1,
+              "explanation": "By temporarily keeping the total sum in 'a', subtracting the original 'b' yields the original 'a' into 'b', and subtracting again extracts original 'b' into 'a'!"
+            },
+            "memoryTrace": {
+              "registers": [
+                {
+                  "name": "a",
+                  "value": "3",
+                  "role": "First integer variable in RAM"
+                },
+                {
+                  "name": "b",
+                  "value": "7",
+                  "role": "Second integer variable in RAM"
+                }
+              ],
+              "steps": [
+                {
+                  "step": 1,
+                  "title": "Step 1: Combined Sum",
+                  "state": {
+                    "a": "10",
+                    "b": "7"
+                  },
+                  "explanation": "a = a + b (3 + 7 = 10). Variable \"a\" now holds the combined pool."
+                },
+                {
+                  "step": 2,
+                  "title": "Step 2: Isolate Original A",
+                  "state": {
+                    "a": "10",
+                    "b": "3"
+                  },
+                  "explanation": "b = a - b (10 - 7 = 3). \"b\" has now successfully acquired original \"a\" value!"
+                },
+                {
+                  "step": 3,
+                  "title": "Step 3: Isolate Original B",
+                  "state": {
+                    "a": "7",
+                    "b": "3"
+                  },
+                  "explanation": "a = a - b (10 - 3 = 7). \"a\" has now acquired original \"b\". Swap complete without extra RAM!"
+                }
+              ]
+            },
+            "anatomy": [
+              {
+                "line": "#include <stdio.h>",
+                "role": "Header Library",
+                "plainEnglish": "Imports the Standard Input/Output toolbox containing printf() and scanf()."
+              },
+              {
+                "line": "int main(void) { ... }",
+                "role": "Program Entry",
+                "plainEnglish": "The universal starting gate where operating systems initiate execution of C programs."
+              },
+              {
+                "line": "scanf(\"%d\", &var);",
+                "role": "Input Reader",
+                "plainEnglish": "Listens for typed numbers. The & symbol passes the RAM memory address of the variable."
+              },
+              {
+                "line": "printf(\"%d\\n\", result);",
+                "role": "Output Writer",
+                "plainEnglish": "Prints the calculated integer to terminal, followed by \\n (jump to next line)."
+              },
+              {
+                "line": "return 0;",
+                "role": "Success Exit",
+                "plainEnglish": "Reports exit code 0 back to the OS, signaling \"Everything completed successfully without errors\"."
+              }
+            ]
           },
           {
             "id": "c_m1_p3",
@@ -118,7 +280,88 @@ export const CURRICULUM = {
               "Step 3 (Output): Print the final result clearly on the screen exactly as requested."
             ],
             "whyItMatters": "Foundational logic used in smartphone apps, smart microwaves, ATM cash dispensers, and space rovers.",
-            "beginnerTrap": "In C, scanf() needs the '&' address symbol before variable names, but printf() does not! Also, remember \\n to print on a new line."
+            "beginnerTrap": "In C, scanf() needs the '&' address symbol before variable names, but printf() does not! Also, remember \\n to print on a new line.",
+            "quiz": {
+              "question": "What is the core objective when solving \"Temperature Converter (Celsius to Fahrenheit)\"?",
+              "options": [
+                "Accept the input format, apply logical operations, and output the required result",
+                "Ignore user input and hardcode random values",
+                "Create an infinite loop",
+                "Shut down the compiler"
+              ],
+              "correctIndex": 0,
+              "explanation": "Every algorithm takes well-defined input, applies deterministic step-by-step logic, and produces the exact output expected."
+            },
+            "memoryTrace": {
+              "registers": [
+                {
+                  "name": "input",
+                  "value": "User Input",
+                  "role": "Buffered standard input stream"
+                },
+                {
+                  "name": "result",
+                  "value": "Computed Value",
+                  "role": "Register holding final evaluated result"
+                }
+              ],
+              "steps": [
+                {
+                  "step": 1,
+                  "title": "Input Reading",
+                  "state": {
+                    "input": "Received",
+                    "result": "Unset"
+                  },
+                  "explanation": "Program captures raw bytes from stdin into memory variables."
+                },
+                {
+                  "step": 2,
+                  "title": "CPU ALU Execution",
+                  "state": {
+                    "input": "Processed",
+                    "result": "Calculated"
+                  },
+                  "explanation": "Processor executes arithmetic/logical instructions according to program code."
+                },
+                {
+                  "step": 3,
+                  "title": "Output Emission",
+                  "state": {
+                    "input": "Done",
+                    "result": "Flushed to stdout"
+                  },
+                  "explanation": "Result formatted and flushed to the terminal screen."
+                }
+              ]
+            },
+            "anatomy": [
+              {
+                "line": "#include <stdio.h>",
+                "role": "Header Library",
+                "plainEnglish": "Imports the Standard Input/Output toolbox containing printf() and scanf()."
+              },
+              {
+                "line": "int main(void) { ... }",
+                "role": "Program Entry",
+                "plainEnglish": "The universal starting gate where operating systems initiate execution of C programs."
+              },
+              {
+                "line": "scanf(\"%d\", &var);",
+                "role": "Input Reader",
+                "plainEnglish": "Listens for typed numbers. The & symbol passes the RAM memory address of the variable."
+              },
+              {
+                "line": "printf(\"%d\\n\", result);",
+                "role": "Output Writer",
+                "plainEnglish": "Prints the calculated integer to terminal, followed by \\n (jump to next line)."
+              },
+              {
+                "line": "return 0;",
+                "role": "Success Exit",
+                "plainEnglish": "Reports exit code 0 back to the OS, signaling \"Everything completed successfully without errors\"."
+              }
+            ]
           },
           {
             "id": "c_m1_p4",
@@ -150,7 +393,88 @@ export const CURRICULUM = {
               "Step 3 (Output): Print the final result clearly on the screen exactly as requested."
             ],
             "whyItMatters": "Foundational logic used in smartphone apps, smart microwaves, ATM cash dispensers, and space rovers.",
-            "beginnerTrap": "In C, scanf() needs the '&' address symbol before variable names, but printf() does not! Also, remember \\n to print on a new line."
+            "beginnerTrap": "In C, scanf() needs the '&' address symbol before variable names, but printf() does not! Also, remember \\n to print on a new line.",
+            "quiz": {
+              "question": "What is the core objective when solving \"Rectangle Area and Perimeter\"?",
+              "options": [
+                "Accept the input format, apply logical operations, and output the required result",
+                "Ignore user input and hardcode random values",
+                "Create an infinite loop",
+                "Shut down the compiler"
+              ],
+              "correctIndex": 0,
+              "explanation": "Every algorithm takes well-defined input, applies deterministic step-by-step logic, and produces the exact output expected."
+            },
+            "memoryTrace": {
+              "registers": [
+                {
+                  "name": "input",
+                  "value": "User Input",
+                  "role": "Buffered standard input stream"
+                },
+                {
+                  "name": "result",
+                  "value": "Computed Value",
+                  "role": "Register holding final evaluated result"
+                }
+              ],
+              "steps": [
+                {
+                  "step": 1,
+                  "title": "Input Reading",
+                  "state": {
+                    "input": "Received",
+                    "result": "Unset"
+                  },
+                  "explanation": "Program captures raw bytes from stdin into memory variables."
+                },
+                {
+                  "step": 2,
+                  "title": "CPU ALU Execution",
+                  "state": {
+                    "input": "Processed",
+                    "result": "Calculated"
+                  },
+                  "explanation": "Processor executes arithmetic/logical instructions according to program code."
+                },
+                {
+                  "step": 3,
+                  "title": "Output Emission",
+                  "state": {
+                    "input": "Done",
+                    "result": "Flushed to stdout"
+                  },
+                  "explanation": "Result formatted and flushed to the terminal screen."
+                }
+              ]
+            },
+            "anatomy": [
+              {
+                "line": "#include <stdio.h>",
+                "role": "Header Library",
+                "plainEnglish": "Imports the Standard Input/Output toolbox containing printf() and scanf()."
+              },
+              {
+                "line": "int main(void) { ... }",
+                "role": "Program Entry",
+                "plainEnglish": "The universal starting gate where operating systems initiate execution of C programs."
+              },
+              {
+                "line": "scanf(\"%d\", &var);",
+                "role": "Input Reader",
+                "plainEnglish": "Listens for typed numbers. The & symbol passes the RAM memory address of the variable."
+              },
+              {
+                "line": "printf(\"%d\\n\", result);",
+                "role": "Output Writer",
+                "plainEnglish": "Prints the calculated integer to terminal, followed by \\n (jump to next line)."
+              },
+              {
+                "line": "return 0;",
+                "role": "Success Exit",
+                "plainEnglish": "Reports exit code 0 back to the OS, signaling \"Everything completed successfully without errors\"."
+              }
+            ]
           },
           {
             "id": "c_m1_p5",
@@ -182,7 +506,88 @@ export const CURRICULUM = {
               "Step 3 (Output): Print the final result clearly on the screen exactly as requested."
             ],
             "whyItMatters": "Foundational logic used in smartphone apps, smart microwaves, ATM cash dispensers, and space rovers.",
-            "beginnerTrap": "In C, scanf() needs the '&' address symbol before variable names, but printf() does not! Also, remember \\n to print on a new line."
+            "beginnerTrap": "In C, scanf() needs the '&' address symbol before variable names, but printf() does not! Also, remember \\n to print on a new line.",
+            "quiz": {
+              "question": "What is the core objective when solving \"ASCII Value & Case Converter\"?",
+              "options": [
+                "Accept the input format, apply logical operations, and output the required result",
+                "Ignore user input and hardcode random values",
+                "Create an infinite loop",
+                "Shut down the compiler"
+              ],
+              "correctIndex": 0,
+              "explanation": "Every algorithm takes well-defined input, applies deterministic step-by-step logic, and produces the exact output expected."
+            },
+            "memoryTrace": {
+              "registers": [
+                {
+                  "name": "input",
+                  "value": "User Input",
+                  "role": "Buffered standard input stream"
+                },
+                {
+                  "name": "result",
+                  "value": "Computed Value",
+                  "role": "Register holding final evaluated result"
+                }
+              ],
+              "steps": [
+                {
+                  "step": 1,
+                  "title": "Input Reading",
+                  "state": {
+                    "input": "Received",
+                    "result": "Unset"
+                  },
+                  "explanation": "Program captures raw bytes from stdin into memory variables."
+                },
+                {
+                  "step": 2,
+                  "title": "CPU ALU Execution",
+                  "state": {
+                    "input": "Processed",
+                    "result": "Calculated"
+                  },
+                  "explanation": "Processor executes arithmetic/logical instructions according to program code."
+                },
+                {
+                  "step": 3,
+                  "title": "Output Emission",
+                  "state": {
+                    "input": "Done",
+                    "result": "Flushed to stdout"
+                  },
+                  "explanation": "Result formatted and flushed to the terminal screen."
+                }
+              ]
+            },
+            "anatomy": [
+              {
+                "line": "#include <stdio.h>",
+                "role": "Header Library",
+                "plainEnglish": "Imports the Standard Input/Output toolbox containing printf() and scanf()."
+              },
+              {
+                "line": "int main(void) { ... }",
+                "role": "Program Entry",
+                "plainEnglish": "The universal starting gate where operating systems initiate execution of C programs."
+              },
+              {
+                "line": "scanf(\"%d\", &var);",
+                "role": "Input Reader",
+                "plainEnglish": "Listens for typed numbers. The & symbol passes the RAM memory address of the variable."
+              },
+              {
+                "line": "printf(\"%d\\n\", result);",
+                "role": "Output Writer",
+                "plainEnglish": "Prints the calculated integer to terminal, followed by \\n (jump to next line)."
+              },
+              {
+                "line": "return 0;",
+                "role": "Success Exit",
+                "plainEnglish": "Reports exit code 0 back to the OS, signaling \"Everything completed successfully without errors\"."
+              }
+            ]
           }
         ]
       },
@@ -225,7 +630,88 @@ export const CURRICULUM = {
               "Step 3 (Output): Print the final result clearly on the screen exactly as requested."
             ],
             "whyItMatters": "Foundational logic used in smartphone apps, smart microwaves, ATM cash dispensers, and space rovers.",
-            "beginnerTrap": "In C, scanf() needs the '&' address symbol before variable names, but printf() does not! Also, remember \\n to print on a new line."
+            "beginnerTrap": "In C, scanf() needs the '&' address symbol before variable names, but printf() does not! Also, remember \\n to print on a new line.",
+            "quiz": {
+              "question": "In code, what does 'n % 2 == 0' mathematically determine?",
+              "options": [
+                "Whether n is equal to 2",
+                "Whether n divided by 2 has zero remainder, meaning it is an Even number",
+                "Whether n is a decimal fraction",
+                "Whether n is negative"
+              ],
+              "correctIndex": 1,
+              "explanation": "Modulo (%) returns the division remainder. An even number splits cleanly into pairs with 0 left over."
+            },
+            "memoryTrace": {
+              "registers": [
+                {
+                  "name": "input",
+                  "value": "User Input",
+                  "role": "Buffered standard input stream"
+                },
+                {
+                  "name": "result",
+                  "value": "Computed Value",
+                  "role": "Register holding final evaluated result"
+                }
+              ],
+              "steps": [
+                {
+                  "step": 1,
+                  "title": "Input Reading",
+                  "state": {
+                    "input": "Received",
+                    "result": "Unset"
+                  },
+                  "explanation": "Program captures raw bytes from stdin into memory variables."
+                },
+                {
+                  "step": 2,
+                  "title": "CPU ALU Execution",
+                  "state": {
+                    "input": "Processed",
+                    "result": "Calculated"
+                  },
+                  "explanation": "Processor executes arithmetic/logical instructions according to program code."
+                },
+                {
+                  "step": 3,
+                  "title": "Output Emission",
+                  "state": {
+                    "input": "Done",
+                    "result": "Flushed to stdout"
+                  },
+                  "explanation": "Result formatted and flushed to the terminal screen."
+                }
+              ]
+            },
+            "anatomy": [
+              {
+                "line": "#include <stdio.h>",
+                "role": "Header Library",
+                "plainEnglish": "Imports the Standard Input/Output toolbox containing printf() and scanf()."
+              },
+              {
+                "line": "int main(void) { ... }",
+                "role": "Program Entry",
+                "plainEnglish": "The universal starting gate where operating systems initiate execution of C programs."
+              },
+              {
+                "line": "scanf(\"%d\", &var);",
+                "role": "Input Reader",
+                "plainEnglish": "Listens for typed numbers. The & symbol passes the RAM memory address of the variable."
+              },
+              {
+                "line": "printf(\"%d\\n\", result);",
+                "role": "Output Writer",
+                "plainEnglish": "Prints the calculated integer to terminal, followed by \\n (jump to next line)."
+              },
+              {
+                "line": "return 0;",
+                "role": "Success Exit",
+                "plainEnglish": "Reports exit code 0 back to the OS, signaling \"Everything completed successfully without errors\"."
+              }
+            ]
           },
           {
             "id": "c_m2_p2",
@@ -261,7 +747,88 @@ export const CURRICULUM = {
               "Step 3 (Output): Print the final result clearly on the screen exactly as requested."
             ],
             "whyItMatters": "Foundational logic used in smartphone apps, smart microwaves, ATM cash dispensers, and space rovers.",
-            "beginnerTrap": "In C, scanf() needs the '&' address symbol before variable names, but printf() does not! Also, remember \\n to print on a new line."
+            "beginnerTrap": "In C, scanf() needs the '&' address symbol before variable names, but printf() does not! Also, remember \\n to print on a new line.",
+            "quiz": {
+              "question": "What is the core objective when solving \"Leap Year Detector\"?",
+              "options": [
+                "Accept the input format, apply logical operations, and output the required result",
+                "Ignore user input and hardcode random values",
+                "Create an infinite loop",
+                "Shut down the compiler"
+              ],
+              "correctIndex": 0,
+              "explanation": "Every algorithm takes well-defined input, applies deterministic step-by-step logic, and produces the exact output expected."
+            },
+            "memoryTrace": {
+              "registers": [
+                {
+                  "name": "input",
+                  "value": "User Input",
+                  "role": "Buffered standard input stream"
+                },
+                {
+                  "name": "result",
+                  "value": "Computed Value",
+                  "role": "Register holding final evaluated result"
+                }
+              ],
+              "steps": [
+                {
+                  "step": 1,
+                  "title": "Input Reading",
+                  "state": {
+                    "input": "Received",
+                    "result": "Unset"
+                  },
+                  "explanation": "Program captures raw bytes from stdin into memory variables."
+                },
+                {
+                  "step": 2,
+                  "title": "CPU ALU Execution",
+                  "state": {
+                    "input": "Processed",
+                    "result": "Calculated"
+                  },
+                  "explanation": "Processor executes arithmetic/logical instructions according to program code."
+                },
+                {
+                  "step": 3,
+                  "title": "Output Emission",
+                  "state": {
+                    "input": "Done",
+                    "result": "Flushed to stdout"
+                  },
+                  "explanation": "Result formatted and flushed to the terminal screen."
+                }
+              ]
+            },
+            "anatomy": [
+              {
+                "line": "#include <stdio.h>",
+                "role": "Header Library",
+                "plainEnglish": "Imports the Standard Input/Output toolbox containing printf() and scanf()."
+              },
+              {
+                "line": "int main(void) { ... }",
+                "role": "Program Entry",
+                "plainEnglish": "The universal starting gate where operating systems initiate execution of C programs."
+              },
+              {
+                "line": "scanf(\"%d\", &var);",
+                "role": "Input Reader",
+                "plainEnglish": "Listens for typed numbers. The & symbol passes the RAM memory address of the variable."
+              },
+              {
+                "line": "printf(\"%d\\n\", result);",
+                "role": "Output Writer",
+                "plainEnglish": "Prints the calculated integer to terminal, followed by \\n (jump to next line)."
+              },
+              {
+                "line": "return 0;",
+                "role": "Success Exit",
+                "plainEnglish": "Reports exit code 0 back to the OS, signaling \"Everything completed successfully without errors\"."
+              }
+            ]
           },
           {
             "id": "c_m2_p3",
@@ -296,7 +863,88 @@ export const CURRICULUM = {
               "Step 3 (Output): Print the final result clearly on the screen exactly as requested."
             ],
             "whyItMatters": "Foundational logic used in smartphone apps, smart microwaves, ATM cash dispensers, and space rovers.",
-            "beginnerTrap": "In C, scanf() needs the '&' address symbol before variable names, but printf() does not! Also, remember \\n to print on a new line."
+            "beginnerTrap": "In C, scanf() needs the '&' address symbol before variable names, but printf() does not! Also, remember \\n to print on a new line.",
+            "quiz": {
+              "question": "What is the core objective when solving \"Maximum of Three Numbers\"?",
+              "options": [
+                "Accept the input format, apply logical operations, and output the required result",
+                "Ignore user input and hardcode random values",
+                "Create an infinite loop",
+                "Shut down the compiler"
+              ],
+              "correctIndex": 0,
+              "explanation": "Every algorithm takes well-defined input, applies deterministic step-by-step logic, and produces the exact output expected."
+            },
+            "memoryTrace": {
+              "registers": [
+                {
+                  "name": "input",
+                  "value": "User Input",
+                  "role": "Buffered standard input stream"
+                },
+                {
+                  "name": "result",
+                  "value": "Computed Value",
+                  "role": "Register holding final evaluated result"
+                }
+              ],
+              "steps": [
+                {
+                  "step": 1,
+                  "title": "Input Reading",
+                  "state": {
+                    "input": "Received",
+                    "result": "Unset"
+                  },
+                  "explanation": "Program captures raw bytes from stdin into memory variables."
+                },
+                {
+                  "step": 2,
+                  "title": "CPU ALU Execution",
+                  "state": {
+                    "input": "Processed",
+                    "result": "Calculated"
+                  },
+                  "explanation": "Processor executes arithmetic/logical instructions according to program code."
+                },
+                {
+                  "step": 3,
+                  "title": "Output Emission",
+                  "state": {
+                    "input": "Done",
+                    "result": "Flushed to stdout"
+                  },
+                  "explanation": "Result formatted and flushed to the terminal screen."
+                }
+              ]
+            },
+            "anatomy": [
+              {
+                "line": "#include <stdio.h>",
+                "role": "Header Library",
+                "plainEnglish": "Imports the Standard Input/Output toolbox containing printf() and scanf()."
+              },
+              {
+                "line": "int main(void) { ... }",
+                "role": "Program Entry",
+                "plainEnglish": "The universal starting gate where operating systems initiate execution of C programs."
+              },
+              {
+                "line": "scanf(\"%d\", &var);",
+                "role": "Input Reader",
+                "plainEnglish": "Listens for typed numbers. The & symbol passes the RAM memory address of the variable."
+              },
+              {
+                "line": "printf(\"%d\\n\", result);",
+                "role": "Output Writer",
+                "plainEnglish": "Prints the calculated integer to terminal, followed by \\n (jump to next line)."
+              },
+              {
+                "line": "return 0;",
+                "role": "Success Exit",
+                "plainEnglish": "Reports exit code 0 back to the OS, signaling \"Everything completed successfully without errors\"."
+              }
+            ]
           },
           {
             "id": "c_m2_p4",
@@ -331,7 +979,88 @@ export const CURRICULUM = {
               "Step 3 (Output): Print the final result clearly on the screen exactly as requested."
             ],
             "whyItMatters": "Foundational logic used in smartphone apps, smart microwaves, ATM cash dispensers, and space rovers.",
-            "beginnerTrap": "In C, scanf() needs the '&' address symbol before variable names, but printf() does not! Also, remember \\n to print on a new line."
+            "beginnerTrap": "In C, scanf() needs the '&' address symbol before variable names, but printf() does not! Also, remember \\n to print on a new line.",
+            "quiz": {
+              "question": "What is the core objective when solving \"Triangle Classification by Sides\"?",
+              "options": [
+                "Accept the input format, apply logical operations, and output the required result",
+                "Ignore user input and hardcode random values",
+                "Create an infinite loop",
+                "Shut down the compiler"
+              ],
+              "correctIndex": 0,
+              "explanation": "Every algorithm takes well-defined input, applies deterministic step-by-step logic, and produces the exact output expected."
+            },
+            "memoryTrace": {
+              "registers": [
+                {
+                  "name": "input",
+                  "value": "User Input",
+                  "role": "Buffered standard input stream"
+                },
+                {
+                  "name": "result",
+                  "value": "Computed Value",
+                  "role": "Register holding final evaluated result"
+                }
+              ],
+              "steps": [
+                {
+                  "step": 1,
+                  "title": "Input Reading",
+                  "state": {
+                    "input": "Received",
+                    "result": "Unset"
+                  },
+                  "explanation": "Program captures raw bytes from stdin into memory variables."
+                },
+                {
+                  "step": 2,
+                  "title": "CPU ALU Execution",
+                  "state": {
+                    "input": "Processed",
+                    "result": "Calculated"
+                  },
+                  "explanation": "Processor executes arithmetic/logical instructions according to program code."
+                },
+                {
+                  "step": 3,
+                  "title": "Output Emission",
+                  "state": {
+                    "input": "Done",
+                    "result": "Flushed to stdout"
+                  },
+                  "explanation": "Result formatted and flushed to the terminal screen."
+                }
+              ]
+            },
+            "anatomy": [
+              {
+                "line": "#include <stdio.h>",
+                "role": "Header Library",
+                "plainEnglish": "Imports the Standard Input/Output toolbox containing printf() and scanf()."
+              },
+              {
+                "line": "int main(void) { ... }",
+                "role": "Program Entry",
+                "plainEnglish": "The universal starting gate where operating systems initiate execution of C programs."
+              },
+              {
+                "line": "scanf(\"%d\", &var);",
+                "role": "Input Reader",
+                "plainEnglish": "Listens for typed numbers. The & symbol passes the RAM memory address of the variable."
+              },
+              {
+                "line": "printf(\"%d\\n\", result);",
+                "role": "Output Writer",
+                "plainEnglish": "Prints the calculated integer to terminal, followed by \\n (jump to next line)."
+              },
+              {
+                "line": "return 0;",
+                "role": "Success Exit",
+                "plainEnglish": "Reports exit code 0 back to the OS, signaling \"Everything completed successfully without errors\"."
+              }
+            ]
           },
           {
             "id": "c_m2_p5",
@@ -370,7 +1099,88 @@ export const CURRICULUM = {
               "Step 3 (Output): Print the final result clearly on the screen exactly as requested."
             ],
             "whyItMatters": "Foundational logic used in smartphone apps, smart microwaves, ATM cash dispensers, and space rovers.",
-            "beginnerTrap": "In C, scanf() needs the '&' address symbol before variable names, but printf() does not! Also, remember \\n to print on a new line."
+            "beginnerTrap": "In C, scanf() needs the '&' address symbol before variable names, but printf() does not! Also, remember \\n to print on a new line.",
+            "quiz": {
+              "question": "What is the core objective when solving \"Switch-Case Arithmetic Calculator\"?",
+              "options": [
+                "Accept the input format, apply logical operations, and output the required result",
+                "Ignore user input and hardcode random values",
+                "Create an infinite loop",
+                "Shut down the compiler"
+              ],
+              "correctIndex": 0,
+              "explanation": "Every algorithm takes well-defined input, applies deterministic step-by-step logic, and produces the exact output expected."
+            },
+            "memoryTrace": {
+              "registers": [
+                {
+                  "name": "input",
+                  "value": "User Input",
+                  "role": "Buffered standard input stream"
+                },
+                {
+                  "name": "result",
+                  "value": "Computed Value",
+                  "role": "Register holding final evaluated result"
+                }
+              ],
+              "steps": [
+                {
+                  "step": 1,
+                  "title": "Input Reading",
+                  "state": {
+                    "input": "Received",
+                    "result": "Unset"
+                  },
+                  "explanation": "Program captures raw bytes from stdin into memory variables."
+                },
+                {
+                  "step": 2,
+                  "title": "CPU ALU Execution",
+                  "state": {
+                    "input": "Processed",
+                    "result": "Calculated"
+                  },
+                  "explanation": "Processor executes arithmetic/logical instructions according to program code."
+                },
+                {
+                  "step": 3,
+                  "title": "Output Emission",
+                  "state": {
+                    "input": "Done",
+                    "result": "Flushed to stdout"
+                  },
+                  "explanation": "Result formatted and flushed to the terminal screen."
+                }
+              ]
+            },
+            "anatomy": [
+              {
+                "line": "#include <stdio.h>",
+                "role": "Header Library",
+                "plainEnglish": "Imports the Standard Input/Output toolbox containing printf() and scanf()."
+              },
+              {
+                "line": "int main(void) { ... }",
+                "role": "Program Entry",
+                "plainEnglish": "The universal starting gate where operating systems initiate execution of C programs."
+              },
+              {
+                "line": "scanf(\"%d\", &var);",
+                "role": "Input Reader",
+                "plainEnglish": "Listens for typed numbers. The & symbol passes the RAM memory address of the variable."
+              },
+              {
+                "line": "printf(\"%d\\n\", result);",
+                "role": "Output Writer",
+                "plainEnglish": "Prints the calculated integer to terminal, followed by \\n (jump to next line)."
+              },
+              {
+                "line": "return 0;",
+                "role": "Success Exit",
+                "plainEnglish": "Reports exit code 0 back to the OS, signaling \"Everything completed successfully without errors\"."
+              }
+            ]
           }
         ]
       },
@@ -414,7 +1224,88 @@ export const CURRICULUM = {
               "Step 3 (Output): Print the final result clearly on the screen exactly as requested."
             ],
             "whyItMatters": "Used in modern banking, WhatsApp end-to-end encryption, and password security keys.",
-            "beginnerTrap": "In C, scanf() needs the '&' address symbol before variable names, but printf() does not! Also, remember \\n to print on a new line."
+            "beginnerTrap": "In C, scanf() needs the '&' address symbol before variable names, but printf() does not! Also, remember \\n to print on a new line.",
+            "quiz": {
+              "question": "What is the core objective when solving \"Factorial of a Number (for loop)\"?",
+              "options": [
+                "Accept the input format, apply logical operations, and output the required result",
+                "Ignore user input and hardcode random values",
+                "Create an infinite loop",
+                "Shut down the compiler"
+              ],
+              "correctIndex": 0,
+              "explanation": "Every algorithm takes well-defined input, applies deterministic step-by-step logic, and produces the exact output expected."
+            },
+            "memoryTrace": {
+              "registers": [
+                {
+                  "name": "input",
+                  "value": "User Input",
+                  "role": "Buffered standard input stream"
+                },
+                {
+                  "name": "result",
+                  "value": "Computed Value",
+                  "role": "Register holding final evaluated result"
+                }
+              ],
+              "steps": [
+                {
+                  "step": 1,
+                  "title": "Input Reading",
+                  "state": {
+                    "input": "Received",
+                    "result": "Unset"
+                  },
+                  "explanation": "Program captures raw bytes from stdin into memory variables."
+                },
+                {
+                  "step": 2,
+                  "title": "CPU ALU Execution",
+                  "state": {
+                    "input": "Processed",
+                    "result": "Calculated"
+                  },
+                  "explanation": "Processor executes arithmetic/logical instructions according to program code."
+                },
+                {
+                  "step": 3,
+                  "title": "Output Emission",
+                  "state": {
+                    "input": "Done",
+                    "result": "Flushed to stdout"
+                  },
+                  "explanation": "Result formatted and flushed to the terminal screen."
+                }
+              ]
+            },
+            "anatomy": [
+              {
+                "line": "#include <stdio.h>",
+                "role": "Header Library",
+                "plainEnglish": "Imports the Standard Input/Output toolbox containing printf() and scanf()."
+              },
+              {
+                "line": "int main(void) { ... }",
+                "role": "Program Entry",
+                "plainEnglish": "The universal starting gate where operating systems initiate execution of C programs."
+              },
+              {
+                "line": "scanf(\"%d\", &var);",
+                "role": "Input Reader",
+                "plainEnglish": "Listens for typed numbers. The & symbol passes the RAM memory address of the variable."
+              },
+              {
+                "line": "printf(\"%d\\n\", result);",
+                "role": "Output Writer",
+                "plainEnglish": "Prints the calculated integer to terminal, followed by \\n (jump to next line)."
+              },
+              {
+                "line": "return 0;",
+                "role": "Success Exit",
+                "plainEnglish": "Reports exit code 0 back to the OS, signaling \"Everything completed successfully without errors\"."
+              }
+            ]
           },
           {
             "id": "c_m3_p2",
@@ -449,7 +1340,88 @@ export const CURRICULUM = {
               "Step 3 (Output): Print the final result clearly on the screen exactly as requested."
             ],
             "whyItMatters": "Foundational logic used in smartphone apps, smart microwaves, ATM cash dispensers, and space rovers.",
-            "beginnerTrap": "In C, scanf() needs the '&' address symbol before variable names, but printf() does not! Also, remember \\n to print on a new line."
+            "beginnerTrap": "In C, scanf() needs the '&' address symbol before variable names, but printf() does not! Also, remember \\n to print on a new line.",
+            "quiz": {
+              "question": "What is the core objective when solving \"Sum of Digits (while loop)\"?",
+              "options": [
+                "Accept the input format, apply logical operations, and output the required result",
+                "Ignore user input and hardcode random values",
+                "Create an infinite loop",
+                "Shut down the compiler"
+              ],
+              "correctIndex": 0,
+              "explanation": "Every algorithm takes well-defined input, applies deterministic step-by-step logic, and produces the exact output expected."
+            },
+            "memoryTrace": {
+              "registers": [
+                {
+                  "name": "input",
+                  "value": "User Input",
+                  "role": "Buffered standard input stream"
+                },
+                {
+                  "name": "result",
+                  "value": "Computed Value",
+                  "role": "Register holding final evaluated result"
+                }
+              ],
+              "steps": [
+                {
+                  "step": 1,
+                  "title": "Input Reading",
+                  "state": {
+                    "input": "Received",
+                    "result": "Unset"
+                  },
+                  "explanation": "Program captures raw bytes from stdin into memory variables."
+                },
+                {
+                  "step": 2,
+                  "title": "CPU ALU Execution",
+                  "state": {
+                    "input": "Processed",
+                    "result": "Calculated"
+                  },
+                  "explanation": "Processor executes arithmetic/logical instructions according to program code."
+                },
+                {
+                  "step": 3,
+                  "title": "Output Emission",
+                  "state": {
+                    "input": "Done",
+                    "result": "Flushed to stdout"
+                  },
+                  "explanation": "Result formatted and flushed to the terminal screen."
+                }
+              ]
+            },
+            "anatomy": [
+              {
+                "line": "#include <stdio.h>",
+                "role": "Header Library",
+                "plainEnglish": "Imports the Standard Input/Output toolbox containing printf() and scanf()."
+              },
+              {
+                "line": "int main(void) { ... }",
+                "role": "Program Entry",
+                "plainEnglish": "The universal starting gate where operating systems initiate execution of C programs."
+              },
+              {
+                "line": "scanf(\"%d\", &var);",
+                "role": "Input Reader",
+                "plainEnglish": "Listens for typed numbers. The & symbol passes the RAM memory address of the variable."
+              },
+              {
+                "line": "printf(\"%d\\n\", result);",
+                "role": "Output Writer",
+                "plainEnglish": "Prints the calculated integer to terminal, followed by \\n (jump to next line)."
+              },
+              {
+                "line": "return 0;",
+                "role": "Success Exit",
+                "plainEnglish": "Reports exit code 0 back to the OS, signaling \"Everything completed successfully without errors\"."
+              }
+            ]
           },
           {
             "id": "c_m3_p3",
@@ -485,7 +1457,88 @@ export const CURRICULUM = {
               "Step 3 (Output): Print the final result clearly on the screen exactly as requested."
             ],
             "whyItMatters": "Drives Google search autocorrect, DNA sequence genetics analysis, and spam email filters.",
-            "beginnerTrap": "In C, scanf() needs the '&' address symbol before variable names, but printf() does not! Also, remember \\n to print on a new line."
+            "beginnerTrap": "In C, scanf() needs the '&' address symbol before variable names, but printf() does not! Also, remember \\n to print on a new line.",
+            "quiz": {
+              "question": "What defines a palindrome in computer science?",
+              "options": [
+                "A sequence that reads identically forward and backward",
+                "A number that has only two factors",
+                "A word with all vowels capitalized",
+                "An array with only even numbers"
+              ],
+              "correctIndex": 0,
+              "explanation": "A palindrome has perfect symmetry — like 'radar' or 12321. Comparing characters from both ends inward confirms symmetry."
+            },
+            "memoryTrace": {
+              "registers": [
+                {
+                  "name": "input",
+                  "value": "User Input",
+                  "role": "Buffered standard input stream"
+                },
+                {
+                  "name": "result",
+                  "value": "Computed Value",
+                  "role": "Register holding final evaluated result"
+                }
+              ],
+              "steps": [
+                {
+                  "step": 1,
+                  "title": "Input Reading",
+                  "state": {
+                    "input": "Received",
+                    "result": "Unset"
+                  },
+                  "explanation": "Program captures raw bytes from stdin into memory variables."
+                },
+                {
+                  "step": 2,
+                  "title": "CPU ALU Execution",
+                  "state": {
+                    "input": "Processed",
+                    "result": "Calculated"
+                  },
+                  "explanation": "Processor executes arithmetic/logical instructions according to program code."
+                },
+                {
+                  "step": 3,
+                  "title": "Output Emission",
+                  "state": {
+                    "input": "Done",
+                    "result": "Flushed to stdout"
+                  },
+                  "explanation": "Result formatted and flushed to the terminal screen."
+                }
+              ]
+            },
+            "anatomy": [
+              {
+                "line": "#include <stdio.h>",
+                "role": "Header Library",
+                "plainEnglish": "Imports the Standard Input/Output toolbox containing printf() and scanf()."
+              },
+              {
+                "line": "int main(void) { ... }",
+                "role": "Program Entry",
+                "plainEnglish": "The universal starting gate where operating systems initiate execution of C programs."
+              },
+              {
+                "line": "scanf(\"%d\", &var);",
+                "role": "Input Reader",
+                "plainEnglish": "Listens for typed numbers. The & symbol passes the RAM memory address of the variable."
+              },
+              {
+                "line": "printf(\"%d\\n\", result);",
+                "role": "Output Writer",
+                "plainEnglish": "Prints the calculated integer to terminal, followed by \\n (jump to next line)."
+              },
+              {
+                "line": "return 0;",
+                "role": "Success Exit",
+                "plainEnglish": "Reports exit code 0 back to the OS, signaling \"Everything completed successfully without errors\"."
+              }
+            ]
           },
           {
             "id": "c_m3_p4",
@@ -525,7 +1578,88 @@ export const CURRICULUM = {
               "Step 3 (Output): Print the final result clearly on the screen exactly as requested."
             ],
             "whyItMatters": "Used in modern banking, WhatsApp end-to-end encryption, and password security keys.",
-            "beginnerTrap": "In C, scanf() needs the '&' address symbol before variable names, but printf() does not! Also, remember \\n to print on a new line."
+            "beginnerTrap": "In C, scanf() needs the '&' address symbol before variable names, but printf() does not! Also, remember \\n to print on a new line.",
+            "quiz": {
+              "question": "Why can we stop checking prime divisors once the test divisor exceeds √N?",
+              "options": [
+                "Because computers run out of memory after square roots",
+                "If N has a factor larger than √N, its paired factor must be smaller than √N (which was already checked)",
+                "Square roots always return even numbers",
+                "All numbers above √N are guaranteed to be prime"
+              ],
+              "correctIndex": 1,
+              "explanation": "Factors come in pairs (a * b = N). If both were greater than √N, their product would exceed N! Checking up to √N is 100% mathematically sufficient."
+            },
+            "memoryTrace": {
+              "registers": [
+                {
+                  "name": "input",
+                  "value": "User Input",
+                  "role": "Buffered standard input stream"
+                },
+                {
+                  "name": "result",
+                  "value": "Computed Value",
+                  "role": "Register holding final evaluated result"
+                }
+              ],
+              "steps": [
+                {
+                  "step": 1,
+                  "title": "Input Reading",
+                  "state": {
+                    "input": "Received",
+                    "result": "Unset"
+                  },
+                  "explanation": "Program captures raw bytes from stdin into memory variables."
+                },
+                {
+                  "step": 2,
+                  "title": "CPU ALU Execution",
+                  "state": {
+                    "input": "Processed",
+                    "result": "Calculated"
+                  },
+                  "explanation": "Processor executes arithmetic/logical instructions according to program code."
+                },
+                {
+                  "step": 3,
+                  "title": "Output Emission",
+                  "state": {
+                    "input": "Done",
+                    "result": "Flushed to stdout"
+                  },
+                  "explanation": "Result formatted and flushed to the terminal screen."
+                }
+              ]
+            },
+            "anatomy": [
+              {
+                "line": "#include <stdio.h>",
+                "role": "Header Library",
+                "plainEnglish": "Imports the Standard Input/Output toolbox containing printf() and scanf()."
+              },
+              {
+                "line": "int main(void) { ... }",
+                "role": "Program Entry",
+                "plainEnglish": "The universal starting gate where operating systems initiate execution of C programs."
+              },
+              {
+                "line": "scanf(\"%d\", &var);",
+                "role": "Input Reader",
+                "plainEnglish": "Listens for typed numbers. The & symbol passes the RAM memory address of the variable."
+              },
+              {
+                "line": "printf(\"%d\\n\", result);",
+                "role": "Output Writer",
+                "plainEnglish": "Prints the calculated integer to terminal, followed by \\n (jump to next line)."
+              },
+              {
+                "line": "return 0;",
+                "role": "Success Exit",
+                "plainEnglish": "Reports exit code 0 back to the OS, signaling \"Everything completed successfully without errors\"."
+              }
+            ]
           },
           {
             "id": "c_m3_p5",
@@ -556,7 +1690,88 @@ export const CURRICULUM = {
               "Step 3 (Output): Print the final result clearly on the screen exactly as requested."
             ],
             "whyItMatters": "Foundational logic used in smartphone apps, smart microwaves, ATM cash dispensers, and space rovers.",
-            "beginnerTrap": "In C, scanf() needs the '&' address symbol before variable names, but printf() does not! Also, remember \\n to print on a new line."
+            "beginnerTrap": "In C, scanf() needs the '&' address symbol before variable names, but printf() does not! Also, remember \\n to print on a new line.",
+            "quiz": {
+              "question": "What is the core objective when solving \"Multiplication Table Generator (do-while loop)\"?",
+              "options": [
+                "Accept the input format, apply logical operations, and output the required result",
+                "Ignore user input and hardcode random values",
+                "Create an infinite loop",
+                "Shut down the compiler"
+              ],
+              "correctIndex": 0,
+              "explanation": "Every algorithm takes well-defined input, applies deterministic step-by-step logic, and produces the exact output expected."
+            },
+            "memoryTrace": {
+              "registers": [
+                {
+                  "name": "input",
+                  "value": "User Input",
+                  "role": "Buffered standard input stream"
+                },
+                {
+                  "name": "result",
+                  "value": "Computed Value",
+                  "role": "Register holding final evaluated result"
+                }
+              ],
+              "steps": [
+                {
+                  "step": 1,
+                  "title": "Input Reading",
+                  "state": {
+                    "input": "Received",
+                    "result": "Unset"
+                  },
+                  "explanation": "Program captures raw bytes from stdin into memory variables."
+                },
+                {
+                  "step": 2,
+                  "title": "CPU ALU Execution",
+                  "state": {
+                    "input": "Processed",
+                    "result": "Calculated"
+                  },
+                  "explanation": "Processor executes arithmetic/logical instructions according to program code."
+                },
+                {
+                  "step": 3,
+                  "title": "Output Emission",
+                  "state": {
+                    "input": "Done",
+                    "result": "Flushed to stdout"
+                  },
+                  "explanation": "Result formatted and flushed to the terminal screen."
+                }
+              ]
+            },
+            "anatomy": [
+              {
+                "line": "#include <stdio.h>",
+                "role": "Header Library",
+                "plainEnglish": "Imports the Standard Input/Output toolbox containing printf() and scanf()."
+              },
+              {
+                "line": "int main(void) { ... }",
+                "role": "Program Entry",
+                "plainEnglish": "The universal starting gate where operating systems initiate execution of C programs."
+              },
+              {
+                "line": "scanf(\"%d\", &var);",
+                "role": "Input Reader",
+                "plainEnglish": "Listens for typed numbers. The & symbol passes the RAM memory address of the variable."
+              },
+              {
+                "line": "printf(\"%d\\n\", result);",
+                "role": "Output Writer",
+                "plainEnglish": "Prints the calculated integer to terminal, followed by \\n (jump to next line)."
+              },
+              {
+                "line": "return 0;",
+                "role": "Success Exit",
+                "plainEnglish": "Reports exit code 0 back to the OS, signaling \"Everything completed successfully without errors\"."
+              }
+            ]
           }
         ]
       },
@@ -595,7 +1810,96 @@ export const CURRICULUM = {
               "Step 3 (Output): Print the final result clearly on the screen exactly as requested."
             ],
             "whyItMatters": "Powers Spotify playlist shuffling, Amazon product price sorting, and video game leaderboard rankings.",
-            "beginnerTrap": "In C, scanf() needs the '&' address symbol before variable names, but printf() does not! Also, remember \\n to print on a new line."
+            "beginnerTrap": "In C, scanf() needs the '&' address symbol before variable names, but printf() does not! Also, remember \\n to print on a new line.",
+            "quiz": {
+              "question": "When reversing an array with two pointers (left and right), when do we stop swapping?",
+              "options": [
+                "When left reaches the end of the array",
+                "When left and right pointers cross or meet in the middle (left >= right)",
+                "After exactly 1 swap",
+                "Never — it loops endlessly"
+              ],
+              "correctIndex": 1,
+              "explanation": "Once the left and right pointers cross in the center, every symmetric pair has already been swapped! Swapping further would reverse it back."
+            },
+            "memoryTrace": {
+              "registers": [
+                {
+                  "name": "arr",
+                  "value": "[1, 2, 3, 4, 5]",
+                  "role": "Contiguous array in memory"
+                },
+                {
+                  "name": "left",
+                  "value": "0",
+                  "role": "Start index pointer"
+                },
+                {
+                  "name": "right",
+                  "value": "4",
+                  "role": "End index pointer"
+                }
+              ],
+              "steps": [
+                {
+                  "step": 1,
+                  "title": "Pointer Setup",
+                  "state": {
+                    "arr": "[1, 2, 3, 4, 5]",
+                    "left": "0",
+                    "right": "4"
+                  },
+                  "explanation": "left points to 1 (idx 0), right points to 5 (idx 4)."
+                },
+                {
+                  "step": 2,
+                  "title": "First Swap & Move",
+                  "state": {
+                    "arr": "[5, 2, 3, 4, 1]",
+                    "left": "1",
+                    "right": "3"
+                  },
+                  "explanation": "Swap arr[0] and arr[4]. left increments to 1, right decrements to 3."
+                },
+                {
+                  "step": 3,
+                  "title": "Second Swap & Meet",
+                  "state": {
+                    "arr": "[5, 4, 3, 2, 1]",
+                    "left": "2",
+                    "right": "2"
+                  },
+                  "explanation": "Swap arr[1] and arr[3]. Both pointers meet at center index 2. Reverse finished!"
+                }
+              ]
+            },
+            "anatomy": [
+              {
+                "line": "#include <stdio.h>",
+                "role": "Header Library",
+                "plainEnglish": "Imports the Standard Input/Output toolbox containing printf() and scanf()."
+              },
+              {
+                "line": "int main(void) { ... }",
+                "role": "Program Entry",
+                "plainEnglish": "The universal starting gate where operating systems initiate execution of C programs."
+              },
+              {
+                "line": "scanf(\"%d\", &var);",
+                "role": "Input Reader",
+                "plainEnglish": "Listens for typed numbers. The & symbol passes the RAM memory address of the variable."
+              },
+              {
+                "line": "printf(\"%d\\n\", result);",
+                "role": "Output Writer",
+                "plainEnglish": "Prints the calculated integer to terminal, followed by \\n (jump to next line)."
+              },
+              {
+                "line": "return 0;",
+                "role": "Success Exit",
+                "plainEnglish": "Reports exit code 0 back to the OS, signaling \"Everything completed successfully without errors\"."
+              }
+            ]
           },
           {
             "id": "c_m4_p2",
@@ -627,7 +1931,88 @@ export const CURRICULUM = {
               "Step 3 (Output): Print the final result clearly on the screen exactly as requested."
             ],
             "whyItMatters": "Powers Spotify playlist shuffling, Amazon product price sorting, and video game leaderboard rankings.",
-            "beginnerTrap": "In C, scanf() needs the '&' address symbol before variable names, but printf() does not! Also, remember \\n to print on a new line."
+            "beginnerTrap": "In C, scanf() needs the '&' address symbol before variable names, but printf() does not! Also, remember \\n to print on a new line.",
+            "quiz": {
+              "question": "If an array has size 5 and you rotate it by 5 positions, what happens?",
+              "options": [
+                "All elements become zero",
+                "The array is reversed",
+                "The array returns to its exact original state",
+                "A segmentation fault occurs"
+              ],
+              "correctIndex": 2,
+              "explanation": "Rotating an array by its exact length brings every element full-circle back to its starting position (k % N == 0)."
+            },
+            "memoryTrace": {
+              "registers": [
+                {
+                  "name": "input",
+                  "value": "User Input",
+                  "role": "Buffered standard input stream"
+                },
+                {
+                  "name": "result",
+                  "value": "Computed Value",
+                  "role": "Register holding final evaluated result"
+                }
+              ],
+              "steps": [
+                {
+                  "step": 1,
+                  "title": "Input Reading",
+                  "state": {
+                    "input": "Received",
+                    "result": "Unset"
+                  },
+                  "explanation": "Program captures raw bytes from stdin into memory variables."
+                },
+                {
+                  "step": 2,
+                  "title": "CPU ALU Execution",
+                  "state": {
+                    "input": "Processed",
+                    "result": "Calculated"
+                  },
+                  "explanation": "Processor executes arithmetic/logical instructions according to program code."
+                },
+                {
+                  "step": 3,
+                  "title": "Output Emission",
+                  "state": {
+                    "input": "Done",
+                    "result": "Flushed to stdout"
+                  },
+                  "explanation": "Result formatted and flushed to the terminal screen."
+                }
+              ]
+            },
+            "anatomy": [
+              {
+                "line": "#include <stdio.h>",
+                "role": "Header Library",
+                "plainEnglish": "Imports the Standard Input/Output toolbox containing printf() and scanf()."
+              },
+              {
+                "line": "int main(void) { ... }",
+                "role": "Program Entry",
+                "plainEnglish": "The universal starting gate where operating systems initiate execution of C programs."
+              },
+              {
+                "line": "scanf(\"%d\", &var);",
+                "role": "Input Reader",
+                "plainEnglish": "Listens for typed numbers. The & symbol passes the RAM memory address of the variable."
+              },
+              {
+                "line": "printf(\"%d\\n\", result);",
+                "role": "Output Writer",
+                "plainEnglish": "Prints the calculated integer to terminal, followed by \\n (jump to next line)."
+              },
+              {
+                "line": "return 0;",
+                "role": "Success Exit",
+                "plainEnglish": "Reports exit code 0 back to the OS, signaling \"Everything completed successfully without errors\"."
+              }
+            ]
           },
           {
             "id": "c_m4_p3",
@@ -658,7 +2043,88 @@ export const CURRICULUM = {
               "Step 3 (Output): Print the final result clearly on the screen exactly as requested."
             ],
             "whyItMatters": "Powers Spotify playlist shuffling, Amazon product price sorting, and video game leaderboard rankings.",
-            "beginnerTrap": "In C, scanf() needs the '&' address symbol before variable names, but printf() does not! Also, remember \\n to print on a new line."
+            "beginnerTrap": "In C, scanf() needs the '&' address symbol before variable names, but printf() does not! Also, remember \\n to print on a new line.",
+            "quiz": {
+              "question": "If an array has size 5 and you rotate it by 5 positions, what happens?",
+              "options": [
+                "All elements become zero",
+                "The array is reversed",
+                "The array returns to its exact original state",
+                "A segmentation fault occurs"
+              ],
+              "correctIndex": 2,
+              "explanation": "Rotating an array by its exact length brings every element full-circle back to its starting position (k % N == 0)."
+            },
+            "memoryTrace": {
+              "registers": [
+                {
+                  "name": "input",
+                  "value": "User Input",
+                  "role": "Buffered standard input stream"
+                },
+                {
+                  "name": "result",
+                  "value": "Computed Value",
+                  "role": "Register holding final evaluated result"
+                }
+              ],
+              "steps": [
+                {
+                  "step": 1,
+                  "title": "Input Reading",
+                  "state": {
+                    "input": "Received",
+                    "result": "Unset"
+                  },
+                  "explanation": "Program captures raw bytes from stdin into memory variables."
+                },
+                {
+                  "step": 2,
+                  "title": "CPU ALU Execution",
+                  "state": {
+                    "input": "Processed",
+                    "result": "Calculated"
+                  },
+                  "explanation": "Processor executes arithmetic/logical instructions according to program code."
+                },
+                {
+                  "step": 3,
+                  "title": "Output Emission",
+                  "state": {
+                    "input": "Done",
+                    "result": "Flushed to stdout"
+                  },
+                  "explanation": "Result formatted and flushed to the terminal screen."
+                }
+              ]
+            },
+            "anatomy": [
+              {
+                "line": "#include <stdio.h>",
+                "role": "Header Library",
+                "plainEnglish": "Imports the Standard Input/Output toolbox containing printf() and scanf()."
+              },
+              {
+                "line": "int main(void) { ... }",
+                "role": "Program Entry",
+                "plainEnglish": "The universal starting gate where operating systems initiate execution of C programs."
+              },
+              {
+                "line": "scanf(\"%d\", &var);",
+                "role": "Input Reader",
+                "plainEnglish": "Listens for typed numbers. The & symbol passes the RAM memory address of the variable."
+              },
+              {
+                "line": "printf(\"%d\\n\", result);",
+                "role": "Output Writer",
+                "plainEnglish": "Prints the calculated integer to terminal, followed by \\n (jump to next line)."
+              },
+              {
+                "line": "return 0;",
+                "role": "Success Exit",
+                "plainEnglish": "Reports exit code 0 back to the OS, signaling \"Everything completed successfully without errors\"."
+              }
+            ]
           },
           {
             "id": "c_m4_p4",
@@ -690,7 +2156,102 @@ export const CURRICULUM = {
               "Step 3 (Output): Print the final result clearly on the screen exactly as requested."
             ],
             "whyItMatters": "Powers Spotify playlist shuffling, Amazon product price sorting, and video game leaderboard rankings.",
-            "beginnerTrap": "In C, scanf() needs the '&' address symbol before variable names, but printf() does not! Also, remember \\n to print on a new line."
+            "beginnerTrap": "In C, scanf() needs the '&' address symbol before variable names, but printf() does not! Also, remember \\n to print on a new line.",
+            "quiz": {
+              "question": "In Bubble Sort, what is guaranteed after the very first pass over an array of size N?",
+              "options": [
+                "The whole array is completely sorted",
+                "The smallest element is placed at index 0",
+                "The largest element has bubbled up to the very last index (N-1)",
+                "All duplicate values are removed"
+              ],
+              "correctIndex": 2,
+              "explanation": "Every adjacent comparison moves larger numbers to the right. After one full pass, the heaviest element inevitably settles at the highest index."
+            },
+            "memoryTrace": {
+              "registers": [
+                {
+                  "name": "arr",
+                  "value": "[5, 1, 4, 2, 8]",
+                  "role": "Unsorted array elements"
+                },
+                {
+                  "name": "i",
+                  "value": "0",
+                  "role": "Outer loop pass counter"
+                },
+                {
+                  "name": "j",
+                  "value": "0",
+                  "role": "Inner comparison pointer"
+                }
+              ],
+              "steps": [
+                {
+                  "step": 1,
+                  "title": "Compare arr[0] & arr[1]",
+                  "state": {
+                    "arr": "[1, 5, 4, 2, 8]",
+                    "j": "0"
+                  },
+                  "explanation": "5 > 1 is true. Swap 5 and 1. 5 starts floating rightward!"
+                },
+                {
+                  "step": 2,
+                  "title": "Compare arr[1] & arr[2]",
+                  "state": {
+                    "arr": "[1, 4, 5, 2, 8]",
+                    "j": "1"
+                  },
+                  "explanation": "5 > 4 is true. Swap 5 and 4. 5 continues bubbling up."
+                },
+                {
+                  "step": 3,
+                  "title": "Compare arr[2] & arr[3]",
+                  "state": {
+                    "arr": "[1, 4, 2, 5, 8]",
+                    "j": "2"
+                  },
+                  "explanation": "5 > 2 is true. Swap 5 and 2."
+                },
+                {
+                  "step": 4,
+                  "title": "Compare arr[3] & arr[4]",
+                  "state": {
+                    "arr": "[1, 4, 2, 5, 8]",
+                    "j": "3"
+                  },
+                  "explanation": "5 < 8 is false. No swap. Heaviest number (8) is locked at the end!"
+                }
+              ]
+            },
+            "anatomy": [
+              {
+                "line": "#include <stdio.h>",
+                "role": "Header Library",
+                "plainEnglish": "Imports the Standard Input/Output toolbox containing printf() and scanf()."
+              },
+              {
+                "line": "int main(void) { ... }",
+                "role": "Program Entry",
+                "plainEnglish": "The universal starting gate where operating systems initiate execution of C programs."
+              },
+              {
+                "line": "scanf(\"%d\", &var);",
+                "role": "Input Reader",
+                "plainEnglish": "Listens for typed numbers. The & symbol passes the RAM memory address of the variable."
+              },
+              {
+                "line": "printf(\"%d\\n\", result);",
+                "role": "Output Writer",
+                "plainEnglish": "Prints the calculated integer to terminal, followed by \\n (jump to next line)."
+              },
+              {
+                "line": "return 0;",
+                "role": "Success Exit",
+                "plainEnglish": "Reports exit code 0 back to the OS, signaling \"Everything completed successfully without errors\"."
+              }
+            ]
           },
           {
             "id": "c_m4_p5",
@@ -722,7 +2283,88 @@ export const CURRICULUM = {
               "Step 3 (Output): Print the final result clearly on the screen exactly as requested."
             ],
             "whyItMatters": "Powers Spotify playlist shuffling, Amazon product price sorting, and video game leaderboard rankings.",
-            "beginnerTrap": "In C, scanf() needs the '&' address symbol before variable names, but printf() does not! Also, remember \\n to print on a new line."
+            "beginnerTrap": "In C, scanf() needs the '&' address symbol before variable names, but printf() does not! Also, remember \\n to print on a new line.",
+            "quiz": {
+              "question": "What algorithmic paradigm does Merge Sort rely upon?",
+              "options": [
+                "Divide and Conquer (split in halves, sort recursively, merge together)",
+                "Greedy Choice (pick the closest number first)",
+                "Brute Force trial and error",
+                "Random shuffling"
+              ],
+              "correctIndex": 0,
+              "explanation": "Merge Sort divides arrays into single-element subproblems, sorts them, and efficiently merges the halves in O(N log N) time."
+            },
+            "memoryTrace": {
+              "registers": [
+                {
+                  "name": "input",
+                  "value": "User Input",
+                  "role": "Buffered standard input stream"
+                },
+                {
+                  "name": "result",
+                  "value": "Computed Value",
+                  "role": "Register holding final evaluated result"
+                }
+              ],
+              "steps": [
+                {
+                  "step": 1,
+                  "title": "Input Reading",
+                  "state": {
+                    "input": "Received",
+                    "result": "Unset"
+                  },
+                  "explanation": "Program captures raw bytes from stdin into memory variables."
+                },
+                {
+                  "step": 2,
+                  "title": "CPU ALU Execution",
+                  "state": {
+                    "input": "Processed",
+                    "result": "Calculated"
+                  },
+                  "explanation": "Processor executes arithmetic/logical instructions according to program code."
+                },
+                {
+                  "step": 3,
+                  "title": "Output Emission",
+                  "state": {
+                    "input": "Done",
+                    "result": "Flushed to stdout"
+                  },
+                  "explanation": "Result formatted and flushed to the terminal screen."
+                }
+              ]
+            },
+            "anatomy": [
+              {
+                "line": "#include <stdio.h>",
+                "role": "Header Library",
+                "plainEnglish": "Imports the Standard Input/Output toolbox containing printf() and scanf()."
+              },
+              {
+                "line": "int main(void) { ... }",
+                "role": "Program Entry",
+                "plainEnglish": "The universal starting gate where operating systems initiate execution of C programs."
+              },
+              {
+                "line": "scanf(\"%d\", &var);",
+                "role": "Input Reader",
+                "plainEnglish": "Listens for typed numbers. The & symbol passes the RAM memory address of the variable."
+              },
+              {
+                "line": "printf(\"%d\\n\", result);",
+                "role": "Output Writer",
+                "plainEnglish": "Prints the calculated integer to terminal, followed by \\n (jump to next line)."
+              },
+              {
+                "line": "return 0;",
+                "role": "Success Exit",
+                "plainEnglish": "Reports exit code 0 back to the OS, signaling \"Everything completed successfully without errors\"."
+              }
+            ]
           },
           {
             "id": "c_m4_p6",
@@ -753,7 +2395,88 @@ export const CURRICULUM = {
               "Step 3 (Output): Print the final result clearly on the screen exactly as requested."
             ],
             "whyItMatters": "Foundational logic used in smartphone apps, smart microwaves, ATM cash dispensers, and space rovers.",
-            "beginnerTrap": "In C, scanf() needs the '&' address symbol before variable names, but printf() does not! Also, remember \\n to print on a new line."
+            "beginnerTrap": "In C, scanf() needs the '&' address symbol before variable names, but printf() does not! Also, remember \\n to print on a new line.",
+            "quiz": {
+              "question": "What is the core objective when solving \"Second Largest Element in Array\"?",
+              "options": [
+                "Accept the input format, apply logical operations, and output the required result",
+                "Ignore user input and hardcode random values",
+                "Create an infinite loop",
+                "Shut down the compiler"
+              ],
+              "correctIndex": 0,
+              "explanation": "Every algorithm takes well-defined input, applies deterministic step-by-step logic, and produces the exact output expected."
+            },
+            "memoryTrace": {
+              "registers": [
+                {
+                  "name": "input",
+                  "value": "User Input",
+                  "role": "Buffered standard input stream"
+                },
+                {
+                  "name": "result",
+                  "value": "Computed Value",
+                  "role": "Register holding final evaluated result"
+                }
+              ],
+              "steps": [
+                {
+                  "step": 1,
+                  "title": "Input Reading",
+                  "state": {
+                    "input": "Received",
+                    "result": "Unset"
+                  },
+                  "explanation": "Program captures raw bytes from stdin into memory variables."
+                },
+                {
+                  "step": 2,
+                  "title": "CPU ALU Execution",
+                  "state": {
+                    "input": "Processed",
+                    "result": "Calculated"
+                  },
+                  "explanation": "Processor executes arithmetic/logical instructions according to program code."
+                },
+                {
+                  "step": 3,
+                  "title": "Output Emission",
+                  "state": {
+                    "input": "Done",
+                    "result": "Flushed to stdout"
+                  },
+                  "explanation": "Result formatted and flushed to the terminal screen."
+                }
+              ]
+            },
+            "anatomy": [
+              {
+                "line": "#include <stdio.h>",
+                "role": "Header Library",
+                "plainEnglish": "Imports the Standard Input/Output toolbox containing printf() and scanf()."
+              },
+              {
+                "line": "int main(void) { ... }",
+                "role": "Program Entry",
+                "plainEnglish": "The universal starting gate where operating systems initiate execution of C programs."
+              },
+              {
+                "line": "scanf(\"%d\", &var);",
+                "role": "Input Reader",
+                "plainEnglish": "Listens for typed numbers. The & symbol passes the RAM memory address of the variable."
+              },
+              {
+                "line": "printf(\"%d\\n\", result);",
+                "role": "Output Writer",
+                "plainEnglish": "Prints the calculated integer to terminal, followed by \\n (jump to next line)."
+              },
+              {
+                "line": "return 0;",
+                "role": "Success Exit",
+                "plainEnglish": "Reports exit code 0 back to the OS, signaling \"Everything completed successfully without errors\"."
+              }
+            ]
           }
         ]
       },
@@ -792,7 +2515,88 @@ export const CURRICULUM = {
               "Step 3 (Output): Print the final result clearly on the screen exactly as requested."
             ],
             "whyItMatters": "Drives Google search autocorrect, DNA sequence genetics analysis, and spam email filters.",
-            "beginnerTrap": "In C, scanf() needs the '&' address symbol before variable names, but printf() does not! Also, remember \\n to print on a new line."
+            "beginnerTrap": "In C, scanf() needs the '&' address symbol before variable names, but printf() does not! Also, remember \\n to print on a new line.",
+            "quiz": {
+              "question": "What is the core objective when solving \"String Length Without strlen()\"?",
+              "options": [
+                "Accept the input format, apply logical operations, and output the required result",
+                "Ignore user input and hardcode random values",
+                "Create an infinite loop",
+                "Shut down the compiler"
+              ],
+              "correctIndex": 0,
+              "explanation": "Every algorithm takes well-defined input, applies deterministic step-by-step logic, and produces the exact output expected."
+            },
+            "memoryTrace": {
+              "registers": [
+                {
+                  "name": "input",
+                  "value": "User Input",
+                  "role": "Buffered standard input stream"
+                },
+                {
+                  "name": "result",
+                  "value": "Computed Value",
+                  "role": "Register holding final evaluated result"
+                }
+              ],
+              "steps": [
+                {
+                  "step": 1,
+                  "title": "Input Reading",
+                  "state": {
+                    "input": "Received",
+                    "result": "Unset"
+                  },
+                  "explanation": "Program captures raw bytes from stdin into memory variables."
+                },
+                {
+                  "step": 2,
+                  "title": "CPU ALU Execution",
+                  "state": {
+                    "input": "Processed",
+                    "result": "Calculated"
+                  },
+                  "explanation": "Processor executes arithmetic/logical instructions according to program code."
+                },
+                {
+                  "step": 3,
+                  "title": "Output Emission",
+                  "state": {
+                    "input": "Done",
+                    "result": "Flushed to stdout"
+                  },
+                  "explanation": "Result formatted and flushed to the terminal screen."
+                }
+              ]
+            },
+            "anatomy": [
+              {
+                "line": "#include <stdio.h>",
+                "role": "Header Library",
+                "plainEnglish": "Imports the Standard Input/Output toolbox containing printf() and scanf()."
+              },
+              {
+                "line": "int main(void) { ... }",
+                "role": "Program Entry",
+                "plainEnglish": "The universal starting gate where operating systems initiate execution of C programs."
+              },
+              {
+                "line": "scanf(\"%d\", &var);",
+                "role": "Input Reader",
+                "plainEnglish": "Listens for typed numbers. The & symbol passes the RAM memory address of the variable."
+              },
+              {
+                "line": "printf(\"%d\\n\", result);",
+                "role": "Output Writer",
+                "plainEnglish": "Prints the calculated integer to terminal, followed by \\n (jump to next line)."
+              },
+              {
+                "line": "return 0;",
+                "role": "Success Exit",
+                "plainEnglish": "Reports exit code 0 back to the OS, signaling \"Everything completed successfully without errors\"."
+              }
+            ]
           },
           {
             "id": "c_m5_p2",
@@ -823,7 +2627,96 @@ export const CURRICULUM = {
               "Step 3 (Output): Print the final result clearly on the screen exactly as requested."
             ],
             "whyItMatters": "Powers Spotify playlist shuffling, Amazon product price sorting, and video game leaderboard rankings.",
-            "beginnerTrap": "In C, scanf() needs the '&' address symbol before variable names, but printf() does not! Also, remember \\n to print on a new line."
+            "beginnerTrap": "In C, scanf() needs the '&' address symbol before variable names, but printf() does not! Also, remember \\n to print on a new line.",
+            "quiz": {
+              "question": "What is the core objective when solving \"Reverse a String\"?",
+              "options": [
+                "Accept the input format, apply logical operations, and output the required result",
+                "Ignore user input and hardcode random values",
+                "Create an infinite loop",
+                "Shut down the compiler"
+              ],
+              "correctIndex": 0,
+              "explanation": "Every algorithm takes well-defined input, applies deterministic step-by-step logic, and produces the exact output expected."
+            },
+            "memoryTrace": {
+              "registers": [
+                {
+                  "name": "arr",
+                  "value": "[1, 2, 3, 4, 5]",
+                  "role": "Contiguous array in memory"
+                },
+                {
+                  "name": "left",
+                  "value": "0",
+                  "role": "Start index pointer"
+                },
+                {
+                  "name": "right",
+                  "value": "4",
+                  "role": "End index pointer"
+                }
+              ],
+              "steps": [
+                {
+                  "step": 1,
+                  "title": "Pointer Setup",
+                  "state": {
+                    "arr": "[1, 2, 3, 4, 5]",
+                    "left": "0",
+                    "right": "4"
+                  },
+                  "explanation": "left points to 1 (idx 0), right points to 5 (idx 4)."
+                },
+                {
+                  "step": 2,
+                  "title": "First Swap & Move",
+                  "state": {
+                    "arr": "[5, 2, 3, 4, 1]",
+                    "left": "1",
+                    "right": "3"
+                  },
+                  "explanation": "Swap arr[0] and arr[4]. left increments to 1, right decrements to 3."
+                },
+                {
+                  "step": 3,
+                  "title": "Second Swap & Meet",
+                  "state": {
+                    "arr": "[5, 4, 3, 2, 1]",
+                    "left": "2",
+                    "right": "2"
+                  },
+                  "explanation": "Swap arr[1] and arr[3]. Both pointers meet at center index 2. Reverse finished!"
+                }
+              ]
+            },
+            "anatomy": [
+              {
+                "line": "#include <stdio.h>",
+                "role": "Header Library",
+                "plainEnglish": "Imports the Standard Input/Output toolbox containing printf() and scanf()."
+              },
+              {
+                "line": "int main(void) { ... }",
+                "role": "Program Entry",
+                "plainEnglish": "The universal starting gate where operating systems initiate execution of C programs."
+              },
+              {
+                "line": "scanf(\"%d\", &var);",
+                "role": "Input Reader",
+                "plainEnglish": "Listens for typed numbers. The & symbol passes the RAM memory address of the variable."
+              },
+              {
+                "line": "printf(\"%d\\n\", result);",
+                "role": "Output Writer",
+                "plainEnglish": "Prints the calculated integer to terminal, followed by \\n (jump to next line)."
+              },
+              {
+                "line": "return 0;",
+                "role": "Success Exit",
+                "plainEnglish": "Reports exit code 0 back to the OS, signaling \"Everything completed successfully without errors\"."
+              }
+            ]
           },
           {
             "id": "c_m5_p3",
@@ -854,7 +2747,88 @@ export const CURRICULUM = {
               "Step 3 (Output): Print the final result clearly on the screen exactly as requested."
             ],
             "whyItMatters": "Drives Google search autocorrect, DNA sequence genetics analysis, and spam email filters.",
-            "beginnerTrap": "In C, scanf() needs the '&' address symbol before variable names, but printf() does not! Also, remember \\n to print on a new line."
+            "beginnerTrap": "In C, scanf() needs the '&' address symbol before variable names, but printf() does not! Also, remember \\n to print on a new line.",
+            "quiz": {
+              "question": "What defines a palindrome in computer science?",
+              "options": [
+                "A sequence that reads identically forward and backward",
+                "A number that has only two factors",
+                "A word with all vowels capitalized",
+                "An array with only even numbers"
+              ],
+              "correctIndex": 0,
+              "explanation": "A palindrome has perfect symmetry — like 'radar' or 12321. Comparing characters from both ends inward confirms symmetry."
+            },
+            "memoryTrace": {
+              "registers": [
+                {
+                  "name": "input",
+                  "value": "User Input",
+                  "role": "Buffered standard input stream"
+                },
+                {
+                  "name": "result",
+                  "value": "Computed Value",
+                  "role": "Register holding final evaluated result"
+                }
+              ],
+              "steps": [
+                {
+                  "step": 1,
+                  "title": "Input Reading",
+                  "state": {
+                    "input": "Received",
+                    "result": "Unset"
+                  },
+                  "explanation": "Program captures raw bytes from stdin into memory variables."
+                },
+                {
+                  "step": 2,
+                  "title": "CPU ALU Execution",
+                  "state": {
+                    "input": "Processed",
+                    "result": "Calculated"
+                  },
+                  "explanation": "Processor executes arithmetic/logical instructions according to program code."
+                },
+                {
+                  "step": 3,
+                  "title": "Output Emission",
+                  "state": {
+                    "input": "Done",
+                    "result": "Flushed to stdout"
+                  },
+                  "explanation": "Result formatted and flushed to the terminal screen."
+                }
+              ]
+            },
+            "anatomy": [
+              {
+                "line": "#include <stdio.h>",
+                "role": "Header Library",
+                "plainEnglish": "Imports the Standard Input/Output toolbox containing printf() and scanf()."
+              },
+              {
+                "line": "int main(void) { ... }",
+                "role": "Program Entry",
+                "plainEnglish": "The universal starting gate where operating systems initiate execution of C programs."
+              },
+              {
+                "line": "scanf(\"%d\", &var);",
+                "role": "Input Reader",
+                "plainEnglish": "Listens for typed numbers. The & symbol passes the RAM memory address of the variable."
+              },
+              {
+                "line": "printf(\"%d\\n\", result);",
+                "role": "Output Writer",
+                "plainEnglish": "Prints the calculated integer to terminal, followed by \\n (jump to next line)."
+              },
+              {
+                "line": "return 0;",
+                "role": "Success Exit",
+                "plainEnglish": "Reports exit code 0 back to the OS, signaling \"Everything completed successfully without errors\"."
+              }
+            ]
           },
           {
             "id": "c_m5_p4",
@@ -885,7 +2859,88 @@ export const CURRICULUM = {
               "Step 3 (Output): Print the final result clearly on the screen exactly as requested."
             ],
             "whyItMatters": "Foundational logic used in smartphone apps, smart microwaves, ATM cash dispensers, and space rovers.",
-            "beginnerTrap": "In C, scanf() needs the '&' address symbol before variable names, but printf() does not! Also, remember \\n to print on a new line."
+            "beginnerTrap": "In C, scanf() needs the '&' address symbol before variable names, but printf() does not! Also, remember \\n to print on a new line.",
+            "quiz": {
+              "question": "What is the core objective when solving \"Count Vowels and Consonants\"?",
+              "options": [
+                "Accept the input format, apply logical operations, and output the required result",
+                "Ignore user input and hardcode random values",
+                "Create an infinite loop",
+                "Shut down the compiler"
+              ],
+              "correctIndex": 0,
+              "explanation": "Every algorithm takes well-defined input, applies deterministic step-by-step logic, and produces the exact output expected."
+            },
+            "memoryTrace": {
+              "registers": [
+                {
+                  "name": "input",
+                  "value": "User Input",
+                  "role": "Buffered standard input stream"
+                },
+                {
+                  "name": "result",
+                  "value": "Computed Value",
+                  "role": "Register holding final evaluated result"
+                }
+              ],
+              "steps": [
+                {
+                  "step": 1,
+                  "title": "Input Reading",
+                  "state": {
+                    "input": "Received",
+                    "result": "Unset"
+                  },
+                  "explanation": "Program captures raw bytes from stdin into memory variables."
+                },
+                {
+                  "step": 2,
+                  "title": "CPU ALU Execution",
+                  "state": {
+                    "input": "Processed",
+                    "result": "Calculated"
+                  },
+                  "explanation": "Processor executes arithmetic/logical instructions according to program code."
+                },
+                {
+                  "step": 3,
+                  "title": "Output Emission",
+                  "state": {
+                    "input": "Done",
+                    "result": "Flushed to stdout"
+                  },
+                  "explanation": "Result formatted and flushed to the terminal screen."
+                }
+              ]
+            },
+            "anatomy": [
+              {
+                "line": "#include <stdio.h>",
+                "role": "Header Library",
+                "plainEnglish": "Imports the Standard Input/Output toolbox containing printf() and scanf()."
+              },
+              {
+                "line": "int main(void) { ... }",
+                "role": "Program Entry",
+                "plainEnglish": "The universal starting gate where operating systems initiate execution of C programs."
+              },
+              {
+                "line": "scanf(\"%d\", &var);",
+                "role": "Input Reader",
+                "plainEnglish": "Listens for typed numbers. The & symbol passes the RAM memory address of the variable."
+              },
+              {
+                "line": "printf(\"%d\\n\", result);",
+                "role": "Output Writer",
+                "plainEnglish": "Prints the calculated integer to terminal, followed by \\n (jump to next line)."
+              },
+              {
+                "line": "return 0;",
+                "role": "Success Exit",
+                "plainEnglish": "Reports exit code 0 back to the OS, signaling \"Everything completed successfully without errors\"."
+              }
+            ]
           },
           {
             "id": "c_m5_p5",
@@ -916,7 +2971,88 @@ export const CURRICULUM = {
               "Step 3 (Output): Print the final result clearly on the screen exactly as requested."
             ],
             "whyItMatters": "Foundational logic used in smartphone apps, smart microwaves, ATM cash dispensers, and space rovers.",
-            "beginnerTrap": "In C, scanf() needs the '&' address symbol before variable names, but printf() does not! Also, remember \\n to print on a new line."
+            "beginnerTrap": "In C, scanf() needs the '&' address symbol before variable names, but printf() does not! Also, remember \\n to print on a new line.",
+            "quiz": {
+              "question": "What is the core objective when solving \"Toggle Case of Every Letter\"?",
+              "options": [
+                "Accept the input format, apply logical operations, and output the required result",
+                "Ignore user input and hardcode random values",
+                "Create an infinite loop",
+                "Shut down the compiler"
+              ],
+              "correctIndex": 0,
+              "explanation": "Every algorithm takes well-defined input, applies deterministic step-by-step logic, and produces the exact output expected."
+            },
+            "memoryTrace": {
+              "registers": [
+                {
+                  "name": "input",
+                  "value": "User Input",
+                  "role": "Buffered standard input stream"
+                },
+                {
+                  "name": "result",
+                  "value": "Computed Value",
+                  "role": "Register holding final evaluated result"
+                }
+              ],
+              "steps": [
+                {
+                  "step": 1,
+                  "title": "Input Reading",
+                  "state": {
+                    "input": "Received",
+                    "result": "Unset"
+                  },
+                  "explanation": "Program captures raw bytes from stdin into memory variables."
+                },
+                {
+                  "step": 2,
+                  "title": "CPU ALU Execution",
+                  "state": {
+                    "input": "Processed",
+                    "result": "Calculated"
+                  },
+                  "explanation": "Processor executes arithmetic/logical instructions according to program code."
+                },
+                {
+                  "step": 3,
+                  "title": "Output Emission",
+                  "state": {
+                    "input": "Done",
+                    "result": "Flushed to stdout"
+                  },
+                  "explanation": "Result formatted and flushed to the terminal screen."
+                }
+              ]
+            },
+            "anatomy": [
+              {
+                "line": "#include <stdio.h>",
+                "role": "Header Library",
+                "plainEnglish": "Imports the Standard Input/Output toolbox containing printf() and scanf()."
+              },
+              {
+                "line": "int main(void) { ... }",
+                "role": "Program Entry",
+                "plainEnglish": "The universal starting gate where operating systems initiate execution of C programs."
+              },
+              {
+                "line": "scanf(\"%d\", &var);",
+                "role": "Input Reader",
+                "plainEnglish": "Listens for typed numbers. The & symbol passes the RAM memory address of the variable."
+              },
+              {
+                "line": "printf(\"%d\\n\", result);",
+                "role": "Output Writer",
+                "plainEnglish": "Prints the calculated integer to terminal, followed by \\n (jump to next line)."
+              },
+              {
+                "line": "return 0;",
+                "role": "Success Exit",
+                "plainEnglish": "Reports exit code 0 back to the OS, signaling \"Everything completed successfully without errors\"."
+              }
+            ]
           }
         ]
       },
@@ -955,7 +3091,88 @@ export const CURRICULUM = {
               "Step 3 (Output): Print the final result clearly on the screen exactly as requested."
             ],
             "whyItMatters": "Used in modern banking, WhatsApp end-to-end encryption, and password security keys.",
-            "beginnerTrap": "In C, scanf() needs the '&' address symbol before variable names, but printf() does not! Also, remember \\n to print on a new line."
+            "beginnerTrap": "In C, scanf() needs the '&' address symbol before variable names, but printf() does not! Also, remember \\n to print on a new line.",
+            "quiz": {
+              "question": "What critical component prevents a recursive function from causing a stack overflow crash?",
+              "options": [
+                "A base case that stops recursion and returns without another self-call",
+                "A while loop wrapped around the function",
+                "Adding more RAM to your computer",
+                "A print statement"
+              ],
+              "correctIndex": 0,
+              "explanation": "Without a base case, recursive calls keep pushing frames onto the call stack until memory is completely exhausted!"
+            },
+            "memoryTrace": {
+              "registers": [
+                {
+                  "name": "input",
+                  "value": "User Input",
+                  "role": "Buffered standard input stream"
+                },
+                {
+                  "name": "result",
+                  "value": "Computed Value",
+                  "role": "Register holding final evaluated result"
+                }
+              ],
+              "steps": [
+                {
+                  "step": 1,
+                  "title": "Input Reading",
+                  "state": {
+                    "input": "Received",
+                    "result": "Unset"
+                  },
+                  "explanation": "Program captures raw bytes from stdin into memory variables."
+                },
+                {
+                  "step": 2,
+                  "title": "CPU ALU Execution",
+                  "state": {
+                    "input": "Processed",
+                    "result": "Calculated"
+                  },
+                  "explanation": "Processor executes arithmetic/logical instructions according to program code."
+                },
+                {
+                  "step": 3,
+                  "title": "Output Emission",
+                  "state": {
+                    "input": "Done",
+                    "result": "Flushed to stdout"
+                  },
+                  "explanation": "Result formatted and flushed to the terminal screen."
+                }
+              ]
+            },
+            "anatomy": [
+              {
+                "line": "#include <stdio.h>",
+                "role": "Header Library",
+                "plainEnglish": "Imports the Standard Input/Output toolbox containing printf() and scanf()."
+              },
+              {
+                "line": "int main(void) { ... }",
+                "role": "Program Entry",
+                "plainEnglish": "The universal starting gate where operating systems initiate execution of C programs."
+              },
+              {
+                "line": "scanf(\"%d\", &var);",
+                "role": "Input Reader",
+                "plainEnglish": "Listens for typed numbers. The & symbol passes the RAM memory address of the variable."
+              },
+              {
+                "line": "printf(\"%d\\n\", result);",
+                "role": "Output Writer",
+                "plainEnglish": "Prints the calculated integer to terminal, followed by \\n (jump to next line)."
+              },
+              {
+                "line": "return 0;",
+                "role": "Success Exit",
+                "plainEnglish": "Reports exit code 0 back to the OS, signaling \"Everything completed successfully without errors\"."
+              }
+            ]
           },
           {
             "id": "c_m6_p2",
@@ -990,7 +3207,88 @@ export const CURRICULUM = {
               "Step 3 (Output): Print the final result clearly on the screen exactly as requested."
             ],
             "whyItMatters": "Foundational logic used in smartphone apps, smart microwaves, ATM cash dispensers, and space rovers.",
-            "beginnerTrap": "In C, scanf() needs the '&' address symbol before variable names, but printf() does not! Also, remember \\n to print on a new line."
+            "beginnerTrap": "In C, scanf() needs the '&' address symbol before variable names, but printf() does not! Also, remember \\n to print on a new line.",
+            "quiz": {
+              "question": "What is the core objective when solving \"Greatest Common Divisor (Euclidean Algorithm)\"?",
+              "options": [
+                "Accept the input format, apply logical operations, and output the required result",
+                "Ignore user input and hardcode random values",
+                "Create an infinite loop",
+                "Shut down the compiler"
+              ],
+              "correctIndex": 0,
+              "explanation": "Every algorithm takes well-defined input, applies deterministic step-by-step logic, and produces the exact output expected."
+            },
+            "memoryTrace": {
+              "registers": [
+                {
+                  "name": "input",
+                  "value": "User Input",
+                  "role": "Buffered standard input stream"
+                },
+                {
+                  "name": "result",
+                  "value": "Computed Value",
+                  "role": "Register holding final evaluated result"
+                }
+              ],
+              "steps": [
+                {
+                  "step": 1,
+                  "title": "Input Reading",
+                  "state": {
+                    "input": "Received",
+                    "result": "Unset"
+                  },
+                  "explanation": "Program captures raw bytes from stdin into memory variables."
+                },
+                {
+                  "step": 2,
+                  "title": "CPU ALU Execution",
+                  "state": {
+                    "input": "Processed",
+                    "result": "Calculated"
+                  },
+                  "explanation": "Processor executes arithmetic/logical instructions according to program code."
+                },
+                {
+                  "step": 3,
+                  "title": "Output Emission",
+                  "state": {
+                    "input": "Done",
+                    "result": "Flushed to stdout"
+                  },
+                  "explanation": "Result formatted and flushed to the terminal screen."
+                }
+              ]
+            },
+            "anatomy": [
+              {
+                "line": "#include <stdio.h>",
+                "role": "Header Library",
+                "plainEnglish": "Imports the Standard Input/Output toolbox containing printf() and scanf()."
+              },
+              {
+                "line": "int main(void) { ... }",
+                "role": "Program Entry",
+                "plainEnglish": "The universal starting gate where operating systems initiate execution of C programs."
+              },
+              {
+                "line": "scanf(\"%d\", &var);",
+                "role": "Input Reader",
+                "plainEnglish": "Listens for typed numbers. The & symbol passes the RAM memory address of the variable."
+              },
+              {
+                "line": "printf(\"%d\\n\", result);",
+                "role": "Output Writer",
+                "plainEnglish": "Prints the calculated integer to terminal, followed by \\n (jump to next line)."
+              },
+              {
+                "line": "return 0;",
+                "role": "Success Exit",
+                "plainEnglish": "Reports exit code 0 back to the OS, signaling \"Everything completed successfully without errors\"."
+              }
+            ]
           },
           {
             "id": "c_m6_p3",
@@ -1025,7 +3323,88 @@ export const CURRICULUM = {
               "Step 3 (Output): Print the final result clearly on the screen exactly as requested."
             ],
             "whyItMatters": "Foundational logic used in smartphone apps, smart microwaves, ATM cash dispensers, and space rovers.",
-            "beginnerTrap": "In C, scanf() needs the '&' address symbol before variable names, but printf() does not! Also, remember \\n to print on a new line."
+            "beginnerTrap": "In C, scanf() needs the '&' address symbol before variable names, but printf() does not! Also, remember \\n to print on a new line.",
+            "quiz": {
+              "question": "In the Fibonacci sequence (0, 1, 1, 2, 3, 5, 8...), how is each new term generated?",
+              "options": [
+                "By multiplying the previous number by 2",
+                "By adding together the two immediately preceding numbers",
+                "By squaring the previous number",
+                "By picking a random integer"
+              ],
+              "correctIndex": 1,
+              "explanation": "Fibonacci rule: F(n) = F(n-1) + F(n-2). Each step builds directly on the sum of the previous two steps."
+            },
+            "memoryTrace": {
+              "registers": [
+                {
+                  "name": "input",
+                  "value": "User Input",
+                  "role": "Buffered standard input stream"
+                },
+                {
+                  "name": "result",
+                  "value": "Computed Value",
+                  "role": "Register holding final evaluated result"
+                }
+              ],
+              "steps": [
+                {
+                  "step": 1,
+                  "title": "Input Reading",
+                  "state": {
+                    "input": "Received",
+                    "result": "Unset"
+                  },
+                  "explanation": "Program captures raw bytes from stdin into memory variables."
+                },
+                {
+                  "step": 2,
+                  "title": "CPU ALU Execution",
+                  "state": {
+                    "input": "Processed",
+                    "result": "Calculated"
+                  },
+                  "explanation": "Processor executes arithmetic/logical instructions according to program code."
+                },
+                {
+                  "step": 3,
+                  "title": "Output Emission",
+                  "state": {
+                    "input": "Done",
+                    "result": "Flushed to stdout"
+                  },
+                  "explanation": "Result formatted and flushed to the terminal screen."
+                }
+              ]
+            },
+            "anatomy": [
+              {
+                "line": "#include <stdio.h>",
+                "role": "Header Library",
+                "plainEnglish": "Imports the Standard Input/Output toolbox containing printf() and scanf()."
+              },
+              {
+                "line": "int main(void) { ... }",
+                "role": "Program Entry",
+                "plainEnglish": "The universal starting gate where operating systems initiate execution of C programs."
+              },
+              {
+                "line": "scanf(\"%d\", &var);",
+                "role": "Input Reader",
+                "plainEnglish": "Listens for typed numbers. The & symbol passes the RAM memory address of the variable."
+              },
+              {
+                "line": "printf(\"%d\\n\", result);",
+                "role": "Output Writer",
+                "plainEnglish": "Prints the calculated integer to terminal, followed by \\n (jump to next line)."
+              },
+              {
+                "line": "return 0;",
+                "role": "Success Exit",
+                "plainEnglish": "Reports exit code 0 back to the OS, signaling \"Everything completed successfully without errors\"."
+              }
+            ]
           },
           {
             "id": "c_m6_p4",
@@ -1060,7 +3439,88 @@ export const CURRICULUM = {
               "Step 3 (Output): Print the final result clearly on the screen exactly as requested."
             ],
             "whyItMatters": "Foundational logic used in smartphone apps, smart microwaves, ATM cash dispensers, and space rovers.",
-            "beginnerTrap": "In C, scanf() needs the '&' address symbol before variable names, but printf() does not! Also, remember \\n to print on a new line."
+            "beginnerTrap": "In C, scanf() needs the '&' address symbol before variable names, but printf() does not! Also, remember \\n to print on a new line.",
+            "quiz": {
+              "question": "What is the core objective when solving \"Power Function (X raised to N)\"?",
+              "options": [
+                "Accept the input format, apply logical operations, and output the required result",
+                "Ignore user input and hardcode random values",
+                "Create an infinite loop",
+                "Shut down the compiler"
+              ],
+              "correctIndex": 0,
+              "explanation": "Every algorithm takes well-defined input, applies deterministic step-by-step logic, and produces the exact output expected."
+            },
+            "memoryTrace": {
+              "registers": [
+                {
+                  "name": "input",
+                  "value": "User Input",
+                  "role": "Buffered standard input stream"
+                },
+                {
+                  "name": "result",
+                  "value": "Computed Value",
+                  "role": "Register holding final evaluated result"
+                }
+              ],
+              "steps": [
+                {
+                  "step": 1,
+                  "title": "Input Reading",
+                  "state": {
+                    "input": "Received",
+                    "result": "Unset"
+                  },
+                  "explanation": "Program captures raw bytes from stdin into memory variables."
+                },
+                {
+                  "step": 2,
+                  "title": "CPU ALU Execution",
+                  "state": {
+                    "input": "Processed",
+                    "result": "Calculated"
+                  },
+                  "explanation": "Processor executes arithmetic/logical instructions according to program code."
+                },
+                {
+                  "step": 3,
+                  "title": "Output Emission",
+                  "state": {
+                    "input": "Done",
+                    "result": "Flushed to stdout"
+                  },
+                  "explanation": "Result formatted and flushed to the terminal screen."
+                }
+              ]
+            },
+            "anatomy": [
+              {
+                "line": "#include <stdio.h>",
+                "role": "Header Library",
+                "plainEnglish": "Imports the Standard Input/Output toolbox containing printf() and scanf()."
+              },
+              {
+                "line": "int main(void) { ... }",
+                "role": "Program Entry",
+                "plainEnglish": "The universal starting gate where operating systems initiate execution of C programs."
+              },
+              {
+                "line": "scanf(\"%d\", &var);",
+                "role": "Input Reader",
+                "plainEnglish": "Listens for typed numbers. The & symbol passes the RAM memory address of the variable."
+              },
+              {
+                "line": "printf(\"%d\\n\", result);",
+                "role": "Output Writer",
+                "plainEnglish": "Prints the calculated integer to terminal, followed by \\n (jump to next line)."
+              },
+              {
+                "line": "return 0;",
+                "role": "Success Exit",
+                "plainEnglish": "Reports exit code 0 back to the OS, signaling \"Everything completed successfully without errors\"."
+              }
+            ]
           },
           {
             "id": "c_m6_p5",
@@ -1091,7 +3551,88 @@ export const CURRICULUM = {
               "Step 3 (Output): Print the final result clearly on the screen exactly as requested."
             ],
             "whyItMatters": "Foundational logic used in smartphone apps, smart microwaves, ATM cash dispensers, and space rovers.",
-            "beginnerTrap": "In C, scanf() needs the '&' address symbol before variable names, but printf() does not! Also, remember \\n to print on a new line."
+            "beginnerTrap": "In C, scanf() needs the '&' address symbol before variable names, but printf() does not! Also, remember \\n to print on a new line.",
+            "quiz": {
+              "question": "What critical component prevents a recursive function from causing a stack overflow crash?",
+              "options": [
+                "A base case that stops recursion and returns without another self-call",
+                "A while loop wrapped around the function",
+                "Adding more RAM to your computer",
+                "A print statement"
+              ],
+              "correctIndex": 0,
+              "explanation": "Without a base case, recursive calls keep pushing frames onto the call stack until memory is completely exhausted!"
+            },
+            "memoryTrace": {
+              "registers": [
+                {
+                  "name": "input",
+                  "value": "User Input",
+                  "role": "Buffered standard input stream"
+                },
+                {
+                  "name": "result",
+                  "value": "Computed Value",
+                  "role": "Register holding final evaluated result"
+                }
+              ],
+              "steps": [
+                {
+                  "step": 1,
+                  "title": "Input Reading",
+                  "state": {
+                    "input": "Received",
+                    "result": "Unset"
+                  },
+                  "explanation": "Program captures raw bytes from stdin into memory variables."
+                },
+                {
+                  "step": 2,
+                  "title": "CPU ALU Execution",
+                  "state": {
+                    "input": "Processed",
+                    "result": "Calculated"
+                  },
+                  "explanation": "Processor executes arithmetic/logical instructions according to program code."
+                },
+                {
+                  "step": 3,
+                  "title": "Output Emission",
+                  "state": {
+                    "input": "Done",
+                    "result": "Flushed to stdout"
+                  },
+                  "explanation": "Result formatted and flushed to the terminal screen."
+                }
+              ]
+            },
+            "anatomy": [
+              {
+                "line": "#include <stdio.h>",
+                "role": "Header Library",
+                "plainEnglish": "Imports the Standard Input/Output toolbox containing printf() and scanf()."
+              },
+              {
+                "line": "int main(void) { ... }",
+                "role": "Program Entry",
+                "plainEnglish": "The universal starting gate where operating systems initiate execution of C programs."
+              },
+              {
+                "line": "scanf(\"%d\", &var);",
+                "role": "Input Reader",
+                "plainEnglish": "Listens for typed numbers. The & symbol passes the RAM memory address of the variable."
+              },
+              {
+                "line": "printf(\"%d\\n\", result);",
+                "role": "Output Writer",
+                "plainEnglish": "Prints the calculated integer to terminal, followed by \\n (jump to next line)."
+              },
+              {
+                "line": "return 0;",
+                "role": "Success Exit",
+                "plainEnglish": "Reports exit code 0 back to the OS, signaling \"Everything completed successfully without errors\"."
+              }
+            ]
           }
         ]
       },
@@ -1130,7 +3671,88 @@ export const CURRICULUM = {
               "Step 3 (Output): Print the final result clearly on the screen exactly as requested."
             ],
             "whyItMatters": "Powers 3D video game engines (Unreal Engine), operating systems, and high-speed web browsers.",
-            "beginnerTrap": "In C, scanf() needs the '&' address symbol before variable names, but printf() does not! Also, remember \\n to print on a new line."
+            "beginnerTrap": "In C, scanf() needs the '&' address symbol before variable names, but printf() does not! Also, remember \\n to print on a new line.",
+            "quiz": {
+              "question": "How does the arithmetic swap 'a = a + b; b = a - b; a = a - b;' exchange values without a temporary variable?",
+              "options": [
+                "It deletes both numbers and generates new ones",
+                "The combined sum stores both values; subtracting b isolates original a, then subtracting again isolates original b",
+                "The compiler automatically adds a secret variable behind the scenes",
+                "It only works if both numbers are negative"
+              ],
+              "correctIndex": 1,
+              "explanation": "By temporarily keeping the total sum in 'a', subtracting the original 'b' yields the original 'a' into 'b', and subtracting again extracts original 'b' into 'a'!"
+            },
+            "memoryTrace": {
+              "registers": [
+                {
+                  "name": "a",
+                  "value": "3",
+                  "role": "First integer variable in RAM"
+                },
+                {
+                  "name": "b",
+                  "value": "7",
+                  "role": "Second integer variable in RAM"
+                }
+              ],
+              "steps": [
+                {
+                  "step": 1,
+                  "title": "Step 1: Combined Sum",
+                  "state": {
+                    "a": "10",
+                    "b": "7"
+                  },
+                  "explanation": "a = a + b (3 + 7 = 10). Variable \"a\" now holds the combined pool."
+                },
+                {
+                  "step": 2,
+                  "title": "Step 2: Isolate Original A",
+                  "state": {
+                    "a": "10",
+                    "b": "3"
+                  },
+                  "explanation": "b = a - b (10 - 7 = 3). \"b\" has now successfully acquired original \"a\" value!"
+                },
+                {
+                  "step": 3,
+                  "title": "Step 3: Isolate Original B",
+                  "state": {
+                    "a": "7",
+                    "b": "3"
+                  },
+                  "explanation": "a = a - b (10 - 3 = 7). \"a\" has now acquired original \"b\". Swap complete without extra RAM!"
+                }
+              ]
+            },
+            "anatomy": [
+              {
+                "line": "#include <stdio.h>",
+                "role": "Header Library",
+                "plainEnglish": "Imports the Standard Input/Output toolbox containing printf() and scanf()."
+              },
+              {
+                "line": "int main(void) { ... }",
+                "role": "Program Entry",
+                "plainEnglish": "The universal starting gate where operating systems initiate execution of C programs."
+              },
+              {
+                "line": "scanf(\"%d\", &var);",
+                "role": "Input Reader",
+                "plainEnglish": "Listens for typed numbers. The & symbol passes the RAM memory address of the variable."
+              },
+              {
+                "line": "printf(\"%d\\n\", result);",
+                "role": "Output Writer",
+                "plainEnglish": "Prints the calculated integer to terminal, followed by \\n (jump to next line)."
+              },
+              {
+                "line": "return 0;",
+                "role": "Success Exit",
+                "plainEnglish": "Reports exit code 0 back to the OS, signaling \"Everything completed successfully without errors\"."
+              }
+            ]
           },
           {
             "id": "c_m7_p2",
@@ -1161,7 +3783,88 @@ export const CURRICULUM = {
               "Step 3 (Output): Print the final result clearly on the screen exactly as requested."
             ],
             "whyItMatters": "Powers 3D video game engines (Unreal Engine), operating systems, and high-speed web browsers.",
-            "beginnerTrap": "In C, scanf() needs the '&' address symbol before variable names, but printf() does not! Also, remember \\n to print on a new line."
+            "beginnerTrap": "In C, scanf() needs the '&' address symbol before variable names, but printf() does not! Also, remember \\n to print on a new line.",
+            "quiz": {
+              "question": "What actually gets stored inside a pointer variable in C/C++?",
+              "options": [
+                "A string description of the data",
+                "The hexadecimal memory address of another location in RAM",
+                "A copy of the operating system kernel",
+                "A compressed zip file of data"
+              ],
+              "correctIndex": 1,
+              "explanation": "A pointer does not hold actual payload data — it holds the memory address (byte offset in RAM) where that data can be found."
+            },
+            "memoryTrace": {
+              "registers": [
+                {
+                  "name": "input",
+                  "value": "User Input",
+                  "role": "Buffered standard input stream"
+                },
+                {
+                  "name": "result",
+                  "value": "Computed Value",
+                  "role": "Register holding final evaluated result"
+                }
+              ],
+              "steps": [
+                {
+                  "step": 1,
+                  "title": "Input Reading",
+                  "state": {
+                    "input": "Received",
+                    "result": "Unset"
+                  },
+                  "explanation": "Program captures raw bytes from stdin into memory variables."
+                },
+                {
+                  "step": 2,
+                  "title": "CPU ALU Execution",
+                  "state": {
+                    "input": "Processed",
+                    "result": "Calculated"
+                  },
+                  "explanation": "Processor executes arithmetic/logical instructions according to program code."
+                },
+                {
+                  "step": 3,
+                  "title": "Output Emission",
+                  "state": {
+                    "input": "Done",
+                    "result": "Flushed to stdout"
+                  },
+                  "explanation": "Result formatted and flushed to the terminal screen."
+                }
+              ]
+            },
+            "anatomy": [
+              {
+                "line": "#include <stdio.h>",
+                "role": "Header Library",
+                "plainEnglish": "Imports the Standard Input/Output toolbox containing printf() and scanf()."
+              },
+              {
+                "line": "int main(void) { ... }",
+                "role": "Program Entry",
+                "plainEnglish": "The universal starting gate where operating systems initiate execution of C programs."
+              },
+              {
+                "line": "scanf(\"%d\", &var);",
+                "role": "Input Reader",
+                "plainEnglish": "Listens for typed numbers. The & symbol passes the RAM memory address of the variable."
+              },
+              {
+                "line": "printf(\"%d\\n\", result);",
+                "role": "Output Writer",
+                "plainEnglish": "Prints the calculated integer to terminal, followed by \\n (jump to next line)."
+              },
+              {
+                "line": "return 0;",
+                "role": "Success Exit",
+                "plainEnglish": "Reports exit code 0 back to the OS, signaling \"Everything completed successfully without errors\"."
+              }
+            ]
           },
           {
             "id": "c_m7_p3",
@@ -1193,7 +3896,96 @@ export const CURRICULUM = {
               "Step 3 (Output): Print the final result clearly on the screen exactly as requested."
             ],
             "whyItMatters": "Powers Spotify playlist shuffling, Amazon product price sorting, and video game leaderboard rankings.",
-            "beginnerTrap": "In C, scanf() needs the '&' address symbol before variable names, but printf() does not! Also, remember \\n to print on a new line."
+            "beginnerTrap": "In C, scanf() needs the '&' address symbol before variable names, but printf() does not! Also, remember \\n to print on a new line.",
+            "quiz": {
+              "question": "When reversing an array with two pointers (left and right), when do we stop swapping?",
+              "options": [
+                "When left reaches the end of the array",
+                "When left and right pointers cross or meet in the middle (left >= right)",
+                "After exactly 1 swap",
+                "Never — it loops endlessly"
+              ],
+              "correctIndex": 1,
+              "explanation": "Once the left and right pointers cross in the center, every symmetric pair has already been swapped! Swapping further would reverse it back."
+            },
+            "memoryTrace": {
+              "registers": [
+                {
+                  "name": "arr",
+                  "value": "[1, 2, 3, 4, 5]",
+                  "role": "Contiguous array in memory"
+                },
+                {
+                  "name": "left",
+                  "value": "0",
+                  "role": "Start index pointer"
+                },
+                {
+                  "name": "right",
+                  "value": "4",
+                  "role": "End index pointer"
+                }
+              ],
+              "steps": [
+                {
+                  "step": 1,
+                  "title": "Pointer Setup",
+                  "state": {
+                    "arr": "[1, 2, 3, 4, 5]",
+                    "left": "0",
+                    "right": "4"
+                  },
+                  "explanation": "left points to 1 (idx 0), right points to 5 (idx 4)."
+                },
+                {
+                  "step": 2,
+                  "title": "First Swap & Move",
+                  "state": {
+                    "arr": "[5, 2, 3, 4, 1]",
+                    "left": "1",
+                    "right": "3"
+                  },
+                  "explanation": "Swap arr[0] and arr[4]. left increments to 1, right decrements to 3."
+                },
+                {
+                  "step": 3,
+                  "title": "Second Swap & Meet",
+                  "state": {
+                    "arr": "[5, 4, 3, 2, 1]",
+                    "left": "2",
+                    "right": "2"
+                  },
+                  "explanation": "Swap arr[1] and arr[3]. Both pointers meet at center index 2. Reverse finished!"
+                }
+              ]
+            },
+            "anatomy": [
+              {
+                "line": "#include <stdio.h>",
+                "role": "Header Library",
+                "plainEnglish": "Imports the Standard Input/Output toolbox containing printf() and scanf()."
+              },
+              {
+                "line": "int main(void) { ... }",
+                "role": "Program Entry",
+                "plainEnglish": "The universal starting gate where operating systems initiate execution of C programs."
+              },
+              {
+                "line": "scanf(\"%d\", &var);",
+                "role": "Input Reader",
+                "plainEnglish": "Listens for typed numbers. The & symbol passes the RAM memory address of the variable."
+              },
+              {
+                "line": "printf(\"%d\\n\", result);",
+                "role": "Output Writer",
+                "plainEnglish": "Prints the calculated integer to terminal, followed by \\n (jump to next line)."
+              },
+              {
+                "line": "return 0;",
+                "role": "Success Exit",
+                "plainEnglish": "Reports exit code 0 back to the OS, signaling \"Everything completed successfully without errors\"."
+              }
+            ]
           },
           {
             "id": "c_m7_p4",
@@ -1224,7 +4016,88 @@ export const CURRICULUM = {
               "Step 3 (Output): Print the final result clearly on the screen exactly as requested."
             ],
             "whyItMatters": "Powers 3D video game engines (Unreal Engine), operating systems, and high-speed web browsers.",
-            "beginnerTrap": "In C, scanf() needs the '&' address symbol before variable names, but printf() does not! Also, remember \\n to print on a new line."
+            "beginnerTrap": "In C, scanf() needs the '&' address symbol before variable names, but printf() does not! Also, remember \\n to print on a new line.",
+            "quiz": {
+              "question": "What actually gets stored inside a pointer variable in C/C++?",
+              "options": [
+                "A string description of the data",
+                "The hexadecimal memory address of another location in RAM",
+                "A copy of the operating system kernel",
+                "A compressed zip file of data"
+              ],
+              "correctIndex": 1,
+              "explanation": "A pointer does not hold actual payload data — it holds the memory address (byte offset in RAM) where that data can be found."
+            },
+            "memoryTrace": {
+              "registers": [
+                {
+                  "name": "input",
+                  "value": "User Input",
+                  "role": "Buffered standard input stream"
+                },
+                {
+                  "name": "result",
+                  "value": "Computed Value",
+                  "role": "Register holding final evaluated result"
+                }
+              ],
+              "steps": [
+                {
+                  "step": 1,
+                  "title": "Input Reading",
+                  "state": {
+                    "input": "Received",
+                    "result": "Unset"
+                  },
+                  "explanation": "Program captures raw bytes from stdin into memory variables."
+                },
+                {
+                  "step": 2,
+                  "title": "CPU ALU Execution",
+                  "state": {
+                    "input": "Processed",
+                    "result": "Calculated"
+                  },
+                  "explanation": "Processor executes arithmetic/logical instructions according to program code."
+                },
+                {
+                  "step": 3,
+                  "title": "Output Emission",
+                  "state": {
+                    "input": "Done",
+                    "result": "Flushed to stdout"
+                  },
+                  "explanation": "Result formatted and flushed to the terminal screen."
+                }
+              ]
+            },
+            "anatomy": [
+              {
+                "line": "#include <stdio.h>",
+                "role": "Header Library",
+                "plainEnglish": "Imports the Standard Input/Output toolbox containing printf() and scanf()."
+              },
+              {
+                "line": "int main(void) { ... }",
+                "role": "Program Entry",
+                "plainEnglish": "The universal starting gate where operating systems initiate execution of C programs."
+              },
+              {
+                "line": "scanf(\"%d\", &var);",
+                "role": "Input Reader",
+                "plainEnglish": "Listens for typed numbers. The & symbol passes the RAM memory address of the variable."
+              },
+              {
+                "line": "printf(\"%d\\n\", result);",
+                "role": "Output Writer",
+                "plainEnglish": "Prints the calculated integer to terminal, followed by \\n (jump to next line)."
+              },
+              {
+                "line": "return 0;",
+                "role": "Success Exit",
+                "plainEnglish": "Reports exit code 0 back to the OS, signaling \"Everything completed successfully without errors\"."
+              }
+            ]
           },
           {
             "id": "c_m7_p5",
@@ -1256,7 +4129,88 @@ export const CURRICULUM = {
               "Step 3 (Output): Print the final result clearly on the screen exactly as requested."
             ],
             "whyItMatters": "Powers 3D video game engines (Unreal Engine), operating systems, and high-speed web browsers.",
-            "beginnerTrap": "In C, scanf() needs the '&' address symbol before variable names, but printf() does not! Also, remember \\n to print on a new line."
+            "beginnerTrap": "In C, scanf() needs the '&' address symbol before variable names, but printf() does not! Also, remember \\n to print on a new line.",
+            "quiz": {
+              "question": "What actually gets stored inside a pointer variable in C/C++?",
+              "options": [
+                "A string description of the data",
+                "The hexadecimal memory address of another location in RAM",
+                "A copy of the operating system kernel",
+                "A compressed zip file of data"
+              ],
+              "correctIndex": 1,
+              "explanation": "A pointer does not hold actual payload data — it holds the memory address (byte offset in RAM) where that data can be found."
+            },
+            "memoryTrace": {
+              "registers": [
+                {
+                  "name": "input",
+                  "value": "User Input",
+                  "role": "Buffered standard input stream"
+                },
+                {
+                  "name": "result",
+                  "value": "Computed Value",
+                  "role": "Register holding final evaluated result"
+                }
+              ],
+              "steps": [
+                {
+                  "step": 1,
+                  "title": "Input Reading",
+                  "state": {
+                    "input": "Received",
+                    "result": "Unset"
+                  },
+                  "explanation": "Program captures raw bytes from stdin into memory variables."
+                },
+                {
+                  "step": 2,
+                  "title": "CPU ALU Execution",
+                  "state": {
+                    "input": "Processed",
+                    "result": "Calculated"
+                  },
+                  "explanation": "Processor executes arithmetic/logical instructions according to program code."
+                },
+                {
+                  "step": 3,
+                  "title": "Output Emission",
+                  "state": {
+                    "input": "Done",
+                    "result": "Flushed to stdout"
+                  },
+                  "explanation": "Result formatted and flushed to the terminal screen."
+                }
+              ]
+            },
+            "anatomy": [
+              {
+                "line": "#include <stdio.h>",
+                "role": "Header Library",
+                "plainEnglish": "Imports the Standard Input/Output toolbox containing printf() and scanf()."
+              },
+              {
+                "line": "int main(void) { ... }",
+                "role": "Program Entry",
+                "plainEnglish": "The universal starting gate where operating systems initiate execution of C programs."
+              },
+              {
+                "line": "scanf(\"%d\", &var);",
+                "role": "Input Reader",
+                "plainEnglish": "Listens for typed numbers. The & symbol passes the RAM memory address of the variable."
+              },
+              {
+                "line": "printf(\"%d\\n\", result);",
+                "role": "Output Writer",
+                "plainEnglish": "Prints the calculated integer to terminal, followed by \\n (jump to next line)."
+              },
+              {
+                "line": "return 0;",
+                "role": "Success Exit",
+                "plainEnglish": "Reports exit code 0 back to the OS, signaling \"Everything completed successfully without errors\"."
+              }
+            ]
           }
         ]
       }
@@ -1305,7 +4259,83 @@ export const CURRICULUM = {
               "Step 3 (Output): Print the final result clearly on the screen exactly as requested."
             ],
             "whyItMatters": "Foundational logic used in smartphone apps, smart microwaves, ATM cash dispensers, and space rovers.",
-            "beginnerTrap": "In Python, input() always reads text (strings)! Remember to wrap it with int(input()) when dealing with numbers, and watch indentation."
+            "beginnerTrap": "In Python, input() always reads text (strings)! Remember to wrap it with int(input()) when dealing with numbers, and watch indentation.",
+            "quiz": {
+              "question": "In code, what does 'n % 2 == 0' mathematically determine?",
+              "options": [
+                "Whether n is equal to 2",
+                "Whether n divided by 2 has zero remainder, meaning it is an Even number",
+                "Whether n is a decimal fraction",
+                "Whether n is negative"
+              ],
+              "correctIndex": 1,
+              "explanation": "Modulo (%) returns the division remainder. An even number splits cleanly into pairs with 0 left over."
+            },
+            "memoryTrace": {
+              "registers": [
+                {
+                  "name": "input",
+                  "value": "User Input",
+                  "role": "Buffered standard input stream"
+                },
+                {
+                  "name": "result",
+                  "value": "Computed Value",
+                  "role": "Register holding final evaluated result"
+                }
+              ],
+              "steps": [
+                {
+                  "step": 1,
+                  "title": "Input Reading",
+                  "state": {
+                    "input": "Received",
+                    "result": "Unset"
+                  },
+                  "explanation": "Program captures raw bytes from stdin into memory variables."
+                },
+                {
+                  "step": 2,
+                  "title": "CPU ALU Execution",
+                  "state": {
+                    "input": "Processed",
+                    "result": "Calculated"
+                  },
+                  "explanation": "Processor executes arithmetic/logical instructions according to program code."
+                },
+                {
+                  "step": 3,
+                  "title": "Output Emission",
+                  "state": {
+                    "input": "Done",
+                    "result": "Flushed to stdout"
+                  },
+                  "explanation": "Result formatted and flushed to the terminal screen."
+                }
+              ]
+            },
+            "anatomy": [
+              {
+                "line": "a = int(input())",
+                "role": "Input & Casting",
+                "plainEnglish": "Reads user keyboard input as text, then immediately converts (casts) it into a whole number integer."
+              },
+              {
+                "line": "for i in range(n):",
+                "role": "Loop Iterator",
+                "plainEnglish": "Repeats the indented code block starting from count 0 up to n - 1."
+              },
+              {
+                "line": "if condition: ... else:",
+                "role": "Decision Gate",
+                "plainEnglish": "Checks a Boolean truth test. If true, runs the first indented block; otherwise runs else."
+              },
+              {
+                "line": "print(result)",
+                "role": "Standard Output",
+                "plainEnglish": "Outputs the value to the screen and automatically appends a clean newline at the end."
+              }
+            ]
           },
           {
             "id": "py_m1_p2",
@@ -1336,7 +4366,83 @@ export const CURRICULUM = {
               "Step 3 (Output): Print the final result clearly on the screen exactly as requested."
             ],
             "whyItMatters": "Foundational logic used in smartphone apps, smart microwaves, ATM cash dispensers, and space rovers.",
-            "beginnerTrap": "In Python, input() always reads text (strings)! Remember to wrap it with int(input()) when dealing with numbers, and watch indentation."
+            "beginnerTrap": "In Python, input() always reads text (strings)! Remember to wrap it with int(input()) when dealing with numbers, and watch indentation.",
+            "quiz": {
+              "question": "How does the arithmetic swap 'a = a + b; b = a - b; a = a - b;' exchange values without a temporary variable?",
+              "options": [
+                "It deletes both numbers and generates new ones",
+                "The combined sum stores both values; subtracting b isolates original a, then subtracting again isolates original b",
+                "The compiler automatically adds a secret variable behind the scenes",
+                "It only works if both numbers are negative"
+              ],
+              "correctIndex": 1,
+              "explanation": "By temporarily keeping the total sum in 'a', subtracting the original 'b' yields the original 'a' into 'b', and subtracting again extracts original 'b' into 'a'!"
+            },
+            "memoryTrace": {
+              "registers": [
+                {
+                  "name": "a",
+                  "value": "3",
+                  "role": "First integer variable in RAM"
+                },
+                {
+                  "name": "b",
+                  "value": "7",
+                  "role": "Second integer variable in RAM"
+                }
+              ],
+              "steps": [
+                {
+                  "step": 1,
+                  "title": "Step 1: Combined Sum",
+                  "state": {
+                    "a": "10",
+                    "b": "7"
+                  },
+                  "explanation": "a = a + b (3 + 7 = 10). Variable \"a\" now holds the combined pool."
+                },
+                {
+                  "step": 2,
+                  "title": "Step 2: Isolate Original A",
+                  "state": {
+                    "a": "10",
+                    "b": "3"
+                  },
+                  "explanation": "b = a - b (10 - 7 = 3). \"b\" has now successfully acquired original \"a\" value!"
+                },
+                {
+                  "step": 3,
+                  "title": "Step 3: Isolate Original B",
+                  "state": {
+                    "a": "7",
+                    "b": "3"
+                  },
+                  "explanation": "a = a - b (10 - 3 = 7). \"a\" has now acquired original \"b\". Swap complete without extra RAM!"
+                }
+              ]
+            },
+            "anatomy": [
+              {
+                "line": "a = int(input())",
+                "role": "Input & Casting",
+                "plainEnglish": "Reads user keyboard input as text, then immediately converts (casts) it into a whole number integer."
+              },
+              {
+                "line": "for i in range(n):",
+                "role": "Loop Iterator",
+                "plainEnglish": "Repeats the indented code block starting from count 0 up to n - 1."
+              },
+              {
+                "line": "if condition: ... else:",
+                "role": "Decision Gate",
+                "plainEnglish": "Checks a Boolean truth test. If true, runs the first indented block; otherwise runs else."
+              },
+              {
+                "line": "print(result)",
+                "role": "Standard Output",
+                "plainEnglish": "Outputs the value to the screen and automatically appends a clean newline at the end."
+              }
+            ]
           },
           {
             "id": "py_m1_p3",
@@ -1371,7 +4477,83 @@ export const CURRICULUM = {
               "Step 3 (Output): Print the final result clearly on the screen exactly as requested."
             ],
             "whyItMatters": "Foundational logic used in smartphone apps, smart microwaves, ATM cash dispensers, and space rovers.",
-            "beginnerTrap": "In Python, input() always reads text (strings)! Remember to wrap it with int(input()) when dealing with numbers, and watch indentation."
+            "beginnerTrap": "In Python, input() always reads text (strings)! Remember to wrap it with int(input()) when dealing with numbers, and watch indentation.",
+            "quiz": {
+              "question": "What is the core objective when solving \"Temperature Converter (Celsius to Fahrenheit)\"?",
+              "options": [
+                "Accept the input format, apply logical operations, and output the required result",
+                "Ignore user input and hardcode random values",
+                "Create an infinite loop",
+                "Shut down the compiler"
+              ],
+              "correctIndex": 0,
+              "explanation": "Every algorithm takes well-defined input, applies deterministic step-by-step logic, and produces the exact output expected."
+            },
+            "memoryTrace": {
+              "registers": [
+                {
+                  "name": "input",
+                  "value": "User Input",
+                  "role": "Buffered standard input stream"
+                },
+                {
+                  "name": "result",
+                  "value": "Computed Value",
+                  "role": "Register holding final evaluated result"
+                }
+              ],
+              "steps": [
+                {
+                  "step": 1,
+                  "title": "Input Reading",
+                  "state": {
+                    "input": "Received",
+                    "result": "Unset"
+                  },
+                  "explanation": "Program captures raw bytes from stdin into memory variables."
+                },
+                {
+                  "step": 2,
+                  "title": "CPU ALU Execution",
+                  "state": {
+                    "input": "Processed",
+                    "result": "Calculated"
+                  },
+                  "explanation": "Processor executes arithmetic/logical instructions according to program code."
+                },
+                {
+                  "step": 3,
+                  "title": "Output Emission",
+                  "state": {
+                    "input": "Done",
+                    "result": "Flushed to stdout"
+                  },
+                  "explanation": "Result formatted and flushed to the terminal screen."
+                }
+              ]
+            },
+            "anatomy": [
+              {
+                "line": "a = int(input())",
+                "role": "Input & Casting",
+                "plainEnglish": "Reads user keyboard input as text, then immediately converts (casts) it into a whole number integer."
+              },
+              {
+                "line": "for i in range(n):",
+                "role": "Loop Iterator",
+                "plainEnglish": "Repeats the indented code block starting from count 0 up to n - 1."
+              },
+              {
+                "line": "if condition: ... else:",
+                "role": "Decision Gate",
+                "plainEnglish": "Checks a Boolean truth test. If true, runs the first indented block; otherwise runs else."
+              },
+              {
+                "line": "print(result)",
+                "role": "Standard Output",
+                "plainEnglish": "Outputs the value to the screen and automatically appends a clean newline at the end."
+              }
+            ]
           },
           {
             "id": "py_m1_p4",
@@ -1402,7 +4584,83 @@ export const CURRICULUM = {
               "Step 3 (Output): Print the final result clearly on the screen exactly as requested."
             ],
             "whyItMatters": "Foundational logic used in smartphone apps, smart microwaves, ATM cash dispensers, and space rovers.",
-            "beginnerTrap": "In Python, input() always reads text (strings)! Remember to wrap it with int(input()) when dealing with numbers, and watch indentation."
+            "beginnerTrap": "In Python, input() always reads text (strings)! Remember to wrap it with int(input()) when dealing with numbers, and watch indentation.",
+            "quiz": {
+              "question": "What is the core objective when solving \"Circle Area and Circumference\"?",
+              "options": [
+                "Accept the input format, apply logical operations, and output the required result",
+                "Ignore user input and hardcode random values",
+                "Create an infinite loop",
+                "Shut down the compiler"
+              ],
+              "correctIndex": 0,
+              "explanation": "Every algorithm takes well-defined input, applies deterministic step-by-step logic, and produces the exact output expected."
+            },
+            "memoryTrace": {
+              "registers": [
+                {
+                  "name": "input",
+                  "value": "User Input",
+                  "role": "Buffered standard input stream"
+                },
+                {
+                  "name": "result",
+                  "value": "Computed Value",
+                  "role": "Register holding final evaluated result"
+                }
+              ],
+              "steps": [
+                {
+                  "step": 1,
+                  "title": "Input Reading",
+                  "state": {
+                    "input": "Received",
+                    "result": "Unset"
+                  },
+                  "explanation": "Program captures raw bytes from stdin into memory variables."
+                },
+                {
+                  "step": 2,
+                  "title": "CPU ALU Execution",
+                  "state": {
+                    "input": "Processed",
+                    "result": "Calculated"
+                  },
+                  "explanation": "Processor executes arithmetic/logical instructions according to program code."
+                },
+                {
+                  "step": 3,
+                  "title": "Output Emission",
+                  "state": {
+                    "input": "Done",
+                    "result": "Flushed to stdout"
+                  },
+                  "explanation": "Result formatted and flushed to the terminal screen."
+                }
+              ]
+            },
+            "anatomy": [
+              {
+                "line": "a = int(input())",
+                "role": "Input & Casting",
+                "plainEnglish": "Reads user keyboard input as text, then immediately converts (casts) it into a whole number integer."
+              },
+              {
+                "line": "for i in range(n):",
+                "role": "Loop Iterator",
+                "plainEnglish": "Repeats the indented code block starting from count 0 up to n - 1."
+              },
+              {
+                "line": "if condition: ... else:",
+                "role": "Decision Gate",
+                "plainEnglish": "Checks a Boolean truth test. If true, runs the first indented block; otherwise runs else."
+              },
+              {
+                "line": "print(result)",
+                "role": "Standard Output",
+                "plainEnglish": "Outputs the value to the screen and automatically appends a clean newline at the end."
+              }
+            ]
           },
           {
             "id": "py_m1_p5",
@@ -1433,7 +4691,83 @@ export const CURRICULUM = {
               "Step 3 (Output): Print the final result clearly on the screen exactly as requested."
             ],
             "whyItMatters": "Foundational logic used in smartphone apps, smart microwaves, ATM cash dispensers, and space rovers.",
-            "beginnerTrap": "In Python, input() always reads text (strings)! Remember to wrap it with int(input()) when dealing with numbers, and watch indentation."
+            "beginnerTrap": "In Python, input() always reads text (strings)! Remember to wrap it with int(input()) when dealing with numbers, and watch indentation.",
+            "quiz": {
+              "question": "What is the core objective when solving \"Simple Interest Calculator\"?",
+              "options": [
+                "Accept the input format, apply logical operations, and output the required result",
+                "Ignore user input and hardcode random values",
+                "Create an infinite loop",
+                "Shut down the compiler"
+              ],
+              "correctIndex": 0,
+              "explanation": "Every algorithm takes well-defined input, applies deterministic step-by-step logic, and produces the exact output expected."
+            },
+            "memoryTrace": {
+              "registers": [
+                {
+                  "name": "input",
+                  "value": "User Input",
+                  "role": "Buffered standard input stream"
+                },
+                {
+                  "name": "result",
+                  "value": "Computed Value",
+                  "role": "Register holding final evaluated result"
+                }
+              ],
+              "steps": [
+                {
+                  "step": 1,
+                  "title": "Input Reading",
+                  "state": {
+                    "input": "Received",
+                    "result": "Unset"
+                  },
+                  "explanation": "Program captures raw bytes from stdin into memory variables."
+                },
+                {
+                  "step": 2,
+                  "title": "CPU ALU Execution",
+                  "state": {
+                    "input": "Processed",
+                    "result": "Calculated"
+                  },
+                  "explanation": "Processor executes arithmetic/logical instructions according to program code."
+                },
+                {
+                  "step": 3,
+                  "title": "Output Emission",
+                  "state": {
+                    "input": "Done",
+                    "result": "Flushed to stdout"
+                  },
+                  "explanation": "Result formatted and flushed to the terminal screen."
+                }
+              ]
+            },
+            "anatomy": [
+              {
+                "line": "a = int(input())",
+                "role": "Input & Casting",
+                "plainEnglish": "Reads user keyboard input as text, then immediately converts (casts) it into a whole number integer."
+              },
+              {
+                "line": "for i in range(n):",
+                "role": "Loop Iterator",
+                "plainEnglish": "Repeats the indented code block starting from count 0 up to n - 1."
+              },
+              {
+                "line": "if condition: ... else:",
+                "role": "Decision Gate",
+                "plainEnglish": "Checks a Boolean truth test. If true, runs the first indented block; otherwise runs else."
+              },
+              {
+                "line": "print(result)",
+                "role": "Standard Output",
+                "plainEnglish": "Outputs the value to the screen and automatically appends a clean newline at the end."
+              }
+            ]
           }
         ]
       },
@@ -1472,7 +4806,83 @@ export const CURRICULUM = {
               "Step 3 (Output): Print the final result clearly on the screen exactly as requested."
             ],
             "whyItMatters": "Foundational logic used in smartphone apps, smart microwaves, ATM cash dispensers, and space rovers.",
-            "beginnerTrap": "In Python, input() always reads text (strings)! Remember to wrap it with int(input()) when dealing with numbers, and watch indentation."
+            "beginnerTrap": "In Python, input() always reads text (strings)! Remember to wrap it with int(input()) when dealing with numbers, and watch indentation.",
+            "quiz": {
+              "question": "In code, what does 'n % 2 == 0' mathematically determine?",
+              "options": [
+                "Whether n is equal to 2",
+                "Whether n divided by 2 has zero remainder, meaning it is an Even number",
+                "Whether n is a decimal fraction",
+                "Whether n is negative"
+              ],
+              "correctIndex": 1,
+              "explanation": "Modulo (%) returns the division remainder. An even number splits cleanly into pairs with 0 left over."
+            },
+            "memoryTrace": {
+              "registers": [
+                {
+                  "name": "input",
+                  "value": "User Input",
+                  "role": "Buffered standard input stream"
+                },
+                {
+                  "name": "result",
+                  "value": "Computed Value",
+                  "role": "Register holding final evaluated result"
+                }
+              ],
+              "steps": [
+                {
+                  "step": 1,
+                  "title": "Input Reading",
+                  "state": {
+                    "input": "Received",
+                    "result": "Unset"
+                  },
+                  "explanation": "Program captures raw bytes from stdin into memory variables."
+                },
+                {
+                  "step": 2,
+                  "title": "CPU ALU Execution",
+                  "state": {
+                    "input": "Processed",
+                    "result": "Calculated"
+                  },
+                  "explanation": "Processor executes arithmetic/logical instructions according to program code."
+                },
+                {
+                  "step": 3,
+                  "title": "Output Emission",
+                  "state": {
+                    "input": "Done",
+                    "result": "Flushed to stdout"
+                  },
+                  "explanation": "Result formatted and flushed to the terminal screen."
+                }
+              ]
+            },
+            "anatomy": [
+              {
+                "line": "a = int(input())",
+                "role": "Input & Casting",
+                "plainEnglish": "Reads user keyboard input as text, then immediately converts (casts) it into a whole number integer."
+              },
+              {
+                "line": "for i in range(n):",
+                "role": "Loop Iterator",
+                "plainEnglish": "Repeats the indented code block starting from count 0 up to n - 1."
+              },
+              {
+                "line": "if condition: ... else:",
+                "role": "Decision Gate",
+                "plainEnglish": "Checks a Boolean truth test. If true, runs the first indented block; otherwise runs else."
+              },
+              {
+                "line": "print(result)",
+                "role": "Standard Output",
+                "plainEnglish": "Outputs the value to the screen and automatically appends a clean newline at the end."
+              }
+            ]
           },
           {
             "id": "py_m2_p2",
@@ -1503,7 +4913,83 @@ export const CURRICULUM = {
               "Step 3 (Output): Print the final result clearly on the screen exactly as requested."
             ],
             "whyItMatters": "Foundational logic used in smartphone apps, smart microwaves, ATM cash dispensers, and space rovers.",
-            "beginnerTrap": "In Python, input() always reads text (strings)! Remember to wrap it with int(input()) when dealing with numbers, and watch indentation."
+            "beginnerTrap": "In Python, input() always reads text (strings)! Remember to wrap it with int(input()) when dealing with numbers, and watch indentation.",
+            "quiz": {
+              "question": "What is the core objective when solving \"Leap Year Detector in Python\"?",
+              "options": [
+                "Accept the input format, apply logical operations, and output the required result",
+                "Ignore user input and hardcode random values",
+                "Create an infinite loop",
+                "Shut down the compiler"
+              ],
+              "correctIndex": 0,
+              "explanation": "Every algorithm takes well-defined input, applies deterministic step-by-step logic, and produces the exact output expected."
+            },
+            "memoryTrace": {
+              "registers": [
+                {
+                  "name": "input",
+                  "value": "User Input",
+                  "role": "Buffered standard input stream"
+                },
+                {
+                  "name": "result",
+                  "value": "Computed Value",
+                  "role": "Register holding final evaluated result"
+                }
+              ],
+              "steps": [
+                {
+                  "step": 1,
+                  "title": "Input Reading",
+                  "state": {
+                    "input": "Received",
+                    "result": "Unset"
+                  },
+                  "explanation": "Program captures raw bytes from stdin into memory variables."
+                },
+                {
+                  "step": 2,
+                  "title": "CPU ALU Execution",
+                  "state": {
+                    "input": "Processed",
+                    "result": "Calculated"
+                  },
+                  "explanation": "Processor executes arithmetic/logical instructions according to program code."
+                },
+                {
+                  "step": 3,
+                  "title": "Output Emission",
+                  "state": {
+                    "input": "Done",
+                    "result": "Flushed to stdout"
+                  },
+                  "explanation": "Result formatted and flushed to the terminal screen."
+                }
+              ]
+            },
+            "anatomy": [
+              {
+                "line": "a = int(input())",
+                "role": "Input & Casting",
+                "plainEnglish": "Reads user keyboard input as text, then immediately converts (casts) it into a whole number integer."
+              },
+              {
+                "line": "for i in range(n):",
+                "role": "Loop Iterator",
+                "plainEnglish": "Repeats the indented code block starting from count 0 up to n - 1."
+              },
+              {
+                "line": "if condition: ... else:",
+                "role": "Decision Gate",
+                "plainEnglish": "Checks a Boolean truth test. If true, runs the first indented block; otherwise runs else."
+              },
+              {
+                "line": "print(result)",
+                "role": "Standard Output",
+                "plainEnglish": "Outputs the value to the screen and automatically appends a clean newline at the end."
+              }
+            ]
           },
           {
             "id": "py_m2_p3",
@@ -1534,7 +5020,83 @@ export const CURRICULUM = {
               "Step 3 (Output): Print the final result clearly on the screen exactly as requested."
             ],
             "whyItMatters": "Foundational logic used in smartphone apps, smart microwaves, ATM cash dispensers, and space rovers.",
-            "beginnerTrap": "In Python, input() always reads text (strings)! Remember to wrap it with int(input()) when dealing with numbers, and watch indentation."
+            "beginnerTrap": "In Python, input() always reads text (strings)! Remember to wrap it with int(input()) when dealing with numbers, and watch indentation.",
+            "quiz": {
+              "question": "What is the core objective when solving \"Maximum of Three Numbers\"?",
+              "options": [
+                "Accept the input format, apply logical operations, and output the required result",
+                "Ignore user input and hardcode random values",
+                "Create an infinite loop",
+                "Shut down the compiler"
+              ],
+              "correctIndex": 0,
+              "explanation": "Every algorithm takes well-defined input, applies deterministic step-by-step logic, and produces the exact output expected."
+            },
+            "memoryTrace": {
+              "registers": [
+                {
+                  "name": "input",
+                  "value": "User Input",
+                  "role": "Buffered standard input stream"
+                },
+                {
+                  "name": "result",
+                  "value": "Computed Value",
+                  "role": "Register holding final evaluated result"
+                }
+              ],
+              "steps": [
+                {
+                  "step": 1,
+                  "title": "Input Reading",
+                  "state": {
+                    "input": "Received",
+                    "result": "Unset"
+                  },
+                  "explanation": "Program captures raw bytes from stdin into memory variables."
+                },
+                {
+                  "step": 2,
+                  "title": "CPU ALU Execution",
+                  "state": {
+                    "input": "Processed",
+                    "result": "Calculated"
+                  },
+                  "explanation": "Processor executes arithmetic/logical instructions according to program code."
+                },
+                {
+                  "step": 3,
+                  "title": "Output Emission",
+                  "state": {
+                    "input": "Done",
+                    "result": "Flushed to stdout"
+                  },
+                  "explanation": "Result formatted and flushed to the terminal screen."
+                }
+              ]
+            },
+            "anatomy": [
+              {
+                "line": "a = int(input())",
+                "role": "Input & Casting",
+                "plainEnglish": "Reads user keyboard input as text, then immediately converts (casts) it into a whole number integer."
+              },
+              {
+                "line": "for i in range(n):",
+                "role": "Loop Iterator",
+                "plainEnglish": "Repeats the indented code block starting from count 0 up to n - 1."
+              },
+              {
+                "line": "if condition: ... else:",
+                "role": "Decision Gate",
+                "plainEnglish": "Checks a Boolean truth test. If true, runs the first indented block; otherwise runs else."
+              },
+              {
+                "line": "print(result)",
+                "role": "Standard Output",
+                "plainEnglish": "Outputs the value to the screen and automatically appends a clean newline at the end."
+              }
+            ]
           },
           {
             "id": "py_m2_p4",
@@ -1569,7 +5131,83 @@ export const CURRICULUM = {
               "Step 3 (Output): Print the final result clearly on the screen exactly as requested."
             ],
             "whyItMatters": "Foundational logic used in smartphone apps, smart microwaves, ATM cash dispensers, and space rovers.",
-            "beginnerTrap": "In Python, input() always reads text (strings)! Remember to wrap it with int(input()) when dealing with numbers, and watch indentation."
+            "beginnerTrap": "In Python, input() always reads text (strings)! Remember to wrap it with int(input()) when dealing with numbers, and watch indentation.",
+            "quiz": {
+              "question": "What is the core objective when solving \"Grade Calculator (A, B, C, D, F)\"?",
+              "options": [
+                "Accept the input format, apply logical operations, and output the required result",
+                "Ignore user input and hardcode random values",
+                "Create an infinite loop",
+                "Shut down the compiler"
+              ],
+              "correctIndex": 0,
+              "explanation": "Every algorithm takes well-defined input, applies deterministic step-by-step logic, and produces the exact output expected."
+            },
+            "memoryTrace": {
+              "registers": [
+                {
+                  "name": "input",
+                  "value": "User Input",
+                  "role": "Buffered standard input stream"
+                },
+                {
+                  "name": "result",
+                  "value": "Computed Value",
+                  "role": "Register holding final evaluated result"
+                }
+              ],
+              "steps": [
+                {
+                  "step": 1,
+                  "title": "Input Reading",
+                  "state": {
+                    "input": "Received",
+                    "result": "Unset"
+                  },
+                  "explanation": "Program captures raw bytes from stdin into memory variables."
+                },
+                {
+                  "step": 2,
+                  "title": "CPU ALU Execution",
+                  "state": {
+                    "input": "Processed",
+                    "result": "Calculated"
+                  },
+                  "explanation": "Processor executes arithmetic/logical instructions according to program code."
+                },
+                {
+                  "step": 3,
+                  "title": "Output Emission",
+                  "state": {
+                    "input": "Done",
+                    "result": "Flushed to stdout"
+                  },
+                  "explanation": "Result formatted and flushed to the terminal screen."
+                }
+              ]
+            },
+            "anatomy": [
+              {
+                "line": "a = int(input())",
+                "role": "Input & Casting",
+                "plainEnglish": "Reads user keyboard input as text, then immediately converts (casts) it into a whole number integer."
+              },
+              {
+                "line": "for i in range(n):",
+                "role": "Loop Iterator",
+                "plainEnglish": "Repeats the indented code block starting from count 0 up to n - 1."
+              },
+              {
+                "line": "if condition: ... else:",
+                "role": "Decision Gate",
+                "plainEnglish": "Checks a Boolean truth test. If true, runs the first indented block; otherwise runs else."
+              },
+              {
+                "line": "print(result)",
+                "role": "Standard Output",
+                "plainEnglish": "Outputs the value to the screen and automatically appends a clean newline at the end."
+              }
+            ]
           },
           {
             "id": "py_m2_p5",
@@ -1600,7 +5238,83 @@ export const CURRICULUM = {
               "Step 3 (Output): Print the final result clearly on the screen exactly as requested."
             ],
             "whyItMatters": "Foundational logic used in smartphone apps, smart microwaves, ATM cash dispensers, and space rovers.",
-            "beginnerTrap": "In Python, input() always reads text (strings)! Remember to wrap it with int(input()) when dealing with numbers, and watch indentation."
+            "beginnerTrap": "In Python, input() always reads text (strings)! Remember to wrap it with int(input()) when dealing with numbers, and watch indentation.",
+            "quiz": {
+              "question": "What is the core objective when solving \"Triangle Validity Checker\"?",
+              "options": [
+                "Accept the input format, apply logical operations, and output the required result",
+                "Ignore user input and hardcode random values",
+                "Create an infinite loop",
+                "Shut down the compiler"
+              ],
+              "correctIndex": 0,
+              "explanation": "Every algorithm takes well-defined input, applies deterministic step-by-step logic, and produces the exact output expected."
+            },
+            "memoryTrace": {
+              "registers": [
+                {
+                  "name": "input",
+                  "value": "User Input",
+                  "role": "Buffered standard input stream"
+                },
+                {
+                  "name": "result",
+                  "value": "Computed Value",
+                  "role": "Register holding final evaluated result"
+                }
+              ],
+              "steps": [
+                {
+                  "step": 1,
+                  "title": "Input Reading",
+                  "state": {
+                    "input": "Received",
+                    "result": "Unset"
+                  },
+                  "explanation": "Program captures raw bytes from stdin into memory variables."
+                },
+                {
+                  "step": 2,
+                  "title": "CPU ALU Execution",
+                  "state": {
+                    "input": "Processed",
+                    "result": "Calculated"
+                  },
+                  "explanation": "Processor executes arithmetic/logical instructions according to program code."
+                },
+                {
+                  "step": 3,
+                  "title": "Output Emission",
+                  "state": {
+                    "input": "Done",
+                    "result": "Flushed to stdout"
+                  },
+                  "explanation": "Result formatted and flushed to the terminal screen."
+                }
+              ]
+            },
+            "anatomy": [
+              {
+                "line": "a = int(input())",
+                "role": "Input & Casting",
+                "plainEnglish": "Reads user keyboard input as text, then immediately converts (casts) it into a whole number integer."
+              },
+              {
+                "line": "for i in range(n):",
+                "role": "Loop Iterator",
+                "plainEnglish": "Repeats the indented code block starting from count 0 up to n - 1."
+              },
+              {
+                "line": "if condition: ... else:",
+                "role": "Decision Gate",
+                "plainEnglish": "Checks a Boolean truth test. If true, runs the first indented block; otherwise runs else."
+              },
+              {
+                "line": "print(result)",
+                "role": "Standard Output",
+                "plainEnglish": "Outputs the value to the screen and automatically appends a clean newline at the end."
+              }
+            ]
           }
         ]
       },
@@ -1639,7 +5353,83 @@ export const CURRICULUM = {
               "Step 3 (Output): Print the final result clearly on the screen exactly as requested."
             ],
             "whyItMatters": "Used in modern banking, WhatsApp end-to-end encryption, and password security keys.",
-            "beginnerTrap": "In Python, input() always reads text (strings)! Remember to wrap it with int(input()) when dealing with numbers, and watch indentation."
+            "beginnerTrap": "In Python, input() always reads text (strings)! Remember to wrap it with int(input()) when dealing with numbers, and watch indentation.",
+            "quiz": {
+              "question": "What is the core objective when solving \"Factorial of a Number\"?",
+              "options": [
+                "Accept the input format, apply logical operations, and output the required result",
+                "Ignore user input and hardcode random values",
+                "Create an infinite loop",
+                "Shut down the compiler"
+              ],
+              "correctIndex": 0,
+              "explanation": "Every algorithm takes well-defined input, applies deterministic step-by-step logic, and produces the exact output expected."
+            },
+            "memoryTrace": {
+              "registers": [
+                {
+                  "name": "input",
+                  "value": "User Input",
+                  "role": "Buffered standard input stream"
+                },
+                {
+                  "name": "result",
+                  "value": "Computed Value",
+                  "role": "Register holding final evaluated result"
+                }
+              ],
+              "steps": [
+                {
+                  "step": 1,
+                  "title": "Input Reading",
+                  "state": {
+                    "input": "Received",
+                    "result": "Unset"
+                  },
+                  "explanation": "Program captures raw bytes from stdin into memory variables."
+                },
+                {
+                  "step": 2,
+                  "title": "CPU ALU Execution",
+                  "state": {
+                    "input": "Processed",
+                    "result": "Calculated"
+                  },
+                  "explanation": "Processor executes arithmetic/logical instructions according to program code."
+                },
+                {
+                  "step": 3,
+                  "title": "Output Emission",
+                  "state": {
+                    "input": "Done",
+                    "result": "Flushed to stdout"
+                  },
+                  "explanation": "Result formatted and flushed to the terminal screen."
+                }
+              ]
+            },
+            "anatomy": [
+              {
+                "line": "a = int(input())",
+                "role": "Input & Casting",
+                "plainEnglish": "Reads user keyboard input as text, then immediately converts (casts) it into a whole number integer."
+              },
+              {
+                "line": "for i in range(n):",
+                "role": "Loop Iterator",
+                "plainEnglish": "Repeats the indented code block starting from count 0 up to n - 1."
+              },
+              {
+                "line": "if condition: ... else:",
+                "role": "Decision Gate",
+                "plainEnglish": "Checks a Boolean truth test. If true, runs the first indented block; otherwise runs else."
+              },
+              {
+                "line": "print(result)",
+                "role": "Standard Output",
+                "plainEnglish": "Outputs the value to the screen and automatically appends a clean newline at the end."
+              }
+            ]
           },
           {
             "id": "py_m3_p2",
@@ -1670,7 +5460,83 @@ export const CURRICULUM = {
               "Step 3 (Output): Print the final result clearly on the screen exactly as requested."
             ],
             "whyItMatters": "Foundational logic used in smartphone apps, smart microwaves, ATM cash dispensers, and space rovers.",
-            "beginnerTrap": "In Python, input() always reads text (strings)! Remember to wrap it with int(input()) when dealing with numbers, and watch indentation."
+            "beginnerTrap": "In Python, input() always reads text (strings)! Remember to wrap it with int(input()) when dealing with numbers, and watch indentation.",
+            "quiz": {
+              "question": "In the Fibonacci sequence (0, 1, 1, 2, 3, 5, 8...), how is each new term generated?",
+              "options": [
+                "By multiplying the previous number by 2",
+                "By adding together the two immediately preceding numbers",
+                "By squaring the previous number",
+                "By picking a random integer"
+              ],
+              "correctIndex": 1,
+              "explanation": "Fibonacci rule: F(n) = F(n-1) + F(n-2). Each step builds directly on the sum of the previous two steps."
+            },
+            "memoryTrace": {
+              "registers": [
+                {
+                  "name": "input",
+                  "value": "User Input",
+                  "role": "Buffered standard input stream"
+                },
+                {
+                  "name": "result",
+                  "value": "Computed Value",
+                  "role": "Register holding final evaluated result"
+                }
+              ],
+              "steps": [
+                {
+                  "step": 1,
+                  "title": "Input Reading",
+                  "state": {
+                    "input": "Received",
+                    "result": "Unset"
+                  },
+                  "explanation": "Program captures raw bytes from stdin into memory variables."
+                },
+                {
+                  "step": 2,
+                  "title": "CPU ALU Execution",
+                  "state": {
+                    "input": "Processed",
+                    "result": "Calculated"
+                  },
+                  "explanation": "Processor executes arithmetic/logical instructions according to program code."
+                },
+                {
+                  "step": 3,
+                  "title": "Output Emission",
+                  "state": {
+                    "input": "Done",
+                    "result": "Flushed to stdout"
+                  },
+                  "explanation": "Result formatted and flushed to the terminal screen."
+                }
+              ]
+            },
+            "anatomy": [
+              {
+                "line": "a = int(input())",
+                "role": "Input & Casting",
+                "plainEnglish": "Reads user keyboard input as text, then immediately converts (casts) it into a whole number integer."
+              },
+              {
+                "line": "for i in range(n):",
+                "role": "Loop Iterator",
+                "plainEnglish": "Repeats the indented code block starting from count 0 up to n - 1."
+              },
+              {
+                "line": "if condition: ... else:",
+                "role": "Decision Gate",
+                "plainEnglish": "Checks a Boolean truth test. If true, runs the first indented block; otherwise runs else."
+              },
+              {
+                "line": "print(result)",
+                "role": "Standard Output",
+                "plainEnglish": "Outputs the value to the screen and automatically appends a clean newline at the end."
+              }
+            ]
           },
           {
             "id": "py_m3_p3",
@@ -1701,7 +5567,83 @@ export const CURRICULUM = {
               "Step 3 (Output): Print the final result clearly on the screen exactly as requested."
             ],
             "whyItMatters": "Foundational logic used in smartphone apps, smart microwaves, ATM cash dispensers, and space rovers.",
-            "beginnerTrap": "In Python, input() always reads text (strings)! Remember to wrap it with int(input()) when dealing with numbers, and watch indentation."
+            "beginnerTrap": "In Python, input() always reads text (strings)! Remember to wrap it with int(input()) when dealing with numbers, and watch indentation.",
+            "quiz": {
+              "question": "What is the core objective when solving \"Sum of Digits of an Integer\"?",
+              "options": [
+                "Accept the input format, apply logical operations, and output the required result",
+                "Ignore user input and hardcode random values",
+                "Create an infinite loop",
+                "Shut down the compiler"
+              ],
+              "correctIndex": 0,
+              "explanation": "Every algorithm takes well-defined input, applies deterministic step-by-step logic, and produces the exact output expected."
+            },
+            "memoryTrace": {
+              "registers": [
+                {
+                  "name": "input",
+                  "value": "User Input",
+                  "role": "Buffered standard input stream"
+                },
+                {
+                  "name": "result",
+                  "value": "Computed Value",
+                  "role": "Register holding final evaluated result"
+                }
+              ],
+              "steps": [
+                {
+                  "step": 1,
+                  "title": "Input Reading",
+                  "state": {
+                    "input": "Received",
+                    "result": "Unset"
+                  },
+                  "explanation": "Program captures raw bytes from stdin into memory variables."
+                },
+                {
+                  "step": 2,
+                  "title": "CPU ALU Execution",
+                  "state": {
+                    "input": "Processed",
+                    "result": "Calculated"
+                  },
+                  "explanation": "Processor executes arithmetic/logical instructions according to program code."
+                },
+                {
+                  "step": 3,
+                  "title": "Output Emission",
+                  "state": {
+                    "input": "Done",
+                    "result": "Flushed to stdout"
+                  },
+                  "explanation": "Result formatted and flushed to the terminal screen."
+                }
+              ]
+            },
+            "anatomy": [
+              {
+                "line": "a = int(input())",
+                "role": "Input & Casting",
+                "plainEnglish": "Reads user keyboard input as text, then immediately converts (casts) it into a whole number integer."
+              },
+              {
+                "line": "for i in range(n):",
+                "role": "Loop Iterator",
+                "plainEnglish": "Repeats the indented code block starting from count 0 up to n - 1."
+              },
+              {
+                "line": "if condition: ... else:",
+                "role": "Decision Gate",
+                "plainEnglish": "Checks a Boolean truth test. If true, runs the first indented block; otherwise runs else."
+              },
+              {
+                "line": "print(result)",
+                "role": "Standard Output",
+                "plainEnglish": "Outputs the value to the screen and automatically appends a clean newline at the end."
+              }
+            ]
           },
           {
             "id": "py_m3_p4",
@@ -1732,7 +5674,83 @@ export const CURRICULUM = {
               "Step 3 (Output): Print the final result clearly on the screen exactly as requested."
             ],
             "whyItMatters": "Used in modern banking, WhatsApp end-to-end encryption, and password security keys.",
-            "beginnerTrap": "In Python, input() always reads text (strings)! Remember to wrap it with int(input()) when dealing with numbers, and watch indentation."
+            "beginnerTrap": "In Python, input() always reads text (strings)! Remember to wrap it with int(input()) when dealing with numbers, and watch indentation.",
+            "quiz": {
+              "question": "Why can we stop checking prime divisors once the test divisor exceeds √N?",
+              "options": [
+                "Because computers run out of memory after square roots",
+                "If N has a factor larger than √N, its paired factor must be smaller than √N (which was already checked)",
+                "Square roots always return even numbers",
+                "All numbers above √N are guaranteed to be prime"
+              ],
+              "correctIndex": 1,
+              "explanation": "Factors come in pairs (a * b = N). If both were greater than √N, their product would exceed N! Checking up to √N is 100% mathematically sufficient."
+            },
+            "memoryTrace": {
+              "registers": [
+                {
+                  "name": "input",
+                  "value": "User Input",
+                  "role": "Buffered standard input stream"
+                },
+                {
+                  "name": "result",
+                  "value": "Computed Value",
+                  "role": "Register holding final evaluated result"
+                }
+              ],
+              "steps": [
+                {
+                  "step": 1,
+                  "title": "Input Reading",
+                  "state": {
+                    "input": "Received",
+                    "result": "Unset"
+                  },
+                  "explanation": "Program captures raw bytes from stdin into memory variables."
+                },
+                {
+                  "step": 2,
+                  "title": "CPU ALU Execution",
+                  "state": {
+                    "input": "Processed",
+                    "result": "Calculated"
+                  },
+                  "explanation": "Processor executes arithmetic/logical instructions according to program code."
+                },
+                {
+                  "step": 3,
+                  "title": "Output Emission",
+                  "state": {
+                    "input": "Done",
+                    "result": "Flushed to stdout"
+                  },
+                  "explanation": "Result formatted and flushed to the terminal screen."
+                }
+              ]
+            },
+            "anatomy": [
+              {
+                "line": "a = int(input())",
+                "role": "Input & Casting",
+                "plainEnglish": "Reads user keyboard input as text, then immediately converts (casts) it into a whole number integer."
+              },
+              {
+                "line": "for i in range(n):",
+                "role": "Loop Iterator",
+                "plainEnglish": "Repeats the indented code block starting from count 0 up to n - 1."
+              },
+              {
+                "line": "if condition: ... else:",
+                "role": "Decision Gate",
+                "plainEnglish": "Checks a Boolean truth test. If true, runs the first indented block; otherwise runs else."
+              },
+              {
+                "line": "print(result)",
+                "role": "Standard Output",
+                "plainEnglish": "Outputs the value to the screen and automatically appends a clean newline at the end."
+              }
+            ]
           },
           {
             "id": "py_m3_p5",
@@ -1759,7 +5777,83 @@ export const CURRICULUM = {
               "Step 3 (Output): Print the final result clearly on the screen exactly as requested."
             ],
             "whyItMatters": "Foundational logic used in smartphone apps, smart microwaves, ATM cash dispensers, and space rovers.",
-            "beginnerTrap": "In Python, input() always reads text (strings)! Remember to wrap it with int(input()) when dealing with numbers, and watch indentation."
+            "beginnerTrap": "In Python, input() always reads text (strings)! Remember to wrap it with int(input()) when dealing with numbers, and watch indentation.",
+            "quiz": {
+              "question": "What is the core objective when solving \"Multiplication Table Formatter\"?",
+              "options": [
+                "Accept the input format, apply logical operations, and output the required result",
+                "Ignore user input and hardcode random values",
+                "Create an infinite loop",
+                "Shut down the compiler"
+              ],
+              "correctIndex": 0,
+              "explanation": "Every algorithm takes well-defined input, applies deterministic step-by-step logic, and produces the exact output expected."
+            },
+            "memoryTrace": {
+              "registers": [
+                {
+                  "name": "input",
+                  "value": "User Input",
+                  "role": "Buffered standard input stream"
+                },
+                {
+                  "name": "result",
+                  "value": "Computed Value",
+                  "role": "Register holding final evaluated result"
+                }
+              ],
+              "steps": [
+                {
+                  "step": 1,
+                  "title": "Input Reading",
+                  "state": {
+                    "input": "Received",
+                    "result": "Unset"
+                  },
+                  "explanation": "Program captures raw bytes from stdin into memory variables."
+                },
+                {
+                  "step": 2,
+                  "title": "CPU ALU Execution",
+                  "state": {
+                    "input": "Processed",
+                    "result": "Calculated"
+                  },
+                  "explanation": "Processor executes arithmetic/logical instructions according to program code."
+                },
+                {
+                  "step": 3,
+                  "title": "Output Emission",
+                  "state": {
+                    "input": "Done",
+                    "result": "Flushed to stdout"
+                  },
+                  "explanation": "Result formatted and flushed to the terminal screen."
+                }
+              ]
+            },
+            "anatomy": [
+              {
+                "line": "a = int(input())",
+                "role": "Input & Casting",
+                "plainEnglish": "Reads user keyboard input as text, then immediately converts (casts) it into a whole number integer."
+              },
+              {
+                "line": "for i in range(n):",
+                "role": "Loop Iterator",
+                "plainEnglish": "Repeats the indented code block starting from count 0 up to n - 1."
+              },
+              {
+                "line": "if condition: ... else:",
+                "role": "Decision Gate",
+                "plainEnglish": "Checks a Boolean truth test. If true, runs the first indented block; otherwise runs else."
+              },
+              {
+                "line": "print(result)",
+                "role": "Standard Output",
+                "plainEnglish": "Outputs the value to the screen and automatically appends a clean newline at the end."
+              }
+            ]
           }
         ]
       },
@@ -1798,7 +5892,83 @@ export const CURRICULUM = {
               "Step 3 (Output): Print the final result clearly on the screen exactly as requested."
             ],
             "whyItMatters": "Foundational logic used in smartphone apps, smart microwaves, ATM cash dispensers, and space rovers.",
-            "beginnerTrap": "In Python, input() always reads text (strings)! Remember to wrap it with int(input()) when dealing with numbers, and watch indentation."
+            "beginnerTrap": "In Python, input() always reads text (strings)! Remember to wrap it with int(input()) when dealing with numbers, and watch indentation.",
+            "quiz": {
+              "question": "What is the core objective when solving \"Find Minimum and Maximum in List\"?",
+              "options": [
+                "Accept the input format, apply logical operations, and output the required result",
+                "Ignore user input and hardcode random values",
+                "Create an infinite loop",
+                "Shut down the compiler"
+              ],
+              "correctIndex": 0,
+              "explanation": "Every algorithm takes well-defined input, applies deterministic step-by-step logic, and produces the exact output expected."
+            },
+            "memoryTrace": {
+              "registers": [
+                {
+                  "name": "input",
+                  "value": "User Input",
+                  "role": "Buffered standard input stream"
+                },
+                {
+                  "name": "result",
+                  "value": "Computed Value",
+                  "role": "Register holding final evaluated result"
+                }
+              ],
+              "steps": [
+                {
+                  "step": 1,
+                  "title": "Input Reading",
+                  "state": {
+                    "input": "Received",
+                    "result": "Unset"
+                  },
+                  "explanation": "Program captures raw bytes from stdin into memory variables."
+                },
+                {
+                  "step": 2,
+                  "title": "CPU ALU Execution",
+                  "state": {
+                    "input": "Processed",
+                    "result": "Calculated"
+                  },
+                  "explanation": "Processor executes arithmetic/logical instructions according to program code."
+                },
+                {
+                  "step": 3,
+                  "title": "Output Emission",
+                  "state": {
+                    "input": "Done",
+                    "result": "Flushed to stdout"
+                  },
+                  "explanation": "Result formatted and flushed to the terminal screen."
+                }
+              ]
+            },
+            "anatomy": [
+              {
+                "line": "a = int(input())",
+                "role": "Input & Casting",
+                "plainEnglish": "Reads user keyboard input as text, then immediately converts (casts) it into a whole number integer."
+              },
+              {
+                "line": "for i in range(n):",
+                "role": "Loop Iterator",
+                "plainEnglish": "Repeats the indented code block starting from count 0 up to n - 1."
+              },
+              {
+                "line": "if condition: ... else:",
+                "role": "Decision Gate",
+                "plainEnglish": "Checks a Boolean truth test. If true, runs the first indented block; otherwise runs else."
+              },
+              {
+                "line": "print(result)",
+                "role": "Standard Output",
+                "plainEnglish": "Outputs the value to the screen and automatically appends a clean newline at the end."
+              }
+            ]
           },
           {
             "id": "py_m4_p2",
@@ -1829,7 +5999,83 @@ export const CURRICULUM = {
               "Step 3 (Output): Print the final result clearly on the screen exactly as requested."
             ],
             "whyItMatters": "Foundational logic used in smartphone apps, smart microwaves, ATM cash dispensers, and space rovers.",
-            "beginnerTrap": "In Python, input() always reads text (strings)! Remember to wrap it with int(input()) when dealing with numbers, and watch indentation."
+            "beginnerTrap": "In Python, input() always reads text (strings)! Remember to wrap it with int(input()) when dealing with numbers, and watch indentation.",
+            "quiz": {
+              "question": "What is the core objective when solving \"Remove Duplicates Preserving Order\"?",
+              "options": [
+                "Accept the input format, apply logical operations, and output the required result",
+                "Ignore user input and hardcode random values",
+                "Create an infinite loop",
+                "Shut down the compiler"
+              ],
+              "correctIndex": 0,
+              "explanation": "Every algorithm takes well-defined input, applies deterministic step-by-step logic, and produces the exact output expected."
+            },
+            "memoryTrace": {
+              "registers": [
+                {
+                  "name": "input",
+                  "value": "User Input",
+                  "role": "Buffered standard input stream"
+                },
+                {
+                  "name": "result",
+                  "value": "Computed Value",
+                  "role": "Register holding final evaluated result"
+                }
+              ],
+              "steps": [
+                {
+                  "step": 1,
+                  "title": "Input Reading",
+                  "state": {
+                    "input": "Received",
+                    "result": "Unset"
+                  },
+                  "explanation": "Program captures raw bytes from stdin into memory variables."
+                },
+                {
+                  "step": 2,
+                  "title": "CPU ALU Execution",
+                  "state": {
+                    "input": "Processed",
+                    "result": "Calculated"
+                  },
+                  "explanation": "Processor executes arithmetic/logical instructions according to program code."
+                },
+                {
+                  "step": 3,
+                  "title": "Output Emission",
+                  "state": {
+                    "input": "Done",
+                    "result": "Flushed to stdout"
+                  },
+                  "explanation": "Result formatted and flushed to the terminal screen."
+                }
+              ]
+            },
+            "anatomy": [
+              {
+                "line": "a = int(input())",
+                "role": "Input & Casting",
+                "plainEnglish": "Reads user keyboard input as text, then immediately converts (casts) it into a whole number integer."
+              },
+              {
+                "line": "for i in range(n):",
+                "role": "Loop Iterator",
+                "plainEnglish": "Repeats the indented code block starting from count 0 up to n - 1."
+              },
+              {
+                "line": "if condition: ... else:",
+                "role": "Decision Gate",
+                "plainEnglish": "Checks a Boolean truth test. If true, runs the first indented block; otherwise runs else."
+              },
+              {
+                "line": "print(result)",
+                "role": "Standard Output",
+                "plainEnglish": "Outputs the value to the screen and automatically appends a clean newline at the end."
+              }
+            ]
           },
           {
             "id": "py_m4_p3",
@@ -1860,7 +6106,83 @@ export const CURRICULUM = {
               "Step 3 (Output): Print the final result clearly on the screen exactly as requested."
             ],
             "whyItMatters": "Foundational logic used in smartphone apps, smart microwaves, ATM cash dispensers, and space rovers.",
-            "beginnerTrap": "In Python, input() always reads text (strings)! Remember to wrap it with int(input()) when dealing with numbers, and watch indentation."
+            "beginnerTrap": "In Python, input() always reads text (strings)! Remember to wrap it with int(input()) when dealing with numbers, and watch indentation.",
+            "quiz": {
+              "question": "In code, what does 'n % 2 == 0' mathematically determine?",
+              "options": [
+                "Whether n is equal to 2",
+                "Whether n divided by 2 has zero remainder, meaning it is an Even number",
+                "Whether n is a decimal fraction",
+                "Whether n is negative"
+              ],
+              "correctIndex": 1,
+              "explanation": "Modulo (%) returns the division remainder. An even number splits cleanly into pairs with 0 left over."
+            },
+            "memoryTrace": {
+              "registers": [
+                {
+                  "name": "input",
+                  "value": "User Input",
+                  "role": "Buffered standard input stream"
+                },
+                {
+                  "name": "result",
+                  "value": "Computed Value",
+                  "role": "Register holding final evaluated result"
+                }
+              ],
+              "steps": [
+                {
+                  "step": 1,
+                  "title": "Input Reading",
+                  "state": {
+                    "input": "Received",
+                    "result": "Unset"
+                  },
+                  "explanation": "Program captures raw bytes from stdin into memory variables."
+                },
+                {
+                  "step": 2,
+                  "title": "CPU ALU Execution",
+                  "state": {
+                    "input": "Processed",
+                    "result": "Calculated"
+                  },
+                  "explanation": "Processor executes arithmetic/logical instructions according to program code."
+                },
+                {
+                  "step": 3,
+                  "title": "Output Emission",
+                  "state": {
+                    "input": "Done",
+                    "result": "Flushed to stdout"
+                  },
+                  "explanation": "Result formatted and flushed to the terminal screen."
+                }
+              ]
+            },
+            "anatomy": [
+              {
+                "line": "a = int(input())",
+                "role": "Input & Casting",
+                "plainEnglish": "Reads user keyboard input as text, then immediately converts (casts) it into a whole number integer."
+              },
+              {
+                "line": "for i in range(n):",
+                "role": "Loop Iterator",
+                "plainEnglish": "Repeats the indented code block starting from count 0 up to n - 1."
+              },
+              {
+                "line": "if condition: ... else:",
+                "role": "Decision Gate",
+                "plainEnglish": "Checks a Boolean truth test. If true, runs the first indented block; otherwise runs else."
+              },
+              {
+                "line": "print(result)",
+                "role": "Standard Output",
+                "plainEnglish": "Outputs the value to the screen and automatically appends a clean newline at the end."
+              }
+            ]
           },
           {
             "id": "py_m4_p4",
@@ -1892,7 +6214,83 @@ export const CURRICULUM = {
               "Step 3 (Output): Print the final result clearly on the screen exactly as requested."
             ],
             "whyItMatters": "Powers Spotify playlist shuffling, Amazon product price sorting, and video game leaderboard rankings.",
-            "beginnerTrap": "In Python, input() always reads text (strings)! Remember to wrap it with int(input()) when dealing with numbers, and watch indentation."
+            "beginnerTrap": "In Python, input() always reads text (strings)! Remember to wrap it with int(input()) when dealing with numbers, and watch indentation.",
+            "quiz": {
+              "question": "If an array has size 5 and you rotate it by 5 positions, what happens?",
+              "options": [
+                "All elements become zero",
+                "The array is reversed",
+                "The array returns to its exact original state",
+                "A segmentation fault occurs"
+              ],
+              "correctIndex": 2,
+              "explanation": "Rotating an array by its exact length brings every element full-circle back to its starting position (k % N == 0)."
+            },
+            "memoryTrace": {
+              "registers": [
+                {
+                  "name": "input",
+                  "value": "User Input",
+                  "role": "Buffered standard input stream"
+                },
+                {
+                  "name": "result",
+                  "value": "Computed Value",
+                  "role": "Register holding final evaluated result"
+                }
+              ],
+              "steps": [
+                {
+                  "step": 1,
+                  "title": "Input Reading",
+                  "state": {
+                    "input": "Received",
+                    "result": "Unset"
+                  },
+                  "explanation": "Program captures raw bytes from stdin into memory variables."
+                },
+                {
+                  "step": 2,
+                  "title": "CPU ALU Execution",
+                  "state": {
+                    "input": "Processed",
+                    "result": "Calculated"
+                  },
+                  "explanation": "Processor executes arithmetic/logical instructions according to program code."
+                },
+                {
+                  "step": 3,
+                  "title": "Output Emission",
+                  "state": {
+                    "input": "Done",
+                    "result": "Flushed to stdout"
+                  },
+                  "explanation": "Result formatted and flushed to the terminal screen."
+                }
+              ]
+            },
+            "anatomy": [
+              {
+                "line": "a = int(input())",
+                "role": "Input & Casting",
+                "plainEnglish": "Reads user keyboard input as text, then immediately converts (casts) it into a whole number integer."
+              },
+              {
+                "line": "for i in range(n):",
+                "role": "Loop Iterator",
+                "plainEnglish": "Repeats the indented code block starting from count 0 up to n - 1."
+              },
+              {
+                "line": "if condition: ... else:",
+                "role": "Decision Gate",
+                "plainEnglish": "Checks a Boolean truth test. If true, runs the first indented block; otherwise runs else."
+              },
+              {
+                "line": "print(result)",
+                "role": "Standard Output",
+                "plainEnglish": "Outputs the value to the screen and automatically appends a clean newline at the end."
+              }
+            ]
           },
           {
             "id": "py_m4_p5",
@@ -1919,7 +6317,83 @@ export const CURRICULUM = {
               "Step 3 (Output): Print the final result clearly on the screen exactly as requested."
             ],
             "whyItMatters": "Powers Spotify playlist shuffling, Amazon product price sorting, and video game leaderboard rankings.",
-            "beginnerTrap": "In Python, input() always reads text (strings)! Remember to wrap it with int(input()) when dealing with numbers, and watch indentation."
+            "beginnerTrap": "In Python, input() always reads text (strings)! Remember to wrap it with int(input()) when dealing with numbers, and watch indentation.",
+            "quiz": {
+              "question": "What is the core objective when solving \"Merge and Sort Two Lists\"?",
+              "options": [
+                "Accept the input format, apply logical operations, and output the required result",
+                "Ignore user input and hardcode random values",
+                "Create an infinite loop",
+                "Shut down the compiler"
+              ],
+              "correctIndex": 0,
+              "explanation": "Every algorithm takes well-defined input, applies deterministic step-by-step logic, and produces the exact output expected."
+            },
+            "memoryTrace": {
+              "registers": [
+                {
+                  "name": "input",
+                  "value": "User Input",
+                  "role": "Buffered standard input stream"
+                },
+                {
+                  "name": "result",
+                  "value": "Computed Value",
+                  "role": "Register holding final evaluated result"
+                }
+              ],
+              "steps": [
+                {
+                  "step": 1,
+                  "title": "Input Reading",
+                  "state": {
+                    "input": "Received",
+                    "result": "Unset"
+                  },
+                  "explanation": "Program captures raw bytes from stdin into memory variables."
+                },
+                {
+                  "step": 2,
+                  "title": "CPU ALU Execution",
+                  "state": {
+                    "input": "Processed",
+                    "result": "Calculated"
+                  },
+                  "explanation": "Processor executes arithmetic/logical instructions according to program code."
+                },
+                {
+                  "step": 3,
+                  "title": "Output Emission",
+                  "state": {
+                    "input": "Done",
+                    "result": "Flushed to stdout"
+                  },
+                  "explanation": "Result formatted and flushed to the terminal screen."
+                }
+              ]
+            },
+            "anatomy": [
+              {
+                "line": "a = int(input())",
+                "role": "Input & Casting",
+                "plainEnglish": "Reads user keyboard input as text, then immediately converts (casts) it into a whole number integer."
+              },
+              {
+                "line": "for i in range(n):",
+                "role": "Loop Iterator",
+                "plainEnglish": "Repeats the indented code block starting from count 0 up to n - 1."
+              },
+              {
+                "line": "if condition: ... else:",
+                "role": "Decision Gate",
+                "plainEnglish": "Checks a Boolean truth test. If true, runs the first indented block; otherwise runs else."
+              },
+              {
+                "line": "print(result)",
+                "role": "Standard Output",
+                "plainEnglish": "Outputs the value to the screen and automatically appends a clean newline at the end."
+              }
+            ]
           }
         ]
       },
@@ -1958,7 +6432,83 @@ export const CURRICULUM = {
               "Step 3 (Output): Print the final result clearly on the screen exactly as requested."
             ],
             "whyItMatters": "Drives Google search autocorrect, DNA sequence genetics analysis, and spam email filters.",
-            "beginnerTrap": "In Python, input() always reads text (strings)! Remember to wrap it with int(input()) when dealing with numbers, and watch indentation."
+            "beginnerTrap": "In Python, input() always reads text (strings)! Remember to wrap it with int(input()) when dealing with numbers, and watch indentation.",
+            "quiz": {
+              "question": "What defines a palindrome in computer science?",
+              "options": [
+                "A sequence that reads identically forward and backward",
+                "A number that has only two factors",
+                "A word with all vowels capitalized",
+                "An array with only even numbers"
+              ],
+              "correctIndex": 0,
+              "explanation": "A palindrome has perfect symmetry — like 'radar' or 12321. Comparing characters from both ends inward confirms symmetry."
+            },
+            "memoryTrace": {
+              "registers": [
+                {
+                  "name": "input",
+                  "value": "User Input",
+                  "role": "Buffered standard input stream"
+                },
+                {
+                  "name": "result",
+                  "value": "Computed Value",
+                  "role": "Register holding final evaluated result"
+                }
+              ],
+              "steps": [
+                {
+                  "step": 1,
+                  "title": "Input Reading",
+                  "state": {
+                    "input": "Received",
+                    "result": "Unset"
+                  },
+                  "explanation": "Program captures raw bytes from stdin into memory variables."
+                },
+                {
+                  "step": 2,
+                  "title": "CPU ALU Execution",
+                  "state": {
+                    "input": "Processed",
+                    "result": "Calculated"
+                  },
+                  "explanation": "Processor executes arithmetic/logical instructions according to program code."
+                },
+                {
+                  "step": 3,
+                  "title": "Output Emission",
+                  "state": {
+                    "input": "Done",
+                    "result": "Flushed to stdout"
+                  },
+                  "explanation": "Result formatted and flushed to the terminal screen."
+                }
+              ]
+            },
+            "anatomy": [
+              {
+                "line": "a = int(input())",
+                "role": "Input & Casting",
+                "plainEnglish": "Reads user keyboard input as text, then immediately converts (casts) it into a whole number integer."
+              },
+              {
+                "line": "for i in range(n):",
+                "role": "Loop Iterator",
+                "plainEnglish": "Repeats the indented code block starting from count 0 up to n - 1."
+              },
+              {
+                "line": "if condition: ... else:",
+                "role": "Decision Gate",
+                "plainEnglish": "Checks a Boolean truth test. If true, runs the first indented block; otherwise runs else."
+              },
+              {
+                "line": "print(result)",
+                "role": "Standard Output",
+                "plainEnglish": "Outputs the value to the screen and automatically appends a clean newline at the end."
+              }
+            ]
           },
           {
             "id": "py_m5_p2",
@@ -1985,7 +6535,83 @@ export const CURRICULUM = {
               "Step 3 (Output): Print the final result clearly on the screen exactly as requested."
             ],
             "whyItMatters": "Foundational logic used in smartphone apps, smart microwaves, ATM cash dispensers, and space rovers.",
-            "beginnerTrap": "In Python, input() always reads text (strings)! Remember to wrap it with int(input()) when dealing with numbers, and watch indentation."
+            "beginnerTrap": "In Python, input() always reads text (strings)! Remember to wrap it with int(input()) when dealing with numbers, and watch indentation.",
+            "quiz": {
+              "question": "What is the core objective when solving \"Word Frequency Counter\"?",
+              "options": [
+                "Accept the input format, apply logical operations, and output the required result",
+                "Ignore user input and hardcode random values",
+                "Create an infinite loop",
+                "Shut down the compiler"
+              ],
+              "correctIndex": 0,
+              "explanation": "Every algorithm takes well-defined input, applies deterministic step-by-step logic, and produces the exact output expected."
+            },
+            "memoryTrace": {
+              "registers": [
+                {
+                  "name": "input",
+                  "value": "User Input",
+                  "role": "Buffered standard input stream"
+                },
+                {
+                  "name": "result",
+                  "value": "Computed Value",
+                  "role": "Register holding final evaluated result"
+                }
+              ],
+              "steps": [
+                {
+                  "step": 1,
+                  "title": "Input Reading",
+                  "state": {
+                    "input": "Received",
+                    "result": "Unset"
+                  },
+                  "explanation": "Program captures raw bytes from stdin into memory variables."
+                },
+                {
+                  "step": 2,
+                  "title": "CPU ALU Execution",
+                  "state": {
+                    "input": "Processed",
+                    "result": "Calculated"
+                  },
+                  "explanation": "Processor executes arithmetic/logical instructions according to program code."
+                },
+                {
+                  "step": 3,
+                  "title": "Output Emission",
+                  "state": {
+                    "input": "Done",
+                    "result": "Flushed to stdout"
+                  },
+                  "explanation": "Result formatted and flushed to the terminal screen."
+                }
+              ]
+            },
+            "anatomy": [
+              {
+                "line": "a = int(input())",
+                "role": "Input & Casting",
+                "plainEnglish": "Reads user keyboard input as text, then immediately converts (casts) it into a whole number integer."
+              },
+              {
+                "line": "for i in range(n):",
+                "role": "Loop Iterator",
+                "plainEnglish": "Repeats the indented code block starting from count 0 up to n - 1."
+              },
+              {
+                "line": "if condition: ... else:",
+                "role": "Decision Gate",
+                "plainEnglish": "Checks a Boolean truth test. If true, runs the first indented block; otherwise runs else."
+              },
+              {
+                "line": "print(result)",
+                "role": "Standard Output",
+                "plainEnglish": "Outputs the value to the screen and automatically appends a clean newline at the end."
+              }
+            ]
           },
           {
             "id": "py_m5_p3",
@@ -2016,7 +6642,83 @@ export const CURRICULUM = {
               "Step 3 (Output): Print the final result clearly on the screen exactly as requested."
             ],
             "whyItMatters": "Drives Google search autocorrect, DNA sequence genetics analysis, and spam email filters.",
-            "beginnerTrap": "In Python, input() always reads text (strings)! Remember to wrap it with int(input()) when dealing with numbers, and watch indentation."
+            "beginnerTrap": "In Python, input() always reads text (strings)! Remember to wrap it with int(input()) when dealing with numbers, and watch indentation.",
+            "quiz": {
+              "question": "What is the core objective when solving \"Anagram Checker in Python\"?",
+              "options": [
+                "Accept the input format, apply logical operations, and output the required result",
+                "Ignore user input and hardcode random values",
+                "Create an infinite loop",
+                "Shut down the compiler"
+              ],
+              "correctIndex": 0,
+              "explanation": "Every algorithm takes well-defined input, applies deterministic step-by-step logic, and produces the exact output expected."
+            },
+            "memoryTrace": {
+              "registers": [
+                {
+                  "name": "input",
+                  "value": "User Input",
+                  "role": "Buffered standard input stream"
+                },
+                {
+                  "name": "result",
+                  "value": "Computed Value",
+                  "role": "Register holding final evaluated result"
+                }
+              ],
+              "steps": [
+                {
+                  "step": 1,
+                  "title": "Input Reading",
+                  "state": {
+                    "input": "Received",
+                    "result": "Unset"
+                  },
+                  "explanation": "Program captures raw bytes from stdin into memory variables."
+                },
+                {
+                  "step": 2,
+                  "title": "CPU ALU Execution",
+                  "state": {
+                    "input": "Processed",
+                    "result": "Calculated"
+                  },
+                  "explanation": "Processor executes arithmetic/logical instructions according to program code."
+                },
+                {
+                  "step": 3,
+                  "title": "Output Emission",
+                  "state": {
+                    "input": "Done",
+                    "result": "Flushed to stdout"
+                  },
+                  "explanation": "Result formatted and flushed to the terminal screen."
+                }
+              ]
+            },
+            "anatomy": [
+              {
+                "line": "a = int(input())",
+                "role": "Input & Casting",
+                "plainEnglish": "Reads user keyboard input as text, then immediately converts (casts) it into a whole number integer."
+              },
+              {
+                "line": "for i in range(n):",
+                "role": "Loop Iterator",
+                "plainEnglish": "Repeats the indented code block starting from count 0 up to n - 1."
+              },
+              {
+                "line": "if condition: ... else:",
+                "role": "Decision Gate",
+                "plainEnglish": "Checks a Boolean truth test. If true, runs the first indented block; otherwise runs else."
+              },
+              {
+                "line": "print(result)",
+                "role": "Standard Output",
+                "plainEnglish": "Outputs the value to the screen and automatically appends a clean newline at the end."
+              }
+            ]
           },
           {
             "id": "py_m5_p4",
@@ -2043,7 +6745,83 @@ export const CURRICULUM = {
               "Step 3 (Output): Print the final result clearly on the screen exactly as requested."
             ],
             "whyItMatters": "Foundational logic used in smartphone apps, smart microwaves, ATM cash dispensers, and space rovers.",
-            "beginnerTrap": "In Python, input() always reads text (strings)! Remember to wrap it with int(input()) when dealing with numbers, and watch indentation."
+            "beginnerTrap": "In Python, input() always reads text (strings)! Remember to wrap it with int(input()) when dealing with numbers, and watch indentation.",
+            "quiz": {
+              "question": "What is the core objective when solving \"Count Vowels and Consonants in Python\"?",
+              "options": [
+                "Accept the input format, apply logical operations, and output the required result",
+                "Ignore user input and hardcode random values",
+                "Create an infinite loop",
+                "Shut down the compiler"
+              ],
+              "correctIndex": 0,
+              "explanation": "Every algorithm takes well-defined input, applies deterministic step-by-step logic, and produces the exact output expected."
+            },
+            "memoryTrace": {
+              "registers": [
+                {
+                  "name": "input",
+                  "value": "User Input",
+                  "role": "Buffered standard input stream"
+                },
+                {
+                  "name": "result",
+                  "value": "Computed Value",
+                  "role": "Register holding final evaluated result"
+                }
+              ],
+              "steps": [
+                {
+                  "step": 1,
+                  "title": "Input Reading",
+                  "state": {
+                    "input": "Received",
+                    "result": "Unset"
+                  },
+                  "explanation": "Program captures raw bytes from stdin into memory variables."
+                },
+                {
+                  "step": 2,
+                  "title": "CPU ALU Execution",
+                  "state": {
+                    "input": "Processed",
+                    "result": "Calculated"
+                  },
+                  "explanation": "Processor executes arithmetic/logical instructions according to program code."
+                },
+                {
+                  "step": 3,
+                  "title": "Output Emission",
+                  "state": {
+                    "input": "Done",
+                    "result": "Flushed to stdout"
+                  },
+                  "explanation": "Result formatted and flushed to the terminal screen."
+                }
+              ]
+            },
+            "anatomy": [
+              {
+                "line": "a = int(input())",
+                "role": "Input & Casting",
+                "plainEnglish": "Reads user keyboard input as text, then immediately converts (casts) it into a whole number integer."
+              },
+              {
+                "line": "for i in range(n):",
+                "role": "Loop Iterator",
+                "plainEnglish": "Repeats the indented code block starting from count 0 up to n - 1."
+              },
+              {
+                "line": "if condition: ... else:",
+                "role": "Decision Gate",
+                "plainEnglish": "Checks a Boolean truth test. If true, runs the first indented block; otherwise runs else."
+              },
+              {
+                "line": "print(result)",
+                "role": "Standard Output",
+                "plainEnglish": "Outputs the value to the screen and automatically appends a clean newline at the end."
+              }
+            ]
           },
           {
             "id": "py_m5_p5",
@@ -2074,7 +6852,83 @@ export const CURRICULUM = {
               "Step 3 (Output): Print the final result clearly on the screen exactly as requested."
             ],
             "whyItMatters": "Foundational logic used in smartphone apps, smart microwaves, ATM cash dispensers, and space rovers.",
-            "beginnerTrap": "In Python, input() always reads text (strings)! Remember to wrap it with int(input()) when dealing with numbers, and watch indentation."
+            "beginnerTrap": "In Python, input() always reads text (strings)! Remember to wrap it with int(input()) when dealing with numbers, and watch indentation.",
+            "quiz": {
+              "question": "What critical component prevents a recursive function from causing a stack overflow crash?",
+              "options": [
+                "A base case that stops recursion and returns without another self-call",
+                "A while loop wrapped around the function",
+                "Adding more RAM to your computer",
+                "A print statement"
+              ],
+              "correctIndex": 0,
+              "explanation": "Without a base case, recursive calls keep pushing frames onto the call stack until memory is completely exhausted!"
+            },
+            "memoryTrace": {
+              "registers": [
+                {
+                  "name": "input",
+                  "value": "User Input",
+                  "role": "Buffered standard input stream"
+                },
+                {
+                  "name": "result",
+                  "value": "Computed Value",
+                  "role": "Register holding final evaluated result"
+                }
+              ],
+              "steps": [
+                {
+                  "step": 1,
+                  "title": "Input Reading",
+                  "state": {
+                    "input": "Received",
+                    "result": "Unset"
+                  },
+                  "explanation": "Program captures raw bytes from stdin into memory variables."
+                },
+                {
+                  "step": 2,
+                  "title": "CPU ALU Execution",
+                  "state": {
+                    "input": "Processed",
+                    "result": "Calculated"
+                  },
+                  "explanation": "Processor executes arithmetic/logical instructions according to program code."
+                },
+                {
+                  "step": 3,
+                  "title": "Output Emission",
+                  "state": {
+                    "input": "Done",
+                    "result": "Flushed to stdout"
+                  },
+                  "explanation": "Result formatted and flushed to the terminal screen."
+                }
+              ]
+            },
+            "anatomy": [
+              {
+                "line": "a = int(input())",
+                "role": "Input & Casting",
+                "plainEnglish": "Reads user keyboard input as text, then immediately converts (casts) it into a whole number integer."
+              },
+              {
+                "line": "for i in range(n):",
+                "role": "Loop Iterator",
+                "plainEnglish": "Repeats the indented code block starting from count 0 up to n - 1."
+              },
+              {
+                "line": "if condition: ... else:",
+                "role": "Decision Gate",
+                "plainEnglish": "Checks a Boolean truth test. If true, runs the first indented block; otherwise runs else."
+              },
+              {
+                "line": "print(result)",
+                "role": "Standard Output",
+                "plainEnglish": "Outputs the value to the screen and automatically appends a clean newline at the end."
+              }
+            ]
           }
         ]
       }
@@ -2123,7 +6977,83 @@ export const CURRICULUM = {
               "Step 3 (Output): Print the final result clearly on the screen exactly as requested."
             ],
             "whyItMatters": "Foundational logic used in smartphone apps, smart microwaves, ATM cash dispensers, and space rovers.",
-            "beginnerTrap": "Don't confuse '=' (storing a value) with '==' (checking if two values are equal). Also, make sure arrays don't go out of bounds."
+            "beginnerTrap": "Don't confuse '=' (storing a value) with '==' (checking if two values are equal). Also, make sure arrays don't go out of bounds.",
+            "quiz": {
+              "question": "What is the core objective when solving \"Fast I/O & Basic Arithmetic\"?",
+              "options": [
+                "Accept the input format, apply logical operations, and output the required result",
+                "Ignore user input and hardcode random values",
+                "Create an infinite loop",
+                "Shut down the compiler"
+              ],
+              "correctIndex": 0,
+              "explanation": "Every algorithm takes well-defined input, applies deterministic step-by-step logic, and produces the exact output expected."
+            },
+            "memoryTrace": {
+              "registers": [
+                {
+                  "name": "input",
+                  "value": "User Input",
+                  "role": "Buffered standard input stream"
+                },
+                {
+                  "name": "result",
+                  "value": "Computed Value",
+                  "role": "Register holding final evaluated result"
+                }
+              ],
+              "steps": [
+                {
+                  "step": 1,
+                  "title": "Input Reading",
+                  "state": {
+                    "input": "Received",
+                    "result": "Unset"
+                  },
+                  "explanation": "Program captures raw bytes from stdin into memory variables."
+                },
+                {
+                  "step": 2,
+                  "title": "CPU ALU Execution",
+                  "state": {
+                    "input": "Processed",
+                    "result": "Calculated"
+                  },
+                  "explanation": "Processor executes arithmetic/logical instructions according to program code."
+                },
+                {
+                  "step": 3,
+                  "title": "Output Emission",
+                  "state": {
+                    "input": "Done",
+                    "result": "Flushed to stdout"
+                  },
+                  "explanation": "Result formatted and flushed to the terminal screen."
+                }
+              ]
+            },
+            "anatomy": [
+              {
+                "line": "#include <iostream>",
+                "role": "Header Stream",
+                "plainEnglish": "Loads C++ modern streams library for std::cin (keyboard input) and std::cout (screen output)."
+              },
+              {
+                "line": "using namespace std;",
+                "role": "Scope Convenience",
+                "plainEnglish": "Allows typing cin and cout directly instead of repeating std::cin every single time."
+              },
+              {
+                "line": "cin >> a >> b;",
+                "role": "Stream Extraction",
+                "plainEnglish": "Flows user input values directly into variables a and b safely without format codes."
+              },
+              {
+                "line": "cout << result << \"\\n\";",
+                "role": "Stream Insertion",
+                "plainEnglish": "Sends the computed result to the terminal display buffer followed by a newline."
+              }
+            ]
           },
           {
             "id": "cpp_m1_p2",
@@ -2154,7 +7084,83 @@ export const CURRICULUM = {
               "Step 3 (Output): Print the final result clearly on the screen exactly as requested."
             ],
             "whyItMatters": "Foundational logic used in smartphone apps, smart microwaves, ATM cash dispensers, and space rovers.",
-            "beginnerTrap": "Don't confuse '=' (storing a value) with '==' (checking if two values are equal). Also, make sure arrays don't go out of bounds."
+            "beginnerTrap": "Don't confuse '=' (storing a value) with '==' (checking if two values are equal). Also, make sure arrays don't go out of bounds.",
+            "quiz": {
+              "question": "How does the arithmetic swap 'a = a + b; b = a - b; a = a - b;' exchange values without a temporary variable?",
+              "options": [
+                "It deletes both numbers and generates new ones",
+                "The combined sum stores both values; subtracting b isolates original a, then subtracting again isolates original b",
+                "The compiler automatically adds a secret variable behind the scenes",
+                "It only works if both numbers are negative"
+              ],
+              "correctIndex": 1,
+              "explanation": "By temporarily keeping the total sum in 'a', subtracting the original 'b' yields the original 'a' into 'b', and subtracting again extracts original 'b' into 'a'!"
+            },
+            "memoryTrace": {
+              "registers": [
+                {
+                  "name": "a",
+                  "value": "3",
+                  "role": "First integer variable in RAM"
+                },
+                {
+                  "name": "b",
+                  "value": "7",
+                  "role": "Second integer variable in RAM"
+                }
+              ],
+              "steps": [
+                {
+                  "step": 1,
+                  "title": "Step 1: Combined Sum",
+                  "state": {
+                    "a": "10",
+                    "b": "7"
+                  },
+                  "explanation": "a = a + b (3 + 7 = 10). Variable \"a\" now holds the combined pool."
+                },
+                {
+                  "step": 2,
+                  "title": "Step 2: Isolate Original A",
+                  "state": {
+                    "a": "10",
+                    "b": "3"
+                  },
+                  "explanation": "b = a - b (10 - 7 = 3). \"b\" has now successfully acquired original \"a\" value!"
+                },
+                {
+                  "step": 3,
+                  "title": "Step 3: Isolate Original B",
+                  "state": {
+                    "a": "7",
+                    "b": "3"
+                  },
+                  "explanation": "a = a - b (10 - 3 = 7). \"a\" has now acquired original \"b\". Swap complete without extra RAM!"
+                }
+              ]
+            },
+            "anatomy": [
+              {
+                "line": "#include <iostream>",
+                "role": "Header Stream",
+                "plainEnglish": "Loads C++ modern streams library for std::cin (keyboard input) and std::cout (screen output)."
+              },
+              {
+                "line": "using namespace std;",
+                "role": "Scope Convenience",
+                "plainEnglish": "Allows typing cin and cout directly instead of repeating std::cin every single time."
+              },
+              {
+                "line": "cin >> a >> b;",
+                "role": "Stream Extraction",
+                "plainEnglish": "Flows user input values directly into variables a and b safely without format codes."
+              },
+              {
+                "line": "cout << result << \"\\n\";",
+                "role": "Stream Insertion",
+                "plainEnglish": "Sends the computed result to the terminal display buffer followed by a newline."
+              }
+            ]
           },
           {
             "id": "cpp_m1_p3",
@@ -2185,7 +7191,83 @@ export const CURRICULUM = {
               "Step 3 (Output): Print the final result clearly on the screen exactly as requested."
             ],
             "whyItMatters": "Foundational logic used in smartphone apps, smart microwaves, ATM cash dispensers, and space rovers.",
-            "beginnerTrap": "Don't confuse '=' (storing a value) with '==' (checking if two values are equal). Also, make sure arrays don't go out of bounds."
+            "beginnerTrap": "Don't confuse '=' (storing a value) with '==' (checking if two values are equal). Also, make sure arrays don't go out of bounds.",
+            "quiz": {
+              "question": "What is the core objective when solving \"Formatted Precision with std::setprecision\"?",
+              "options": [
+                "Accept the input format, apply logical operations, and output the required result",
+                "Ignore user input and hardcode random values",
+                "Create an infinite loop",
+                "Shut down the compiler"
+              ],
+              "correctIndex": 0,
+              "explanation": "Every algorithm takes well-defined input, applies deterministic step-by-step logic, and produces the exact output expected."
+            },
+            "memoryTrace": {
+              "registers": [
+                {
+                  "name": "input",
+                  "value": "User Input",
+                  "role": "Buffered standard input stream"
+                },
+                {
+                  "name": "result",
+                  "value": "Computed Value",
+                  "role": "Register holding final evaluated result"
+                }
+              ],
+              "steps": [
+                {
+                  "step": 1,
+                  "title": "Input Reading",
+                  "state": {
+                    "input": "Received",
+                    "result": "Unset"
+                  },
+                  "explanation": "Program captures raw bytes from stdin into memory variables."
+                },
+                {
+                  "step": 2,
+                  "title": "CPU ALU Execution",
+                  "state": {
+                    "input": "Processed",
+                    "result": "Calculated"
+                  },
+                  "explanation": "Processor executes arithmetic/logical instructions according to program code."
+                },
+                {
+                  "step": 3,
+                  "title": "Output Emission",
+                  "state": {
+                    "input": "Done",
+                    "result": "Flushed to stdout"
+                  },
+                  "explanation": "Result formatted and flushed to the terminal screen."
+                }
+              ]
+            },
+            "anatomy": [
+              {
+                "line": "#include <iostream>",
+                "role": "Header Stream",
+                "plainEnglish": "Loads C++ modern streams library for std::cin (keyboard input) and std::cout (screen output)."
+              },
+              {
+                "line": "using namespace std;",
+                "role": "Scope Convenience",
+                "plainEnglish": "Allows typing cin and cout directly instead of repeating std::cin every single time."
+              },
+              {
+                "line": "cin >> a >> b;",
+                "role": "Stream Extraction",
+                "plainEnglish": "Flows user input values directly into variables a and b safely without format codes."
+              },
+              {
+                "line": "cout << result << \"\\n\";",
+                "role": "Stream Insertion",
+                "plainEnglish": "Sends the computed result to the terminal display buffer followed by a newline."
+              }
+            ]
           },
           {
             "id": "cpp_m1_p4",
@@ -2216,7 +7298,83 @@ export const CURRICULUM = {
               "Step 3 (Output): Print the final result clearly on the screen exactly as requested."
             ],
             "whyItMatters": "Foundational logic used in smartphone apps, smart microwaves, ATM cash dispensers, and space rovers.",
-            "beginnerTrap": "Don't confuse '=' (storing a value) with '==' (checking if two values are equal). Also, make sure arrays don't go out of bounds."
+            "beginnerTrap": "Don't confuse '=' (storing a value) with '==' (checking if two values are equal). Also, make sure arrays don't go out of bounds.",
+            "quiz": {
+              "question": "What is the core objective when solving \"Min & Max Using std::min and std::max\"?",
+              "options": [
+                "Accept the input format, apply logical operations, and output the required result",
+                "Ignore user input and hardcode random values",
+                "Create an infinite loop",
+                "Shut down the compiler"
+              ],
+              "correctIndex": 0,
+              "explanation": "Every algorithm takes well-defined input, applies deterministic step-by-step logic, and produces the exact output expected."
+            },
+            "memoryTrace": {
+              "registers": [
+                {
+                  "name": "input",
+                  "value": "User Input",
+                  "role": "Buffered standard input stream"
+                },
+                {
+                  "name": "result",
+                  "value": "Computed Value",
+                  "role": "Register holding final evaluated result"
+                }
+              ],
+              "steps": [
+                {
+                  "step": 1,
+                  "title": "Input Reading",
+                  "state": {
+                    "input": "Received",
+                    "result": "Unset"
+                  },
+                  "explanation": "Program captures raw bytes from stdin into memory variables."
+                },
+                {
+                  "step": 2,
+                  "title": "CPU ALU Execution",
+                  "state": {
+                    "input": "Processed",
+                    "result": "Calculated"
+                  },
+                  "explanation": "Processor executes arithmetic/logical instructions according to program code."
+                },
+                {
+                  "step": 3,
+                  "title": "Output Emission",
+                  "state": {
+                    "input": "Done",
+                    "result": "Flushed to stdout"
+                  },
+                  "explanation": "Result formatted and flushed to the terminal screen."
+                }
+              ]
+            },
+            "anatomy": [
+              {
+                "line": "#include <iostream>",
+                "role": "Header Stream",
+                "plainEnglish": "Loads C++ modern streams library for std::cin (keyboard input) and std::cout (screen output)."
+              },
+              {
+                "line": "using namespace std;",
+                "role": "Scope Convenience",
+                "plainEnglish": "Allows typing cin and cout directly instead of repeating std::cin every single time."
+              },
+              {
+                "line": "cin >> a >> b;",
+                "role": "Stream Extraction",
+                "plainEnglish": "Flows user input values directly into variables a and b safely without format codes."
+              },
+              {
+                "line": "cout << result << \"\\n\";",
+                "role": "Stream Insertion",
+                "plainEnglish": "Sends the computed result to the terminal display buffer followed by a newline."
+              }
+            ]
           },
           {
             "id": "cpp_m1_p5",
@@ -2243,7 +7401,83 @@ export const CURRICULUM = {
               "Step 3 (Output): Print the final result clearly on the screen exactly as requested."
             ],
             "whyItMatters": "Foundational logic used in smartphone apps, smart microwaves, ATM cash dispensers, and space rovers.",
-            "beginnerTrap": "Don't confuse '=' (storing a value) with '==' (checking if two values are equal). Also, make sure arrays don't go out of bounds."
+            "beginnerTrap": "Don't confuse '=' (storing a value) with '==' (checking if two values are equal). Also, make sure arrays don't go out of bounds.",
+            "quiz": {
+              "question": "What is the core objective when solving \"Bitwise Operators in C++\"?",
+              "options": [
+                "Accept the input format, apply logical operations, and output the required result",
+                "Ignore user input and hardcode random values",
+                "Create an infinite loop",
+                "Shut down the compiler"
+              ],
+              "correctIndex": 0,
+              "explanation": "Every algorithm takes well-defined input, applies deterministic step-by-step logic, and produces the exact output expected."
+            },
+            "memoryTrace": {
+              "registers": [
+                {
+                  "name": "input",
+                  "value": "User Input",
+                  "role": "Buffered standard input stream"
+                },
+                {
+                  "name": "result",
+                  "value": "Computed Value",
+                  "role": "Register holding final evaluated result"
+                }
+              ],
+              "steps": [
+                {
+                  "step": 1,
+                  "title": "Input Reading",
+                  "state": {
+                    "input": "Received",
+                    "result": "Unset"
+                  },
+                  "explanation": "Program captures raw bytes from stdin into memory variables."
+                },
+                {
+                  "step": 2,
+                  "title": "CPU ALU Execution",
+                  "state": {
+                    "input": "Processed",
+                    "result": "Calculated"
+                  },
+                  "explanation": "Processor executes arithmetic/logical instructions according to program code."
+                },
+                {
+                  "step": 3,
+                  "title": "Output Emission",
+                  "state": {
+                    "input": "Done",
+                    "result": "Flushed to stdout"
+                  },
+                  "explanation": "Result formatted and flushed to the terminal screen."
+                }
+              ]
+            },
+            "anatomy": [
+              {
+                "line": "#include <iostream>",
+                "role": "Header Stream",
+                "plainEnglish": "Loads C++ modern streams library for std::cin (keyboard input) and std::cout (screen output)."
+              },
+              {
+                "line": "using namespace std;",
+                "role": "Scope Convenience",
+                "plainEnglish": "Allows typing cin and cout directly instead of repeating std::cin every single time."
+              },
+              {
+                "line": "cin >> a >> b;",
+                "role": "Stream Extraction",
+                "plainEnglish": "Flows user input values directly into variables a and b safely without format codes."
+              },
+              {
+                "line": "cout << result << \"\\n\";",
+                "role": "Stream Insertion",
+                "plainEnglish": "Sends the computed result to the terminal display buffer followed by a newline."
+              }
+            ]
           }
         ]
       },
@@ -2290,7 +7524,83 @@ export const CURRICULUM = {
               "Step 3 (Output): Print the final result clearly on the screen exactly as requested."
             ],
             "whyItMatters": "Foundational logic used in smartphone apps, smart microwaves, ATM cash dispensers, and space rovers.",
-            "beginnerTrap": "Don't confuse '=' (storing a value) with '==' (checking if two values are equal). Also, make sure arrays don't go out of bounds."
+            "beginnerTrap": "Don't confuse '=' (storing a value) with '==' (checking if two values are equal). Also, make sure arrays don't go out of bounds.",
+            "quiz": {
+              "question": "What is the core objective when solving \"Quadrant Finder of Point (X, Y)\"?",
+              "options": [
+                "Accept the input format, apply logical operations, and output the required result",
+                "Ignore user input and hardcode random values",
+                "Create an infinite loop",
+                "Shut down the compiler"
+              ],
+              "correctIndex": 0,
+              "explanation": "Every algorithm takes well-defined input, applies deterministic step-by-step logic, and produces the exact output expected."
+            },
+            "memoryTrace": {
+              "registers": [
+                {
+                  "name": "input",
+                  "value": "User Input",
+                  "role": "Buffered standard input stream"
+                },
+                {
+                  "name": "result",
+                  "value": "Computed Value",
+                  "role": "Register holding final evaluated result"
+                }
+              ],
+              "steps": [
+                {
+                  "step": 1,
+                  "title": "Input Reading",
+                  "state": {
+                    "input": "Received",
+                    "result": "Unset"
+                  },
+                  "explanation": "Program captures raw bytes from stdin into memory variables."
+                },
+                {
+                  "step": 2,
+                  "title": "CPU ALU Execution",
+                  "state": {
+                    "input": "Processed",
+                    "result": "Calculated"
+                  },
+                  "explanation": "Processor executes arithmetic/logical instructions according to program code."
+                },
+                {
+                  "step": 3,
+                  "title": "Output Emission",
+                  "state": {
+                    "input": "Done",
+                    "result": "Flushed to stdout"
+                  },
+                  "explanation": "Result formatted and flushed to the terminal screen."
+                }
+              ]
+            },
+            "anatomy": [
+              {
+                "line": "#include <iostream>",
+                "role": "Header Stream",
+                "plainEnglish": "Loads C++ modern streams library for std::cin (keyboard input) and std::cout (screen output)."
+              },
+              {
+                "line": "using namespace std;",
+                "role": "Scope Convenience",
+                "plainEnglish": "Allows typing cin and cout directly instead of repeating std::cin every single time."
+              },
+              {
+                "line": "cin >> a >> b;",
+                "role": "Stream Extraction",
+                "plainEnglish": "Flows user input values directly into variables a and b safely without format codes."
+              },
+              {
+                "line": "cout << result << \"\\n\";",
+                "role": "Stream Insertion",
+                "plainEnglish": "Sends the computed result to the terminal display buffer followed by a newline."
+              }
+            ]
           },
           {
             "id": "cpp_m2_p2",
@@ -2321,7 +7631,83 @@ export const CURRICULUM = {
               "Step 3 (Output): Print the final result clearly on the screen exactly as requested."
             ],
             "whyItMatters": "Foundational logic used in smartphone apps, smart microwaves, ATM cash dispensers, and space rovers.",
-            "beginnerTrap": "Don't confuse '=' (storing a value) with '==' (checking if two values are equal). Also, make sure arrays don't go out of bounds."
+            "beginnerTrap": "Don't confuse '=' (storing a value) with '==' (checking if two values are equal). Also, make sure arrays don't go out of bounds.",
+            "quiz": {
+              "question": "What is the core objective when solving \"Leap Year Checker in C++\"?",
+              "options": [
+                "Accept the input format, apply logical operations, and output the required result",
+                "Ignore user input and hardcode random values",
+                "Create an infinite loop",
+                "Shut down the compiler"
+              ],
+              "correctIndex": 0,
+              "explanation": "Every algorithm takes well-defined input, applies deterministic step-by-step logic, and produces the exact output expected."
+            },
+            "memoryTrace": {
+              "registers": [
+                {
+                  "name": "input",
+                  "value": "User Input",
+                  "role": "Buffered standard input stream"
+                },
+                {
+                  "name": "result",
+                  "value": "Computed Value",
+                  "role": "Register holding final evaluated result"
+                }
+              ],
+              "steps": [
+                {
+                  "step": 1,
+                  "title": "Input Reading",
+                  "state": {
+                    "input": "Received",
+                    "result": "Unset"
+                  },
+                  "explanation": "Program captures raw bytes from stdin into memory variables."
+                },
+                {
+                  "step": 2,
+                  "title": "CPU ALU Execution",
+                  "state": {
+                    "input": "Processed",
+                    "result": "Calculated"
+                  },
+                  "explanation": "Processor executes arithmetic/logical instructions according to program code."
+                },
+                {
+                  "step": 3,
+                  "title": "Output Emission",
+                  "state": {
+                    "input": "Done",
+                    "result": "Flushed to stdout"
+                  },
+                  "explanation": "Result formatted and flushed to the terminal screen."
+                }
+              ]
+            },
+            "anatomy": [
+              {
+                "line": "#include <iostream>",
+                "role": "Header Stream",
+                "plainEnglish": "Loads C++ modern streams library for std::cin (keyboard input) and std::cout (screen output)."
+              },
+              {
+                "line": "using namespace std;",
+                "role": "Scope Convenience",
+                "plainEnglish": "Allows typing cin and cout directly instead of repeating std::cin every single time."
+              },
+              {
+                "line": "cin >> a >> b;",
+                "role": "Stream Extraction",
+                "plainEnglish": "Flows user input values directly into variables a and b safely without format codes."
+              },
+              {
+                "line": "cout << result << \"\\n\";",
+                "role": "Stream Insertion",
+                "plainEnglish": "Sends the computed result to the terminal display buffer followed by a newline."
+              }
+            ]
           },
           {
             "id": "cpp_m2_p3",
@@ -2352,7 +7738,83 @@ export const CURRICULUM = {
               "Step 3 (Output): Print the final result clearly on the screen exactly as requested."
             ],
             "whyItMatters": "Foundational logic used in smartphone apps, smart microwaves, ATM cash dispensers, and space rovers.",
-            "beginnerTrap": "Don't confuse '=' (storing a value) with '==' (checking if two values are equal). Also, make sure arrays don't go out of bounds."
+            "beginnerTrap": "Don't confuse '=' (storing a value) with '==' (checking if two values are equal). Also, make sure arrays don't go out of bounds.",
+            "quiz": {
+              "question": "In code, what does 'n % 2 == 0' mathematically determine?",
+              "options": [
+                "Whether n is equal to 2",
+                "Whether n divided by 2 has zero remainder, meaning it is an Even number",
+                "Whether n is a decimal fraction",
+                "Whether n is negative"
+              ],
+              "correctIndex": 1,
+              "explanation": "Modulo (%) returns the division remainder. An even number splits cleanly into pairs with 0 left over."
+            },
+            "memoryTrace": {
+              "registers": [
+                {
+                  "name": "input",
+                  "value": "User Input",
+                  "role": "Buffered standard input stream"
+                },
+                {
+                  "name": "result",
+                  "value": "Computed Value",
+                  "role": "Register holding final evaluated result"
+                }
+              ],
+              "steps": [
+                {
+                  "step": 1,
+                  "title": "Input Reading",
+                  "state": {
+                    "input": "Received",
+                    "result": "Unset"
+                  },
+                  "explanation": "Program captures raw bytes from stdin into memory variables."
+                },
+                {
+                  "step": 2,
+                  "title": "CPU ALU Execution",
+                  "state": {
+                    "input": "Processed",
+                    "result": "Calculated"
+                  },
+                  "explanation": "Processor executes arithmetic/logical instructions according to program code."
+                },
+                {
+                  "step": 3,
+                  "title": "Output Emission",
+                  "state": {
+                    "input": "Done",
+                    "result": "Flushed to stdout"
+                  },
+                  "explanation": "Result formatted and flushed to the terminal screen."
+                }
+              ]
+            },
+            "anatomy": [
+              {
+                "line": "#include <iostream>",
+                "role": "Header Stream",
+                "plainEnglish": "Loads C++ modern streams library for std::cin (keyboard input) and std::cout (screen output)."
+              },
+              {
+                "line": "using namespace std;",
+                "role": "Scope Convenience",
+                "plainEnglish": "Allows typing cin and cout directly instead of repeating std::cin every single time."
+              },
+              {
+                "line": "cin >> a >> b;",
+                "role": "Stream Extraction",
+                "plainEnglish": "Flows user input values directly into variables a and b safely without format codes."
+              },
+              {
+                "line": "cout << result << \"\\n\";",
+                "role": "Stream Insertion",
+                "plainEnglish": "Sends the computed result to the terminal display buffer followed by a newline."
+              }
+            ]
           },
           {
             "id": "cpp_m2_p4",
@@ -2383,7 +7845,83 @@ export const CURRICULUM = {
               "Step 3 (Output): Print the final result clearly on the screen exactly as requested."
             ],
             "whyItMatters": "Foundational logic used in smartphone apps, smart microwaves, ATM cash dispensers, and space rovers.",
-            "beginnerTrap": "Don't confuse '=' (storing a value) with '==' (checking if two values are equal). Also, make sure arrays don't go out of bounds."
+            "beginnerTrap": "Don't confuse '=' (storing a value) with '==' (checking if two values are equal). Also, make sure arrays don't go out of bounds.",
+            "quiz": {
+              "question": "What is the core objective when solving \"Simple Calculator with Switch\"?",
+              "options": [
+                "Accept the input format, apply logical operations, and output the required result",
+                "Ignore user input and hardcode random values",
+                "Create an infinite loop",
+                "Shut down the compiler"
+              ],
+              "correctIndex": 0,
+              "explanation": "Every algorithm takes well-defined input, applies deterministic step-by-step logic, and produces the exact output expected."
+            },
+            "memoryTrace": {
+              "registers": [
+                {
+                  "name": "input",
+                  "value": "User Input",
+                  "role": "Buffered standard input stream"
+                },
+                {
+                  "name": "result",
+                  "value": "Computed Value",
+                  "role": "Register holding final evaluated result"
+                }
+              ],
+              "steps": [
+                {
+                  "step": 1,
+                  "title": "Input Reading",
+                  "state": {
+                    "input": "Received",
+                    "result": "Unset"
+                  },
+                  "explanation": "Program captures raw bytes from stdin into memory variables."
+                },
+                {
+                  "step": 2,
+                  "title": "CPU ALU Execution",
+                  "state": {
+                    "input": "Processed",
+                    "result": "Calculated"
+                  },
+                  "explanation": "Processor executes arithmetic/logical instructions according to program code."
+                },
+                {
+                  "step": 3,
+                  "title": "Output Emission",
+                  "state": {
+                    "input": "Done",
+                    "result": "Flushed to stdout"
+                  },
+                  "explanation": "Result formatted and flushed to the terminal screen."
+                }
+              ]
+            },
+            "anatomy": [
+              {
+                "line": "#include <iostream>",
+                "role": "Header Stream",
+                "plainEnglish": "Loads C++ modern streams library for std::cin (keyboard input) and std::cout (screen output)."
+              },
+              {
+                "line": "using namespace std;",
+                "role": "Scope Convenience",
+                "plainEnglish": "Allows typing cin and cout directly instead of repeating std::cin every single time."
+              },
+              {
+                "line": "cin >> a >> b;",
+                "role": "Stream Extraction",
+                "plainEnglish": "Flows user input values directly into variables a and b safely without format codes."
+              },
+              {
+                "line": "cout << result << \"\\n\";",
+                "role": "Stream Insertion",
+                "plainEnglish": "Sends the computed result to the terminal display buffer followed by a newline."
+              }
+            ]
           },
           {
             "id": "cpp_m2_p5",
@@ -2422,7 +7960,83 @@ export const CURRICULUM = {
               "Step 3 (Output): Print the final result clearly on the screen exactly as requested."
             ],
             "whyItMatters": "Foundational logic used in smartphone apps, smart microwaves, ATM cash dispensers, and space rovers.",
-            "beginnerTrap": "Don't confuse '=' (storing a value) with '==' (checking if two values are equal). Also, make sure arrays don't go out of bounds."
+            "beginnerTrap": "Don't confuse '=' (storing a value) with '==' (checking if two values are equal). Also, make sure arrays don't go out of bounds.",
+            "quiz": {
+              "question": "What is the core objective when solving \"Age Category Classifier\"?",
+              "options": [
+                "Accept the input format, apply logical operations, and output the required result",
+                "Ignore user input and hardcode random values",
+                "Create an infinite loop",
+                "Shut down the compiler"
+              ],
+              "correctIndex": 0,
+              "explanation": "Every algorithm takes well-defined input, applies deterministic step-by-step logic, and produces the exact output expected."
+            },
+            "memoryTrace": {
+              "registers": [
+                {
+                  "name": "input",
+                  "value": "User Input",
+                  "role": "Buffered standard input stream"
+                },
+                {
+                  "name": "result",
+                  "value": "Computed Value",
+                  "role": "Register holding final evaluated result"
+                }
+              ],
+              "steps": [
+                {
+                  "step": 1,
+                  "title": "Input Reading",
+                  "state": {
+                    "input": "Received",
+                    "result": "Unset"
+                  },
+                  "explanation": "Program captures raw bytes from stdin into memory variables."
+                },
+                {
+                  "step": 2,
+                  "title": "CPU ALU Execution",
+                  "state": {
+                    "input": "Processed",
+                    "result": "Calculated"
+                  },
+                  "explanation": "Processor executes arithmetic/logical instructions according to program code."
+                },
+                {
+                  "step": 3,
+                  "title": "Output Emission",
+                  "state": {
+                    "input": "Done",
+                    "result": "Flushed to stdout"
+                  },
+                  "explanation": "Result formatted and flushed to the terminal screen."
+                }
+              ]
+            },
+            "anatomy": [
+              {
+                "line": "#include <iostream>",
+                "role": "Header Stream",
+                "plainEnglish": "Loads C++ modern streams library for std::cin (keyboard input) and std::cout (screen output)."
+              },
+              {
+                "line": "using namespace std;",
+                "role": "Scope Convenience",
+                "plainEnglish": "Allows typing cin and cout directly instead of repeating std::cin every single time."
+              },
+              {
+                "line": "cin >> a >> b;",
+                "role": "Stream Extraction",
+                "plainEnglish": "Flows user input values directly into variables a and b safely without format codes."
+              },
+              {
+                "line": "cout << result << \"\\n\";",
+                "role": "Stream Insertion",
+                "plainEnglish": "Sends the computed result to the terminal display buffer followed by a newline."
+              }
+            ]
           }
         ]
       },
@@ -2461,7 +8075,83 @@ export const CURRICULUM = {
               "Step 3 (Output): Print the final result clearly on the screen exactly as requested."
             ],
             "whyItMatters": "Foundational logic used in smartphone apps, smart microwaves, ATM cash dispensers, and space rovers.",
-            "beginnerTrap": "Don't confuse '=' (storing a value) with '==' (checking if two values are equal). Also, make sure arrays don't go out of bounds."
+            "beginnerTrap": "Don't confuse '=' (storing a value) with '==' (checking if two values are equal). Also, make sure arrays don't go out of bounds.",
+            "quiz": {
+              "question": "What is the core objective when solving \"Sum of First N Natural Numbers\"?",
+              "options": [
+                "Accept the input format, apply logical operations, and output the required result",
+                "Ignore user input and hardcode random values",
+                "Create an infinite loop",
+                "Shut down the compiler"
+              ],
+              "correctIndex": 0,
+              "explanation": "Every algorithm takes well-defined input, applies deterministic step-by-step logic, and produces the exact output expected."
+            },
+            "memoryTrace": {
+              "registers": [
+                {
+                  "name": "input",
+                  "value": "User Input",
+                  "role": "Buffered standard input stream"
+                },
+                {
+                  "name": "result",
+                  "value": "Computed Value",
+                  "role": "Register holding final evaluated result"
+                }
+              ],
+              "steps": [
+                {
+                  "step": 1,
+                  "title": "Input Reading",
+                  "state": {
+                    "input": "Received",
+                    "result": "Unset"
+                  },
+                  "explanation": "Program captures raw bytes from stdin into memory variables."
+                },
+                {
+                  "step": 2,
+                  "title": "CPU ALU Execution",
+                  "state": {
+                    "input": "Processed",
+                    "result": "Calculated"
+                  },
+                  "explanation": "Processor executes arithmetic/logical instructions according to program code."
+                },
+                {
+                  "step": 3,
+                  "title": "Output Emission",
+                  "state": {
+                    "input": "Done",
+                    "result": "Flushed to stdout"
+                  },
+                  "explanation": "Result formatted and flushed to the terminal screen."
+                }
+              ]
+            },
+            "anatomy": [
+              {
+                "line": "#include <iostream>",
+                "role": "Header Stream",
+                "plainEnglish": "Loads C++ modern streams library for std::cin (keyboard input) and std::cout (screen output)."
+              },
+              {
+                "line": "using namespace std;",
+                "role": "Scope Convenience",
+                "plainEnglish": "Allows typing cin and cout directly instead of repeating std::cin every single time."
+              },
+              {
+                "line": "cin >> a >> b;",
+                "role": "Stream Extraction",
+                "plainEnglish": "Flows user input values directly into variables a and b safely without format codes."
+              },
+              {
+                "line": "cout << result << \"\\n\";",
+                "role": "Stream Insertion",
+                "plainEnglish": "Sends the computed result to the terminal display buffer followed by a newline."
+              }
+            ]
           },
           {
             "id": "cpp_m3_p2",
@@ -2492,7 +8182,91 @@ export const CURRICULUM = {
               "Step 3 (Output): Print the final result clearly on the screen exactly as requested."
             ],
             "whyItMatters": "Powers Spotify playlist shuffling, Amazon product price sorting, and video game leaderboard rankings.",
-            "beginnerTrap": "Don't confuse '=' (storing a value) with '==' (checking if two values are equal). Also, make sure arrays don't go out of bounds."
+            "beginnerTrap": "Don't confuse '=' (storing a value) with '==' (checking if two values are equal). Also, make sure arrays don't go out of bounds.",
+            "quiz": {
+              "question": "What is the core objective when solving \"Reverse Digits of an Integer\"?",
+              "options": [
+                "Accept the input format, apply logical operations, and output the required result",
+                "Ignore user input and hardcode random values",
+                "Create an infinite loop",
+                "Shut down the compiler"
+              ],
+              "correctIndex": 0,
+              "explanation": "Every algorithm takes well-defined input, applies deterministic step-by-step logic, and produces the exact output expected."
+            },
+            "memoryTrace": {
+              "registers": [
+                {
+                  "name": "arr",
+                  "value": "[1, 2, 3, 4, 5]",
+                  "role": "Contiguous array in memory"
+                },
+                {
+                  "name": "left",
+                  "value": "0",
+                  "role": "Start index pointer"
+                },
+                {
+                  "name": "right",
+                  "value": "4",
+                  "role": "End index pointer"
+                }
+              ],
+              "steps": [
+                {
+                  "step": 1,
+                  "title": "Pointer Setup",
+                  "state": {
+                    "arr": "[1, 2, 3, 4, 5]",
+                    "left": "0",
+                    "right": "4"
+                  },
+                  "explanation": "left points to 1 (idx 0), right points to 5 (idx 4)."
+                },
+                {
+                  "step": 2,
+                  "title": "First Swap & Move",
+                  "state": {
+                    "arr": "[5, 2, 3, 4, 1]",
+                    "left": "1",
+                    "right": "3"
+                  },
+                  "explanation": "Swap arr[0] and arr[4]. left increments to 1, right decrements to 3."
+                },
+                {
+                  "step": 3,
+                  "title": "Second Swap & Meet",
+                  "state": {
+                    "arr": "[5, 4, 3, 2, 1]",
+                    "left": "2",
+                    "right": "2"
+                  },
+                  "explanation": "Swap arr[1] and arr[3]. Both pointers meet at center index 2. Reverse finished!"
+                }
+              ]
+            },
+            "anatomy": [
+              {
+                "line": "#include <iostream>",
+                "role": "Header Stream",
+                "plainEnglish": "Loads C++ modern streams library for std::cin (keyboard input) and std::cout (screen output)."
+              },
+              {
+                "line": "using namespace std;",
+                "role": "Scope Convenience",
+                "plainEnglish": "Allows typing cin and cout directly instead of repeating std::cin every single time."
+              },
+              {
+                "line": "cin >> a >> b;",
+                "role": "Stream Extraction",
+                "plainEnglish": "Flows user input values directly into variables a and b safely without format codes."
+              },
+              {
+                "line": "cout << result << \"\\n\";",
+                "role": "Stream Insertion",
+                "plainEnglish": "Sends the computed result to the terminal display buffer followed by a newline."
+              }
+            ]
           },
           {
             "id": "cpp_m3_p3",
@@ -2527,7 +8301,83 @@ export const CURRICULUM = {
               "Step 3 (Output): Print the final result clearly on the screen exactly as requested."
             ],
             "whyItMatters": "Foundational logic used in smartphone apps, smart microwaves, ATM cash dispensers, and space rovers.",
-            "beginnerTrap": "Don't confuse '=' (storing a value) with '==' (checking if two values are equal). Also, make sure arrays don't go out of bounds."
+            "beginnerTrap": "Don't confuse '=' (storing a value) with '==' (checking if two values are equal). Also, make sure arrays don't go out of bounds.",
+            "quiz": {
+              "question": "What is the core objective when solving \"Check Armstrong Number\"?",
+              "options": [
+                "Accept the input format, apply logical operations, and output the required result",
+                "Ignore user input and hardcode random values",
+                "Create an infinite loop",
+                "Shut down the compiler"
+              ],
+              "correctIndex": 0,
+              "explanation": "Every algorithm takes well-defined input, applies deterministic step-by-step logic, and produces the exact output expected."
+            },
+            "memoryTrace": {
+              "registers": [
+                {
+                  "name": "input",
+                  "value": "User Input",
+                  "role": "Buffered standard input stream"
+                },
+                {
+                  "name": "result",
+                  "value": "Computed Value",
+                  "role": "Register holding final evaluated result"
+                }
+              ],
+              "steps": [
+                {
+                  "step": 1,
+                  "title": "Input Reading",
+                  "state": {
+                    "input": "Received",
+                    "result": "Unset"
+                  },
+                  "explanation": "Program captures raw bytes from stdin into memory variables."
+                },
+                {
+                  "step": 2,
+                  "title": "CPU ALU Execution",
+                  "state": {
+                    "input": "Processed",
+                    "result": "Calculated"
+                  },
+                  "explanation": "Processor executes arithmetic/logical instructions according to program code."
+                },
+                {
+                  "step": 3,
+                  "title": "Output Emission",
+                  "state": {
+                    "input": "Done",
+                    "result": "Flushed to stdout"
+                  },
+                  "explanation": "Result formatted and flushed to the terminal screen."
+                }
+              ]
+            },
+            "anatomy": [
+              {
+                "line": "#include <iostream>",
+                "role": "Header Stream",
+                "plainEnglish": "Loads C++ modern streams library for std::cin (keyboard input) and std::cout (screen output)."
+              },
+              {
+                "line": "using namespace std;",
+                "role": "Scope Convenience",
+                "plainEnglish": "Allows typing cin and cout directly instead of repeating std::cin every single time."
+              },
+              {
+                "line": "cin >> a >> b;",
+                "role": "Stream Extraction",
+                "plainEnglish": "Flows user input values directly into variables a and b safely without format codes."
+              },
+              {
+                "line": "cout << result << \"\\n\";",
+                "role": "Stream Insertion",
+                "plainEnglish": "Sends the computed result to the terminal display buffer followed by a newline."
+              }
+            ]
           },
           {
             "id": "cpp_m3_p4",
@@ -2562,7 +8412,83 @@ export const CURRICULUM = {
               "Step 3 (Output): Print the final result clearly on the screen exactly as requested."
             ],
             "whyItMatters": "Used in modern banking, WhatsApp end-to-end encryption, and password security keys.",
-            "beginnerTrap": "Don't confuse '=' (storing a value) with '==' (checking if two values are equal). Also, make sure arrays don't go out of bounds."
+            "beginnerTrap": "Don't confuse '=' (storing a value) with '==' (checking if two values are equal). Also, make sure arrays don't go out of bounds.",
+            "quiz": {
+              "question": "Why can we stop checking prime divisors once the test divisor exceeds √N?",
+              "options": [
+                "Because computers run out of memory after square roots",
+                "If N has a factor larger than √N, its paired factor must be smaller than √N (which was already checked)",
+                "Square roots always return even numbers",
+                "All numbers above √N are guaranteed to be prime"
+              ],
+              "correctIndex": 1,
+              "explanation": "Factors come in pairs (a * b = N). If both were greater than √N, their product would exceed N! Checking up to √N is 100% mathematically sufficient."
+            },
+            "memoryTrace": {
+              "registers": [
+                {
+                  "name": "input",
+                  "value": "User Input",
+                  "role": "Buffered standard input stream"
+                },
+                {
+                  "name": "result",
+                  "value": "Computed Value",
+                  "role": "Register holding final evaluated result"
+                }
+              ],
+              "steps": [
+                {
+                  "step": 1,
+                  "title": "Input Reading",
+                  "state": {
+                    "input": "Received",
+                    "result": "Unset"
+                  },
+                  "explanation": "Program captures raw bytes from stdin into memory variables."
+                },
+                {
+                  "step": 2,
+                  "title": "CPU ALU Execution",
+                  "state": {
+                    "input": "Processed",
+                    "result": "Calculated"
+                  },
+                  "explanation": "Processor executes arithmetic/logical instructions according to program code."
+                },
+                {
+                  "step": 3,
+                  "title": "Output Emission",
+                  "state": {
+                    "input": "Done",
+                    "result": "Flushed to stdout"
+                  },
+                  "explanation": "Result formatted and flushed to the terminal screen."
+                }
+              ]
+            },
+            "anatomy": [
+              {
+                "line": "#include <iostream>",
+                "role": "Header Stream",
+                "plainEnglish": "Loads C++ modern streams library for std::cin (keyboard input) and std::cout (screen output)."
+              },
+              {
+                "line": "using namespace std;",
+                "role": "Scope Convenience",
+                "plainEnglish": "Allows typing cin and cout directly instead of repeating std::cin every single time."
+              },
+              {
+                "line": "cin >> a >> b;",
+                "role": "Stream Extraction",
+                "plainEnglish": "Flows user input values directly into variables a and b safely without format codes."
+              },
+              {
+                "line": "cout << result << \"\\n\";",
+                "role": "Stream Insertion",
+                "plainEnglish": "Sends the computed result to the terminal display buffer followed by a newline."
+              }
+            ]
           },
           {
             "id": "cpp_m3_p5",
@@ -2597,7 +8523,83 @@ export const CURRICULUM = {
               "Step 3 (Output): Print the final result clearly on the screen exactly as requested."
             ],
             "whyItMatters": "Foundational logic used in smartphone apps, smart microwaves, ATM cash dispensers, and space rovers.",
-            "beginnerTrap": "Don't confuse '=' (storing a value) with '==' (checking if two values are equal). Also, make sure arrays don't go out of bounds."
+            "beginnerTrap": "Don't confuse '=' (storing a value) with '==' (checking if two values are equal). Also, make sure arrays don't go out of bounds.",
+            "quiz": {
+              "question": "What is the core objective when solving \"Collatz Conjecture Steps\"?",
+              "options": [
+                "Accept the input format, apply logical operations, and output the required result",
+                "Ignore user input and hardcode random values",
+                "Create an infinite loop",
+                "Shut down the compiler"
+              ],
+              "correctIndex": 0,
+              "explanation": "Every algorithm takes well-defined input, applies deterministic step-by-step logic, and produces the exact output expected."
+            },
+            "memoryTrace": {
+              "registers": [
+                {
+                  "name": "input",
+                  "value": "User Input",
+                  "role": "Buffered standard input stream"
+                },
+                {
+                  "name": "result",
+                  "value": "Computed Value",
+                  "role": "Register holding final evaluated result"
+                }
+              ],
+              "steps": [
+                {
+                  "step": 1,
+                  "title": "Input Reading",
+                  "state": {
+                    "input": "Received",
+                    "result": "Unset"
+                  },
+                  "explanation": "Program captures raw bytes from stdin into memory variables."
+                },
+                {
+                  "step": 2,
+                  "title": "CPU ALU Execution",
+                  "state": {
+                    "input": "Processed",
+                    "result": "Calculated"
+                  },
+                  "explanation": "Processor executes arithmetic/logical instructions according to program code."
+                },
+                {
+                  "step": 3,
+                  "title": "Output Emission",
+                  "state": {
+                    "input": "Done",
+                    "result": "Flushed to stdout"
+                  },
+                  "explanation": "Result formatted and flushed to the terminal screen."
+                }
+              ]
+            },
+            "anatomy": [
+              {
+                "line": "#include <iostream>",
+                "role": "Header Stream",
+                "plainEnglish": "Loads C++ modern streams library for std::cin (keyboard input) and std::cout (screen output)."
+              },
+              {
+                "line": "using namespace std;",
+                "role": "Scope Convenience",
+                "plainEnglish": "Allows typing cin and cout directly instead of repeating std::cin every single time."
+              },
+              {
+                "line": "cin >> a >> b;",
+                "role": "Stream Extraction",
+                "plainEnglish": "Flows user input values directly into variables a and b safely without format codes."
+              },
+              {
+                "line": "cout << result << \"\\n\";",
+                "role": "Stream Insertion",
+                "plainEnglish": "Sends the computed result to the terminal display buffer followed by a newline."
+              }
+            ]
           }
         ]
       },
@@ -2632,7 +8634,83 @@ export const CURRICULUM = {
               "Step 3 (Output): Print the final result clearly on the screen exactly as requested."
             ],
             "whyItMatters": "Powers Spotify playlist shuffling, Amazon product price sorting, and video game leaderboard rankings.",
-            "beginnerTrap": "Don't confuse '=' (storing a value) with '==' (checking if two values are equal). Also, make sure arrays don't go out of bounds."
+            "beginnerTrap": "Don't confuse '=' (storing a value) with '==' (checking if two values are equal). Also, make sure arrays don't go out of bounds.",
+            "quiz": {
+              "question": "What is the core objective when solving \"Vector Sorting (Ascending & Descending)\"?",
+              "options": [
+                "Accept the input format, apply logical operations, and output the required result",
+                "Ignore user input and hardcode random values",
+                "Create an infinite loop",
+                "Shut down the compiler"
+              ],
+              "correctIndex": 0,
+              "explanation": "Every algorithm takes well-defined input, applies deterministic step-by-step logic, and produces the exact output expected."
+            },
+            "memoryTrace": {
+              "registers": [
+                {
+                  "name": "input",
+                  "value": "User Input",
+                  "role": "Buffered standard input stream"
+                },
+                {
+                  "name": "result",
+                  "value": "Computed Value",
+                  "role": "Register holding final evaluated result"
+                }
+              ],
+              "steps": [
+                {
+                  "step": 1,
+                  "title": "Input Reading",
+                  "state": {
+                    "input": "Received",
+                    "result": "Unset"
+                  },
+                  "explanation": "Program captures raw bytes from stdin into memory variables."
+                },
+                {
+                  "step": 2,
+                  "title": "CPU ALU Execution",
+                  "state": {
+                    "input": "Processed",
+                    "result": "Calculated"
+                  },
+                  "explanation": "Processor executes arithmetic/logical instructions according to program code."
+                },
+                {
+                  "step": 3,
+                  "title": "Output Emission",
+                  "state": {
+                    "input": "Done",
+                    "result": "Flushed to stdout"
+                  },
+                  "explanation": "Result formatted and flushed to the terminal screen."
+                }
+              ]
+            },
+            "anatomy": [
+              {
+                "line": "#include <iostream>",
+                "role": "Header Stream",
+                "plainEnglish": "Loads C++ modern streams library for std::cin (keyboard input) and std::cout (screen output)."
+              },
+              {
+                "line": "using namespace std;",
+                "role": "Scope Convenience",
+                "plainEnglish": "Allows typing cin and cout directly instead of repeating std::cin every single time."
+              },
+              {
+                "line": "cin >> a >> b;",
+                "role": "Stream Extraction",
+                "plainEnglish": "Flows user input values directly into variables a and b safely without format codes."
+              },
+              {
+                "line": "cout << result << \"\\n\";",
+                "role": "Stream Insertion",
+                "plainEnglish": "Sends the computed result to the terminal display buffer followed by a newline."
+              }
+            ]
           },
           {
             "id": "cpp_m4_p2",
@@ -2659,7 +8737,91 @@ export const CURRICULUM = {
               "Step 3 (Output): Print the final result clearly on the screen exactly as requested."
             ],
             "whyItMatters": "Powers Spotify playlist shuffling, Amazon product price sorting, and video game leaderboard rankings.",
-            "beginnerTrap": "Don't confuse '=' (storing a value) with '==' (checking if two values are equal). Also, make sure arrays don't go out of bounds."
+            "beginnerTrap": "Don't confuse '=' (storing a value) with '==' (checking if two values are equal). Also, make sure arrays don't go out of bounds.",
+            "quiz": {
+              "question": "When reversing an array with two pointers (left and right), when do we stop swapping?",
+              "options": [
+                "When left reaches the end of the array",
+                "When left and right pointers cross or meet in the middle (left >= right)",
+                "After exactly 1 swap",
+                "Never — it loops endlessly"
+              ],
+              "correctIndex": 1,
+              "explanation": "Once the left and right pointers cross in the center, every symmetric pair has already been swapped! Swapping further would reverse it back."
+            },
+            "memoryTrace": {
+              "registers": [
+                {
+                  "name": "arr",
+                  "value": "[1, 2, 3, 4, 5]",
+                  "role": "Contiguous array in memory"
+                },
+                {
+                  "name": "left",
+                  "value": "0",
+                  "role": "Start index pointer"
+                },
+                {
+                  "name": "right",
+                  "value": "4",
+                  "role": "End index pointer"
+                }
+              ],
+              "steps": [
+                {
+                  "step": 1,
+                  "title": "Pointer Setup",
+                  "state": {
+                    "arr": "[1, 2, 3, 4, 5]",
+                    "left": "0",
+                    "right": "4"
+                  },
+                  "explanation": "left points to 1 (idx 0), right points to 5 (idx 4)."
+                },
+                {
+                  "step": 2,
+                  "title": "First Swap & Move",
+                  "state": {
+                    "arr": "[5, 2, 3, 4, 1]",
+                    "left": "1",
+                    "right": "3"
+                  },
+                  "explanation": "Swap arr[0] and arr[4]. left increments to 1, right decrements to 3."
+                },
+                {
+                  "step": 3,
+                  "title": "Second Swap & Meet",
+                  "state": {
+                    "arr": "[5, 4, 3, 2, 1]",
+                    "left": "2",
+                    "right": "2"
+                  },
+                  "explanation": "Swap arr[1] and arr[3]. Both pointers meet at center index 2. Reverse finished!"
+                }
+              ]
+            },
+            "anatomy": [
+              {
+                "line": "#include <iostream>",
+                "role": "Header Stream",
+                "plainEnglish": "Loads C++ modern streams library for std::cin (keyboard input) and std::cout (screen output)."
+              },
+              {
+                "line": "using namespace std;",
+                "role": "Scope Convenience",
+                "plainEnglish": "Allows typing cin and cout directly instead of repeating std::cin every single time."
+              },
+              {
+                "line": "cin >> a >> b;",
+                "role": "Stream Extraction",
+                "plainEnglish": "Flows user input values directly into variables a and b safely without format codes."
+              },
+              {
+                "line": "cout << result << \"\\n\";",
+                "role": "Stream Insertion",
+                "plainEnglish": "Sends the computed result to the terminal display buffer followed by a newline."
+              }
+            ]
           },
           {
             "id": "cpp_m4_p3",
@@ -2690,7 +8852,83 @@ export const CURRICULUM = {
               "Step 3 (Output): Print the final result clearly on the screen exactly as requested."
             ],
             "whyItMatters": "Foundational logic used in smartphone apps, smart microwaves, ATM cash dispensers, and space rovers.",
-            "beginnerTrap": "Don't confuse '=' (storing a value) with '==' (checking if two values are equal). Also, make sure arrays don't go out of bounds."
+            "beginnerTrap": "Don't confuse '=' (storing a value) with '==' (checking if two values are equal). Also, make sure arrays don't go out of bounds.",
+            "quiz": {
+              "question": "What is the core objective when solving \"Count Element Frequency with std::count\"?",
+              "options": [
+                "Accept the input format, apply logical operations, and output the required result",
+                "Ignore user input and hardcode random values",
+                "Create an infinite loop",
+                "Shut down the compiler"
+              ],
+              "correctIndex": 0,
+              "explanation": "Every algorithm takes well-defined input, applies deterministic step-by-step logic, and produces the exact output expected."
+            },
+            "memoryTrace": {
+              "registers": [
+                {
+                  "name": "input",
+                  "value": "User Input",
+                  "role": "Buffered standard input stream"
+                },
+                {
+                  "name": "result",
+                  "value": "Computed Value",
+                  "role": "Register holding final evaluated result"
+                }
+              ],
+              "steps": [
+                {
+                  "step": 1,
+                  "title": "Input Reading",
+                  "state": {
+                    "input": "Received",
+                    "result": "Unset"
+                  },
+                  "explanation": "Program captures raw bytes from stdin into memory variables."
+                },
+                {
+                  "step": 2,
+                  "title": "CPU ALU Execution",
+                  "state": {
+                    "input": "Processed",
+                    "result": "Calculated"
+                  },
+                  "explanation": "Processor executes arithmetic/logical instructions according to program code."
+                },
+                {
+                  "step": 3,
+                  "title": "Output Emission",
+                  "state": {
+                    "input": "Done",
+                    "result": "Flushed to stdout"
+                  },
+                  "explanation": "Result formatted and flushed to the terminal screen."
+                }
+              ]
+            },
+            "anatomy": [
+              {
+                "line": "#include <iostream>",
+                "role": "Header Stream",
+                "plainEnglish": "Loads C++ modern streams library for std::cin (keyboard input) and std::cout (screen output)."
+              },
+              {
+                "line": "using namespace std;",
+                "role": "Scope Convenience",
+                "plainEnglish": "Allows typing cin and cout directly instead of repeating std::cin every single time."
+              },
+              {
+                "line": "cin >> a >> b;",
+                "role": "Stream Extraction",
+                "plainEnglish": "Flows user input values directly into variables a and b safely without format codes."
+              },
+              {
+                "line": "cout << result << \"\\n\";",
+                "role": "Stream Insertion",
+                "plainEnglish": "Sends the computed result to the terminal display buffer followed by a newline."
+              }
+            ]
           },
           {
             "id": "cpp_m4_p4",
@@ -2717,7 +8955,83 @@ export const CURRICULUM = {
               "Step 3 (Output): Print the final result clearly on the screen exactly as requested."
             ],
             "whyItMatters": "Foundational logic used in smartphone apps, smart microwaves, ATM cash dispensers, and space rovers.",
-            "beginnerTrap": "Don't confuse '=' (storing a value) with '==' (checking if two values are equal). Also, make sure arrays don't go out of bounds."
+            "beginnerTrap": "Don't confuse '=' (storing a value) with '==' (checking if two values are equal). Also, make sure arrays don't go out of bounds.",
+            "quiz": {
+              "question": "What is the core objective when solving \"Remove Consecutive Duplicates with std::unique\"?",
+              "options": [
+                "Accept the input format, apply logical operations, and output the required result",
+                "Ignore user input and hardcode random values",
+                "Create an infinite loop",
+                "Shut down the compiler"
+              ],
+              "correctIndex": 0,
+              "explanation": "Every algorithm takes well-defined input, applies deterministic step-by-step logic, and produces the exact output expected."
+            },
+            "memoryTrace": {
+              "registers": [
+                {
+                  "name": "input",
+                  "value": "User Input",
+                  "role": "Buffered standard input stream"
+                },
+                {
+                  "name": "result",
+                  "value": "Computed Value",
+                  "role": "Register holding final evaluated result"
+                }
+              ],
+              "steps": [
+                {
+                  "step": 1,
+                  "title": "Input Reading",
+                  "state": {
+                    "input": "Received",
+                    "result": "Unset"
+                  },
+                  "explanation": "Program captures raw bytes from stdin into memory variables."
+                },
+                {
+                  "step": 2,
+                  "title": "CPU ALU Execution",
+                  "state": {
+                    "input": "Processed",
+                    "result": "Calculated"
+                  },
+                  "explanation": "Processor executes arithmetic/logical instructions according to program code."
+                },
+                {
+                  "step": 3,
+                  "title": "Output Emission",
+                  "state": {
+                    "input": "Done",
+                    "result": "Flushed to stdout"
+                  },
+                  "explanation": "Result formatted and flushed to the terminal screen."
+                }
+              ]
+            },
+            "anatomy": [
+              {
+                "line": "#include <iostream>",
+                "role": "Header Stream",
+                "plainEnglish": "Loads C++ modern streams library for std::cin (keyboard input) and std::cout (screen output)."
+              },
+              {
+                "line": "using namespace std;",
+                "role": "Scope Convenience",
+                "plainEnglish": "Allows typing cin and cout directly instead of repeating std::cin every single time."
+              },
+              {
+                "line": "cin >> a >> b;",
+                "role": "Stream Extraction",
+                "plainEnglish": "Flows user input values directly into variables a and b safely without format codes."
+              },
+              {
+                "line": "cout << result << \"\\n\";",
+                "role": "Stream Insertion",
+                "plainEnglish": "Sends the computed result to the terminal display buffer followed by a newline."
+              }
+            ]
           },
           {
             "id": "cpp_m4_p5",
@@ -2744,7 +9058,83 @@ export const CURRICULUM = {
               "Step 3 (Output): Print the final result clearly on the screen exactly as requested."
             ],
             "whyItMatters": "Foundational logic used in smartphone apps, smart microwaves, ATM cash dispensers, and space rovers.",
-            "beginnerTrap": "Don't confuse '=' (storing a value) with '==' (checking if two values are equal). Also, make sure arrays don't go out of bounds."
+            "beginnerTrap": "Don't confuse '=' (storing a value) with '==' (checking if two values are equal). Also, make sure arrays don't go out of bounds.",
+            "quiz": {
+              "question": "What is the core objective when solving \"Find Second Largest in Vector\"?",
+              "options": [
+                "Accept the input format, apply logical operations, and output the required result",
+                "Ignore user input and hardcode random values",
+                "Create an infinite loop",
+                "Shut down the compiler"
+              ],
+              "correctIndex": 0,
+              "explanation": "Every algorithm takes well-defined input, applies deterministic step-by-step logic, and produces the exact output expected."
+            },
+            "memoryTrace": {
+              "registers": [
+                {
+                  "name": "input",
+                  "value": "User Input",
+                  "role": "Buffered standard input stream"
+                },
+                {
+                  "name": "result",
+                  "value": "Computed Value",
+                  "role": "Register holding final evaluated result"
+                }
+              ],
+              "steps": [
+                {
+                  "step": 1,
+                  "title": "Input Reading",
+                  "state": {
+                    "input": "Received",
+                    "result": "Unset"
+                  },
+                  "explanation": "Program captures raw bytes from stdin into memory variables."
+                },
+                {
+                  "step": 2,
+                  "title": "CPU ALU Execution",
+                  "state": {
+                    "input": "Processed",
+                    "result": "Calculated"
+                  },
+                  "explanation": "Processor executes arithmetic/logical instructions according to program code."
+                },
+                {
+                  "step": 3,
+                  "title": "Output Emission",
+                  "state": {
+                    "input": "Done",
+                    "result": "Flushed to stdout"
+                  },
+                  "explanation": "Result formatted and flushed to the terminal screen."
+                }
+              ]
+            },
+            "anatomy": [
+              {
+                "line": "#include <iostream>",
+                "role": "Header Stream",
+                "plainEnglish": "Loads C++ modern streams library for std::cin (keyboard input) and std::cout (screen output)."
+              },
+              {
+                "line": "using namespace std;",
+                "role": "Scope Convenience",
+                "plainEnglish": "Allows typing cin and cout directly instead of repeating std::cin every single time."
+              },
+              {
+                "line": "cin >> a >> b;",
+                "role": "Stream Extraction",
+                "plainEnglish": "Flows user input values directly into variables a and b safely without format codes."
+              },
+              {
+                "line": "cout << result << \"\\n\";",
+                "role": "Stream Insertion",
+                "plainEnglish": "Sends the computed result to the terminal display buffer followed by a newline."
+              }
+            ]
           }
         ]
       },
@@ -2783,7 +9173,83 @@ export const CURRICULUM = {
               "Step 3 (Output): Print the final result clearly on the screen exactly as requested."
             ],
             "whyItMatters": "Drives Google search autocorrect, DNA sequence genetics analysis, and spam email filters.",
-            "beginnerTrap": "Don't confuse '=' (storing a value) with '==' (checking if two values are equal). Also, make sure arrays don't go out of bounds."
+            "beginnerTrap": "Don't confuse '=' (storing a value) with '==' (checking if two values are equal). Also, make sure arrays don't go out of bounds.",
+            "quiz": {
+              "question": "What defines a palindrome in computer science?",
+              "options": [
+                "A sequence that reads identically forward and backward",
+                "A number that has only two factors",
+                "A word with all vowels capitalized",
+                "An array with only even numbers"
+              ],
+              "correctIndex": 0,
+              "explanation": "A palindrome has perfect symmetry — like 'radar' or 12321. Comparing characters from both ends inward confirms symmetry."
+            },
+            "memoryTrace": {
+              "registers": [
+                {
+                  "name": "input",
+                  "value": "User Input",
+                  "role": "Buffered standard input stream"
+                },
+                {
+                  "name": "result",
+                  "value": "Computed Value",
+                  "role": "Register holding final evaluated result"
+                }
+              ],
+              "steps": [
+                {
+                  "step": 1,
+                  "title": "Input Reading",
+                  "state": {
+                    "input": "Received",
+                    "result": "Unset"
+                  },
+                  "explanation": "Program captures raw bytes from stdin into memory variables."
+                },
+                {
+                  "step": 2,
+                  "title": "CPU ALU Execution",
+                  "state": {
+                    "input": "Processed",
+                    "result": "Calculated"
+                  },
+                  "explanation": "Processor executes arithmetic/logical instructions according to program code."
+                },
+                {
+                  "step": 3,
+                  "title": "Output Emission",
+                  "state": {
+                    "input": "Done",
+                    "result": "Flushed to stdout"
+                  },
+                  "explanation": "Result formatted and flushed to the terminal screen."
+                }
+              ]
+            },
+            "anatomy": [
+              {
+                "line": "#include <iostream>",
+                "role": "Header Stream",
+                "plainEnglish": "Loads C++ modern streams library for std::cin (keyboard input) and std::cout (screen output)."
+              },
+              {
+                "line": "using namespace std;",
+                "role": "Scope Convenience",
+                "plainEnglish": "Allows typing cin and cout directly instead of repeating std::cin every single time."
+              },
+              {
+                "line": "cin >> a >> b;",
+                "role": "Stream Extraction",
+                "plainEnglish": "Flows user input values directly into variables a and b safely without format codes."
+              },
+              {
+                "line": "cout << result << \"\\n\";",
+                "role": "Stream Insertion",
+                "plainEnglish": "Sends the computed result to the terminal display buffer followed by a newline."
+              }
+            ]
           },
           {
             "id": "cpp_m5_p2",
@@ -2814,7 +9280,83 @@ export const CURRICULUM = {
               "Step 3 (Output): Print the final result clearly on the screen exactly as requested."
             ],
             "whyItMatters": "Powers Spotify playlist shuffling, Amazon product price sorting, and video game leaderboard rankings.",
-            "beginnerTrap": "Don't confuse '=' (storing a value) with '==' (checking if two values are equal). Also, make sure arrays don't go out of bounds."
+            "beginnerTrap": "Don't confuse '=' (storing a value) with '==' (checking if two values are equal). Also, make sure arrays don't go out of bounds.",
+            "quiz": {
+              "question": "What is the core objective when solving \"Check Anagrams with std::sort\"?",
+              "options": [
+                "Accept the input format, apply logical operations, and output the required result",
+                "Ignore user input and hardcode random values",
+                "Create an infinite loop",
+                "Shut down the compiler"
+              ],
+              "correctIndex": 0,
+              "explanation": "Every algorithm takes well-defined input, applies deterministic step-by-step logic, and produces the exact output expected."
+            },
+            "memoryTrace": {
+              "registers": [
+                {
+                  "name": "input",
+                  "value": "User Input",
+                  "role": "Buffered standard input stream"
+                },
+                {
+                  "name": "result",
+                  "value": "Computed Value",
+                  "role": "Register holding final evaluated result"
+                }
+              ],
+              "steps": [
+                {
+                  "step": 1,
+                  "title": "Input Reading",
+                  "state": {
+                    "input": "Received",
+                    "result": "Unset"
+                  },
+                  "explanation": "Program captures raw bytes from stdin into memory variables."
+                },
+                {
+                  "step": 2,
+                  "title": "CPU ALU Execution",
+                  "state": {
+                    "input": "Processed",
+                    "result": "Calculated"
+                  },
+                  "explanation": "Processor executes arithmetic/logical instructions according to program code."
+                },
+                {
+                  "step": 3,
+                  "title": "Output Emission",
+                  "state": {
+                    "input": "Done",
+                    "result": "Flushed to stdout"
+                  },
+                  "explanation": "Result formatted and flushed to the terminal screen."
+                }
+              ]
+            },
+            "anatomy": [
+              {
+                "line": "#include <iostream>",
+                "role": "Header Stream",
+                "plainEnglish": "Loads C++ modern streams library for std::cin (keyboard input) and std::cout (screen output)."
+              },
+              {
+                "line": "using namespace std;",
+                "role": "Scope Convenience",
+                "plainEnglish": "Allows typing cin and cout directly instead of repeating std::cin every single time."
+              },
+              {
+                "line": "cin >> a >> b;",
+                "role": "Stream Extraction",
+                "plainEnglish": "Flows user input values directly into variables a and b safely without format codes."
+              },
+              {
+                "line": "cout << result << \"\\n\";",
+                "role": "Stream Insertion",
+                "plainEnglish": "Sends the computed result to the terminal display buffer followed by a newline."
+              }
+            ]
           },
           {
             "id": "cpp_m5_p3",
@@ -2845,7 +9387,83 @@ export const CURRICULUM = {
               "Step 3 (Output): Print the final result clearly on the screen exactly as requested."
             ],
             "whyItMatters": "Foundational logic used in smartphone apps, smart microwaves, ATM cash dispensers, and space rovers.",
-            "beginnerTrap": "Don't confuse '=' (storing a value) with '==' (checking if two values are equal). Also, make sure arrays don't go out of bounds."
+            "beginnerTrap": "Don't confuse '=' (storing a value) with '==' (checking if two values are equal). Also, make sure arrays don't go out of bounds.",
+            "quiz": {
+              "question": "What is the core objective when solving \"Binary Search with std::binary_search\"?",
+              "options": [
+                "Accept the input format, apply logical operations, and output the required result",
+                "Ignore user input and hardcode random values",
+                "Create an infinite loop",
+                "Shut down the compiler"
+              ],
+              "correctIndex": 0,
+              "explanation": "Every algorithm takes well-defined input, applies deterministic step-by-step logic, and produces the exact output expected."
+            },
+            "memoryTrace": {
+              "registers": [
+                {
+                  "name": "input",
+                  "value": "User Input",
+                  "role": "Buffered standard input stream"
+                },
+                {
+                  "name": "result",
+                  "value": "Computed Value",
+                  "role": "Register holding final evaluated result"
+                }
+              ],
+              "steps": [
+                {
+                  "step": 1,
+                  "title": "Input Reading",
+                  "state": {
+                    "input": "Received",
+                    "result": "Unset"
+                  },
+                  "explanation": "Program captures raw bytes from stdin into memory variables."
+                },
+                {
+                  "step": 2,
+                  "title": "CPU ALU Execution",
+                  "state": {
+                    "input": "Processed",
+                    "result": "Calculated"
+                  },
+                  "explanation": "Processor executes arithmetic/logical instructions according to program code."
+                },
+                {
+                  "step": 3,
+                  "title": "Output Emission",
+                  "state": {
+                    "input": "Done",
+                    "result": "Flushed to stdout"
+                  },
+                  "explanation": "Result formatted and flushed to the terminal screen."
+                }
+              ]
+            },
+            "anatomy": [
+              {
+                "line": "#include <iostream>",
+                "role": "Header Stream",
+                "plainEnglish": "Loads C++ modern streams library for std::cin (keyboard input) and std::cout (screen output)."
+              },
+              {
+                "line": "using namespace std;",
+                "role": "Scope Convenience",
+                "plainEnglish": "Allows typing cin and cout directly instead of repeating std::cin every single time."
+              },
+              {
+                "line": "cin >> a >> b;",
+                "role": "Stream Extraction",
+                "plainEnglish": "Flows user input values directly into variables a and b safely without format codes."
+              },
+              {
+                "line": "cout << result << \"\\n\";",
+                "role": "Stream Insertion",
+                "plainEnglish": "Sends the computed result to the terminal display buffer followed by a newline."
+              }
+            ]
           },
           {
             "id": "cpp_m5_p4",
@@ -2872,7 +9490,83 @@ export const CURRICULUM = {
               "Step 3 (Output): Print the final result clearly on the screen exactly as requested."
             ],
             "whyItMatters": "Foundational logic used in smartphone apps, smart microwaves, ATM cash dispensers, and space rovers.",
-            "beginnerTrap": "Don't confuse '=' (storing a value) with '==' (checking if two values are equal). Also, make sure arrays don't go out of bounds."
+            "beginnerTrap": "Don't confuse '=' (storing a value) with '==' (checking if two values are equal). Also, make sure arrays don't go out of bounds.",
+            "quiz": {
+              "question": "What is the core objective when solving \"Count Vowels and Consonants in C++\"?",
+              "options": [
+                "Accept the input format, apply logical operations, and output the required result",
+                "Ignore user input and hardcode random values",
+                "Create an infinite loop",
+                "Shut down the compiler"
+              ],
+              "correctIndex": 0,
+              "explanation": "Every algorithm takes well-defined input, applies deterministic step-by-step logic, and produces the exact output expected."
+            },
+            "memoryTrace": {
+              "registers": [
+                {
+                  "name": "input",
+                  "value": "User Input",
+                  "role": "Buffered standard input stream"
+                },
+                {
+                  "name": "result",
+                  "value": "Computed Value",
+                  "role": "Register holding final evaluated result"
+                }
+              ],
+              "steps": [
+                {
+                  "step": 1,
+                  "title": "Input Reading",
+                  "state": {
+                    "input": "Received",
+                    "result": "Unset"
+                  },
+                  "explanation": "Program captures raw bytes from stdin into memory variables."
+                },
+                {
+                  "step": 2,
+                  "title": "CPU ALU Execution",
+                  "state": {
+                    "input": "Processed",
+                    "result": "Calculated"
+                  },
+                  "explanation": "Processor executes arithmetic/logical instructions according to program code."
+                },
+                {
+                  "step": 3,
+                  "title": "Output Emission",
+                  "state": {
+                    "input": "Done",
+                    "result": "Flushed to stdout"
+                  },
+                  "explanation": "Result formatted and flushed to the terminal screen."
+                }
+              ]
+            },
+            "anatomy": [
+              {
+                "line": "#include <iostream>",
+                "role": "Header Stream",
+                "plainEnglish": "Loads C++ modern streams library for std::cin (keyboard input) and std::cout (screen output)."
+              },
+              {
+                "line": "using namespace std;",
+                "role": "Scope Convenience",
+                "plainEnglish": "Allows typing cin and cout directly instead of repeating std::cin every single time."
+              },
+              {
+                "line": "cin >> a >> b;",
+                "role": "Stream Extraction",
+                "plainEnglish": "Flows user input values directly into variables a and b safely without format codes."
+              },
+              {
+                "line": "cout << result << \"\\n\";",
+                "role": "Stream Insertion",
+                "plainEnglish": "Sends the computed result to the terminal display buffer followed by a newline."
+              }
+            ]
           },
           {
             "id": "cpp_m5_p5",
@@ -2903,7 +9597,83 @@ export const CURRICULUM = {
               "Step 3 (Output): Print the final result clearly on the screen exactly as requested."
             ],
             "whyItMatters": "Foundational logic used in smartphone apps, smart microwaves, ATM cash dispensers, and space rovers.",
-            "beginnerTrap": "Don't confuse '=' (storing a value) with '==' (checking if two values are equal). Also, make sure arrays don't go out of bounds."
+            "beginnerTrap": "Don't confuse '=' (storing a value) with '==' (checking if two values are equal). Also, make sure arrays don't go out of bounds.",
+            "quiz": {
+              "question": "What is the core objective when solving \"Check Pangram (Contains Every English Letter)\"?",
+              "options": [
+                "Accept the input format, apply logical operations, and output the required result",
+                "Ignore user input and hardcode random values",
+                "Create an infinite loop",
+                "Shut down the compiler"
+              ],
+              "correctIndex": 0,
+              "explanation": "Every algorithm takes well-defined input, applies deterministic step-by-step logic, and produces the exact output expected."
+            },
+            "memoryTrace": {
+              "registers": [
+                {
+                  "name": "input",
+                  "value": "User Input",
+                  "role": "Buffered standard input stream"
+                },
+                {
+                  "name": "result",
+                  "value": "Computed Value",
+                  "role": "Register holding final evaluated result"
+                }
+              ],
+              "steps": [
+                {
+                  "step": 1,
+                  "title": "Input Reading",
+                  "state": {
+                    "input": "Received",
+                    "result": "Unset"
+                  },
+                  "explanation": "Program captures raw bytes from stdin into memory variables."
+                },
+                {
+                  "step": 2,
+                  "title": "CPU ALU Execution",
+                  "state": {
+                    "input": "Processed",
+                    "result": "Calculated"
+                  },
+                  "explanation": "Processor executes arithmetic/logical instructions according to program code."
+                },
+                {
+                  "step": 3,
+                  "title": "Output Emission",
+                  "state": {
+                    "input": "Done",
+                    "result": "Flushed to stdout"
+                  },
+                  "explanation": "Result formatted and flushed to the terminal screen."
+                }
+              ]
+            },
+            "anatomy": [
+              {
+                "line": "#include <iostream>",
+                "role": "Header Stream",
+                "plainEnglish": "Loads C++ modern streams library for std::cin (keyboard input) and std::cout (screen output)."
+              },
+              {
+                "line": "using namespace std;",
+                "role": "Scope Convenience",
+                "plainEnglish": "Allows typing cin and cout directly instead of repeating std::cin every single time."
+              },
+              {
+                "line": "cin >> a >> b;",
+                "role": "Stream Extraction",
+                "plainEnglish": "Flows user input values directly into variables a and b safely without format codes."
+              },
+              {
+                "line": "cout << result << \"\\n\";",
+                "role": "Stream Insertion",
+                "plainEnglish": "Sends the computed result to the terminal display buffer followed by a newline."
+              }
+            ]
           }
         ]
       }
@@ -2952,7 +9722,88 @@ export const CURRICULUM = {
               "Step 3 (Output): Print the final result clearly on the screen exactly as requested."
             ],
             "whyItMatters": "Foundational logic used in smartphone apps, smart microwaves, ATM cash dispensers, and space rovers.",
-            "beginnerTrap": "In Java, always name your public class 'Main', and remember array indices start at 0 and end at length - 1."
+            "beginnerTrap": "In Java, always name your public class 'Main', and remember array indices start at 0 and end at length - 1.",
+            "quiz": {
+              "question": "What is the core objective when solving \"Scanner Sum and Average\"?",
+              "options": [
+                "Accept the input format, apply logical operations, and output the required result",
+                "Ignore user input and hardcode random values",
+                "Create an infinite loop",
+                "Shut down the compiler"
+              ],
+              "correctIndex": 0,
+              "explanation": "Every algorithm takes well-defined input, applies deterministic step-by-step logic, and produces the exact output expected."
+            },
+            "memoryTrace": {
+              "registers": [
+                {
+                  "name": "input",
+                  "value": "User Input",
+                  "role": "Buffered standard input stream"
+                },
+                {
+                  "name": "result",
+                  "value": "Computed Value",
+                  "role": "Register holding final evaluated result"
+                }
+              ],
+              "steps": [
+                {
+                  "step": 1,
+                  "title": "Input Reading",
+                  "state": {
+                    "input": "Received",
+                    "result": "Unset"
+                  },
+                  "explanation": "Program captures raw bytes from stdin into memory variables."
+                },
+                {
+                  "step": 2,
+                  "title": "CPU ALU Execution",
+                  "state": {
+                    "input": "Processed",
+                    "result": "Calculated"
+                  },
+                  "explanation": "Processor executes arithmetic/logical instructions according to program code."
+                },
+                {
+                  "step": 3,
+                  "title": "Output Emission",
+                  "state": {
+                    "input": "Done",
+                    "result": "Flushed to stdout"
+                  },
+                  "explanation": "Result formatted and flushed to the terminal screen."
+                }
+              ]
+            },
+            "anatomy": [
+              {
+                "line": "import java.util.Scanner;",
+                "role": "Tool Import",
+                "plainEnglish": "Imports the Scanner class used to parse primitive numbers and strings from console input."
+              },
+              {
+                "line": "public class Main { ... }",
+                "role": "Class Wrapper",
+                "plainEnglish": "In Java, all code must live inside a class. The main executable class must match filename."
+              },
+              {
+                "line": "public static void main(String[] args)",
+                "role": "Entry Point",
+                "plainEnglish": "The standard entry point that the Java Virtual Machine (JVM) searches for to begin running."
+              },
+              {
+                "line": "Scanner sc = new Scanner(System.in);",
+                "role": "Scanner Setup",
+                "plainEnglish": "Creates a scanner object connected to System.in to listen to keyboard keystrokes."
+              },
+              {
+                "line": "System.out.println(result);",
+                "role": "Console Print",
+                "plainEnglish": "Outputs result to the console and moves the cursor to a fresh new line."
+              }
+            ]
           },
           {
             "id": "java_m1_p2",
@@ -2979,7 +9830,88 @@ export const CURRICULUM = {
               "Step 3 (Output): Print the final result clearly on the screen exactly as requested."
             ],
             "whyItMatters": "Foundational logic used in smartphone apps, smart microwaves, ATM cash dispensers, and space rovers.",
-            "beginnerTrap": "In Java, always name your public class 'Main', and remember array indices start at 0 and end at length - 1."
+            "beginnerTrap": "In Java, always name your public class 'Main', and remember array indices start at 0 and end at length - 1.",
+            "quiz": {
+              "question": "How does the arithmetic swap 'a = a + b; b = a - b; a = a - b;' exchange values without a temporary variable?",
+              "options": [
+                "It deletes both numbers and generates new ones",
+                "The combined sum stores both values; subtracting b isolates original a, then subtracting again isolates original b",
+                "The compiler automatically adds a secret variable behind the scenes",
+                "It only works if both numbers are negative"
+              ],
+              "correctIndex": 1,
+              "explanation": "By temporarily keeping the total sum in 'a', subtracting the original 'b' yields the original 'a' into 'b', and subtracting again extracts original 'b' into 'a'!"
+            },
+            "memoryTrace": {
+              "registers": [
+                {
+                  "name": "a",
+                  "value": "3",
+                  "role": "First integer variable in RAM"
+                },
+                {
+                  "name": "b",
+                  "value": "7",
+                  "role": "Second integer variable in RAM"
+                }
+              ],
+              "steps": [
+                {
+                  "step": 1,
+                  "title": "Step 1: Combined Sum",
+                  "state": {
+                    "a": "10",
+                    "b": "7"
+                  },
+                  "explanation": "a = a + b (3 + 7 = 10). Variable \"a\" now holds the combined pool."
+                },
+                {
+                  "step": 2,
+                  "title": "Step 2: Isolate Original A",
+                  "state": {
+                    "a": "10",
+                    "b": "3"
+                  },
+                  "explanation": "b = a - b (10 - 7 = 3). \"b\" has now successfully acquired original \"a\" value!"
+                },
+                {
+                  "step": 3,
+                  "title": "Step 3: Isolate Original B",
+                  "state": {
+                    "a": "7",
+                    "b": "3"
+                  },
+                  "explanation": "a = a - b (10 - 3 = 7). \"a\" has now acquired original \"b\". Swap complete without extra RAM!"
+                }
+              ]
+            },
+            "anatomy": [
+              {
+                "line": "import java.util.Scanner;",
+                "role": "Tool Import",
+                "plainEnglish": "Imports the Scanner class used to parse primitive numbers and strings from console input."
+              },
+              {
+                "line": "public class Main { ... }",
+                "role": "Class Wrapper",
+                "plainEnglish": "In Java, all code must live inside a class. The main executable class must match filename."
+              },
+              {
+                "line": "public static void main(String[] args)",
+                "role": "Entry Point",
+                "plainEnglish": "The standard entry point that the Java Virtual Machine (JVM) searches for to begin running."
+              },
+              {
+                "line": "Scanner sc = new Scanner(System.in);",
+                "role": "Scanner Setup",
+                "plainEnglish": "Creates a scanner object connected to System.in to listen to keyboard keystrokes."
+              },
+              {
+                "line": "System.out.println(result);",
+                "role": "Console Print",
+                "plainEnglish": "Outputs result to the console and moves the cursor to a fresh new line."
+              }
+            ]
           },
           {
             "id": "java_m1_p3",
@@ -3010,7 +9942,88 @@ export const CURRICULUM = {
               "Step 3 (Output): Print the final result clearly on the screen exactly as requested."
             ],
             "whyItMatters": "Foundational logic used in smartphone apps, smart microwaves, ATM cash dispensers, and space rovers.",
-            "beginnerTrap": "In Java, always name your public class 'Main', and remember array indices start at 0 and end at length - 1."
+            "beginnerTrap": "In Java, always name your public class 'Main', and remember array indices start at 0 and end at length - 1.",
+            "quiz": {
+              "question": "What is the core objective when solving \"Fahrenheit to Celsius Converter\"?",
+              "options": [
+                "Accept the input format, apply logical operations, and output the required result",
+                "Ignore user input and hardcode random values",
+                "Create an infinite loop",
+                "Shut down the compiler"
+              ],
+              "correctIndex": 0,
+              "explanation": "Every algorithm takes well-defined input, applies deterministic step-by-step logic, and produces the exact output expected."
+            },
+            "memoryTrace": {
+              "registers": [
+                {
+                  "name": "input",
+                  "value": "User Input",
+                  "role": "Buffered standard input stream"
+                },
+                {
+                  "name": "result",
+                  "value": "Computed Value",
+                  "role": "Register holding final evaluated result"
+                }
+              ],
+              "steps": [
+                {
+                  "step": 1,
+                  "title": "Input Reading",
+                  "state": {
+                    "input": "Received",
+                    "result": "Unset"
+                  },
+                  "explanation": "Program captures raw bytes from stdin into memory variables."
+                },
+                {
+                  "step": 2,
+                  "title": "CPU ALU Execution",
+                  "state": {
+                    "input": "Processed",
+                    "result": "Calculated"
+                  },
+                  "explanation": "Processor executes arithmetic/logical instructions according to program code."
+                },
+                {
+                  "step": 3,
+                  "title": "Output Emission",
+                  "state": {
+                    "input": "Done",
+                    "result": "Flushed to stdout"
+                  },
+                  "explanation": "Result formatted and flushed to the terminal screen."
+                }
+              ]
+            },
+            "anatomy": [
+              {
+                "line": "import java.util.Scanner;",
+                "role": "Tool Import",
+                "plainEnglish": "Imports the Scanner class used to parse primitive numbers and strings from console input."
+              },
+              {
+                "line": "public class Main { ... }",
+                "role": "Class Wrapper",
+                "plainEnglish": "In Java, all code must live inside a class. The main executable class must match filename."
+              },
+              {
+                "line": "public static void main(String[] args)",
+                "role": "Entry Point",
+                "plainEnglish": "The standard entry point that the Java Virtual Machine (JVM) searches for to begin running."
+              },
+              {
+                "line": "Scanner sc = new Scanner(System.in);",
+                "role": "Scanner Setup",
+                "plainEnglish": "Creates a scanner object connected to System.in to listen to keyboard keystrokes."
+              },
+              {
+                "line": "System.out.println(result);",
+                "role": "Console Print",
+                "plainEnglish": "Outputs result to the console and moves the cursor to a fresh new line."
+              }
+            ]
           },
           {
             "id": "java_m1_p4",
@@ -3037,7 +10050,88 @@ export const CURRICULUM = {
               "Step 3 (Output): Print the final result clearly on the screen exactly as requested."
             ],
             "whyItMatters": "Foundational logic used in smartphone apps, smart microwaves, ATM cash dispensers, and space rovers.",
-            "beginnerTrap": "In Java, always name your public class 'Main', and remember array indices start at 0 and end at length - 1."
+            "beginnerTrap": "In Java, always name your public class 'Main', and remember array indices start at 0 and end at length - 1.",
+            "quiz": {
+              "question": "What is the core objective when solving \"Rectangle Area and Perimeter\"?",
+              "options": [
+                "Accept the input format, apply logical operations, and output the required result",
+                "Ignore user input and hardcode random values",
+                "Create an infinite loop",
+                "Shut down the compiler"
+              ],
+              "correctIndex": 0,
+              "explanation": "Every algorithm takes well-defined input, applies deterministic step-by-step logic, and produces the exact output expected."
+            },
+            "memoryTrace": {
+              "registers": [
+                {
+                  "name": "input",
+                  "value": "User Input",
+                  "role": "Buffered standard input stream"
+                },
+                {
+                  "name": "result",
+                  "value": "Computed Value",
+                  "role": "Register holding final evaluated result"
+                }
+              ],
+              "steps": [
+                {
+                  "step": 1,
+                  "title": "Input Reading",
+                  "state": {
+                    "input": "Received",
+                    "result": "Unset"
+                  },
+                  "explanation": "Program captures raw bytes from stdin into memory variables."
+                },
+                {
+                  "step": 2,
+                  "title": "CPU ALU Execution",
+                  "state": {
+                    "input": "Processed",
+                    "result": "Calculated"
+                  },
+                  "explanation": "Processor executes arithmetic/logical instructions according to program code."
+                },
+                {
+                  "step": 3,
+                  "title": "Output Emission",
+                  "state": {
+                    "input": "Done",
+                    "result": "Flushed to stdout"
+                  },
+                  "explanation": "Result formatted and flushed to the terminal screen."
+                }
+              ]
+            },
+            "anatomy": [
+              {
+                "line": "import java.util.Scanner;",
+                "role": "Tool Import",
+                "plainEnglish": "Imports the Scanner class used to parse primitive numbers and strings from console input."
+              },
+              {
+                "line": "public class Main { ... }",
+                "role": "Class Wrapper",
+                "plainEnglish": "In Java, all code must live inside a class. The main executable class must match filename."
+              },
+              {
+                "line": "public static void main(String[] args)",
+                "role": "Entry Point",
+                "plainEnglish": "The standard entry point that the Java Virtual Machine (JVM) searches for to begin running."
+              },
+              {
+                "line": "Scanner sc = new Scanner(System.in);",
+                "role": "Scanner Setup",
+                "plainEnglish": "Creates a scanner object connected to System.in to listen to keyboard keystrokes."
+              },
+              {
+                "line": "System.out.println(result);",
+                "role": "Console Print",
+                "plainEnglish": "Outputs result to the console and moves the cursor to a fresh new line."
+              }
+            ]
           },
           {
             "id": "java_m1_p5",
@@ -3068,7 +10162,88 @@ export const CURRICULUM = {
               "Step 3 (Output): Print the final result clearly on the screen exactly as requested."
             ],
             "whyItMatters": "Foundational logic used in smartphone apps, smart microwaves, ATM cash dispensers, and space rovers.",
-            "beginnerTrap": "In Java, always name your public class 'Main', and remember array indices start at 0 and end at length - 1."
+            "beginnerTrap": "In Java, always name your public class 'Main', and remember array indices start at 0 and end at length - 1.",
+            "quiz": {
+              "question": "What is the core objective when solving \"Extract Last Digit of a Number\"?",
+              "options": [
+                "Accept the input format, apply logical operations, and output the required result",
+                "Ignore user input and hardcode random values",
+                "Create an infinite loop",
+                "Shut down the compiler"
+              ],
+              "correctIndex": 0,
+              "explanation": "Every algorithm takes well-defined input, applies deterministic step-by-step logic, and produces the exact output expected."
+            },
+            "memoryTrace": {
+              "registers": [
+                {
+                  "name": "input",
+                  "value": "User Input",
+                  "role": "Buffered standard input stream"
+                },
+                {
+                  "name": "result",
+                  "value": "Computed Value",
+                  "role": "Register holding final evaluated result"
+                }
+              ],
+              "steps": [
+                {
+                  "step": 1,
+                  "title": "Input Reading",
+                  "state": {
+                    "input": "Received",
+                    "result": "Unset"
+                  },
+                  "explanation": "Program captures raw bytes from stdin into memory variables."
+                },
+                {
+                  "step": 2,
+                  "title": "CPU ALU Execution",
+                  "state": {
+                    "input": "Processed",
+                    "result": "Calculated"
+                  },
+                  "explanation": "Processor executes arithmetic/logical instructions according to program code."
+                },
+                {
+                  "step": 3,
+                  "title": "Output Emission",
+                  "state": {
+                    "input": "Done",
+                    "result": "Flushed to stdout"
+                  },
+                  "explanation": "Result formatted and flushed to the terminal screen."
+                }
+              ]
+            },
+            "anatomy": [
+              {
+                "line": "import java.util.Scanner;",
+                "role": "Tool Import",
+                "plainEnglish": "Imports the Scanner class used to parse primitive numbers and strings from console input."
+              },
+              {
+                "line": "public class Main { ... }",
+                "role": "Class Wrapper",
+                "plainEnglish": "In Java, all code must live inside a class. The main executable class must match filename."
+              },
+              {
+                "line": "public static void main(String[] args)",
+                "role": "Entry Point",
+                "plainEnglish": "The standard entry point that the Java Virtual Machine (JVM) searches for to begin running."
+              },
+              {
+                "line": "Scanner sc = new Scanner(System.in);",
+                "role": "Scanner Setup",
+                "plainEnglish": "Creates a scanner object connected to System.in to listen to keyboard keystrokes."
+              },
+              {
+                "line": "System.out.println(result);",
+                "role": "Console Print",
+                "plainEnglish": "Outputs result to the console and moves the cursor to a fresh new line."
+              }
+            ]
           }
         ]
       },
@@ -3111,7 +10286,88 @@ export const CURRICULUM = {
               "Step 3 (Output): Print the final result clearly on the screen exactly as requested."
             ],
             "whyItMatters": "Foundational logic used in smartphone apps, smart microwaves, ATM cash dispensers, and space rovers.",
-            "beginnerTrap": "In Java, always name your public class 'Main', and remember array indices start at 0 and end at length - 1."
+            "beginnerTrap": "In Java, always name your public class 'Main', and remember array indices start at 0 and end at length - 1.",
+            "quiz": {
+              "question": "What is the core objective when solving \"Positive, Negative or Zero\"?",
+              "options": [
+                "Accept the input format, apply logical operations, and output the required result",
+                "Ignore user input and hardcode random values",
+                "Create an infinite loop",
+                "Shut down the compiler"
+              ],
+              "correctIndex": 0,
+              "explanation": "Every algorithm takes well-defined input, applies deterministic step-by-step logic, and produces the exact output expected."
+            },
+            "memoryTrace": {
+              "registers": [
+                {
+                  "name": "input",
+                  "value": "User Input",
+                  "role": "Buffered standard input stream"
+                },
+                {
+                  "name": "result",
+                  "value": "Computed Value",
+                  "role": "Register holding final evaluated result"
+                }
+              ],
+              "steps": [
+                {
+                  "step": 1,
+                  "title": "Input Reading",
+                  "state": {
+                    "input": "Received",
+                    "result": "Unset"
+                  },
+                  "explanation": "Program captures raw bytes from stdin into memory variables."
+                },
+                {
+                  "step": 2,
+                  "title": "CPU ALU Execution",
+                  "state": {
+                    "input": "Processed",
+                    "result": "Calculated"
+                  },
+                  "explanation": "Processor executes arithmetic/logical instructions according to program code."
+                },
+                {
+                  "step": 3,
+                  "title": "Output Emission",
+                  "state": {
+                    "input": "Done",
+                    "result": "Flushed to stdout"
+                  },
+                  "explanation": "Result formatted and flushed to the terminal screen."
+                }
+              ]
+            },
+            "anatomy": [
+              {
+                "line": "import java.util.Scanner;",
+                "role": "Tool Import",
+                "plainEnglish": "Imports the Scanner class used to parse primitive numbers and strings from console input."
+              },
+              {
+                "line": "public class Main { ... }",
+                "role": "Class Wrapper",
+                "plainEnglish": "In Java, all code must live inside a class. The main executable class must match filename."
+              },
+              {
+                "line": "public static void main(String[] args)",
+                "role": "Entry Point",
+                "plainEnglish": "The standard entry point that the Java Virtual Machine (JVM) searches for to begin running."
+              },
+              {
+                "line": "Scanner sc = new Scanner(System.in);",
+                "role": "Scanner Setup",
+                "plainEnglish": "Creates a scanner object connected to System.in to listen to keyboard keystrokes."
+              },
+              {
+                "line": "System.out.println(result);",
+                "role": "Console Print",
+                "plainEnglish": "Outputs result to the console and moves the cursor to a fresh new line."
+              }
+            ]
           },
           {
             "id": "java_m2_p2",
@@ -3142,7 +10398,88 @@ export const CURRICULUM = {
               "Step 3 (Output): Print the final result clearly on the screen exactly as requested."
             ],
             "whyItMatters": "Foundational logic used in smartphone apps, smart microwaves, ATM cash dispensers, and space rovers.",
-            "beginnerTrap": "In Java, always name your public class 'Main', and remember array indices start at 0 and end at length - 1."
+            "beginnerTrap": "In Java, always name your public class 'Main', and remember array indices start at 0 and end at length - 1.",
+            "quiz": {
+              "question": "What is the core objective when solving \"Leap Year Detector in Java\"?",
+              "options": [
+                "Accept the input format, apply logical operations, and output the required result",
+                "Ignore user input and hardcode random values",
+                "Create an infinite loop",
+                "Shut down the compiler"
+              ],
+              "correctIndex": 0,
+              "explanation": "Every algorithm takes well-defined input, applies deterministic step-by-step logic, and produces the exact output expected."
+            },
+            "memoryTrace": {
+              "registers": [
+                {
+                  "name": "input",
+                  "value": "User Input",
+                  "role": "Buffered standard input stream"
+                },
+                {
+                  "name": "result",
+                  "value": "Computed Value",
+                  "role": "Register holding final evaluated result"
+                }
+              ],
+              "steps": [
+                {
+                  "step": 1,
+                  "title": "Input Reading",
+                  "state": {
+                    "input": "Received",
+                    "result": "Unset"
+                  },
+                  "explanation": "Program captures raw bytes from stdin into memory variables."
+                },
+                {
+                  "step": 2,
+                  "title": "CPU ALU Execution",
+                  "state": {
+                    "input": "Processed",
+                    "result": "Calculated"
+                  },
+                  "explanation": "Processor executes arithmetic/logical instructions according to program code."
+                },
+                {
+                  "step": 3,
+                  "title": "Output Emission",
+                  "state": {
+                    "input": "Done",
+                    "result": "Flushed to stdout"
+                  },
+                  "explanation": "Result formatted and flushed to the terminal screen."
+                }
+              ]
+            },
+            "anatomy": [
+              {
+                "line": "import java.util.Scanner;",
+                "role": "Tool Import",
+                "plainEnglish": "Imports the Scanner class used to parse primitive numbers and strings from console input."
+              },
+              {
+                "line": "public class Main { ... }",
+                "role": "Class Wrapper",
+                "plainEnglish": "In Java, all code must live inside a class. The main executable class must match filename."
+              },
+              {
+                "line": "public static void main(String[] args)",
+                "role": "Entry Point",
+                "plainEnglish": "The standard entry point that the Java Virtual Machine (JVM) searches for to begin running."
+              },
+              {
+                "line": "Scanner sc = new Scanner(System.in);",
+                "role": "Scanner Setup",
+                "plainEnglish": "Creates a scanner object connected to System.in to listen to keyboard keystrokes."
+              },
+              {
+                "line": "System.out.println(result);",
+                "role": "Console Print",
+                "plainEnglish": "Outputs result to the console and moves the cursor to a fresh new line."
+              }
+            ]
           },
           {
             "id": "java_m2_p3",
@@ -3173,7 +10510,88 @@ export const CURRICULUM = {
               "Step 3 (Output): Print the final result clearly on the screen exactly as requested."
             ],
             "whyItMatters": "Foundational logic used in smartphone apps, smart microwaves, ATM cash dispensers, and space rovers.",
-            "beginnerTrap": "In Java, always name your public class 'Main', and remember array indices start at 0 and end at length - 1."
+            "beginnerTrap": "In Java, always name your public class 'Main', and remember array indices start at 0 and end at length - 1.",
+            "quiz": {
+              "question": "What is the core objective when solving \"Greatest of Three Numbers\"?",
+              "options": [
+                "Accept the input format, apply logical operations, and output the required result",
+                "Ignore user input and hardcode random values",
+                "Create an infinite loop",
+                "Shut down the compiler"
+              ],
+              "correctIndex": 0,
+              "explanation": "Every algorithm takes well-defined input, applies deterministic step-by-step logic, and produces the exact output expected."
+            },
+            "memoryTrace": {
+              "registers": [
+                {
+                  "name": "input",
+                  "value": "User Input",
+                  "role": "Buffered standard input stream"
+                },
+                {
+                  "name": "result",
+                  "value": "Computed Value",
+                  "role": "Register holding final evaluated result"
+                }
+              ],
+              "steps": [
+                {
+                  "step": 1,
+                  "title": "Input Reading",
+                  "state": {
+                    "input": "Received",
+                    "result": "Unset"
+                  },
+                  "explanation": "Program captures raw bytes from stdin into memory variables."
+                },
+                {
+                  "step": 2,
+                  "title": "CPU ALU Execution",
+                  "state": {
+                    "input": "Processed",
+                    "result": "Calculated"
+                  },
+                  "explanation": "Processor executes arithmetic/logical instructions according to program code."
+                },
+                {
+                  "step": 3,
+                  "title": "Output Emission",
+                  "state": {
+                    "input": "Done",
+                    "result": "Flushed to stdout"
+                  },
+                  "explanation": "Result formatted and flushed to the terminal screen."
+                }
+              ]
+            },
+            "anatomy": [
+              {
+                "line": "import java.util.Scanner;",
+                "role": "Tool Import",
+                "plainEnglish": "Imports the Scanner class used to parse primitive numbers and strings from console input."
+              },
+              {
+                "line": "public class Main { ... }",
+                "role": "Class Wrapper",
+                "plainEnglish": "In Java, all code must live inside a class. The main executable class must match filename."
+              },
+              {
+                "line": "public static void main(String[] args)",
+                "role": "Entry Point",
+                "plainEnglish": "The standard entry point that the Java Virtual Machine (JVM) searches for to begin running."
+              },
+              {
+                "line": "Scanner sc = new Scanner(System.in);",
+                "role": "Scanner Setup",
+                "plainEnglish": "Creates a scanner object connected to System.in to listen to keyboard keystrokes."
+              },
+              {
+                "line": "System.out.println(result);",
+                "role": "Console Print",
+                "plainEnglish": "Outputs result to the console and moves the cursor to a fresh new line."
+              }
+            ]
           },
           {
             "id": "java_m2_p4",
@@ -3204,7 +10622,88 @@ export const CURRICULUM = {
               "Step 3 (Output): Print the final result clearly on the screen exactly as requested."
             ],
             "whyItMatters": "Foundational logic used in smartphone apps, smart microwaves, ATM cash dispensers, and space rovers.",
-            "beginnerTrap": "In Java, always name your public class 'Main', and remember array indices start at 0 and end at length - 1."
+            "beginnerTrap": "In Java, always name your public class 'Main', and remember array indices start at 0 and end at length - 1.",
+            "quiz": {
+              "question": "What is the core objective when solving \"Grade Classifier in Java\"?",
+              "options": [
+                "Accept the input format, apply logical operations, and output the required result",
+                "Ignore user input and hardcode random values",
+                "Create an infinite loop",
+                "Shut down the compiler"
+              ],
+              "correctIndex": 0,
+              "explanation": "Every algorithm takes well-defined input, applies deterministic step-by-step logic, and produces the exact output expected."
+            },
+            "memoryTrace": {
+              "registers": [
+                {
+                  "name": "input",
+                  "value": "User Input",
+                  "role": "Buffered standard input stream"
+                },
+                {
+                  "name": "result",
+                  "value": "Computed Value",
+                  "role": "Register holding final evaluated result"
+                }
+              ],
+              "steps": [
+                {
+                  "step": 1,
+                  "title": "Input Reading",
+                  "state": {
+                    "input": "Received",
+                    "result": "Unset"
+                  },
+                  "explanation": "Program captures raw bytes from stdin into memory variables."
+                },
+                {
+                  "step": 2,
+                  "title": "CPU ALU Execution",
+                  "state": {
+                    "input": "Processed",
+                    "result": "Calculated"
+                  },
+                  "explanation": "Processor executes arithmetic/logical instructions according to program code."
+                },
+                {
+                  "step": 3,
+                  "title": "Output Emission",
+                  "state": {
+                    "input": "Done",
+                    "result": "Flushed to stdout"
+                  },
+                  "explanation": "Result formatted and flushed to the terminal screen."
+                }
+              ]
+            },
+            "anatomy": [
+              {
+                "line": "import java.util.Scanner;",
+                "role": "Tool Import",
+                "plainEnglish": "Imports the Scanner class used to parse primitive numbers and strings from console input."
+              },
+              {
+                "line": "public class Main { ... }",
+                "role": "Class Wrapper",
+                "plainEnglish": "In Java, all code must live inside a class. The main executable class must match filename."
+              },
+              {
+                "line": "public static void main(String[] args)",
+                "role": "Entry Point",
+                "plainEnglish": "The standard entry point that the Java Virtual Machine (JVM) searches for to begin running."
+              },
+              {
+                "line": "Scanner sc = new Scanner(System.in);",
+                "role": "Scanner Setup",
+                "plainEnglish": "Creates a scanner object connected to System.in to listen to keyboard keystrokes."
+              },
+              {
+                "line": "System.out.println(result);",
+                "role": "Console Print",
+                "plainEnglish": "Outputs result to the console and moves the cursor to a fresh new line."
+              }
+            ]
           },
           {
             "id": "java_m2_p5",
@@ -3239,7 +10738,88 @@ export const CURRICULUM = {
               "Step 3 (Output): Print the final result clearly on the screen exactly as requested."
             ],
             "whyItMatters": "Foundational logic used in smartphone apps, smart microwaves, ATM cash dispensers, and space rovers.",
-            "beginnerTrap": "In Java, always name your public class 'Main', and remember array indices start at 0 and end at length - 1."
+            "beginnerTrap": "In Java, always name your public class 'Main', and remember array indices start at 0 and end at length - 1.",
+            "quiz": {
+              "question": "What is the core objective when solving \"Days in Month Switch\"?",
+              "options": [
+                "Accept the input format, apply logical operations, and output the required result",
+                "Ignore user input and hardcode random values",
+                "Create an infinite loop",
+                "Shut down the compiler"
+              ],
+              "correctIndex": 0,
+              "explanation": "Every algorithm takes well-defined input, applies deterministic step-by-step logic, and produces the exact output expected."
+            },
+            "memoryTrace": {
+              "registers": [
+                {
+                  "name": "input",
+                  "value": "User Input",
+                  "role": "Buffered standard input stream"
+                },
+                {
+                  "name": "result",
+                  "value": "Computed Value",
+                  "role": "Register holding final evaluated result"
+                }
+              ],
+              "steps": [
+                {
+                  "step": 1,
+                  "title": "Input Reading",
+                  "state": {
+                    "input": "Received",
+                    "result": "Unset"
+                  },
+                  "explanation": "Program captures raw bytes from stdin into memory variables."
+                },
+                {
+                  "step": 2,
+                  "title": "CPU ALU Execution",
+                  "state": {
+                    "input": "Processed",
+                    "result": "Calculated"
+                  },
+                  "explanation": "Processor executes arithmetic/logical instructions according to program code."
+                },
+                {
+                  "step": 3,
+                  "title": "Output Emission",
+                  "state": {
+                    "input": "Done",
+                    "result": "Flushed to stdout"
+                  },
+                  "explanation": "Result formatted and flushed to the terminal screen."
+                }
+              ]
+            },
+            "anatomy": [
+              {
+                "line": "import java.util.Scanner;",
+                "role": "Tool Import",
+                "plainEnglish": "Imports the Scanner class used to parse primitive numbers and strings from console input."
+              },
+              {
+                "line": "public class Main { ... }",
+                "role": "Class Wrapper",
+                "plainEnglish": "In Java, all code must live inside a class. The main executable class must match filename."
+              },
+              {
+                "line": "public static void main(String[] args)",
+                "role": "Entry Point",
+                "plainEnglish": "The standard entry point that the Java Virtual Machine (JVM) searches for to begin running."
+              },
+              {
+                "line": "Scanner sc = new Scanner(System.in);",
+                "role": "Scanner Setup",
+                "plainEnglish": "Creates a scanner object connected to System.in to listen to keyboard keystrokes."
+              },
+              {
+                "line": "System.out.println(result);",
+                "role": "Console Print",
+                "plainEnglish": "Outputs result to the console and moves the cursor to a fresh new line."
+              }
+            ]
           }
         ]
       },
@@ -3278,7 +10858,88 @@ export const CURRICULUM = {
               "Step 3 (Output): Print the final result clearly on the screen exactly as requested."
             ],
             "whyItMatters": "Used in modern banking, WhatsApp end-to-end encryption, and password security keys.",
-            "beginnerTrap": "In Java, always name your public class 'Main', and remember array indices start at 0 and end at length - 1."
+            "beginnerTrap": "In Java, always name your public class 'Main', and remember array indices start at 0 and end at length - 1.",
+            "quiz": {
+              "question": "What is the core objective when solving \"Factorial of a Number in Java\"?",
+              "options": [
+                "Accept the input format, apply logical operations, and output the required result",
+                "Ignore user input and hardcode random values",
+                "Create an infinite loop",
+                "Shut down the compiler"
+              ],
+              "correctIndex": 0,
+              "explanation": "Every algorithm takes well-defined input, applies deterministic step-by-step logic, and produces the exact output expected."
+            },
+            "memoryTrace": {
+              "registers": [
+                {
+                  "name": "input",
+                  "value": "User Input",
+                  "role": "Buffered standard input stream"
+                },
+                {
+                  "name": "result",
+                  "value": "Computed Value",
+                  "role": "Register holding final evaluated result"
+                }
+              ],
+              "steps": [
+                {
+                  "step": 1,
+                  "title": "Input Reading",
+                  "state": {
+                    "input": "Received",
+                    "result": "Unset"
+                  },
+                  "explanation": "Program captures raw bytes from stdin into memory variables."
+                },
+                {
+                  "step": 2,
+                  "title": "CPU ALU Execution",
+                  "state": {
+                    "input": "Processed",
+                    "result": "Calculated"
+                  },
+                  "explanation": "Processor executes arithmetic/logical instructions according to program code."
+                },
+                {
+                  "step": 3,
+                  "title": "Output Emission",
+                  "state": {
+                    "input": "Done",
+                    "result": "Flushed to stdout"
+                  },
+                  "explanation": "Result formatted and flushed to the terminal screen."
+                }
+              ]
+            },
+            "anatomy": [
+              {
+                "line": "import java.util.Scanner;",
+                "role": "Tool Import",
+                "plainEnglish": "Imports the Scanner class used to parse primitive numbers and strings from console input."
+              },
+              {
+                "line": "public class Main { ... }",
+                "role": "Class Wrapper",
+                "plainEnglish": "In Java, all code must live inside a class. The main executable class must match filename."
+              },
+              {
+                "line": "public static void main(String[] args)",
+                "role": "Entry Point",
+                "plainEnglish": "The standard entry point that the Java Virtual Machine (JVM) searches for to begin running."
+              },
+              {
+                "line": "Scanner sc = new Scanner(System.in);",
+                "role": "Scanner Setup",
+                "plainEnglish": "Creates a scanner object connected to System.in to listen to keyboard keystrokes."
+              },
+              {
+                "line": "System.out.println(result);",
+                "role": "Console Print",
+                "plainEnglish": "Outputs result to the console and moves the cursor to a fresh new line."
+              }
+            ]
           },
           {
             "id": "java_m3_p2",
@@ -3305,7 +10966,88 @@ export const CURRICULUM = {
               "Step 3 (Output): Print the final result clearly on the screen exactly as requested."
             ],
             "whyItMatters": "Foundational logic used in smartphone apps, smart microwaves, ATM cash dispensers, and space rovers.",
-            "beginnerTrap": "In Java, always name your public class 'Main', and remember array indices start at 0 and end at length - 1."
+            "beginnerTrap": "In Java, always name your public class 'Main', and remember array indices start at 0 and end at length - 1.",
+            "quiz": {
+              "question": "What is the core objective when solving \"Sum of First N Natural Numbers in Java\"?",
+              "options": [
+                "Accept the input format, apply logical operations, and output the required result",
+                "Ignore user input and hardcode random values",
+                "Create an infinite loop",
+                "Shut down the compiler"
+              ],
+              "correctIndex": 0,
+              "explanation": "Every algorithm takes well-defined input, applies deterministic step-by-step logic, and produces the exact output expected."
+            },
+            "memoryTrace": {
+              "registers": [
+                {
+                  "name": "input",
+                  "value": "User Input",
+                  "role": "Buffered standard input stream"
+                },
+                {
+                  "name": "result",
+                  "value": "Computed Value",
+                  "role": "Register holding final evaluated result"
+                }
+              ],
+              "steps": [
+                {
+                  "step": 1,
+                  "title": "Input Reading",
+                  "state": {
+                    "input": "Received",
+                    "result": "Unset"
+                  },
+                  "explanation": "Program captures raw bytes from stdin into memory variables."
+                },
+                {
+                  "step": 2,
+                  "title": "CPU ALU Execution",
+                  "state": {
+                    "input": "Processed",
+                    "result": "Calculated"
+                  },
+                  "explanation": "Processor executes arithmetic/logical instructions according to program code."
+                },
+                {
+                  "step": 3,
+                  "title": "Output Emission",
+                  "state": {
+                    "input": "Done",
+                    "result": "Flushed to stdout"
+                  },
+                  "explanation": "Result formatted and flushed to the terminal screen."
+                }
+              ]
+            },
+            "anatomy": [
+              {
+                "line": "import java.util.Scanner;",
+                "role": "Tool Import",
+                "plainEnglish": "Imports the Scanner class used to parse primitive numbers and strings from console input."
+              },
+              {
+                "line": "public class Main { ... }",
+                "role": "Class Wrapper",
+                "plainEnglish": "In Java, all code must live inside a class. The main executable class must match filename."
+              },
+              {
+                "line": "public static void main(String[] args)",
+                "role": "Entry Point",
+                "plainEnglish": "The standard entry point that the Java Virtual Machine (JVM) searches for to begin running."
+              },
+              {
+                "line": "Scanner sc = new Scanner(System.in);",
+                "role": "Scanner Setup",
+                "plainEnglish": "Creates a scanner object connected to System.in to listen to keyboard keystrokes."
+              },
+              {
+                "line": "System.out.println(result);",
+                "role": "Console Print",
+                "plainEnglish": "Outputs result to the console and moves the cursor to a fresh new line."
+              }
+            ]
           },
           {
             "id": "java_m3_p3",
@@ -3332,7 +11074,96 @@ export const CURRICULUM = {
               "Step 3 (Output): Print the final result clearly on the screen exactly as requested."
             ],
             "whyItMatters": "Powers Spotify playlist shuffling, Amazon product price sorting, and video game leaderboard rankings.",
-            "beginnerTrap": "In Java, always name your public class 'Main', and remember array indices start at 0 and end at length - 1."
+            "beginnerTrap": "In Java, always name your public class 'Main', and remember array indices start at 0 and end at length - 1.",
+            "quiz": {
+              "question": "What is the core objective when solving \"Reverse an Integer in Java\"?",
+              "options": [
+                "Accept the input format, apply logical operations, and output the required result",
+                "Ignore user input and hardcode random values",
+                "Create an infinite loop",
+                "Shut down the compiler"
+              ],
+              "correctIndex": 0,
+              "explanation": "Every algorithm takes well-defined input, applies deterministic step-by-step logic, and produces the exact output expected."
+            },
+            "memoryTrace": {
+              "registers": [
+                {
+                  "name": "arr",
+                  "value": "[1, 2, 3, 4, 5]",
+                  "role": "Contiguous array in memory"
+                },
+                {
+                  "name": "left",
+                  "value": "0",
+                  "role": "Start index pointer"
+                },
+                {
+                  "name": "right",
+                  "value": "4",
+                  "role": "End index pointer"
+                }
+              ],
+              "steps": [
+                {
+                  "step": 1,
+                  "title": "Pointer Setup",
+                  "state": {
+                    "arr": "[1, 2, 3, 4, 5]",
+                    "left": "0",
+                    "right": "4"
+                  },
+                  "explanation": "left points to 1 (idx 0), right points to 5 (idx 4)."
+                },
+                {
+                  "step": 2,
+                  "title": "First Swap & Move",
+                  "state": {
+                    "arr": "[5, 2, 3, 4, 1]",
+                    "left": "1",
+                    "right": "3"
+                  },
+                  "explanation": "Swap arr[0] and arr[4]. left increments to 1, right decrements to 3."
+                },
+                {
+                  "step": 3,
+                  "title": "Second Swap & Meet",
+                  "state": {
+                    "arr": "[5, 4, 3, 2, 1]",
+                    "left": "2",
+                    "right": "2"
+                  },
+                  "explanation": "Swap arr[1] and arr[3]. Both pointers meet at center index 2. Reverse finished!"
+                }
+              ]
+            },
+            "anatomy": [
+              {
+                "line": "import java.util.Scanner;",
+                "role": "Tool Import",
+                "plainEnglish": "Imports the Scanner class used to parse primitive numbers and strings from console input."
+              },
+              {
+                "line": "public class Main { ... }",
+                "role": "Class Wrapper",
+                "plainEnglish": "In Java, all code must live inside a class. The main executable class must match filename."
+              },
+              {
+                "line": "public static void main(String[] args)",
+                "role": "Entry Point",
+                "plainEnglish": "The standard entry point that the Java Virtual Machine (JVM) searches for to begin running."
+              },
+              {
+                "line": "Scanner sc = new Scanner(System.in);",
+                "role": "Scanner Setup",
+                "plainEnglish": "Creates a scanner object connected to System.in to listen to keyboard keystrokes."
+              },
+              {
+                "line": "System.out.println(result);",
+                "role": "Console Print",
+                "plainEnglish": "Outputs result to the console and moves the cursor to a fresh new line."
+              }
+            ]
           },
           {
             "id": "java_m3_p4",
@@ -3363,7 +11194,88 @@ export const CURRICULUM = {
               "Step 3 (Output): Print the final result clearly on the screen exactly as requested."
             ],
             "whyItMatters": "Used in modern banking, WhatsApp end-to-end encryption, and password security keys.",
-            "beginnerTrap": "In Java, always name your public class 'Main', and remember array indices start at 0 and end at length - 1."
+            "beginnerTrap": "In Java, always name your public class 'Main', and remember array indices start at 0 and end at length - 1.",
+            "quiz": {
+              "question": "Why can we stop checking prime divisors once the test divisor exceeds √N?",
+              "options": [
+                "Because computers run out of memory after square roots",
+                "If N has a factor larger than √N, its paired factor must be smaller than √N (which was already checked)",
+                "Square roots always return even numbers",
+                "All numbers above √N are guaranteed to be prime"
+              ],
+              "correctIndex": 1,
+              "explanation": "Factors come in pairs (a * b = N). If both were greater than √N, their product would exceed N! Checking up to √N is 100% mathematically sufficient."
+            },
+            "memoryTrace": {
+              "registers": [
+                {
+                  "name": "input",
+                  "value": "User Input",
+                  "role": "Buffered standard input stream"
+                },
+                {
+                  "name": "result",
+                  "value": "Computed Value",
+                  "role": "Register holding final evaluated result"
+                }
+              ],
+              "steps": [
+                {
+                  "step": 1,
+                  "title": "Input Reading",
+                  "state": {
+                    "input": "Received",
+                    "result": "Unset"
+                  },
+                  "explanation": "Program captures raw bytes from stdin into memory variables."
+                },
+                {
+                  "step": 2,
+                  "title": "CPU ALU Execution",
+                  "state": {
+                    "input": "Processed",
+                    "result": "Calculated"
+                  },
+                  "explanation": "Processor executes arithmetic/logical instructions according to program code."
+                },
+                {
+                  "step": 3,
+                  "title": "Output Emission",
+                  "state": {
+                    "input": "Done",
+                    "result": "Flushed to stdout"
+                  },
+                  "explanation": "Result formatted and flushed to the terminal screen."
+                }
+              ]
+            },
+            "anatomy": [
+              {
+                "line": "import java.util.Scanner;",
+                "role": "Tool Import",
+                "plainEnglish": "Imports the Scanner class used to parse primitive numbers and strings from console input."
+              },
+              {
+                "line": "public class Main { ... }",
+                "role": "Class Wrapper",
+                "plainEnglish": "In Java, all code must live inside a class. The main executable class must match filename."
+              },
+              {
+                "line": "public static void main(String[] args)",
+                "role": "Entry Point",
+                "plainEnglish": "The standard entry point that the Java Virtual Machine (JVM) searches for to begin running."
+              },
+              {
+                "line": "Scanner sc = new Scanner(System.in);",
+                "role": "Scanner Setup",
+                "plainEnglish": "Creates a scanner object connected to System.in to listen to keyboard keystrokes."
+              },
+              {
+                "line": "System.out.println(result);",
+                "role": "Console Print",
+                "plainEnglish": "Outputs result to the console and moves the cursor to a fresh new line."
+              }
+            ]
           },
           {
             "id": "java_m3_p5",
@@ -3390,7 +11302,88 @@ export const CURRICULUM = {
               "Step 3 (Output): Print the final result clearly on the screen exactly as requested."
             ],
             "whyItMatters": "Foundational logic used in smartphone apps, smart microwaves, ATM cash dispensers, and space rovers.",
-            "beginnerTrap": "In Java, always name your public class 'Main', and remember array indices start at 0 and end at length - 1."
+            "beginnerTrap": "In Java, always name your public class 'Main', and remember array indices start at 0 and end at length - 1.",
+            "quiz": {
+              "question": "What is the core objective when solving \"Print Multiplication Table in Java\"?",
+              "options": [
+                "Accept the input format, apply logical operations, and output the required result",
+                "Ignore user input and hardcode random values",
+                "Create an infinite loop",
+                "Shut down the compiler"
+              ],
+              "correctIndex": 0,
+              "explanation": "Every algorithm takes well-defined input, applies deterministic step-by-step logic, and produces the exact output expected."
+            },
+            "memoryTrace": {
+              "registers": [
+                {
+                  "name": "input",
+                  "value": "User Input",
+                  "role": "Buffered standard input stream"
+                },
+                {
+                  "name": "result",
+                  "value": "Computed Value",
+                  "role": "Register holding final evaluated result"
+                }
+              ],
+              "steps": [
+                {
+                  "step": 1,
+                  "title": "Input Reading",
+                  "state": {
+                    "input": "Received",
+                    "result": "Unset"
+                  },
+                  "explanation": "Program captures raw bytes from stdin into memory variables."
+                },
+                {
+                  "step": 2,
+                  "title": "CPU ALU Execution",
+                  "state": {
+                    "input": "Processed",
+                    "result": "Calculated"
+                  },
+                  "explanation": "Processor executes arithmetic/logical instructions according to program code."
+                },
+                {
+                  "step": 3,
+                  "title": "Output Emission",
+                  "state": {
+                    "input": "Done",
+                    "result": "Flushed to stdout"
+                  },
+                  "explanation": "Result formatted and flushed to the terminal screen."
+                }
+              ]
+            },
+            "anatomy": [
+              {
+                "line": "import java.util.Scanner;",
+                "role": "Tool Import",
+                "plainEnglish": "Imports the Scanner class used to parse primitive numbers and strings from console input."
+              },
+              {
+                "line": "public class Main { ... }",
+                "role": "Class Wrapper",
+                "plainEnglish": "In Java, all code must live inside a class. The main executable class must match filename."
+              },
+              {
+                "line": "public static void main(String[] args)",
+                "role": "Entry Point",
+                "plainEnglish": "The standard entry point that the Java Virtual Machine (JVM) searches for to begin running."
+              },
+              {
+                "line": "Scanner sc = new Scanner(System.in);",
+                "role": "Scanner Setup",
+                "plainEnglish": "Creates a scanner object connected to System.in to listen to keyboard keystrokes."
+              },
+              {
+                "line": "System.out.println(result);",
+                "role": "Console Print",
+                "plainEnglish": "Outputs result to the console and moves the cursor to a fresh new line."
+              }
+            ]
           }
         ]
       },
@@ -3425,7 +11418,88 @@ export const CURRICULUM = {
               "Step 3 (Output): Print the final result clearly on the screen exactly as requested."
             ],
             "whyItMatters": "Foundational logic used in smartphone apps, smart microwaves, ATM cash dispensers, and space rovers.",
-            "beginnerTrap": "In Java, always name your public class 'Main', and remember array indices start at 0 and end at length - 1."
+            "beginnerTrap": "In Java, always name your public class 'Main', and remember array indices start at 0 and end at length - 1.",
+            "quiz": {
+              "question": "What is the core objective when solving \"Array Sum and Average in Java\"?",
+              "options": [
+                "Accept the input format, apply logical operations, and output the required result",
+                "Ignore user input and hardcode random values",
+                "Create an infinite loop",
+                "Shut down the compiler"
+              ],
+              "correctIndex": 0,
+              "explanation": "Every algorithm takes well-defined input, applies deterministic step-by-step logic, and produces the exact output expected."
+            },
+            "memoryTrace": {
+              "registers": [
+                {
+                  "name": "input",
+                  "value": "User Input",
+                  "role": "Buffered standard input stream"
+                },
+                {
+                  "name": "result",
+                  "value": "Computed Value",
+                  "role": "Register holding final evaluated result"
+                }
+              ],
+              "steps": [
+                {
+                  "step": 1,
+                  "title": "Input Reading",
+                  "state": {
+                    "input": "Received",
+                    "result": "Unset"
+                  },
+                  "explanation": "Program captures raw bytes from stdin into memory variables."
+                },
+                {
+                  "step": 2,
+                  "title": "CPU ALU Execution",
+                  "state": {
+                    "input": "Processed",
+                    "result": "Calculated"
+                  },
+                  "explanation": "Processor executes arithmetic/logical instructions according to program code."
+                },
+                {
+                  "step": 3,
+                  "title": "Output Emission",
+                  "state": {
+                    "input": "Done",
+                    "result": "Flushed to stdout"
+                  },
+                  "explanation": "Result formatted and flushed to the terminal screen."
+                }
+              ]
+            },
+            "anatomy": [
+              {
+                "line": "import java.util.Scanner;",
+                "role": "Tool Import",
+                "plainEnglish": "Imports the Scanner class used to parse primitive numbers and strings from console input."
+              },
+              {
+                "line": "public class Main { ... }",
+                "role": "Class Wrapper",
+                "plainEnglish": "In Java, all code must live inside a class. The main executable class must match filename."
+              },
+              {
+                "line": "public static void main(String[] args)",
+                "role": "Entry Point",
+                "plainEnglish": "The standard entry point that the Java Virtual Machine (JVM) searches for to begin running."
+              },
+              {
+                "line": "Scanner sc = new Scanner(System.in);",
+                "role": "Scanner Setup",
+                "plainEnglish": "Creates a scanner object connected to System.in to listen to keyboard keystrokes."
+              },
+              {
+                "line": "System.out.println(result);",
+                "role": "Console Print",
+                "plainEnglish": "Outputs result to the console and moves the cursor to a fresh new line."
+              }
+            ]
           },
           {
             "id": "java_m4_p2",
@@ -3452,7 +11526,88 @@ export const CURRICULUM = {
               "Step 3 (Output): Print the final result clearly on the screen exactly as requested."
             ],
             "whyItMatters": "Foundational logic used in smartphone apps, smart microwaves, ATM cash dispensers, and space rovers.",
-            "beginnerTrap": "In Java, always name your public class 'Main', and remember array indices start at 0 and end at length - 1."
+            "beginnerTrap": "In Java, always name your public class 'Main', and remember array indices start at 0 and end at length - 1.",
+            "quiz": {
+              "question": "What is the core objective when solving \"Find Minimum and Maximum in Java Array\"?",
+              "options": [
+                "Accept the input format, apply logical operations, and output the required result",
+                "Ignore user input and hardcode random values",
+                "Create an infinite loop",
+                "Shut down the compiler"
+              ],
+              "correctIndex": 0,
+              "explanation": "Every algorithm takes well-defined input, applies deterministic step-by-step logic, and produces the exact output expected."
+            },
+            "memoryTrace": {
+              "registers": [
+                {
+                  "name": "input",
+                  "value": "User Input",
+                  "role": "Buffered standard input stream"
+                },
+                {
+                  "name": "result",
+                  "value": "Computed Value",
+                  "role": "Register holding final evaluated result"
+                }
+              ],
+              "steps": [
+                {
+                  "step": 1,
+                  "title": "Input Reading",
+                  "state": {
+                    "input": "Received",
+                    "result": "Unset"
+                  },
+                  "explanation": "Program captures raw bytes from stdin into memory variables."
+                },
+                {
+                  "step": 2,
+                  "title": "CPU ALU Execution",
+                  "state": {
+                    "input": "Processed",
+                    "result": "Calculated"
+                  },
+                  "explanation": "Processor executes arithmetic/logical instructions according to program code."
+                },
+                {
+                  "step": 3,
+                  "title": "Output Emission",
+                  "state": {
+                    "input": "Done",
+                    "result": "Flushed to stdout"
+                  },
+                  "explanation": "Result formatted and flushed to the terminal screen."
+                }
+              ]
+            },
+            "anatomy": [
+              {
+                "line": "import java.util.Scanner;",
+                "role": "Tool Import",
+                "plainEnglish": "Imports the Scanner class used to parse primitive numbers and strings from console input."
+              },
+              {
+                "line": "public class Main { ... }",
+                "role": "Class Wrapper",
+                "plainEnglish": "In Java, all code must live inside a class. The main executable class must match filename."
+              },
+              {
+                "line": "public static void main(String[] args)",
+                "role": "Entry Point",
+                "plainEnglish": "The standard entry point that the Java Virtual Machine (JVM) searches for to begin running."
+              },
+              {
+                "line": "Scanner sc = new Scanner(System.in);",
+                "role": "Scanner Setup",
+                "plainEnglish": "Creates a scanner object connected to System.in to listen to keyboard keystrokes."
+              },
+              {
+                "line": "System.out.println(result);",
+                "role": "Console Print",
+                "plainEnglish": "Outputs result to the console and moves the cursor to a fresh new line."
+              }
+            ]
           },
           {
             "id": "java_m4_p3",
@@ -3479,7 +11634,96 @@ export const CURRICULUM = {
               "Step 3 (Output): Print the final result clearly on the screen exactly as requested."
             ],
             "whyItMatters": "Powers Spotify playlist shuffling, Amazon product price sorting, and video game leaderboard rankings.",
-            "beginnerTrap": "In Java, always name your public class 'Main', and remember array indices start at 0 and end at length - 1."
+            "beginnerTrap": "In Java, always name your public class 'Main', and remember array indices start at 0 and end at length - 1.",
+            "quiz": {
+              "question": "What is the core objective when solving \"Reverse an Array in Java\"?",
+              "options": [
+                "Accept the input format, apply logical operations, and output the required result",
+                "Ignore user input and hardcode random values",
+                "Create an infinite loop",
+                "Shut down the compiler"
+              ],
+              "correctIndex": 0,
+              "explanation": "Every algorithm takes well-defined input, applies deterministic step-by-step logic, and produces the exact output expected."
+            },
+            "memoryTrace": {
+              "registers": [
+                {
+                  "name": "arr",
+                  "value": "[1, 2, 3, 4, 5]",
+                  "role": "Contiguous array in memory"
+                },
+                {
+                  "name": "left",
+                  "value": "0",
+                  "role": "Start index pointer"
+                },
+                {
+                  "name": "right",
+                  "value": "4",
+                  "role": "End index pointer"
+                }
+              ],
+              "steps": [
+                {
+                  "step": 1,
+                  "title": "Pointer Setup",
+                  "state": {
+                    "arr": "[1, 2, 3, 4, 5]",
+                    "left": "0",
+                    "right": "4"
+                  },
+                  "explanation": "left points to 1 (idx 0), right points to 5 (idx 4)."
+                },
+                {
+                  "step": 2,
+                  "title": "First Swap & Move",
+                  "state": {
+                    "arr": "[5, 2, 3, 4, 1]",
+                    "left": "1",
+                    "right": "3"
+                  },
+                  "explanation": "Swap arr[0] and arr[4]. left increments to 1, right decrements to 3."
+                },
+                {
+                  "step": 3,
+                  "title": "Second Swap & Meet",
+                  "state": {
+                    "arr": "[5, 4, 3, 2, 1]",
+                    "left": "2",
+                    "right": "2"
+                  },
+                  "explanation": "Swap arr[1] and arr[3]. Both pointers meet at center index 2. Reverse finished!"
+                }
+              ]
+            },
+            "anatomy": [
+              {
+                "line": "import java.util.Scanner;",
+                "role": "Tool Import",
+                "plainEnglish": "Imports the Scanner class used to parse primitive numbers and strings from console input."
+              },
+              {
+                "line": "public class Main { ... }",
+                "role": "Class Wrapper",
+                "plainEnglish": "In Java, all code must live inside a class. The main executable class must match filename."
+              },
+              {
+                "line": "public static void main(String[] args)",
+                "role": "Entry Point",
+                "plainEnglish": "The standard entry point that the Java Virtual Machine (JVM) searches for to begin running."
+              },
+              {
+                "line": "Scanner sc = new Scanner(System.in);",
+                "role": "Scanner Setup",
+                "plainEnglish": "Creates a scanner object connected to System.in to listen to keyboard keystrokes."
+              },
+              {
+                "line": "System.out.println(result);",
+                "role": "Console Print",
+                "plainEnglish": "Outputs result to the console and moves the cursor to a fresh new line."
+              }
+            ]
           },
           {
             "id": "java_m4_p4",
@@ -3510,7 +11754,88 @@ export const CURRICULUM = {
               "Step 3 (Output): Print the final result clearly on the screen exactly as requested."
             ],
             "whyItMatters": "Foundational logic used in smartphone apps, smart microwaves, ATM cash dispensers, and space rovers.",
-            "beginnerTrap": "In Java, always name your public class 'Main', and remember array indices start at 0 and end at length - 1."
+            "beginnerTrap": "In Java, always name your public class 'Main', and remember array indices start at 0 and end at length - 1.",
+            "quiz": {
+              "question": "What is the core objective when solving \"Linear Search in Java Array\"?",
+              "options": [
+                "Accept the input format, apply logical operations, and output the required result",
+                "Ignore user input and hardcode random values",
+                "Create an infinite loop",
+                "Shut down the compiler"
+              ],
+              "correctIndex": 0,
+              "explanation": "Every algorithm takes well-defined input, applies deterministic step-by-step logic, and produces the exact output expected."
+            },
+            "memoryTrace": {
+              "registers": [
+                {
+                  "name": "input",
+                  "value": "User Input",
+                  "role": "Buffered standard input stream"
+                },
+                {
+                  "name": "result",
+                  "value": "Computed Value",
+                  "role": "Register holding final evaluated result"
+                }
+              ],
+              "steps": [
+                {
+                  "step": 1,
+                  "title": "Input Reading",
+                  "state": {
+                    "input": "Received",
+                    "result": "Unset"
+                  },
+                  "explanation": "Program captures raw bytes from stdin into memory variables."
+                },
+                {
+                  "step": 2,
+                  "title": "CPU ALU Execution",
+                  "state": {
+                    "input": "Processed",
+                    "result": "Calculated"
+                  },
+                  "explanation": "Processor executes arithmetic/logical instructions according to program code."
+                },
+                {
+                  "step": 3,
+                  "title": "Output Emission",
+                  "state": {
+                    "input": "Done",
+                    "result": "Flushed to stdout"
+                  },
+                  "explanation": "Result formatted and flushed to the terminal screen."
+                }
+              ]
+            },
+            "anatomy": [
+              {
+                "line": "import java.util.Scanner;",
+                "role": "Tool Import",
+                "plainEnglish": "Imports the Scanner class used to parse primitive numbers and strings from console input."
+              },
+              {
+                "line": "public class Main { ... }",
+                "role": "Class Wrapper",
+                "plainEnglish": "In Java, all code must live inside a class. The main executable class must match filename."
+              },
+              {
+                "line": "public static void main(String[] args)",
+                "role": "Entry Point",
+                "plainEnglish": "The standard entry point that the Java Virtual Machine (JVM) searches for to begin running."
+              },
+              {
+                "line": "Scanner sc = new Scanner(System.in);",
+                "role": "Scanner Setup",
+                "plainEnglish": "Creates a scanner object connected to System.in to listen to keyboard keystrokes."
+              },
+              {
+                "line": "System.out.println(result);",
+                "role": "Console Print",
+                "plainEnglish": "Outputs result to the console and moves the cursor to a fresh new line."
+              }
+            ]
           },
           {
             "id": "java_m4_p5",
@@ -3537,7 +11862,102 @@ export const CURRICULUM = {
               "Step 3 (Output): Print the final result clearly on the screen exactly as requested."
             ],
             "whyItMatters": "Powers Spotify playlist shuffling, Amazon product price sorting, and video game leaderboard rankings.",
-            "beginnerTrap": "In Java, always name your public class 'Main', and remember array indices start at 0 and end at length - 1."
+            "beginnerTrap": "In Java, always name your public class 'Main', and remember array indices start at 0 and end at length - 1.",
+            "quiz": {
+              "question": "In Bubble Sort, what is guaranteed after the very first pass over an array of size N?",
+              "options": [
+                "The whole array is completely sorted",
+                "The smallest element is placed at index 0",
+                "The largest element has bubbled up to the very last index (N-1)",
+                "All duplicate values are removed"
+              ],
+              "correctIndex": 2,
+              "explanation": "Every adjacent comparison moves larger numbers to the right. After one full pass, the heaviest element inevitably settles at the highest index."
+            },
+            "memoryTrace": {
+              "registers": [
+                {
+                  "name": "arr",
+                  "value": "[5, 1, 4, 2, 8]",
+                  "role": "Unsorted array elements"
+                },
+                {
+                  "name": "i",
+                  "value": "0",
+                  "role": "Outer loop pass counter"
+                },
+                {
+                  "name": "j",
+                  "value": "0",
+                  "role": "Inner comparison pointer"
+                }
+              ],
+              "steps": [
+                {
+                  "step": 1,
+                  "title": "Compare arr[0] & arr[1]",
+                  "state": {
+                    "arr": "[1, 5, 4, 2, 8]",
+                    "j": "0"
+                  },
+                  "explanation": "5 > 1 is true. Swap 5 and 1. 5 starts floating rightward!"
+                },
+                {
+                  "step": 2,
+                  "title": "Compare arr[1] & arr[2]",
+                  "state": {
+                    "arr": "[1, 4, 5, 2, 8]",
+                    "j": "1"
+                  },
+                  "explanation": "5 > 4 is true. Swap 5 and 4. 5 continues bubbling up."
+                },
+                {
+                  "step": 3,
+                  "title": "Compare arr[2] & arr[3]",
+                  "state": {
+                    "arr": "[1, 4, 2, 5, 8]",
+                    "j": "2"
+                  },
+                  "explanation": "5 > 2 is true. Swap 5 and 2."
+                },
+                {
+                  "step": 4,
+                  "title": "Compare arr[3] & arr[4]",
+                  "state": {
+                    "arr": "[1, 4, 2, 5, 8]",
+                    "j": "3"
+                  },
+                  "explanation": "5 < 8 is false. No swap. Heaviest number (8) is locked at the end!"
+                }
+              ]
+            },
+            "anatomy": [
+              {
+                "line": "import java.util.Scanner;",
+                "role": "Tool Import",
+                "plainEnglish": "Imports the Scanner class used to parse primitive numbers and strings from console input."
+              },
+              {
+                "line": "public class Main { ... }",
+                "role": "Class Wrapper",
+                "plainEnglish": "In Java, all code must live inside a class. The main executable class must match filename."
+              },
+              {
+                "line": "public static void main(String[] args)",
+                "role": "Entry Point",
+                "plainEnglish": "The standard entry point that the Java Virtual Machine (JVM) searches for to begin running."
+              },
+              {
+                "line": "Scanner sc = new Scanner(System.in);",
+                "role": "Scanner Setup",
+                "plainEnglish": "Creates a scanner object connected to System.in to listen to keyboard keystrokes."
+              },
+              {
+                "line": "System.out.println(result);",
+                "role": "Console Print",
+                "plainEnglish": "Outputs result to the console and moves the cursor to a fresh new line."
+              }
+            ]
           }
         ]
       },
@@ -3576,7 +11996,96 @@ export const CURRICULUM = {
               "Step 3 (Output): Print the final result clearly on the screen exactly as requested."
             ],
             "whyItMatters": "Powers Spotify playlist shuffling, Amazon product price sorting, and video game leaderboard rankings.",
-            "beginnerTrap": "In Java, always name your public class 'Main', and remember array indices start at 0 and end at length - 1."
+            "beginnerTrap": "In Java, always name your public class 'Main', and remember array indices start at 0 and end at length - 1.",
+            "quiz": {
+              "question": "What is the core objective when solving \"Reverse a String with StringBuilder\"?",
+              "options": [
+                "Accept the input format, apply logical operations, and output the required result",
+                "Ignore user input and hardcode random values",
+                "Create an infinite loop",
+                "Shut down the compiler"
+              ],
+              "correctIndex": 0,
+              "explanation": "Every algorithm takes well-defined input, applies deterministic step-by-step logic, and produces the exact output expected."
+            },
+            "memoryTrace": {
+              "registers": [
+                {
+                  "name": "arr",
+                  "value": "[1, 2, 3, 4, 5]",
+                  "role": "Contiguous array in memory"
+                },
+                {
+                  "name": "left",
+                  "value": "0",
+                  "role": "Start index pointer"
+                },
+                {
+                  "name": "right",
+                  "value": "4",
+                  "role": "End index pointer"
+                }
+              ],
+              "steps": [
+                {
+                  "step": 1,
+                  "title": "Pointer Setup",
+                  "state": {
+                    "arr": "[1, 2, 3, 4, 5]",
+                    "left": "0",
+                    "right": "4"
+                  },
+                  "explanation": "left points to 1 (idx 0), right points to 5 (idx 4)."
+                },
+                {
+                  "step": 2,
+                  "title": "First Swap & Move",
+                  "state": {
+                    "arr": "[5, 2, 3, 4, 1]",
+                    "left": "1",
+                    "right": "3"
+                  },
+                  "explanation": "Swap arr[0] and arr[4]. left increments to 1, right decrements to 3."
+                },
+                {
+                  "step": 3,
+                  "title": "Second Swap & Meet",
+                  "state": {
+                    "arr": "[5, 4, 3, 2, 1]",
+                    "left": "2",
+                    "right": "2"
+                  },
+                  "explanation": "Swap arr[1] and arr[3]. Both pointers meet at center index 2. Reverse finished!"
+                }
+              ]
+            },
+            "anatomy": [
+              {
+                "line": "import java.util.Scanner;",
+                "role": "Tool Import",
+                "plainEnglish": "Imports the Scanner class used to parse primitive numbers and strings from console input."
+              },
+              {
+                "line": "public class Main { ... }",
+                "role": "Class Wrapper",
+                "plainEnglish": "In Java, all code must live inside a class. The main executable class must match filename."
+              },
+              {
+                "line": "public static void main(String[] args)",
+                "role": "Entry Point",
+                "plainEnglish": "The standard entry point that the Java Virtual Machine (JVM) searches for to begin running."
+              },
+              {
+                "line": "Scanner sc = new Scanner(System.in);",
+                "role": "Scanner Setup",
+                "plainEnglish": "Creates a scanner object connected to System.in to listen to keyboard keystrokes."
+              },
+              {
+                "line": "System.out.println(result);",
+                "role": "Console Print",
+                "plainEnglish": "Outputs result to the console and moves the cursor to a fresh new line."
+              }
+            ]
           },
           {
             "id": "java_m5_p2",
@@ -3607,7 +12116,88 @@ export const CURRICULUM = {
               "Step 3 (Output): Print the final result clearly on the screen exactly as requested."
             ],
             "whyItMatters": "Drives Google search autocorrect, DNA sequence genetics analysis, and spam email filters.",
-            "beginnerTrap": "In Java, always name your public class 'Main', and remember array indices start at 0 and end at length - 1."
+            "beginnerTrap": "In Java, always name your public class 'Main', and remember array indices start at 0 and end at length - 1.",
+            "quiz": {
+              "question": "What defines a palindrome in computer science?",
+              "options": [
+                "A sequence that reads identically forward and backward",
+                "A number that has only two factors",
+                "A word with all vowels capitalized",
+                "An array with only even numbers"
+              ],
+              "correctIndex": 0,
+              "explanation": "A palindrome has perfect symmetry — like 'radar' or 12321. Comparing characters from both ends inward confirms symmetry."
+            },
+            "memoryTrace": {
+              "registers": [
+                {
+                  "name": "input",
+                  "value": "User Input",
+                  "role": "Buffered standard input stream"
+                },
+                {
+                  "name": "result",
+                  "value": "Computed Value",
+                  "role": "Register holding final evaluated result"
+                }
+              ],
+              "steps": [
+                {
+                  "step": 1,
+                  "title": "Input Reading",
+                  "state": {
+                    "input": "Received",
+                    "result": "Unset"
+                  },
+                  "explanation": "Program captures raw bytes from stdin into memory variables."
+                },
+                {
+                  "step": 2,
+                  "title": "CPU ALU Execution",
+                  "state": {
+                    "input": "Processed",
+                    "result": "Calculated"
+                  },
+                  "explanation": "Processor executes arithmetic/logical instructions according to program code."
+                },
+                {
+                  "step": 3,
+                  "title": "Output Emission",
+                  "state": {
+                    "input": "Done",
+                    "result": "Flushed to stdout"
+                  },
+                  "explanation": "Result formatted and flushed to the terminal screen."
+                }
+              ]
+            },
+            "anatomy": [
+              {
+                "line": "import java.util.Scanner;",
+                "role": "Tool Import",
+                "plainEnglish": "Imports the Scanner class used to parse primitive numbers and strings from console input."
+              },
+              {
+                "line": "public class Main { ... }",
+                "role": "Class Wrapper",
+                "plainEnglish": "In Java, all code must live inside a class. The main executable class must match filename."
+              },
+              {
+                "line": "public static void main(String[] args)",
+                "role": "Entry Point",
+                "plainEnglish": "The standard entry point that the Java Virtual Machine (JVM) searches for to begin running."
+              },
+              {
+                "line": "Scanner sc = new Scanner(System.in);",
+                "role": "Scanner Setup",
+                "plainEnglish": "Creates a scanner object connected to System.in to listen to keyboard keystrokes."
+              },
+              {
+                "line": "System.out.println(result);",
+                "role": "Console Print",
+                "plainEnglish": "Outputs result to the console and moves the cursor to a fresh new line."
+              }
+            ]
           },
           {
             "id": "java_m5_p3",
@@ -3638,7 +12228,88 @@ export const CURRICULUM = {
               "Step 3 (Output): Print the final result clearly on the screen exactly as requested."
             ],
             "whyItMatters": "Drives Google search autocorrect, DNA sequence genetics analysis, and spam email filters.",
-            "beginnerTrap": "In Java, always name your public class 'Main', and remember array indices start at 0 and end at length - 1."
+            "beginnerTrap": "In Java, always name your public class 'Main', and remember array indices start at 0 and end at length - 1.",
+            "quiz": {
+              "question": "What is the core objective when solving \"Count Vowels in Java String\"?",
+              "options": [
+                "Accept the input format, apply logical operations, and output the required result",
+                "Ignore user input and hardcode random values",
+                "Create an infinite loop",
+                "Shut down the compiler"
+              ],
+              "correctIndex": 0,
+              "explanation": "Every algorithm takes well-defined input, applies deterministic step-by-step logic, and produces the exact output expected."
+            },
+            "memoryTrace": {
+              "registers": [
+                {
+                  "name": "input",
+                  "value": "User Input",
+                  "role": "Buffered standard input stream"
+                },
+                {
+                  "name": "result",
+                  "value": "Computed Value",
+                  "role": "Register holding final evaluated result"
+                }
+              ],
+              "steps": [
+                {
+                  "step": 1,
+                  "title": "Input Reading",
+                  "state": {
+                    "input": "Received",
+                    "result": "Unset"
+                  },
+                  "explanation": "Program captures raw bytes from stdin into memory variables."
+                },
+                {
+                  "step": 2,
+                  "title": "CPU ALU Execution",
+                  "state": {
+                    "input": "Processed",
+                    "result": "Calculated"
+                  },
+                  "explanation": "Processor executes arithmetic/logical instructions according to program code."
+                },
+                {
+                  "step": 3,
+                  "title": "Output Emission",
+                  "state": {
+                    "input": "Done",
+                    "result": "Flushed to stdout"
+                  },
+                  "explanation": "Result formatted and flushed to the terminal screen."
+                }
+              ]
+            },
+            "anatomy": [
+              {
+                "line": "import java.util.Scanner;",
+                "role": "Tool Import",
+                "plainEnglish": "Imports the Scanner class used to parse primitive numbers and strings from console input."
+              },
+              {
+                "line": "public class Main { ... }",
+                "role": "Class Wrapper",
+                "plainEnglish": "In Java, all code must live inside a class. The main executable class must match filename."
+              },
+              {
+                "line": "public static void main(String[] args)",
+                "role": "Entry Point",
+                "plainEnglish": "The standard entry point that the Java Virtual Machine (JVM) searches for to begin running."
+              },
+              {
+                "line": "Scanner sc = new Scanner(System.in);",
+                "role": "Scanner Setup",
+                "plainEnglish": "Creates a scanner object connected to System.in to listen to keyboard keystrokes."
+              },
+              {
+                "line": "System.out.println(result);",
+                "role": "Console Print",
+                "plainEnglish": "Outputs result to the console and moves the cursor to a fresh new line."
+              }
+            ]
           },
           {
             "id": "java_m5_p4",
@@ -3669,7 +12340,88 @@ export const CURRICULUM = {
               "Step 3 (Output): Print the final result clearly on the screen exactly as requested."
             ],
             "whyItMatters": "Powers Spotify playlist shuffling, Amazon product price sorting, and video game leaderboard rankings.",
-            "beginnerTrap": "In Java, always name your public class 'Main', and remember array indices start at 0 and end at length - 1."
+            "beginnerTrap": "In Java, always name your public class 'Main', and remember array indices start at 0 and end at length - 1.",
+            "quiz": {
+              "question": "What is the core objective when solving \"Check Anagrams with Arrays.sort\"?",
+              "options": [
+                "Accept the input format, apply logical operations, and output the required result",
+                "Ignore user input and hardcode random values",
+                "Create an infinite loop",
+                "Shut down the compiler"
+              ],
+              "correctIndex": 0,
+              "explanation": "Every algorithm takes well-defined input, applies deterministic step-by-step logic, and produces the exact output expected."
+            },
+            "memoryTrace": {
+              "registers": [
+                {
+                  "name": "input",
+                  "value": "User Input",
+                  "role": "Buffered standard input stream"
+                },
+                {
+                  "name": "result",
+                  "value": "Computed Value",
+                  "role": "Register holding final evaluated result"
+                }
+              ],
+              "steps": [
+                {
+                  "step": 1,
+                  "title": "Input Reading",
+                  "state": {
+                    "input": "Received",
+                    "result": "Unset"
+                  },
+                  "explanation": "Program captures raw bytes from stdin into memory variables."
+                },
+                {
+                  "step": 2,
+                  "title": "CPU ALU Execution",
+                  "state": {
+                    "input": "Processed",
+                    "result": "Calculated"
+                  },
+                  "explanation": "Processor executes arithmetic/logical instructions according to program code."
+                },
+                {
+                  "step": 3,
+                  "title": "Output Emission",
+                  "state": {
+                    "input": "Done",
+                    "result": "Flushed to stdout"
+                  },
+                  "explanation": "Result formatted and flushed to the terminal screen."
+                }
+              ]
+            },
+            "anatomy": [
+              {
+                "line": "import java.util.Scanner;",
+                "role": "Tool Import",
+                "plainEnglish": "Imports the Scanner class used to parse primitive numbers and strings from console input."
+              },
+              {
+                "line": "public class Main { ... }",
+                "role": "Class Wrapper",
+                "plainEnglish": "In Java, all code must live inside a class. The main executable class must match filename."
+              },
+              {
+                "line": "public static void main(String[] args)",
+                "role": "Entry Point",
+                "plainEnglish": "The standard entry point that the Java Virtual Machine (JVM) searches for to begin running."
+              },
+              {
+                "line": "Scanner sc = new Scanner(System.in);",
+                "role": "Scanner Setup",
+                "plainEnglish": "Creates a scanner object connected to System.in to listen to keyboard keystrokes."
+              },
+              {
+                "line": "System.out.println(result);",
+                "role": "Console Print",
+                "plainEnglish": "Outputs result to the console and moves the cursor to a fresh new line."
+              }
+            ]
           },
           {
             "id": "java_m5_p5",
@@ -3696,7 +12448,88 @@ export const CURRICULUM = {
               "Step 3 (Output): Print the final result clearly on the screen exactly as requested."
             ],
             "whyItMatters": "Drives Google search autocorrect, DNA sequence genetics analysis, and spam email filters.",
-            "beginnerTrap": "In Java, always name your public class 'Main', and remember array indices start at 0 and end at length - 1."
+            "beginnerTrap": "In Java, always name your public class 'Main', and remember array indices start at 0 and end at length - 1.",
+            "quiz": {
+              "question": "What is the core objective when solving \"Toggle Case in Java String\"?",
+              "options": [
+                "Accept the input format, apply logical operations, and output the required result",
+                "Ignore user input and hardcode random values",
+                "Create an infinite loop",
+                "Shut down the compiler"
+              ],
+              "correctIndex": 0,
+              "explanation": "Every algorithm takes well-defined input, applies deterministic step-by-step logic, and produces the exact output expected."
+            },
+            "memoryTrace": {
+              "registers": [
+                {
+                  "name": "input",
+                  "value": "User Input",
+                  "role": "Buffered standard input stream"
+                },
+                {
+                  "name": "result",
+                  "value": "Computed Value",
+                  "role": "Register holding final evaluated result"
+                }
+              ],
+              "steps": [
+                {
+                  "step": 1,
+                  "title": "Input Reading",
+                  "state": {
+                    "input": "Received",
+                    "result": "Unset"
+                  },
+                  "explanation": "Program captures raw bytes from stdin into memory variables."
+                },
+                {
+                  "step": 2,
+                  "title": "CPU ALU Execution",
+                  "state": {
+                    "input": "Processed",
+                    "result": "Calculated"
+                  },
+                  "explanation": "Processor executes arithmetic/logical instructions according to program code."
+                },
+                {
+                  "step": 3,
+                  "title": "Output Emission",
+                  "state": {
+                    "input": "Done",
+                    "result": "Flushed to stdout"
+                  },
+                  "explanation": "Result formatted and flushed to the terminal screen."
+                }
+              ]
+            },
+            "anatomy": [
+              {
+                "line": "import java.util.Scanner;",
+                "role": "Tool Import",
+                "plainEnglish": "Imports the Scanner class used to parse primitive numbers and strings from console input."
+              },
+              {
+                "line": "public class Main { ... }",
+                "role": "Class Wrapper",
+                "plainEnglish": "In Java, all code must live inside a class. The main executable class must match filename."
+              },
+              {
+                "line": "public static void main(String[] args)",
+                "role": "Entry Point",
+                "plainEnglish": "The standard entry point that the Java Virtual Machine (JVM) searches for to begin running."
+              },
+              {
+                "line": "Scanner sc = new Scanner(System.in);",
+                "role": "Scanner Setup",
+                "plainEnglish": "Creates a scanner object connected to System.in to listen to keyboard keystrokes."
+              },
+              {
+                "line": "System.out.println(result);",
+                "role": "Console Print",
+                "plainEnglish": "Outputs result to the console and moves the cursor to a fresh new line."
+              }
+            ]
           }
         ]
       }

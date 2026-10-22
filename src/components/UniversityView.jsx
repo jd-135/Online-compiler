@@ -4,6 +4,8 @@ import {
   Lock, 
   Unlock, 
   CheckCircle2, 
+  CheckCircle,
+  XCircle,
   Play, 
   RotateCcw, 
   Sparkles, 
@@ -29,11 +31,16 @@ import {
   Info,
   X,
   Trophy,
-  Search
+  Search,
+  Volume2,
+  VolumeX,
+  Cpu,
+  Layers
 } from 'lucide-react';
 import { CURRICULUM } from '../constants/curriculum';
 import { runCode } from '../services/compilerService';
 import { analyzeErrorAsync } from '../services/aiDebugger';
+import { playSuccessSound, playQuizCorrectSound, playClickSound } from '../utils/audioEffects';
 
 const PROGRESS_STORAGE_KEY = 'jd_university_progress_v1';
 
@@ -187,6 +194,19 @@ export function UniversityView({ onBackToCompiler, onLoadCodeInCompiler, setting
   const [showDictionary, setShowDictionary] = useState(false);
   const [dictSearch, setDictSearch] = useState('');
 
+  // Enhanced Learning Studio Mode & Interactive Tabs
+  const [lessonTab, setLessonTab] = useState('concept'); // 'concept' | 'quiz' | 'memory' | 'anatomy'
+  const [memoryStep, setMemoryStep] = useState(0);
+  const [quizAnswers, setQuizAnswers] = useState({});
+  const [quizBonusAwarded, setQuizBonusAwarded] = useState([]);
+  const [soundEnabled, setSoundEnabled] = useState(() => {
+    try {
+      return localStorage.getItem('jd_sound_enabled') !== 'false';
+    } catch {
+      return true;
+    }
+  });
+
   useEffect(() => {
     if (activeProblem) {
       setUserCode(activeProblem.starterCode || '');
@@ -196,7 +216,28 @@ export function UniversityView({ onBackToCompiler, onLoadCodeInCompiler, setting
     setShowSolution(false); // Answer automatically hidden on every problem!
     setShowHints(false);
     setSolutionCopied(false);
+    setMemoryStep(0);
   }, [activeProblemId]);
+
+  // Handle answering concept checkpoint quiz
+  const handleQuizAnswer = (optIdx) => {
+    if (!activeProblem?.quiz) return;
+    const isCorrect = optIdx === activeProblem.quiz.correctIndex;
+    setQuizAnswers((prev) => ({ ...prev, [activeProblem.id]: optIdx }));
+
+    if (isCorrect) {
+      if (soundEnabled) playQuizCorrectSound();
+      if (!quizBonusAwarded.includes(activeProblem.id)) {
+        setQuizBonusAwarded((prev) => [...prev, activeProblem.id]);
+        setProgress((prev) => ({
+          ...prev,
+          totalXp: prev.totalXp + 10
+        }));
+      }
+    } else {
+      if (soundEnabled) playClickSound();
+    }
+  };
 
   // Testing & execution states
   const [isRunningTests, setIsRunningTests] = useState(false);
@@ -273,6 +314,7 @@ export function UniversityView({ onBackToCompiler, onLoadCodeInCompiler, setting
 
     // If all passed and not already completed, award XP and unlock next!
     if (allPassed && !isProblemCompleted(activeProblem.id)) {
+      if (soundEnabled) playSuccessSound();
       setProgress((prev) => ({
         completedProblems: [...prev.completedProblems, activeProblem.id],
         totalXp: prev.totalXp + (activeProblem.xp || 50)
@@ -360,11 +402,35 @@ export function UniversityView({ onBackToCompiler, onLoadCodeInCompiler, setting
           </div>
         </div>
 
-        {/* Center / Right: Beginner Dictionary, Language Selectors & User Rank/XP */}
+        {/* Center / Right: Beginner Dictionary, Sound SFX Toggle, Language Selectors & User Rank/XP */}
         <div className="flex items-center gap-2.5">
+          {/* Synthesized Sound Effects Toggle */}
+          <button
+            onClick={() => {
+              const next = !soundEnabled;
+              setSoundEnabled(next);
+              try {
+                localStorage.setItem('jd_sound_enabled', String(next));
+              } catch {}
+              if (next) playClickSound();
+            }}
+            title={soundEnabled ? 'Web Audio Sound Effects Enabled (Click to Mute)' : 'Sound Effects Muted (Click to Enable)'}
+            className={`flex items-center gap-1.5 px-2.5 py-1.5 rounded-xl border text-xs font-semibold transition-all active:scale-95 shadow-xs ${
+              soundEnabled
+                ? 'bg-emerald-500/15 text-emerald-300 border-emerald-500/35 hover:bg-emerald-500/25'
+                : 'bg-[#21262d] text-[#8b949e] border-[#30363d] hover:text-[#e6edf3]'
+            }`}
+          >
+            {soundEnabled ? <Volume2 size={13} className="text-emerald-400" /> : <VolumeX size={13} />}
+            <span className="hidden sm:inline">{soundEnabled ? 'Audio: ON' : 'Muted'}</span>
+          </button>
+
           {/* Beginner Pocket Dictionary Button */}
           <button
-            onClick={() => setShowDictionary(true)}
+            onClick={() => {
+              setShowDictionary(true);
+              if (soundEnabled) playClickSound();
+            }}
             title="Open Coder's Pocket Dictionary (plain English for beginners)"
             className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-purple-500/15 hover:bg-purple-500/25 text-[#d2a8ff] border border-purple-500/40 text-xs font-bold transition-all active:scale-95 shadow-xs"
           >
@@ -551,196 +617,476 @@ export function UniversityView({ onBackToCompiler, onLoadCodeInCompiler, setting
               )}
             </div>
 
-            {/* Theory & Instructions scroll area with Silky Slide Animation on Problem Switch */}
-            <div key={activeProblemId} className="flex-1 overflow-y-auto p-4 space-y-4 anim-slide-up">
-              {/* 1. Real-World Story & Everyday Analogy Card */}
-              {activeProblem?.analogy && (
-                <div className="bg-gradient-to-br from-amber-500/10 via-purple-500/10 to-indigo-500/10 p-3.5 rounded-xl border border-amber-400/35 space-y-2 shadow-sm smooth-hover">
-                  <div className="flex items-center justify-between">
-                    <div className="flex items-center gap-2 text-xs font-bold text-amber-300">
-                      <Sparkles size={14} className="text-amber-400" />
-                      <span>🌍 Real-World Analogy (No Jargon Needed)</span>
-                    </div>
-                    <span className="text-[10px] font-mono px-2 py-0.2 rounded-full bg-amber-400/20 text-amber-200 border border-amber-400/30 font-semibold">
-                      ELI5 Story
-                    </span>
-                  </div>
-                  <p className="text-xs text-[#e6edf3] leading-relaxed font-sans">
-                    {activeProblem.analogy}
-                  </p>
-                </div>
-              )}
+            {/* Multi-Modal Learning Studio Mode Tabs */}
+            <div className="flex items-center px-3 pt-2 border-b border-[#30363d] bg-[#161b22]/70 gap-1.5 overflow-x-auto select-none shrink-0" style={{ borderColor: 'var(--border-color)' }}>
+              <button
+                onClick={() => {
+                  setLessonTab('concept');
+                  if (soundEnabled) playClickSound();
+                }}
+                className={`px-3 py-1.5 rounded-t-lg text-xs font-semibold flex items-center gap-1.5 transition-all border-b-2 whitespace-nowrap ${
+                  lessonTab === 'concept'
+                    ? 'border-[#58a6ff] text-[#58a6ff] bg-[#21262d]/80'
+                    : 'border-transparent text-[#8b949e] hover:text-[#e6edf3] hover:bg-[#21262d]/40'
+                }`}
+              >
+                <BookOpen size={13} />
+                <span>Concept & Story</span>
+              </button>
 
-              {/* 2. The 3-Step Human Recipe (Think Before You Code) */}
-              {activeProblem?.stepByStep && activeProblem.stepByStep.length > 0 && (
-                <div className="bg-[#0f1117] p-3.5 rounded-xl border border-[#30363d] space-y-2.5 shadow-sm smooth-hover" style={{ backgroundColor: 'var(--bg-primary)', borderColor: 'var(--border-color)' }}>
-                  <div className="flex items-center gap-2 text-xs font-bold text-[#3fb950]">
-                    <Lightbulb size={14} />
-                    <span>🪜 How to Think Like a Programmer (3-Step Recipe)</span>
-                  </div>
-                  <div className="space-y-1.5 text-xs text-[#e6edf3] font-sans">
-                    {activeProblem.stepByStep.map((step, sIdx) => (
-                      <div key={sIdx} className="flex items-start gap-2.5 bg-[#161b22] p-2 rounded-lg border border-[#30363d]/60">
-                        <span className="w-5 h-5 rounded-full bg-[#3fb950]/20 text-[#3fb950] border border-[#3fb950]/40 flex items-center justify-center text-[10px] font-bold shrink-0 mt-0.5">
-                          {sIdx + 1}
+              <button
+                onClick={() => {
+                  setLessonTab('quiz');
+                  if (soundEnabled) playClickSound();
+                }}
+                className={`px-3 py-1.5 rounded-t-lg text-xs font-semibold flex items-center gap-1.5 transition-all border-b-2 whitespace-nowrap ${
+                  lessonTab === 'quiz'
+                    ? 'border-indigo-400 text-indigo-300 bg-[#21262d]/80'
+                    : 'border-transparent text-[#8b949e] hover:text-[#e6edf3] hover:bg-[#21262d]/40'
+                }`}
+              >
+                <HelpCircle size={13} className="text-indigo-400" />
+                <span>Brain Check Quiz</span>
+                {quizAnswers[activeProblem?.id] !== undefined && quizAnswers[activeProblem?.id] === activeProblem?.quiz?.correctIndex && (
+                  <CheckCircle size={12} className="text-[#3fb950] ml-0.5" />
+                )}
+              </button>
+
+              <button
+                onClick={() => {
+                  setLessonTab('memory');
+                  if (soundEnabled) playClickSound();
+                }}
+                className={`px-3 py-1.5 rounded-t-lg text-xs font-semibold flex items-center gap-1.5 transition-all border-b-2 whitespace-nowrap ${
+                  lessonTab === 'memory'
+                    ? 'border-cyan-400 text-cyan-300 bg-[#21262d]/80'
+                    : 'border-transparent text-[#8b949e] hover:text-[#e6edf3] hover:bg-[#21262d]/40'
+                }`}
+              >
+                <Cpu size={13} className="text-cyan-400" />
+                <span>Memory Inspector</span>
+              </button>
+
+              <button
+                onClick={() => {
+                  setLessonTab('anatomy');
+                  if (soundEnabled) playClickSound();
+                }}
+                className={`px-3 py-1.5 rounded-t-lg text-xs font-semibold flex items-center gap-1.5 transition-all border-b-2 whitespace-nowrap ${
+                  lessonTab === 'anatomy'
+                    ? 'border-emerald-400 text-emerald-300 bg-[#21262d]/80'
+                    : 'border-transparent text-[#8b949e] hover:text-[#e6edf3] hover:bg-[#21262d]/40'
+                }`}
+              >
+                <Code2 size={13} className="text-emerald-400" />
+                <span>Code Anatomy</span>
+              </button>
+            </div>
+
+            {/* Theory & Instructions scroll area with Silky Slide Animation on Problem Switch */}
+            <div key={`${activeProblemId}_${lessonTab}`} className="flex-1 overflow-y-auto p-4 space-y-4 anim-slide-up">
+              {/* TAB 1: STORY & CONCEPT */}
+              {lessonTab === 'concept' && (
+                <div className="space-y-4">
+                  {/* 1. Real-World Story & Everyday Analogy Card */}
+                  {activeProblem?.analogy && (
+                    <div className="bg-gradient-to-br from-amber-500/10 via-purple-500/10 to-indigo-500/10 p-3.5 rounded-xl border border-amber-400/35 space-y-2 shadow-sm smooth-hover">
+                      <div className="flex items-center justify-between">
+                        <div className="flex items-center gap-2 text-xs font-bold text-amber-300">
+                          <Sparkles size={14} className="text-amber-400" />
+                          <span>🌍 Real-World Analogy (No Jargon Needed)</span>
+                        </div>
+                        <span className="text-[10px] font-mono px-2 py-0.2 rounded-full bg-amber-400/20 text-amber-200 border border-amber-400/30 font-semibold">
+                          ELI5 Story
                         </span>
-                        <span className="leading-relaxed text-[11.5px] text-[#e6edf3]">{step}</span>
+                      </div>
+                      <p className="text-xs text-[#e6edf3] leading-relaxed font-sans">
+                        {activeProblem.analogy}
+                      </p>
+                    </div>
+                  )}
+
+                  {/* 2. The 3-Step Human Recipe (Think Before You Code) */}
+                  {activeProblem?.stepByStep && activeProblem.stepByStep.length > 0 && (
+                    <div className="bg-[#0f1117] p-3.5 rounded-xl border border-[#30363d] space-y-2.5 shadow-sm smooth-hover" style={{ backgroundColor: 'var(--bg-primary)', borderColor: 'var(--border-color)' }}>
+                      <div className="flex items-center gap-2 text-xs font-bold text-[#3fb950]">
+                        <Lightbulb size={14} />
+                        <span>🪜 How to Think Like a Programmer (3-Step Recipe)</span>
+                      </div>
+                      <div className="space-y-1.5 text-xs text-[#e6edf3] font-sans">
+                        {activeProblem.stepByStep.map((step, sIdx) => (
+                          <div key={sIdx} className="flex items-start gap-2.5 bg-[#161b22] p-2 rounded-lg border border-[#30363d]/60">
+                            <span className="w-5 h-5 rounded-full bg-[#3fb950]/20 text-[#3fb950] border border-[#3fb950]/40 flex items-center justify-center text-[10px] font-bold shrink-0 mt-0.5">
+                              {sIdx + 1}
+                            </span>
+                            <span className="leading-relaxed text-[11.5px] text-[#e6edf3]">{step}</span>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                  )}
+
+                  {/* 3. Language Concept & Syntax Rules */}
+                  <div className="bg-[#0f1117] p-3.5 rounded-xl border border-[#30363d] space-y-2 shadow-sm smooth-hover" style={{ backgroundColor: 'var(--bg-primary)', borderColor: 'var(--border-color)' }}>
+                    <div className="flex items-center gap-2 text-xs font-semibold text-[#58a6ff]">
+                      <BookOpen size={14} />
+                      <span>Language Syntax & Rules</span>
+                    </div>
+                    <div className="text-xs text-[#8b949e] whitespace-pre-wrap leading-relaxed font-sans">
+                      {activeProblem?.concept}
+                    </div>
+                  </div>
+
+                  {/* 4. Common Beginner Pitfall to Avoid */}
+                  {activeProblem?.beginnerTrap && (
+                    <div className="bg-amber-400/10 border border-amber-400/30 p-3 rounded-xl flex items-start gap-2.5 text-xs text-amber-200 smooth-hover">
+                      <ShieldAlert size={16} className="text-amber-400 shrink-0 mt-0.5" />
+                      <div className="leading-relaxed text-[11.5px]">
+                        <strong className="text-amber-300">⚠️ Beginner Pitfall to Avoid:</strong> {activeProblem.beginnerTrap}
+                      </div>
+                    </div>
+                  )}
+
+                  {/* 5. Problem Description */}
+                  <div className="space-y-2">
+                    <div className="flex items-center gap-2 text-xs font-semibold text-[#e6edf3]">
+                      <Code2 size={14} className="text-[#3fb950]" />
+                      <span>Problem Statement</span>
+                    </div>
+                    <div className="text-xs text-[#8b949e] leading-relaxed bg-[#0f1117]/60 p-3 rounded-lg border border-[#30363d]">
+                      {activeProblem?.description}
+                    </div>
+                  </div>
+
+                  {/* Sample Test Cases */}
+                  <div className="space-y-2">
+                    <div className="text-xs font-semibold text-[#e6edf3]">Sample Test Cases</div>
+                    {activeProblem?.testCases?.map((tc, idx) => (
+                      <div key={idx} className="bg-[#0f1117] p-3 rounded-lg border border-[#30363d] font-mono text-xs space-y-1.5" style={{ backgroundColor: 'var(--bg-primary)', borderColor: 'var(--border-color)' }}>
+                        <div className="text-[11px] text-[#8b949e] font-sans font-semibold">Test Case {idx + 1}:</div>
+                        <div className="grid grid-cols-2 gap-2 text-[11px]">
+                          <div>
+                            <div className="text-[#8b949e] text-[10px] uppercase font-bold">Input</div>
+                            <div className="bg-[#161b22] p-1.5 rounded border border-[#30363d] text-[#e6edf3] whitespace-pre">{tc.input || '(no input)'}</div>
+                          </div>
+                          <div>
+                            <div className="text-[#8b949e] text-[10px] uppercase font-bold">Expected Output</div>
+                            <div className="bg-[#161b22] p-1.5 rounded border border-[#30363d] text-[#3fb950] whitespace-pre">{tc.expectedOutput}</div>
+                          </div>
+                        </div>
                       </div>
                     ))}
                   </div>
-                </div>
-              )}
 
-              {/* 3. Language Concept & Syntax Rules */}
-              <div className="bg-[#0f1117] p-3.5 rounded-xl border border-[#30363d] space-y-2 shadow-sm smooth-hover" style={{ backgroundColor: 'var(--bg-primary)', borderColor: 'var(--border-color)' }}>
-                <div className="flex items-center gap-2 text-xs font-semibold text-[#58a6ff]">
-                  <BookOpen size={14} />
-                  <span>Language Syntax & Rules</span>
-                </div>
-                <div className="text-xs text-[#8b949e] whitespace-pre-wrap leading-relaxed font-sans">
-                  {activeProblem?.concept}
-                </div>
-              </div>
-
-              {/* 4. Common Beginner Pitfall to Avoid */}
-              {activeProblem?.beginnerTrap && (
-                <div className="bg-amber-400/10 border border-amber-400/30 p-3 rounded-xl flex items-start gap-2.5 text-xs text-amber-200 smooth-hover">
-                  <ShieldAlert size={16} className="text-amber-400 shrink-0 mt-0.5" />
-                  <div className="leading-relaxed text-[11.5px]">
-                    <strong className="text-amber-300">⚠️ Beginner Pitfall to Avoid:</strong> {activeProblem.beginnerTrap}
-                  </div>
-                </div>
-              )}
-
-              {/* 5. Problem Description */}
-              <div className="space-y-2">
-                <div className="flex items-center gap-2 text-xs font-semibold text-[#e6edf3]">
-                  <Code2 size={14} className="text-[#3fb950]" />
-                  <span>Problem Statement</span>
-                </div>
-                <div className="text-xs text-[#8b949e] leading-relaxed bg-[#0f1117]/60 p-3 rounded-lg border border-[#30363d]">
-                  {activeProblem?.description}
-                </div>
-              </div>
-
-              {/* Sample Test Cases */}
-              <div className="space-y-2">
-                <div className="text-xs font-semibold text-[#e6edf3]">Sample Test Cases</div>
-                {activeProblem?.testCases?.map((tc, idx) => (
-                  <div key={idx} className="bg-[#0f1117] p-3 rounded-lg border border-[#30363d] font-mono text-xs space-y-1.5" style={{ backgroundColor: 'var(--bg-primary)', borderColor: 'var(--border-color)' }}>
-                    <div className="text-[11px] text-[#8b949e] font-sans font-semibold">Test Case {idx + 1}:</div>
-                    <div className="grid grid-cols-2 gap-2 text-[11px]">
-                      <div>
-                        <div className="text-[#8b949e] text-[10px] uppercase font-bold">Input</div>
-                        <div className="bg-[#161b22] p-1.5 rounded border border-[#30363d] text-[#e6edf3] whitespace-pre">{tc.input || '(no input)'}</div>
-                      </div>
-                      <div>
-                        <div className="text-[#8b949e] text-[10px] uppercase font-bold">Expected Output</div>
-                        <div className="bg-[#161b22] p-1.5 rounded border border-[#30363d] text-[#3fb950] whitespace-pre">{tc.expectedOutput}</div>
-                      </div>
-                    </div>
-                  </div>
-                ))}
-              </div>
-
-              {/* Hints Accordion */}
-              {activeProblem?.hints?.length > 0 && (
-                <div className="border border-[#30363d] rounded-xl overflow-hidden">
-                  <button
-                    onClick={() => setShowHints(!showHints)}
-                    className="w-full p-2.5 bg-[#21262d] flex items-center justify-between text-xs text-[#8b949e] hover:text-[#e6edf3]"
-                  >
-                    <div className="flex items-center gap-1.5 font-semibold">
-                      <HelpCircle size={14} className="text-amber-400" />
-                      <span>Need a Hint?</span>
-                    </div>
-                    <ChevronRight size={14} className={`transition-transform duration-200 ${showHints ? 'rotate-90' : ''}`} />
-                  </button>
-                  {showHints && (
-                    <div className="p-3 bg-[#0f1117] text-xs text-[#8b949e] space-y-1 border-t border-[#30363d]">
-                      {activeProblem.hints.map((hint, hIdx) => (
-                        <div key={hIdx} className="flex items-start gap-2">
-                          <span className="text-amber-400 font-bold">•</span>
-                          <span>{hint}</span>
+                  {/* Hints Accordion */}
+                  {activeProblem?.hints?.length > 0 && (
+                    <div className="border border-[#30363d] rounded-xl overflow-hidden">
+                      <button
+                        onClick={() => setShowHints(!showHints)}
+                        className="w-full p-2.5 bg-[#21262d] flex items-center justify-between text-xs text-[#8b949e] hover:text-[#e6edf3]"
+                      >
+                        <div className="flex items-center gap-1.5 font-semibold">
+                          <HelpCircle size={14} className="text-amber-400" />
+                          <span>Need a Hint?</span>
                         </div>
-                      ))}
+                        <ChevronRight size={14} className={`transition-transform duration-200 ${showHints ? 'rotate-90' : ''}`} />
+                      </button>
+                      {showHints && (
+                        <div className="p-3 bg-[#0f1117] text-xs text-[#8b949e] space-y-1 border-t border-[#30363d]">
+                          {activeProblem.hints.map((hint, hIdx) => (
+                            <div key={hIdx} className="flex items-start gap-2">
+                              <span className="text-amber-400 font-bold">•</span>
+                              <span>{hint}</span>
+                            </div>
+                          ))}
+                        </div>
+                      )}
+                    </div>
+                  )}
+
+                  {/* Automatically Hidden Solution Accordion (Forces Active Self Practice) */}
+                  {activeProblem?.solutionCode && (
+                    <div className="border border-[#30363d] rounded-xl overflow-hidden bg-[#0f1117]/60">
+                      <div className="p-2.5 bg-[#21262d] flex items-center justify-between text-xs border-b border-[#30363d]">
+                        <div className="flex items-center gap-2">
+                          {showSolution ? (
+                            <Eye size={14} className="text-[#3fb950]" />
+                          ) : (
+                            <EyeOff size={14} className="text-amber-400" />
+                          )}
+                          <span className="font-semibold text-[#e6edf3]">
+                            {showSolution ? 'Official Reference Solution' : 'Answer Hidden (Practice First!)'}
+                          </span>
+                        </div>
+                        <button
+                          onClick={() => setShowSolution(!showSolution)}
+                          className={`px-2.5 py-1 rounded-md text-[11px] font-semibold transition-all flex items-center gap-1.5 ${
+                            showSolution
+                              ? 'bg-[#21262d] text-[#8b949e] hover:text-[#e6edf3] border border-[#30363d]'
+                              : 'bg-amber-400/15 text-amber-400 hover:bg-amber-400/25 border border-amber-400/40'
+                          }`}
+                        >
+                          {showSolution ? (
+                            <>
+                              <EyeOff size={12} />
+                              <span>Hide Answer</span>
+                            </>
+                          ) : (
+                            <>
+                              <Eye size={12} />
+                              <span>Reveal Answer</span>
+                            </>
+                          )}
+                        </button>
+                      </div>
+
+                      {showSolution ? (
+                        <div className="p-3 bg-[#0d1117] space-y-2 border-t border-[#30363d]">
+                          <div className="flex items-center justify-between">
+                            <span className="text-[11px] text-[#8b949e] font-sans">Verified optimal code:</span>
+                            <div className="flex items-center gap-2">
+                              <button
+                                onClick={async () => {
+                                  try {
+                                    await navigator.clipboard.writeText(activeProblem.solutionCode);
+                                    setSolutionCopied(true);
+                                    setTimeout(() => setSolutionCopied(false), 2000);
+                                  } catch {}
+                                }}
+                                className="text-[11px] text-[#8b949e] hover:text-[#e6edf3] flex items-center gap-1"
+                              >
+                                {solutionCopied ? <Check size={11} className="text-[#3fb950]" /> : <Copy size={11} />}
+                                <span>{solutionCopied ? 'Copied' : 'Copy'}</span>
+                              </button>
+                              <button
+                                onClick={() => setUserCode(activeProblem.solutionCode)}
+                                className="text-[11px] text-[#58a6ff] hover:underline flex items-center gap-1 font-mono"
+                              >
+                                <span>Load into Editor</span>
+                              </button>
+                            </div>
+                          </div>
+                          <pre className="p-2.5 rounded-lg bg-[#161b22] border border-[#30363d] text-[#e6edf3] font-mono text-[11px] overflow-x-auto whitespace-pre leading-relaxed">
+                            {activeProblem.solutionCode}
+                          </pre>
+                        </div>
+                      ) : (
+                        <div className="p-2.5 text-[11px] text-[#8b949e] leading-relaxed flex items-center gap-2 bg-[#0f1117]/80">
+                          <Lock size={12} className="text-amber-400 shrink-0" />
+                          <span>The answer is locked & hidden automatically to let you practice on your own. Test your code or use AI Tutor hints if you get stuck!</span>
+                        </div>
+                      )}
                     </div>
                   )}
                 </div>
               )}
 
-              {/* Automatically Hidden Solution Accordion (Forces Active Self Practice) */}
-              {activeProblem?.solutionCode && (
-                <div className="border border-[#30363d] rounded-xl overflow-hidden bg-[#0f1117]/60">
-                  <div className="p-2.5 bg-[#21262d] flex items-center justify-between text-xs border-b border-[#30363d]">
-                    <div className="flex items-center gap-2">
-                      {showSolution ? (
-                        <Eye size={14} className="text-[#3fb950]" />
-                      ) : (
-                        <EyeOff size={14} className="text-amber-400" />
-                      )}
-                      <span className="font-semibold text-[#e6edf3]">
-                        {showSolution ? 'Official Reference Solution' : 'Answer Hidden (Practice First!)'}
+              {/* TAB 2: BRAIN CHECK QUIZ */}
+              {lessonTab === 'quiz' && (
+                <div className="space-y-4">
+                  <div className="bg-gradient-to-br from-indigo-500/15 via-purple-500/10 to-pink-500/15 p-4 rounded-xl border border-indigo-500/35 space-y-2.5 shadow-sm">
+                    <div className="flex items-center justify-between">
+                      <div className="flex items-center gap-2 text-xs font-bold text-indigo-300">
+                        <Sparkles size={14} className="text-indigo-400" />
+                        <span>Interactive Concept Checkpoint</span>
+                      </div>
+                      <span className="text-[10px] font-mono px-2 py-0.5 rounded-full bg-amber-400/20 text-amber-300 border border-amber-400/40 font-bold">
+                        +10 Bonus XP
                       </span>
                     </div>
-                    <button
-                      onClick={() => setShowSolution(!showSolution)}
-                      className={`px-2.5 py-1 rounded-md text-[11px] font-semibold transition-all flex items-center gap-1.5 ${
-                        showSolution
-                          ? 'bg-[#21262d] text-[#8b949e] hover:text-[#e6edf3] border border-[#30363d]'
-                          : 'bg-amber-400/15 text-amber-400 hover:bg-amber-400/25 border border-amber-400/40'
-                      }`}
-                    >
-                      {showSolution ? (
-                        <>
-                          <EyeOff size={12} />
-                          <span>Hide Answer</span>
-                        </>
-                      ) : (
-                        <>
-                          <Eye size={12} />
-                          <span>Reveal Answer</span>
-                        </>
-                      )}
-                    </button>
+                    <p className="text-xs font-semibold text-[#e6edf3] leading-relaxed">
+                      {activeProblem?.quiz?.question || 'Test your intuitive understanding of this concept before coding!'}
+                    </p>
                   </div>
 
-                  {showSolution ? (
-                    <div className="p-3 bg-[#0d1117] space-y-2 border-t border-[#30363d]">
-                      <div className="flex items-center justify-between">
-                        <span className="text-[11px] text-[#8b949e] font-sans">Verified optimal code:</span>
-                        <div className="flex items-center gap-2">
-                          <button
-                            onClick={async () => {
-                              try {
-                                await navigator.clipboard.writeText(activeProblem.solutionCode);
-                                setSolutionCopied(true);
-                                setTimeout(() => setSolutionCopied(false), 2000);
-                              } catch {}
-                            }}
-                            className="text-[11px] text-[#8b949e] hover:text-[#e6edf3] flex items-center gap-1"
-                          >
-                            {solutionCopied ? <Check size={11} className="text-[#3fb950]" /> : <Copy size={11} />}
-                            <span>{solutionCopied ? 'Copied' : 'Copy'}</span>
-                          </button>
-                          <button
-                            onClick={() => setUserCode(activeProblem.solutionCode)}
-                            className="text-[11px] text-[#58a6ff] hover:underline flex items-center gap-1 font-mono"
-                          >
-                            <span>Load into Editor</span>
-                          </button>
-                        </div>
+                  {/* Multiple Choice Options */}
+                  <div className="space-y-2.5">
+                    {activeProblem?.quiz?.options?.map((opt, optIdx) => {
+                      const userChoice = quizAnswers[activeProblem.id];
+                      const isAnswered = userChoice !== undefined;
+                      const isSelected = userChoice === optIdx;
+                      const isCorrect = optIdx === activeProblem.quiz.correctIndex;
+
+                      let btnStyle = 'bg-[#161b22] hover:bg-[#21262d] text-[#e6edf3] border-[#30363d]';
+                      if (isAnswered) {
+                        if (isSelected && isCorrect) {
+                          btnStyle = 'bg-[#3fb950]/20 text-[#3fb950] border-[#3fb950] shadow-sm';
+                        } else if (isSelected && !isCorrect) {
+                          btnStyle = 'bg-[#f85149]/20 text-[#f85149] border-[#f85149]';
+                        } else if (isCorrect) {
+                          btnStyle = 'bg-[#3fb950]/10 text-[#3fb950] border-[#3fb950]/50';
+                        }
+                      }
+
+                      return (
+                        <button
+                          key={optIdx}
+                          onClick={() => handleQuizAnswer(optIdx)}
+                          className={`w-full text-left p-3 rounded-xl border transition-all flex items-start gap-3 active:scale-[0.99] ${btnStyle} group`}
+                        >
+                          <span className="w-6 h-6 rounded-lg bg-[#21262d] group-hover:bg-[#30363d] flex items-center justify-center text-xs font-mono font-bold shrink-0 mt-0.5 text-[#8b949e] group-hover:text-[#e6edf3]">
+                            {['A', 'B', 'C', 'D'][optIdx]}
+                          </span>
+                          <span className="text-xs leading-relaxed flex-1">{opt}</span>
+                          {isAnswered && isCorrect && <CheckCircle size={16} className="text-[#3fb950] shrink-0 mt-0.5" />}
+                          {isAnswered && isSelected && !isCorrect && <XCircle size={16} className="text-[#f85149] shrink-0 mt-0.5" />}
+                        </button>
+                      );
+                    })}
+                  </div>
+
+                  {/* Post-Answer Feedback Banner */}
+                  {quizAnswers[activeProblem?.id] !== undefined && (
+                    <div className={`p-3.5 rounded-xl border text-xs anim-slide-up space-y-1.5 ${
+                      quizAnswers[activeProblem?.id] === activeProblem?.quiz?.correctIndex
+                        ? 'bg-[#3fb950]/15 border-[#3fb950]/40 text-[#e6edf3]'
+                        : 'bg-amber-400/15 border-amber-400/40 text-[#e6edf3]'
+                    }`}>
+                      <div className="font-bold flex items-center gap-1.5">
+                        {quizAnswers[activeProblem?.id] === activeProblem?.quiz?.correctIndex ? (
+                          <>
+                            <CheckCircle size={14} className="text-[#3fb950]" />
+                            <span className="text-[#3fb950]">Brilliant Insight! Concept Mastered (+10 XP)</span>
+                          </>
+                        ) : (
+                          <>
+                            <AlertCircle size={14} className="text-amber-400" />
+                            <span className="text-amber-300">Close! Check the hint below and choose another answer:</span>
+                          </>
+                        )}
                       </div>
-                      <pre className="p-2.5 rounded-lg bg-[#161b22] border border-[#30363d] text-[#e6edf3] font-mono text-[11px] overflow-x-auto whitespace-pre leading-relaxed">
-                        {activeProblem.solutionCode}
-                      </pre>
-                    </div>
-                  ) : (
-                    <div className="p-2.5 text-[11px] text-[#8b949e] leading-relaxed flex items-center gap-2 bg-[#0f1117]/80">
-                      <Lock size={12} className="text-amber-400 shrink-0" />
-                      <span>The answer is locked & hidden automatically to let you practice on your own. Test your code or use AI Tutor hints if you get stuck!</span>
+                      <p className="text-[11.5px] text-[#8b949e] leading-relaxed">
+                        {activeProblem?.quiz?.explanation}
+                      </p>
                     </div>
                   )}
+                </div>
+              )}
+
+              {/* TAB 3: VISUAL MEMORY INSPECTOR */}
+              {lessonTab === 'memory' && (
+                <div className="space-y-4">
+                  <div className="bg-gradient-to-br from-cyan-500/10 via-blue-500/10 to-teal-500/10 p-3.5 rounded-xl border border-cyan-500/35 flex items-center justify-between">
+                    <div className="flex items-center gap-2 text-xs font-bold text-cyan-300">
+                      <Cpu size={15} />
+                      <span>RAM & Execution Inspector</span>
+                    </div>
+                    <span className="text-[10px] font-mono px-2 py-0.5 rounded-full bg-cyan-500/20 text-cyan-200 border border-cyan-500/30 font-semibold">
+                      Live Simulation
+                    </span>
+                  </div>
+
+                  {/* Memory Register Boxes (RAM Addresses) */}
+                  <div className="bg-[#0f1117] p-3.5 rounded-xl border border-[#30363d] space-y-2.5">
+                    <div className="text-[11px] font-mono text-[#8b949e] uppercase tracking-wider flex items-center gap-1.5">
+                      <Layers size={13} className="text-[#58a6ff]" />
+                      <span>Active Memory Boxes (RAM Registers)</span>
+                    </div>
+                    <div className="grid grid-cols-2 gap-2.5">
+                      {activeProblem?.memoryTrace?.registers?.map((reg, rIdx) => {
+                        const currentVal = activeProblem.memoryTrace.steps[memoryStep]?.state[reg.name] ?? reg.value;
+                        return (
+                          <div key={rIdx} className="bg-[#161b22] p-2.5 rounded-xl border border-[#30363d] space-y-1.5">
+                            <div className="flex items-center justify-between text-[11px]">
+                              <span className="font-mono font-bold text-[#58a6ff]">{reg.name}</span>
+                              <span className="text-[10px] text-[#8b949e] truncate max-w-[95px]">{reg.role}</span>
+                            </div>
+                            <div className="font-mono text-xs font-bold text-amber-300 bg-[#0f1117] px-2.5 py-1.5 rounded-lg border border-[#30363d]/80 text-center transition-all duration-300">
+                              {currentVal}
+                            </div>
+                          </div>
+                        );
+                      })}
+                    </div>
+                  </div>
+
+                  {/* Interactive Stepper Controls */}
+                  {activeProblem?.memoryTrace?.steps?.length > 0 && (
+                    <div className="bg-[#161b22] p-3.5 rounded-xl border border-[#30363d] space-y-3">
+                      <div className="flex items-center justify-between">
+                        <span className="text-xs font-bold text-[#e6edf3]">
+                          Step {memoryStep + 1} of {activeProblem.memoryTrace.steps.length}: {activeProblem.memoryTrace.steps[memoryStep]?.title}
+                        </span>
+                        <button
+                          onClick={() => {
+                            setMemoryStep(0);
+                            if (soundEnabled) playClickSound();
+                          }}
+                          className="text-[11px] text-[#8b949e] hover:text-[#e6edf3] flex items-center gap-1 transition-colors"
+                        >
+                          <RotateCcw size={11} />
+                          <span>Reset</span>
+                        </button>
+                      </div>
+
+                      <p className="text-xs text-[#8b949e] leading-relaxed bg-[#0f1117] p-2.5 rounded-lg border border-[#30363d] font-sans">
+                        {activeProblem.memoryTrace.steps[memoryStep]?.explanation}
+                      </p>
+
+                      <div className="flex items-center justify-between pt-1">
+                        <button
+                          onClick={() => {
+                            if (memoryStep > 0) {
+                              setMemoryStep((prev) => prev - 1);
+                              if (soundEnabled) playClickSound();
+                            }
+                          }}
+                          disabled={memoryStep === 0}
+                          className="px-3 py-1.5 rounded-lg text-xs font-semibold bg-[#21262d] hover:bg-[#30363d] disabled:opacity-40 disabled:hover:bg-[#21262d] border border-[#30363d] text-[#e6edf3] flex items-center gap-1.5 transition-all active:scale-95"
+                        >
+                          <ArrowLeft size={13} />
+                          <span>Prev Step</span>
+                        </button>
+
+                        <button
+                          onClick={() => {
+                            if (memoryStep < activeProblem.memoryTrace.steps.length - 1) {
+                              setMemoryStep((prev) => prev + 1);
+                              if (soundEnabled) playClickSound();
+                            }
+                          }}
+                          disabled={memoryStep >= activeProblem.memoryTrace.steps.length - 1}
+                          className="px-3 py-1.5 rounded-lg text-xs font-semibold bg-[#58a6ff]/20 hover:bg-[#58a6ff]/30 text-[#58a6ff] disabled:opacity-40 border border-[#58a6ff]/40 flex items-center gap-1.5 transition-all active:scale-95"
+                        >
+                          <span>Next Step</span>
+                          <ArrowRight size={13} />
+                        </button>
+                      </div>
+                    </div>
+                  )}
+                </div>
+              )}
+
+              {/* TAB 4: CODE ANATOMY BREAKDOWN */}
+              {lessonTab === 'anatomy' && (
+                <div className="space-y-3">
+                  <div className="bg-gradient-to-br from-emerald-500/10 to-teal-500/10 p-3.5 rounded-xl border border-emerald-500/35 flex items-center justify-between">
+                    <div className="flex items-center gap-2 text-xs font-bold text-emerald-300">
+                      <Code2 size={15} />
+                      <span>Line-by-Line Code Anatomy</span>
+                    </div>
+                    <span className="text-[10px] font-mono px-2 py-0.5 rounded-full bg-emerald-500/20 text-emerald-200 border border-emerald-500/30 font-semibold">
+                      {currentCurriculum.languageName} Syntax
+                    </span>
+                  </div>
+
+                  <div className="space-y-2.5">
+                    {activeProblem?.anatomy?.map((item, aIdx) => (
+                      <div key={aIdx} className="bg-[#0f1117] p-3 rounded-xl border border-[#30363d] space-y-1.5">
+                        <div className="flex items-center justify-between gap-2">
+                          <code className="text-xs font-mono font-bold text-amber-300 bg-[#161b22] px-2 py-0.5 rounded border border-[#30363d] overflow-x-auto">
+                            {item.line}
+                          </code>
+                          <span className="text-[10px] font-mono px-2 py-0.2 rounded-full bg-[#58a6ff]/15 text-[#58a6ff] border border-[#58a6ff]/30 shrink-0">
+                            {item.role}
+                          </span>
+                        </div>
+                        <p className="text-xs text-[#8b949e] leading-relaxed font-sans pt-1">
+                          {item.plainEnglish}
+                        </p>
+                      </div>
+                    ))}
+                  </div>
                 </div>
               )}
             </div>
