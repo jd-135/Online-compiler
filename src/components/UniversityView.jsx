@@ -21,13 +21,94 @@ import {
   Eye,
   EyeOff,
   Copy,
-  Check
+  Check,
+  Globe,
+  Lightbulb,
+  ShieldAlert,
+  Smile,
+  Info,
+  X,
+  Trophy,
+  Search
 } from 'lucide-react';
 import { CURRICULUM } from '../constants/curriculum';
 import { runCode } from '../services/compilerService';
 import { analyzeErrorAsync } from '../services/aiDebugger';
 
 const PROGRESS_STORAGE_KEY = 'jd_university_progress_v1';
+
+// Everyday Pocket Dictionary for Absolute Beginners
+const BEGINNER_DICTIONARY = [
+  {
+    term: 'Variable',
+    emoji: '📦',
+    simpleMeaning: 'A labeled storage box or jar. You give it a name (like "age" or "score") and put a value inside. You can check what is inside or change it anytime.',
+    everydayExample: 'A labeled jar in your kitchen marked "Sugar". You can fill it with 5 spoonfuls, take some out, or check how much is left.'
+  },
+  {
+    term: 'Data Types',
+    emoji: '🏷️',
+    simpleMeaning: 'The shape and category of information. Integers (whole numbers like 42), Floats (decimals like 3.14), Strings (text letters like "Hello"), and Booleans (True or False flags).',
+    everydayExample: 'You wouldn\'t pour water into a paper envelope — you need the right type of container for the right type of item!'
+  },
+  {
+    term: 'Condition (if / else)',
+    emoji: '🚦',
+    simpleMeaning: 'A decision crossroads. The computer asks a simple YES/NO question: "If you have a ticket, the gate opens; otherwise, stay outside."',
+    everydayExample: 'A traffic light: Green means Go, Red means Stop. The car checks the signal and decides what to do.'
+  },
+  {
+    term: 'Loop (for / while)',
+    emoji: '🔄',
+    simpleMeaning: 'A repeating chore. Instead of writing the same instruction 100 times, you tell the computer: "Do this 100 times, then stop."',
+    everydayExample: 'Doing 10 jumping jacks in gym class: You start at count = 1, jump, increment to 2, and stop when you reach 10.'
+  },
+  {
+    term: 'Array / List',
+    emoji: '🗄️',
+    simpleMeaning: 'A row of numbered lockers placed side-by-side. Each locker holds one item. In programming, lockers are almost always numbered starting at #0, not #1!',
+    everydayExample: 'An egg carton holding 6 eggs in numbered slots: slot 0, slot 1, slot 2, slot 3, slot 4, slot 5.'
+  },
+  {
+    term: 'Function',
+    emoji: '🥤',
+    simpleMeaning: 'A dedicated mini-machine or kitchen recipe. You put ingredients in (inputs), the machine does its work, and it hands you the finished product (output).',
+    everydayExample: 'A smoothie blender: You drop in bananas and milk (inputs), press start, and out pours a banana smoothie (output).'
+  },
+  {
+    term: 'Input (stdin) & Output (stdout)',
+    emoji: '👂🗣️',
+    simpleMeaning: 'The ears and mouth of the computer! "Input" is the computer listening to what you type on the keyboard. "Output" is the computer printing words on the screen.',
+    everydayExample: 'Ordering at a drive-thru: You speak your burger order into the microphone (Input), and the screen displays your total price (Output).'
+  },
+  {
+    term: 'Modulo (%)',
+    emoji: '🍕',
+    simpleMeaning: 'The leftovers of division! If you divide 7 slices of pizza between 2 people, each gets 3 slices, and 1 slice is leftover. 7 % 2 = 1.',
+    everydayExample: 'Checking if a number is Even: if number % 2 is 0, there are zero leftovers, so it is perfectly even!'
+  },
+  {
+    term: 'Pointer',
+    emoji: '🗺️',
+    simpleMeaning: 'An address note pointing to a house, rather than carrying the entire house around. Instead of copying a 500-page book in memory, you just write down what page to look at.',
+    everydayExample: 'Giving a friend your home address on a piece of paper, instead of physically transporting your house to them.'
+  },
+  {
+    term: 'Compiler',
+    emoji: '⚡',
+    simpleMeaning: 'A lightning-fast universal translator. Humans write code using English-like words; the compiler translates that code into electrical pulses (0s and 1s) for your computer chip in 0.05 seconds!',
+    everydayExample: 'An expert UN interpreter translating spoken English into foreign languages in real time.'
+  }
+];
+
+// Helper to determine rank title and icon
+const getRankInfo = (xp) => {
+  if (xp < 100) return { title: 'Novice Explorer', emoji: '🌱', nextXp: 100, prevXp: 0, color: '#3fb950', badgeBg: 'bg-[#3fb950]/15 text-[#3fb950] border-[#3fb950]/30' };
+  if (xp < 300) return { title: 'Code Apprentice', emoji: '🔨', nextXp: 300, prevXp: 100, color: '#58a6ff', badgeBg: 'bg-[#58a6ff]/15 text-[#58a6ff] border-[#58a6ff]/30' };
+  if (xp < 600) return { title: 'Logic Crafter', emoji: '⚡', nextXp: 600, prevXp: 300, color: '#d2a8ff', badgeBg: 'bg-[#a371f7]/15 text-[#d2a8ff] border-[#a371f7]/30' };
+  if (xp < 1000) return { title: 'Algorithm Knight', emoji: '🚀', nextXp: 1000, prevXp: 600, color: '#f0883e', badgeBg: 'bg-amber-400/15 text-amber-300 border-amber-400/30' };
+  return { title: 'Grand Code Wizard', emoji: '🧙‍♂️', nextXp: null, prevXp: 1000, color: '#e3b341', badgeBg: 'bg-amber-500/20 text-yellow-300 border-yellow-400/40' };
+};
 
 export function UniversityView({ onBackToCompiler, onLoadCodeInCompiler, settings }) {
   // Available languages
@@ -103,6 +184,8 @@ export function UniversityView({ onBackToCompiler, onLoadCodeInCompiler, setting
   const [userCode, setUserCode] = useState('');
   const [showSolution, setShowSolution] = useState(false);
   const [solutionCopied, setSolutionCopied] = useState(false);
+  const [showDictionary, setShowDictionary] = useState(false);
+  const [dictSearch, setDictSearch] = useState('');
 
   useEffect(() => {
     if (activeProblem) {
@@ -199,24 +282,28 @@ export function UniversityView({ onBackToCompiler, onLoadCodeInCompiler, setting
     }
   };
 
-  // Trigger AI Tutor guidance for stuck code
-  const handleAskAiTutor = async () => {
+  // Trigger AI Tutor guidance for stuck code (Standard vs Explain Like I'm 5)
+  const handleAskAiTutor = async (eli5 = false) => {
     if (isAskingAi || !activeProblem) return;
     setIsAskingAi(true);
     try {
       const firstFailed = testResults?.cases?.find((c) => !c.passed);
       const errorMsg = firstFailed?.error || `Expected: "${firstFailed?.expected}" but got: "${firstFailed?.actual}"`;
       
+      const errorPrompt = eli5
+        ? `[EXPLAIN LIKE I'M 5 - BEGINNER TUTOR MODE]\nYou are a caring, patient coding tutor teaching an absolute beginner who has NEVER coded before in their life. Explain this error or failure using an everyday real-world analogy (like cooking, toys, sports, traffic) with zero complex jargon. Give them a gentle, step-by-step hint on how to fix it:\nChallenge: ${activeProblem.title}\nRequirements: ${activeProblem.description}\nFailure Detail: ${errorMsg}`
+        : `Challenge: ${activeProblem.title}\nRequirements: ${activeProblem.description}\nFailure Output: ${errorMsg}`;
+
       const analysis = await analyzeErrorAsync({
         language: selectedLangKey,
         code: userCode,
-        errorText: `Problem: ${activeProblem.title}\nRequirements: ${activeProblem.description}\nFailure Output: ${errorMsg}`,
+        errorText: errorPrompt,
         apiKey: settings?.geminiApiKey || ''
       });
       setAiHint(analysis);
     } catch {
       setAiHint({
-        explanation: 'Review the problem constraints, loop boundaries, and format your output exactly as expected in the test case.'
+        explanation: 'Look closely at what your program printed vs what was expected. Check for exact spacing, uppercase/lowercase letters, and newlines.'
       });
     } finally {
       setIsAskingAi(false);
@@ -233,6 +320,16 @@ export function UniversityView({ onBackToCompiler, onLoadCodeInCompiler, setting
   // Calculate language-specific completion stats
   const completedInLang = allProblems.filter((p) => isProblemCompleted(p.id)).length;
   const progressPercent = allProblems.length > 0 ? Math.round((completedInLang / allProblems.length) * 100) : 0;
+  const rankInfo = getRankInfo(progress.totalXp);
+
+  // Filter dictionary based on search query
+  const filteredDictionary = useMemo(() => {
+    if (!dictSearch.trim()) return BEGINNER_DICTIONARY;
+    const q = dictSearch.toLowerCase();
+    return BEGINNER_DICTIONARY.filter(
+      (item) => item.term.toLowerCase().includes(q) || item.simpleMeaning.toLowerCase().includes(q) || item.everydayExample.toLowerCase().includes(q)
+    );
+  }, [dictSearch]);
 
   return (
     <div className="flex-1 flex flex-col h-full bg-[#0f1117] text-[#e6edf3] overflow-hidden select-text font-sans" style={{ backgroundColor: 'var(--bg-primary)', color: 'var(--text-primary)' }}>
@@ -263,8 +360,19 @@ export function UniversityView({ onBackToCompiler, onLoadCodeInCompiler, setting
           </div>
         </div>
 
-        {/* Center / Right: Language Selectors & User XP */}
-        <div className="flex items-center gap-3">
+        {/* Center / Right: Beginner Dictionary, Language Selectors & User Rank/XP */}
+        <div className="flex items-center gap-2.5">
+          {/* Beginner Pocket Dictionary Button */}
+          <button
+            onClick={() => setShowDictionary(true)}
+            title="Open Coder's Pocket Dictionary (plain English for beginners)"
+            className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-purple-500/15 hover:bg-purple-500/25 text-[#d2a8ff] border border-purple-500/40 text-xs font-bold transition-all active:scale-95 shadow-xs"
+          >
+            <BookOpen size={13} className="text-[#d2a8ff]" />
+            <span className="hidden md:inline">Beginner Dictionary</span>
+            <span className="md:hidden">Dictionary</span>
+          </button>
+
           {/* Language selector tabs */}
           <div className="flex items-center bg-[#0f1117] p-1 rounded-xl border border-[#30363d]" style={{ backgroundColor: 'var(--bg-primary)', borderColor: 'var(--border-color)' }}>
             {languageKeys.map((key) => {
@@ -288,12 +396,17 @@ export function UniversityView({ onBackToCompiler, onLoadCodeInCompiler, setting
             })}
           </div>
 
-          {/* Gamified XP & Progress Badge */}
+          {/* Gamified XP & Rank Badge */}
           <div className="flex items-center gap-2 bg-[#21262d] border border-[#30363d] px-3 py-1.5 rounded-xl text-xs font-mono" style={{ backgroundColor: 'var(--bg-tertiary)', borderColor: 'var(--border-color)' }}>
-            <Flame size={14} className="text-amber-400 fill-amber-400 animate-bounce" />
-            <span className="font-bold text-amber-300">{progress.totalXp} XP</span>
+            <span className="flex items-center gap-1 text-[11px] font-sans font-semibold text-[#e6edf3]" title={`Rank Level: ${rankInfo.title}`}>
+              <span>{rankInfo.emoji}</span>
+              <span className="hidden lg:inline">{rankInfo.title}</span>
+            </span>
             <span className="text-[#8b949e]">•</span>
-            <span className="text-[#3fb950] font-semibold">{completedInLang}/{allProblems.length} Solved</span>
+            <Flame size={13} className="text-amber-400 fill-amber-400 animate-bounce" />
+            <span className="font-bold text-amber-300">{progress.totalXp} XP</span>
+            <span className="text-[#8b949e] hidden sm:inline">•</span>
+            <span className="text-[#3fb950] font-semibold hidden sm:inline">{completedInLang}/{allProblems.length} Solved</span>
           </div>
         </div>
       </header>
@@ -405,37 +518,95 @@ export function UniversityView({ onBackToCompiler, onLoadCodeInCompiler, setting
           {/* Left Sub-column: Concept Theory & Challenge Spec */}
           <div className="w-full md:w-5/12 border-r border-[#30363d] flex flex-col h-full overflow-hidden bg-[#161b22]/40" style={{ borderColor: 'var(--border-color)', backgroundColor: 'var(--bg-secondary)' }}>
             {/* Challenge Header */}
-            <div className="p-4 border-b border-[#30363d] flex items-center justify-between shrink-0" style={{ borderColor: 'var(--border-color)' }}>
-              <div>
-                <div className="flex items-center gap-2 text-xs text-[#8b949e] mb-1">
-                  <span>Level {activeProblem?.level}</span>
-                  <span>•</span>
-                  <span>{activeProblem?.moduleTitle}</span>
+            <div className="p-4 border-b border-[#30363d] shrink-0" style={{ borderColor: 'var(--border-color)' }}>
+              <div className="flex items-center justify-between">
+                <div>
+                  <div className="flex items-center gap-2 text-xs text-[#8b949e] mb-1">
+                    <span>Level {activeProblem?.level}</span>
+                    <span>•</span>
+                    <span>{activeProblem?.moduleTitle}</span>
+                  </div>
+                  <h2 className="text-base font-bold text-[#e6edf3]">{activeProblem?.title}</h2>
                 </div>
-                <h2 className="text-base font-bold text-[#e6edf3]">{activeProblem?.title}</h2>
+                {isProblemCompleted(activeProblem?.id) && (
+                  <span className="bg-[#3fb950]/15 text-[#3fb950] border border-[#3fb950]/30 px-2.5 py-1 rounded-full text-xs font-semibold flex items-center gap-1 font-mono">
+                    <CheckCircle2 size={13} />
+                    <span>Solved</span>
+                  </span>
+                )}
               </div>
-              {isProblemCompleted(activeProblem?.id) && (
-                <span className="bg-[#3fb950]/15 text-[#3fb950] border border-[#3fb950]/30 px-2.5 py-1 rounded-full text-xs font-semibold flex items-center gap-1 font-mono">
-                  <CheckCircle2 size={13} />
-                  <span>Solved</span>
-                </span>
+
+              {/* Real World Connection */}
+              {activeProblem?.whyItMatters && (
+                <div className="mt-2.5 flex items-center gap-1.5 text-[11px] text-[#58a6ff] bg-[#58a6ff]/10 border border-[#58a6ff]/25 px-2.5 py-1 rounded-lg font-sans">
+                  <Globe size={13} className="shrink-0 text-[#58a6ff]" />
+                  <span><strong>Real World:</strong> {activeProblem.whyItMatters}</span>
+                </div>
               )}
             </div>
 
             {/* Theory & Instructions scroll area */}
             <div className="flex-1 overflow-y-auto p-4 space-y-4">
-              {/* Theory / Concept card */}
+              {/* 1. Real-World Story & Everyday Analogy Card */}
+              {activeProblem?.analogy && (
+                <div className="bg-gradient-to-br from-amber-500/10 via-purple-500/10 to-indigo-500/10 p-3.5 rounded-xl border border-amber-400/35 space-y-2 shadow-sm">
+                  <div className="flex items-center justify-between">
+                    <div className="flex items-center gap-2 text-xs font-bold text-amber-300">
+                      <Sparkles size={14} className="text-amber-400" />
+                      <span>🌍 Real-World Analogy (No Jargon Needed)</span>
+                    </div>
+                    <span className="text-[10px] font-mono px-2 py-0.2 rounded-full bg-amber-400/20 text-amber-200 border border-amber-400/30 font-semibold">
+                      ELI5 Story
+                    </span>
+                  </div>
+                  <p className="text-xs text-[#e6edf3] leading-relaxed font-sans">
+                    {activeProblem.analogy}
+                  </p>
+                </div>
+              )}
+
+              {/* 2. The 3-Step Human Recipe (Think Before You Code) */}
+              {activeProblem?.stepByStep && activeProblem.stepByStep.length > 0 && (
+                <div className="bg-[#0f1117] p-3.5 rounded-xl border border-[#30363d] space-y-2.5 shadow-sm" style={{ backgroundColor: 'var(--bg-primary)', borderColor: 'var(--border-color)' }}>
+                  <div className="flex items-center gap-2 text-xs font-bold text-[#3fb950]">
+                    <Lightbulb size={14} />
+                    <span>🪜 How to Think Like a Programmer (3-Step Recipe)</span>
+                  </div>
+                  <div className="space-y-1.5 text-xs text-[#e6edf3] font-sans">
+                    {activeProblem.stepByStep.map((step, sIdx) => (
+                      <div key={sIdx} className="flex items-start gap-2.5 bg-[#161b22] p-2 rounded-lg border border-[#30363d]/60">
+                        <span className="w-5 h-5 rounded-full bg-[#3fb950]/20 text-[#3fb950] border border-[#3fb950]/40 flex items-center justify-center text-[10px] font-bold shrink-0 mt-0.5">
+                          {sIdx + 1}
+                        </span>
+                        <span className="leading-relaxed text-[11.5px] text-[#e6edf3]">{step}</span>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              )}
+
+              {/* 3. Language Concept & Syntax Rules */}
               <div className="bg-[#0f1117] p-3.5 rounded-xl border border-[#30363d] space-y-2 shadow-sm" style={{ backgroundColor: 'var(--bg-primary)', borderColor: 'var(--border-color)' }}>
                 <div className="flex items-center gap-2 text-xs font-semibold text-[#58a6ff]">
                   <BookOpen size={14} />
-                  <span>Concept & Theory</span>
+                  <span>Language Syntax & Rules</span>
                 </div>
-                <div className="text-xs text-[#e6edf3] whitespace-pre-wrap leading-relaxed font-sans">
+                <div className="text-xs text-[#8b949e] whitespace-pre-wrap leading-relaxed font-sans">
                   {activeProblem?.concept}
                 </div>
               </div>
 
-              {/* Problem Description */}
+              {/* 4. Common Beginner Pitfall to Avoid */}
+              {activeProblem?.beginnerTrap && (
+                <div className="bg-amber-400/10 border border-amber-400/30 p-3 rounded-xl flex items-start gap-2.5 text-xs text-amber-200">
+                  <ShieldAlert size={16} className="text-amber-400 shrink-0 mt-0.5" />
+                  <div className="leading-relaxed text-[11.5px]">
+                    <strong className="text-amber-300">⚠️ Beginner Pitfall to Avoid:</strong> {activeProblem.beginnerTrap}
+                  </div>
+                </div>
+              )}
+
+              {/* 5. Problem Description */}
               <div className="space-y-2">
                 <div className="flex items-center gap-2 text-xs font-semibold text-[#e6edf3]">
                   <Code2 size={14} className="text-[#3fb950]" />
@@ -637,15 +808,27 @@ export function UniversityView({ onBackToCompiler, onLoadCodeInCompiler, setting
                   </button>
 
                   {testResults && !testResults.allPassed && (
-                    <button
-                      onClick={handleAskAiTutor}
-                      disabled={isAskingAi}
-                      className="px-3 py-2 bg-[#58a6ff]/15 hover:bg-[#58a6ff]/25 text-[#58a6ff] border border-[#58a6ff]/40 rounded-xl text-xs font-semibold flex items-center gap-1.5 transition-all"
-                      style={{ color: 'var(--accent-primary)', borderColor: 'var(--accent-primary)' }}
-                    >
-                      <Sparkles size={14} />
-                      <span>{isAskingAi ? 'AI Tutor Analyzing...' : 'Explain Error with AI'}</span>
-                    </button>
+                    <div className="flex items-center gap-1.5 flex-wrap">
+                      <button
+                        onClick={() => handleAskAiTutor(true)}
+                        disabled={isAskingAi}
+                        title="Explain this error using everyday stories and simple analogies (no complex jargon)"
+                        className="px-3 py-2 bg-gradient-to-r from-purple-500/20 via-pink-500/20 to-amber-500/20 hover:from-purple-500/30 hover:to-amber-500/30 text-[#d2a8ff] border border-purple-500/40 rounded-xl text-xs font-bold flex items-center gap-1.5 transition-all shadow-xs active:scale-95"
+                      >
+                        <Smile size={14} className="text-[#d2a8ff]" />
+                        <span>{isAskingAi ? 'Tutor Thinking...' : '🍼 Explain Like I\'m 5'}</span>
+                      </button>
+
+                      <button
+                        onClick={() => handleAskAiTutor(false)}
+                        disabled={isAskingAi}
+                        title="Standard technical debugger analysis"
+                        className="px-2.5 py-2 bg-[#58a6ff]/15 hover:bg-[#58a6ff]/25 text-[#58a6ff] border border-[#58a6ff]/40 rounded-xl text-xs font-semibold flex items-center gap-1 transition-all active:scale-95"
+                      >
+                        <Sparkles size={13} />
+                        <span>Technical Fix</span>
+                      </button>
+                    </div>
                   )}
                 </div>
 
@@ -666,7 +849,7 @@ export function UniversityView({ onBackToCompiler, onLoadCodeInCompiler, setting
                 <div className="p-3 bg-[#3fb950]/15 border border-[#3fb950]/40 rounded-xl flex items-center justify-between animate-in fade-in slide-in-from-bottom-2">
                   <div className="flex items-center gap-2 text-[#3fb950] text-xs font-bold">
                     <Award size={18} />
-                    <span>🎉 Challenge Completed! +{activeProblem?.xp} XP Earned! Next module/challenge unlocked!</span>
+                    <span>🎉 Challenge Completed! +{activeProblem?.xp} XP Earned! Next challenge unlocked!</span>
                   </div>
                   {activeProbIndex < allProblems.length - 1 && (
                     <button
@@ -723,13 +906,13 @@ export function UniversityView({ onBackToCompiler, onLoadCodeInCompiler, setting
                 <div className="p-3 bg-[#58a6ff]/10 border border-[#58a6ff]/30 rounded-xl space-y-1.5 text-xs font-sans animate-in fade-in">
                   <div className="flex items-center gap-1.5 font-bold text-[#58a6ff]">
                     <Sparkles size={14} />
-                    <span>AI Tutor Diagnostic Advice</span>
+                    <span>AI Tutor Guidance</span>
                   </div>
-                  <div className="text-[#e6edf3] leading-relaxed text-[12px]">
+                  <div className="text-[#e6edf3] leading-relaxed text-[12px] whitespace-pre-line">
                     {aiHint.explanation || aiHint.cause}
                   </div>
                   {aiHint.tip && (
-                    <div className="text-[11px] text-[#8b949e]">
+                    <div className="text-[11px] text-amber-300 font-medium">
                       💡 Tip: {aiHint.tip}
                     </div>
                   )}
@@ -747,6 +930,75 @@ export function UniversityView({ onBackToCompiler, onLoadCodeInCompiler, setting
           </div>
         </main>
       </div>
+
+      {/* Beginner Pocket Dictionary Modal */}
+      {showDictionary && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm animate-in fade-in duration-150">
+          <div className="bg-[#161b22] border border-[#30363d] rounded-2xl max-w-2xl w-full max-h-[85vh] flex flex-col shadow-2xl overflow-hidden font-sans">
+            {/* Modal Header */}
+            <div className="p-4 border-b border-[#30363d] flex items-center justify-between bg-[#21262d]">
+              <div className="flex items-center gap-2.5">
+                <div className="w-8 h-8 rounded-xl bg-purple-500/20 text-[#d2a8ff] border border-purple-500/40 flex items-center justify-center">
+                  <BookOpen size={17} />
+                </div>
+                <div>
+                  <h3 className="font-bold text-sm text-[#e6edf3]">Coder's Pocket Dictionary (Everyday English)</h3>
+                  <p className="text-[11px] text-[#8b949e]">Zero confusing computer science jargon — plain real-world comparisons so anyone can learn.</p>
+                </div>
+              </div>
+              <button
+                onClick={() => setShowDictionary(false)}
+                className="p-1.5 text-[#8b949e] hover:text-[#e6edf3] hover:bg-[#30363d] rounded-lg transition-colors"
+              >
+                <X size={16} />
+              </button>
+            </div>
+
+            {/* Search Input */}
+            <div className="p-3 border-b border-[#30363d] bg-[#0f1117]">
+              <div className="relative">
+                <Search size={14} className="absolute left-3 top-1/2 -translate-y-1/2 text-[#8b949e]" />
+                <input
+                  type="text"
+                  placeholder="Search any coding word (e.g. Variable, Loop, Array, Pointer, Modulo)..."
+                  value={dictSearch}
+                  onChange={(e) => setDictSearch(e.target.value)}
+                  className="w-full bg-[#161b22] border border-[#30363d] rounded-xl pl-9 pr-4 py-2 text-xs text-[#e6edf3] placeholder-[#8b949e] focus:outline-none focus:border-[#58a6ff]"
+                />
+              </div>
+            </div>
+
+            {/* Dictionary Entries List */}
+            <div className="flex-1 overflow-y-auto p-4 space-y-3">
+              {filteredDictionary.map((item, idx) => (
+                <div key={idx} className="bg-[#0f1117] p-3.5 rounded-xl border border-[#30363d] space-y-1.5 hover:border-[#58a6ff]/40 transition-colors">
+                  <div className="flex items-center gap-2">
+                    <span className="text-lg">{item.emoji}</span>
+                    <h4 className="font-bold text-xs text-[#58a6ff]">{item.term}</h4>
+                  </div>
+                  <p className="text-xs text-[#e6edf3] leading-relaxed">
+                    {item.simpleMeaning}
+                  </p>
+                  <div className="bg-[#161b22] p-2 rounded-lg border border-[#30363d]/60 text-[11px] text-[#8b949e] flex items-start gap-1.5">
+                    <span className="text-amber-400 font-bold shrink-0">💡 Everyday Example:</span>
+                    <span className="text-[#c9d1d9]">{item.everydayExample}</span>
+                  </div>
+                </div>
+              ))}
+            </div>
+
+            {/* Footer */}
+            <div className="p-3 border-t border-[#30363d] bg-[#21262d] flex justify-end">
+              <button
+                onClick={() => setShowDictionary(false)}
+                className="px-4 py-1.5 bg-[#58a6ff] text-[#0f1117] rounded-xl text-xs font-bold hover:bg-[#388bfd] transition-colors"
+              >
+                Got it! Back to Learning
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }

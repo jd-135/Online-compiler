@@ -3,6 +3,7 @@
  * Covers Python, C, C++, and Java with progressive locking/unlocking,
  * theory concepts, practical challenges, and test cases.
  * Every topic contains at least 5 interactive challenges with hidden answers.
+ * Enriched with real-world analogies, step-by-step human recipes, and beginner pitfall traps.
  */
 
 export const CURRICULUM = {
@@ -42,7 +43,15 @@ export const CURRICULUM = {
             "hints": [
               "Use %d in printf with \\n for newlines.",
               "Difference is a - b."
-            ]
+            ],
+            "analogy": "Think of variables as labeled storage jars. If you put 10 marbles in jar A and 5 in jar B, finding the sum is simply pouring both jars into a bowl and counting the total marbles (15).",
+            "stepByStep": [
+              "Step 1 (Input): Receive the data entered by the user into labeled storage boxes (variables).",
+              "Step 2 (Logic): Follow the rules of the recipe (calculate, check conditions with if/else, or loop step-by-step).",
+              "Step 3 (Output): Print the final result clearly on the screen exactly as requested."
+            ],
+            "whyItMatters": "Foundational logic used in smartphone apps, smart microwaves, ATM cash dispensers, and space rovers.",
+            "beginnerTrap": "In C, scanf() needs the '&' address symbol before variable names, but printf() does not! Also, remember \\n to print on a new line."
           },
           {
             "id": "c_m1_p2",
@@ -66,7 +75,15 @@ export const CURRICULUM = {
             "hints": [
               "Add b to a, then subtract b from new a, then subtract new b from new a.",
               "Check with simple numbers first."
-            ]
+            ],
+            "analogy": "Imagine you have a glass of blue juice in your left hand and green juice in your right hand. To swap them without an extra glass or spilling, you combine their quantities mathematically, then separate them step by step!",
+            "stepByStep": [
+              "Step 1 (Input): Receive the data entered by the user into labeled storage boxes (variables).",
+              "Step 2 (Logic): Follow the rules of the recipe (calculate, check conditions with if/else, or loop step-by-step).",
+              "Step 3 (Output): Print the final result clearly on the screen exactly as requested."
+            ],
+            "whyItMatters": "Foundational logic used in smartphone apps, smart microwaves, ATM cash dispensers, and space rovers.",
+            "beginnerTrap": "In C, scanf() needs the '&' address symbol before variable names, but printf() does not! Also, remember \\n to print on a new line."
           },
           {
             "id": "c_m1_p3",
@@ -93,7 +110,15 @@ export const CURRICULUM = {
             ],
             "hints": [
               "Multiply by 9 first, divide by 5, then add 32."
-            ]
+            ],
+            "analogy": "Like a dual-scale outdoor thermometer: Celsius measures water freezing at 0° and boiling at 100°, while Fahrenheit measures freezing at 32° and boiling at 212°. The formula is just a mathematical gear translating between the two rulers!",
+            "stepByStep": [
+              "Step 1 (Input): Receive the data entered by the user into labeled storage boxes (variables).",
+              "Step 2 (Logic): Follow the rules of the recipe (calculate, check conditions with if/else, or loop step-by-step).",
+              "Step 3 (Output): Print the final result clearly on the screen exactly as requested."
+            ],
+            "whyItMatters": "Foundational logic used in smartphone apps, smart microwaves, ATM cash dispensers, and space rovers.",
+            "beginnerTrap": "In C, scanf() needs the '&' address symbol before variable names, but printf() does not! Also, remember \\n to print on a new line."
           },
           {
             "id": "c_m1_p4",
@@ -117,7 +142,15 @@ export const CURRICULUM = {
             "hints": [
               "Area is length * width.",
               "Perimeter is 2 * (length + width)."
-            ]
+            ],
+            "analogy": "Imagine laying floor tiles in your bedroom. The Area is how many square tiles fit on the whole floor, while the Perimeter is how many footsteps it takes to walk along the walls around the whole room.",
+            "stepByStep": [
+              "Step 1 (Input): Receive the data entered by the user into labeled storage boxes (variables).",
+              "Step 2 (Logic): Follow the rules of the recipe (calculate, check conditions with if/else, or loop step-by-step).",
+              "Step 3 (Output): Print the final result clearly on the screen exactly as requested."
+            ],
+            "whyItMatters": "Foundational logic used in smartphone apps, smart microwaves, ATM cash dispensers, and space rovers.",
+            "beginnerTrap": "In C, scanf() needs the '&' address symbol before variable names, but printf() does not! Also, remember \\n to print on a new line."
           },
           {
             "id": "c_m1_p5",
@@ -141,7 +174,15 @@ export const CURRICULUM = {
             "hints": [
               "To convert lowercase to uppercase, subtract 32 from the char code.",
               "Use %d to print ASCII integer code, %c to print character."
-            ]
+            ],
+            "analogy": "Like a light switch: If the room is dark (lowercase), flip the switch ON (uppercase). If already ON, flip it OFF!",
+            "stepByStep": [
+              "Step 1 (Input): Receive the data entered by the user into labeled storage boxes (variables).",
+              "Step 2 (Logic): Follow the rules of the recipe (calculate, check conditions with if/else, or loop step-by-step).",
+              "Step 3 (Output): Print the final result clearly on the screen exactly as requested."
+            ],
+            "whyItMatters": "Foundational logic used in smartphone apps, smart microwaves, ATM cash dispensers, and space rovers.",
+            "beginnerTrap": "In C, scanf() needs the '&' address symbol before variable names, but printf() does not! Also, remember \\n to print on a new line."
           }
         ]
       },
@@ -176,7 +217,15 @@ export const CURRICULUM = {
             ],
             "hints": [
               "Use the modulo operator % 2."
-            ]
+            ],
+            "analogy": "Imagine you have a bag of candies and you share them equally between 2 friends. If every candy finds a pair with zero leftovers, it's EVEN. If there's 1 lonely candy left over, it's ODD!",
+            "stepByStep": [
+              "Step 1 (Input): Receive the data entered by the user into labeled storage boxes (variables).",
+              "Step 2 (Logic): Follow the rules of the recipe (calculate, check conditions with if/else, or loop step-by-step).",
+              "Step 3 (Output): Print the final result clearly on the screen exactly as requested."
+            ],
+            "whyItMatters": "Foundational logic used in smartphone apps, smart microwaves, ATM cash dispensers, and space rovers.",
+            "beginnerTrap": "In C, scanf() needs the '&' address symbol before variable names, but printf() does not! Also, remember \\n to print on a new line."
           },
           {
             "id": "c_m2_p2",
@@ -204,7 +253,15 @@ export const CURRICULUM = {
             "hints": [
               "Centuries like 1900 are not leap years because 1900 % 400 != 0.",
               "Combine conditions with logical OR (||) and AND (&&)."
-            ]
+            ],
+            "analogy": "The Earth takes about 365.2422 days to orbit the Sun — not an exact 365 days! That extra fraction of a day adds up, so every 4 years our calendar adds February 29 to keep our seasons from drifting out of sync.",
+            "stepByStep": [
+              "Step 1 (Input): Receive the data entered by the user into labeled storage boxes (variables).",
+              "Step 2 (Logic): Follow the rules of the recipe (calculate, check conditions with if/else, or loop step-by-step).",
+              "Step 3 (Output): Print the final result clearly on the screen exactly as requested."
+            ],
+            "whyItMatters": "Foundational logic used in smartphone apps, smart microwaves, ATM cash dispensers, and space rovers.",
+            "beginnerTrap": "In C, scanf() needs the '&' address symbol before variable names, but printf() does not! Also, remember \\n to print on a new line."
           },
           {
             "id": "c_m2_p3",
@@ -231,7 +288,15 @@ export const CURRICULUM = {
             ],
             "hints": [
               "Initialize max with a, then compare with b, then with c."
-            ]
+            ],
+            "analogy": "Like a game of 'King of the Hill': Start by picking the first contestant as the reigning champion. Each new challenger steps up; if a challenger is taller than the champion, they become the new champion!",
+            "stepByStep": [
+              "Step 1 (Input): Receive the data entered by the user into labeled storage boxes (variables).",
+              "Step 2 (Logic): Follow the rules of the recipe (calculate, check conditions with if/else, or loop step-by-step).",
+              "Step 3 (Output): Print the final result clearly on the screen exactly as requested."
+            ],
+            "whyItMatters": "Foundational logic used in smartphone apps, smart microwaves, ATM cash dispensers, and space rovers.",
+            "beginnerTrap": "In C, scanf() needs the '&' address symbol before variable names, but printf() does not! Also, remember \\n to print on a new line."
           },
           {
             "id": "c_m2_p4",
@@ -258,7 +323,15 @@ export const CURRICULUM = {
             ],
             "hints": [
               "Check for Equilateral first, then Isosceles, then else Scalene."
-            ]
+            ],
+            "analogy": "Imagine three wooden sticks. If one stick is 10 meters long and the other two are only 1 meter each, their tips can never reach each other to close the triangle! Any two sides together must always be longer than the third.",
+            "stepByStep": [
+              "Step 1 (Input): Receive the data entered by the user into labeled storage boxes (variables).",
+              "Step 2 (Logic): Follow the rules of the recipe (calculate, check conditions with if/else, or loop step-by-step).",
+              "Step 3 (Output): Print the final result clearly on the screen exactly as requested."
+            ],
+            "whyItMatters": "Foundational logic used in smartphone apps, smart microwaves, ATM cash dispensers, and space rovers.",
+            "beginnerTrap": "In C, scanf() needs the '&' address symbol before variable names, but printf() does not! Also, remember \\n to print on a new line."
           },
           {
             "id": "c_m2_p5",
@@ -289,7 +362,15 @@ export const CURRICULUM = {
             ],
             "hints": [
               "In scanf, \" %c\" with a leading space ignores whitespace characters."
-            ]
+            ],
+            "analogy": "Think of variables as labeled storage jars. If you put 10 marbles in jar A and 5 in jar B, finding the sum is simply pouring both jars into a bowl and counting the total marbles (15).",
+            "stepByStep": [
+              "Step 1 (Input): Receive the data entered by the user into labeled storage boxes (variables).",
+              "Step 2 (Logic): Follow the rules of the recipe (calculate, check conditions with if/else, or loop step-by-step).",
+              "Step 3 (Output): Print the final result clearly on the screen exactly as requested."
+            ],
+            "whyItMatters": "Foundational logic used in smartphone apps, smart microwaves, ATM cash dispensers, and space rovers.",
+            "beginnerTrap": "In C, scanf() needs the '&' address symbol before variable names, but printf() does not! Also, remember \\n to print on a new line."
           }
         ]
       },
@@ -325,7 +406,15 @@ export const CURRICULUM = {
             "hints": [
               "Initialize fact = 1.",
               "Loop from 1 to n inclusive."
-            ]
+            ],
+            "analogy": "Imagine you have 5 differently colored books on a shelf. How many different ways can you arrange them? 5 choices for the first slot × 4 for the second × 3 for the third × 2 × 1 = 120 unique arrangements!",
+            "stepByStep": [
+              "Step 1 (Input): Receive the data entered by the user into labeled storage boxes (variables).",
+              "Step 2 (Logic): Follow the rules of the recipe (calculate, check conditions with if/else, or loop step-by-step).",
+              "Step 3 (Output): Print the final result clearly on the screen exactly as requested."
+            ],
+            "whyItMatters": "Used in modern banking, WhatsApp end-to-end encryption, and password security keys.",
+            "beginnerTrap": "In C, scanf() needs the '&' address symbol before variable names, but printf() does not! Also, remember \\n to print on a new line."
           },
           {
             "id": "c_m3_p2",
@@ -352,7 +441,15 @@ export const CURRICULUM = {
             ],
             "hints": [
               "Use while (n > 0) with n % 10 and n /= 10."
-            ]
+            ],
+            "analogy": "Think of a computer program like a baking recipe: It reads your ingredients (inputs), follows clear numbered instructions step-by-step, and serves a finished cake (output).",
+            "stepByStep": [
+              "Step 1 (Input): Receive the data entered by the user into labeled storage boxes (variables).",
+              "Step 2 (Logic): Follow the rules of the recipe (calculate, check conditions with if/else, or loop step-by-step).",
+              "Step 3 (Output): Print the final result clearly on the screen exactly as requested."
+            ],
+            "whyItMatters": "Foundational logic used in smartphone apps, smart microwaves, ATM cash dispensers, and space rovers.",
+            "beginnerTrap": "In C, scanf() needs the '&' address symbol before variable names, but printf() does not! Also, remember \\n to print on a new line."
           },
           {
             "id": "c_m3_p3",
@@ -380,7 +477,15 @@ export const CURRICULUM = {
             "hints": [
               "Save the original value before modifying n in the loop.",
               "Reversed formula: rev = rev * 10 + rem;"
-            ]
+            ],
+            "analogy": "Hold a word or number up to a mirror. If the reflection in the mirror reads character-for-character identical to the original (like 'RACECAR' or '1221'), it's a Palindrome!",
+            "stepByStep": [
+              "Step 1 (Input): Receive the data entered by the user into labeled storage boxes (variables).",
+              "Step 2 (Logic): Follow the rules of the recipe (calculate, check conditions with if/else, or loop step-by-step).",
+              "Step 3 (Output): Print the final result clearly on the screen exactly as requested."
+            ],
+            "whyItMatters": "Drives Google search autocorrect, DNA sequence genetics analysis, and spam email filters.",
+            "beginnerTrap": "In C, scanf() needs the '&' address symbol before variable names, but printf() does not! Also, remember \\n to print on a new line."
           },
           {
             "id": "c_m3_p4",
@@ -412,7 +517,15 @@ export const CURRICULUM = {
             "hints": [
               "Check if n <= 1 first.",
               "Loop i * i <= n for optimal efficiency."
-            ]
+            ],
+            "analogy": "Think of prime numbers as the unbreakable 'atomic building blocks' of mathematics. You cannot divide 7 candies into equal smaller groups without cutting candies in half!",
+            "stepByStep": [
+              "Step 1 (Input): Receive the data entered by the user into labeled storage boxes (variables).",
+              "Step 2 (Logic): Follow the rules of the recipe (calculate, check conditions with if/else, or loop step-by-step).",
+              "Step 3 (Output): Print the final result clearly on the screen exactly as requested."
+            ],
+            "whyItMatters": "Used in modern banking, WhatsApp end-to-end encryption, and password security keys.",
+            "beginnerTrap": "In C, scanf() needs the '&' address symbol before variable names, but printf() does not! Also, remember \\n to print on a new line."
           },
           {
             "id": "c_m3_p5",
@@ -435,7 +548,15 @@ export const CURRICULUM = {
             ],
             "hints": [
               "do { ... } while (i <= 5);"
-            ]
+            ],
+            "analogy": "Like marching troops in neat rows: 4 rows of 5 soldiers = 20 soldiers. A loop prints each row step-by-step from 1 to 5.",
+            "stepByStep": [
+              "Step 1 (Input): Receive the data entered by the user into labeled storage boxes (variables).",
+              "Step 2 (Logic): Follow the rules of the recipe (calculate, check conditions with if/else, or loop step-by-step).",
+              "Step 3 (Output): Print the final result clearly on the screen exactly as requested."
+            ],
+            "whyItMatters": "Foundational logic used in smartphone apps, smart microwaves, ATM cash dispensers, and space rovers.",
+            "beginnerTrap": "In C, scanf() needs the '&' address symbol before variable names, but printf() does not! Also, remember \\n to print on a new line."
           }
         ]
       },
@@ -466,7 +587,15 @@ export const CURRICULUM = {
             ],
             "hints": [
               "Swap arr[left] and arr[right] until left >= right."
-            ]
+            ],
+            "analogy": "Picture two people standing at opposite ends of a row of parked cars. Person A and Person B swap cars, take one step inward toward each other, swap the next cars, until they meet in the middle.",
+            "stepByStep": [
+              "Step 1 (Input): Receive the data entered by the user into labeled storage boxes (variables).",
+              "Step 2 (Logic): Follow the rules of the recipe (calculate, check conditions with if/else, or loop step-by-step).",
+              "Step 3 (Output): Print the final result clearly on the screen exactly as requested."
+            ],
+            "whyItMatters": "Powers Spotify playlist shuffling, Amazon product price sorting, and video game leaderboard rankings.",
+            "beginnerTrap": "In C, scanf() needs the '&' address symbol before variable names, but printf() does not! Also, remember \\n to print on a new line."
           },
           {
             "id": "c_m4_p2",
@@ -490,7 +619,15 @@ export const CURRICULUM = {
             "hints": [
               "k = k % n handles rotations larger than array size.",
               "New element at index i is original element at (i + k) % n."
-            ]
+            ],
+            "analogy": "Think of a carousel or Ferris wheel: Every rider shifts one seat forward. The rider at the very front loops all the way around to the back!",
+            "stepByStep": [
+              "Step 1 (Input): Receive the data entered by the user into labeled storage boxes (variables).",
+              "Step 2 (Logic): Follow the rules of the recipe (calculate, check conditions with if/else, or loop step-by-step).",
+              "Step 3 (Output): Print the final result clearly on the screen exactly as requested."
+            ],
+            "whyItMatters": "Powers Spotify playlist shuffling, Amazon product price sorting, and video game leaderboard rankings.",
+            "beginnerTrap": "In C, scanf() needs the '&' address symbol before variable names, but printf() does not! Also, remember \\n to print on a new line."
           },
           {
             "id": "c_m4_p3",
@@ -513,7 +650,15 @@ export const CURRICULUM = {
             ],
             "hints": [
               "Target position for index i is (i + k) % n."
-            ]
+            ],
+            "analogy": "Think of a carousel or Ferris wheel: Every rider shifts one seat forward. The rider at the very front loops all the way around to the back!",
+            "stepByStep": [
+              "Step 1 (Input): Receive the data entered by the user into labeled storage boxes (variables).",
+              "Step 2 (Logic): Follow the rules of the recipe (calculate, check conditions with if/else, or loop step-by-step).",
+              "Step 3 (Output): Print the final result clearly on the screen exactly as requested."
+            ],
+            "whyItMatters": "Powers Spotify playlist shuffling, Amazon product price sorting, and video game leaderboard rankings.",
+            "beginnerTrap": "In C, scanf() needs the '&' address symbol before variable names, but printf() does not! Also, remember \\n to print on a new line."
           },
           {
             "id": "c_m4_p4",
@@ -537,7 +682,15 @@ export const CURRICULUM = {
             "hints": [
               "Outer loop runs from 0 to n - 2.",
               "Inner loop compares arr[j] and arr[j + 1]."
-            ]
+            ],
+            "analogy": "Imagine air bubbles floating upward in fizzy soda: In each pass, the biggest bubble naturally rises past smaller bubbles until the biggest is floating at the very top.",
+            "stepByStep": [
+              "Step 1 (Input): Receive the data entered by the user into labeled storage boxes (variables).",
+              "Step 2 (Logic): Follow the rules of the recipe (calculate, check conditions with if/else, or loop step-by-step).",
+              "Step 3 (Output): Print the final result clearly on the screen exactly as requested."
+            ],
+            "whyItMatters": "Powers Spotify playlist shuffling, Amazon product price sorting, and video game leaderboard rankings.",
+            "beginnerTrap": "In C, scanf() needs the '&' address symbol before variable names, but printf() does not! Also, remember \\n to print on a new line."
           },
           {
             "id": "c_m4_p5",
@@ -561,7 +714,15 @@ export const CURRICULUM = {
             "hints": [
               "Midpoint calculation: m = l + (r - l) / 2.",
               "Merge two sorted subarrays into the main array."
-            ]
+            ],
+            "analogy": "Divide and Conquer: If you have a deck of 100 shuffled cards, sort 50 cards on the left, sort 50 on the right, then zip them together by always picking the smallest top card from either pile.",
+            "stepByStep": [
+              "Step 1 (Input): Receive the data entered by the user into labeled storage boxes (variables).",
+              "Step 2 (Logic): Follow the rules of the recipe (calculate, check conditions with if/else, or loop step-by-step).",
+              "Step 3 (Output): Print the final result clearly on the screen exactly as requested."
+            ],
+            "whyItMatters": "Powers Spotify playlist shuffling, Amazon product price sorting, and video game leaderboard rankings.",
+            "beginnerTrap": "In C, scanf() needs the '&' address symbol before variable names, but printf() does not! Also, remember \\n to print on a new line."
           },
           {
             "id": "c_m4_p6",
@@ -584,7 +745,15 @@ export const CURRICULUM = {
             ],
             "hints": [
               "When a new max is found, the previous max becomes max2."
-            ]
+            ],
+            "analogy": "Like a game of 'King of the Hill': Start by picking the first contestant as the reigning champion. Each new challenger steps up; if a challenger is taller than the champion, they become the new champion!",
+            "stepByStep": [
+              "Step 1 (Input): Receive the data entered by the user into labeled storage boxes (variables).",
+              "Step 2 (Logic): Follow the rules of the recipe (calculate, check conditions with if/else, or loop step-by-step).",
+              "Step 3 (Output): Print the final result clearly on the screen exactly as requested."
+            ],
+            "whyItMatters": "Foundational logic used in smartphone apps, smart microwaves, ATM cash dispensers, and space rovers.",
+            "beginnerTrap": "In C, scanf() needs the '&' address symbol before variable names, but printf() does not! Also, remember \\n to print on a new line."
           }
         ]
       },
@@ -615,7 +784,15 @@ export const CURRICULUM = {
             ],
             "hints": [
               "Loop while str[len] != '\\0'."
-            ]
+            ],
+            "analogy": "Think of a computer program like a baking recipe: It reads your ingredients (inputs), follows clear numbered instructions step-by-step, and serves a finished cake (output).",
+            "stepByStep": [
+              "Step 1 (Input): Receive the data entered by the user into labeled storage boxes (variables).",
+              "Step 2 (Logic): Follow the rules of the recipe (calculate, check conditions with if/else, or loop step-by-step).",
+              "Step 3 (Output): Print the final result clearly on the screen exactly as requested."
+            ],
+            "whyItMatters": "Drives Google search autocorrect, DNA sequence genetics analysis, and spam email filters.",
+            "beginnerTrap": "In C, scanf() needs the '&' address symbol before variable names, but printf() does not! Also, remember \\n to print on a new line."
           },
           {
             "id": "c_m5_p2",
@@ -638,7 +815,15 @@ export const CURRICULUM = {
             ],
             "hints": [
               "Swap str[i] and str[len - 1 - i] up to len / 2."
-            ]
+            ],
+            "analogy": "Think of a computer program like a baking recipe: It reads your ingredients (inputs), follows clear numbered instructions step-by-step, and serves a finished cake (output).",
+            "stepByStep": [
+              "Step 1 (Input): Receive the data entered by the user into labeled storage boxes (variables).",
+              "Step 2 (Logic): Follow the rules of the recipe (calculate, check conditions with if/else, or loop step-by-step).",
+              "Step 3 (Output): Print the final result clearly on the screen exactly as requested."
+            ],
+            "whyItMatters": "Powers Spotify playlist shuffling, Amazon product price sorting, and video game leaderboard rankings.",
+            "beginnerTrap": "In C, scanf() needs the '&' address symbol before variable names, but printf() does not! Also, remember \\n to print on a new line."
           },
           {
             "id": "c_m5_p3",
@@ -661,7 +846,15 @@ export const CURRICULUM = {
             ],
             "hints": [
               "Compare characters from start and end towards the center."
-            ]
+            ],
+            "analogy": "Hold a word or number up to a mirror. If the reflection in the mirror reads character-for-character identical to the original (like 'RACECAR' or '1221'), it's a Palindrome!",
+            "stepByStep": [
+              "Step 1 (Input): Receive the data entered by the user into labeled storage boxes (variables).",
+              "Step 2 (Logic): Follow the rules of the recipe (calculate, check conditions with if/else, or loop step-by-step).",
+              "Step 3 (Output): Print the final result clearly on the screen exactly as requested."
+            ],
+            "whyItMatters": "Drives Google search autocorrect, DNA sequence genetics analysis, and spam email filters.",
+            "beginnerTrap": "In C, scanf() needs the '&' address symbol before variable names, but printf() does not! Also, remember \\n to print on a new line."
           },
           {
             "id": "c_m5_p4",
@@ -684,7 +877,15 @@ export const CURRICULUM = {
             ],
             "hints": [
               "Check if char is one of a, e, i, o, u."
-            ]
+            ],
+            "analogy": "Vowels (A, E, I, O, U) are the open-mouthed vocal cords of human speech. Imagine filtering pebbles from sand: each character passes through a filter that rings a bell whenever a vowel appears.",
+            "stepByStep": [
+              "Step 1 (Input): Receive the data entered by the user into labeled storage boxes (variables).",
+              "Step 2 (Logic): Follow the rules of the recipe (calculate, check conditions with if/else, or loop step-by-step).",
+              "Step 3 (Output): Print the final result clearly on the screen exactly as requested."
+            ],
+            "whyItMatters": "Foundational logic used in smartphone apps, smart microwaves, ATM cash dispensers, and space rovers.",
+            "beginnerTrap": "In C, scanf() needs the '&' address symbol before variable names, but printf() does not! Also, remember \\n to print on a new line."
           },
           {
             "id": "c_m5_p5",
@@ -707,7 +908,15 @@ export const CURRICULUM = {
             ],
             "hints": [
               "'a' - 32 = 'A', and 'A' + 32 = 'a'."
-            ]
+            ],
+            "analogy": "Like a light switch: If the room is dark (lowercase), flip the switch ON (uppercase). If already ON, flip it OFF!",
+            "stepByStep": [
+              "Step 1 (Input): Receive the data entered by the user into labeled storage boxes (variables).",
+              "Step 2 (Logic): Follow the rules of the recipe (calculate, check conditions with if/else, or loop step-by-step).",
+              "Step 3 (Output): Print the final result clearly on the screen exactly as requested."
+            ],
+            "whyItMatters": "Foundational logic used in smartphone apps, smart microwaves, ATM cash dispensers, and space rovers.",
+            "beginnerTrap": "In C, scanf() needs the '&' address symbol before variable names, but printf() does not! Also, remember \\n to print on a new line."
           }
         ]
       },
@@ -738,7 +947,15 @@ export const CURRICULUM = {
             ],
             "hints": [
               "Base case: if (n <= 1) return 1;"
-            ]
+            ],
+            "analogy": "Imagine you have 5 differently colored books on a shelf. How many different ways can you arrange them? 5 choices for the first slot × 4 for the second × 3 for the third × 2 × 1 = 120 unique arrangements!",
+            "stepByStep": [
+              "Step 1 (Input): Receive the data entered by the user into labeled storage boxes (variables).",
+              "Step 2 (Logic): Follow the rules of the recipe (calculate, check conditions with if/else, or loop step-by-step).",
+              "Step 3 (Output): Print the final result clearly on the screen exactly as requested."
+            ],
+            "whyItMatters": "Used in modern banking, WhatsApp end-to-end encryption, and password security keys.",
+            "beginnerTrap": "In C, scanf() needs the '&' address symbol before variable names, but printf() does not! Also, remember \\n to print on a new line."
           },
           {
             "id": "c_m6_p2",
@@ -765,7 +982,15 @@ export const CURRICULUM = {
             ],
             "hints": [
               "If b == 0, return a; otherwise recurse with gcd(b, a % b)."
-            ]
+            ],
+            "analogy": "Like a game of 'King of the Hill': Start by picking the first contestant as the reigning champion. Each new challenger steps up; if a challenger is taller than the champion, they become the new champion!",
+            "stepByStep": [
+              "Step 1 (Input): Receive the data entered by the user into labeled storage boxes (variables).",
+              "Step 2 (Logic): Follow the rules of the recipe (calculate, check conditions with if/else, or loop step-by-step).",
+              "Step 3 (Output): Print the final result clearly on the screen exactly as requested."
+            ],
+            "whyItMatters": "Foundational logic used in smartphone apps, smart microwaves, ATM cash dispensers, and space rovers.",
+            "beginnerTrap": "In C, scanf() needs the '&' address symbol before variable names, but printf() does not! Also, remember \\n to print on a new line."
           },
           {
             "id": "c_m6_p3",
@@ -792,7 +1017,15 @@ export const CURRICULUM = {
             ],
             "hints": [
               "Handle base cases n == 0 and n == 1."
-            ]
+            ],
+            "analogy": "Nature's favorite pattern! Look at how sunflower seeds or pinecones spiral: each new number is born by adding the previous two numbers together (0, 1, 1, 2, 3, 5, 8, 13...).",
+            "stepByStep": [
+              "Step 1 (Input): Receive the data entered by the user into labeled storage boxes (variables).",
+              "Step 2 (Logic): Follow the rules of the recipe (calculate, check conditions with if/else, or loop step-by-step).",
+              "Step 3 (Output): Print the final result clearly on the screen exactly as requested."
+            ],
+            "whyItMatters": "Foundational logic used in smartphone apps, smart microwaves, ATM cash dispensers, and space rovers.",
+            "beginnerTrap": "In C, scanf() needs the '&' address symbol before variable names, but printf() does not! Also, remember \\n to print on a new line."
           },
           {
             "id": "c_m6_p4",
@@ -819,7 +1052,15 @@ export const CURRICULUM = {
             ],
             "hints": [
               "x^0 is always 1."
-            ]
+            ],
+            "analogy": "Think of a computer program like a baking recipe: It reads your ingredients (inputs), follows clear numbered instructions step-by-step, and serves a finished cake (output).",
+            "stepByStep": [
+              "Step 1 (Input): Receive the data entered by the user into labeled storage boxes (variables).",
+              "Step 2 (Logic): Follow the rules of the recipe (calculate, check conditions with if/else, or loop step-by-step).",
+              "Step 3 (Output): Print the final result clearly on the screen exactly as requested."
+            ],
+            "whyItMatters": "Foundational logic used in smartphone apps, smart microwaves, ATM cash dispensers, and space rovers.",
+            "beginnerTrap": "In C, scanf() needs the '&' address symbol before variable names, but printf() does not! Also, remember \\n to print on a new line."
           },
           {
             "id": "c_m6_p5",
@@ -842,7 +1083,15 @@ export const CURRICULUM = {
             ],
             "hints": [
               "Base case is n <= 1."
-            ]
+            ],
+            "analogy": "Russian Nesting Dolls (Matryoshka)! You open a large doll to find a slightly smaller doll inside. You keep opening dolls until you find the tiny solid baby doll at the center (Base Case), then close them back up.",
+            "stepByStep": [
+              "Step 1 (Input): Receive the data entered by the user into labeled storage boxes (variables).",
+              "Step 2 (Logic): Follow the rules of the recipe (calculate, check conditions with if/else, or loop step-by-step).",
+              "Step 3 (Output): Print the final result clearly on the screen exactly as requested."
+            ],
+            "whyItMatters": "Foundational logic used in smartphone apps, smart microwaves, ATM cash dispensers, and space rovers.",
+            "beginnerTrap": "In C, scanf() needs the '&' address symbol before variable names, but printf() does not! Also, remember \\n to print on a new line."
           }
         ]
       },
@@ -873,7 +1122,15 @@ export const CURRICULUM = {
             ],
             "hints": [
               "Use *x to read or write the value at pointer x."
-            ]
+            ],
+            "analogy": "Imagine you have a glass of blue juice in your left hand and green juice in your right hand. To swap them without an extra glass or spilling, you combine their quantities mathematically, then separate them step by step!",
+            "stepByStep": [
+              "Step 1 (Input): Receive the data entered by the user into labeled storage boxes (variables).",
+              "Step 2 (Logic): Follow the rules of the recipe (calculate, check conditions with if/else, or loop step-by-step).",
+              "Step 3 (Output): Print the final result clearly on the screen exactly as requested."
+            ],
+            "whyItMatters": "Powers 3D video game engines (Unreal Engine), operating systems, and high-speed web browsers.",
+            "beginnerTrap": "In C, scanf() needs the '&' address symbol before variable names, but printf() does not! Also, remember \\n to print on a new line."
           },
           {
             "id": "c_m7_p2",
@@ -896,7 +1153,15 @@ export const CURRICULUM = {
             ],
             "hints": [
               "*(ptr + i) accesses the i-th element."
-            ]
+            ],
+            "analogy": "Think of variables as labeled storage jars. If you put 10 marbles in jar A and 5 in jar B, finding the sum is simply pouring both jars into a bowl and counting the total marbles (15).",
+            "stepByStep": [
+              "Step 1 (Input): Receive the data entered by the user into labeled storage boxes (variables).",
+              "Step 2 (Logic): Follow the rules of the recipe (calculate, check conditions with if/else, or loop step-by-step).",
+              "Step 3 (Output): Print the final result clearly on the screen exactly as requested."
+            ],
+            "whyItMatters": "Powers 3D video game engines (Unreal Engine), operating systems, and high-speed web browsers.",
+            "beginnerTrap": "In C, scanf() needs the '&' address symbol before variable names, but printf() does not! Also, remember \\n to print on a new line."
           },
           {
             "id": "c_m7_p3",
@@ -920,7 +1185,15 @@ export const CURRICULUM = {
             "hints": [
               "left starts at arr, right starts at arr + n - 1.",
               "Increment left, decrement right."
-            ]
+            ],
+            "analogy": "Picture two people standing at opposite ends of a row of parked cars. Person A and Person B swap cars, take one step inward toward each other, swap the next cars, until they meet in the middle.",
+            "stepByStep": [
+              "Step 1 (Input): Receive the data entered by the user into labeled storage boxes (variables).",
+              "Step 2 (Logic): Follow the rules of the recipe (calculate, check conditions with if/else, or loop step-by-step).",
+              "Step 3 (Output): Print the final result clearly on the screen exactly as requested."
+            ],
+            "whyItMatters": "Powers Spotify playlist shuffling, Amazon product price sorting, and video game leaderboard rankings.",
+            "beginnerTrap": "In C, scanf() needs the '&' address symbol before variable names, but printf() does not! Also, remember \\n to print on a new line."
           },
           {
             "id": "c_m7_p4",
@@ -943,7 +1216,15 @@ export const CURRICULUM = {
             ],
             "hints": [
               "Initialize *min and *max with arr[0]."
-            ]
+            ],
+            "analogy": "Imagine a treasure map. Instead of hauling a 500-pound gold safe with you everywhere, you carry a tiny slip of paper with GPS coordinates written on it. The slip of paper is your pointer!",
+            "stepByStep": [
+              "Step 1 (Input): Receive the data entered by the user into labeled storage boxes (variables).",
+              "Step 2 (Logic): Follow the rules of the recipe (calculate, check conditions with if/else, or loop step-by-step).",
+              "Step 3 (Output): Print the final result clearly on the screen exactly as requested."
+            ],
+            "whyItMatters": "Powers 3D video game engines (Unreal Engine), operating systems, and high-speed web browsers.",
+            "beginnerTrap": "In C, scanf() needs the '&' address symbol before variable names, but printf() does not! Also, remember \\n to print on a new line."
           },
           {
             "id": "c_m7_p5",
@@ -967,7 +1248,15 @@ export const CURRICULUM = {
             "hints": [
               "int *arr = (int*)malloc(n * sizeof(int));",
               "Call free(arr) before program exit."
-            ]
+            ],
+            "analogy": "Like reserving hotel rooms on demand: Instead of building an entire empty hotel in advance, you ask the front desk (malloc) for exactly N rooms right when guests arrive, and check out (free) when you leave.",
+            "stepByStep": [
+              "Step 1 (Input): Receive the data entered by the user into labeled storage boxes (variables).",
+              "Step 2 (Logic): Follow the rules of the recipe (calculate, check conditions with if/else, or loop step-by-step).",
+              "Step 3 (Output): Print the final result clearly on the screen exactly as requested."
+            ],
+            "whyItMatters": "Powers 3D video game engines (Unreal Engine), operating systems, and high-speed web browsers.",
+            "beginnerTrap": "In C, scanf() needs the '&' address symbol before variable names, but printf() does not! Also, remember \\n to print on a new line."
           }
         ]
       }
@@ -1008,7 +1297,15 @@ export const CURRICULUM = {
             ],
             "hints": [
               "Use // for integer floor division in Python."
-            ]
+            ],
+            "analogy": "Think of variables as labeled storage jars. If you put 10 marbles in jar A and 5 in jar B, finding the sum is simply pouring both jars into a bowl and counting the total marbles (15).",
+            "stepByStep": [
+              "Step 1 (Input): Receive the data entered by the user into labeled storage boxes (variables).",
+              "Step 2 (Logic): Follow the rules of the recipe (calculate, check conditions with if/else, or loop step-by-step).",
+              "Step 3 (Output): Print the final result clearly on the screen exactly as requested."
+            ],
+            "whyItMatters": "Foundational logic used in smartphone apps, smart microwaves, ATM cash dispensers, and space rovers.",
+            "beginnerTrap": "In Python, input() always reads text (strings)! Remember to wrap it with int(input()) when dealing with numbers, and watch indentation."
           },
           {
             "id": "py_m1_p2",
@@ -1031,7 +1328,15 @@ export const CURRICULUM = {
             ],
             "hints": [
               "In Python, a, b = b, a cleanly swaps two values."
-            ]
+            ],
+            "analogy": "Imagine you have a glass of blue juice in your left hand and green juice in your right hand. To swap them without an extra glass or spilling, you combine their quantities mathematically, then separate them step by step!",
+            "stepByStep": [
+              "Step 1 (Input): Receive the data entered by the user into labeled storage boxes (variables).",
+              "Step 2 (Logic): Follow the rules of the recipe (calculate, check conditions with if/else, or loop step-by-step).",
+              "Step 3 (Output): Print the final result clearly on the screen exactly as requested."
+            ],
+            "whyItMatters": "Foundational logic used in smartphone apps, smart microwaves, ATM cash dispensers, and space rovers.",
+            "beginnerTrap": "In Python, input() always reads text (strings)! Remember to wrap it with int(input()) when dealing with numbers, and watch indentation."
           },
           {
             "id": "py_m1_p3",
@@ -1058,7 +1363,15 @@ export const CURRICULUM = {
             ],
             "hints": [
               "int((c * 9 / 5) + 32)"
-            ]
+            ],
+            "analogy": "Like a dual-scale outdoor thermometer: Celsius measures water freezing at 0° and boiling at 100°, while Fahrenheit measures freezing at 32° and boiling at 212°. The formula is just a mathematical gear translating between the two rulers!",
+            "stepByStep": [
+              "Step 1 (Input): Receive the data entered by the user into labeled storage boxes (variables).",
+              "Step 2 (Logic): Follow the rules of the recipe (calculate, check conditions with if/else, or loop step-by-step).",
+              "Step 3 (Output): Print the final result clearly on the screen exactly as requested."
+            ],
+            "whyItMatters": "Foundational logic used in smartphone apps, smart microwaves, ATM cash dispensers, and space rovers.",
+            "beginnerTrap": "In Python, input() always reads text (strings)! Remember to wrap it with int(input()) when dealing with numbers, and watch indentation."
           },
           {
             "id": "py_m1_p4",
@@ -1081,7 +1394,15 @@ export const CURRICULUM = {
             ],
             "hints": [
               "Use round() on both expressions."
-            ]
+            ],
+            "analogy": "Imagine laying floor tiles in your bedroom. The Area is how many square tiles fit on the whole floor, while the Perimeter is how many footsteps it takes to walk along the walls around the whole room.",
+            "stepByStep": [
+              "Step 1 (Input): Receive the data entered by the user into labeled storage boxes (variables).",
+              "Step 2 (Logic): Follow the rules of the recipe (calculate, check conditions with if/else, or loop step-by-step).",
+              "Step 3 (Output): Print the final result clearly on the screen exactly as requested."
+            ],
+            "whyItMatters": "Foundational logic used in smartphone apps, smart microwaves, ATM cash dispensers, and space rovers.",
+            "beginnerTrap": "In Python, input() always reads text (strings)! Remember to wrap it with int(input()) when dealing with numbers, and watch indentation."
           },
           {
             "id": "py_m1_p5",
@@ -1104,7 +1425,15 @@ export const CURRICULUM = {
             ],
             "hints": [
               "round((p * r * t) / 100)"
-            ]
+            ],
+            "analogy": "Think of a train track switch or a vending machine dial: You push the button for '+' (Addition), and the track switches instantly to the Addition tunnel without testing all other tunnels one by one.",
+            "stepByStep": [
+              "Step 1 (Input): Receive the data entered by the user into labeled storage boxes (variables).",
+              "Step 2 (Logic): Follow the rules of the recipe (calculate, check conditions with if/else, or loop step-by-step).",
+              "Step 3 (Output): Print the final result clearly on the screen exactly as requested."
+            ],
+            "whyItMatters": "Foundational logic used in smartphone apps, smart microwaves, ATM cash dispensers, and space rovers.",
+            "beginnerTrap": "In Python, input() always reads text (strings)! Remember to wrap it with int(input()) when dealing with numbers, and watch indentation."
           }
         ]
       },
@@ -1135,7 +1464,15 @@ export const CURRICULUM = {
             ],
             "hints": [
               "if n % 2 == 0: print(\"Even\")"
-            ]
+            ],
+            "analogy": "Imagine you have a bag of candies and you share them equally between 2 friends. If every candy finds a pair with zero leftovers, it's EVEN. If there's 1 lonely candy left over, it's ODD!",
+            "stepByStep": [
+              "Step 1 (Input): Receive the data entered by the user into labeled storage boxes (variables).",
+              "Step 2 (Logic): Follow the rules of the recipe (calculate, check conditions with if/else, or loop step-by-step).",
+              "Step 3 (Output): Print the final result clearly on the screen exactly as requested."
+            ],
+            "whyItMatters": "Foundational logic used in smartphone apps, smart microwaves, ATM cash dispensers, and space rovers.",
+            "beginnerTrap": "In Python, input() always reads text (strings)! Remember to wrap it with int(input()) when dealing with numbers, and watch indentation."
           },
           {
             "id": "py_m2_p2",
@@ -1158,7 +1495,15 @@ export const CURRICULUM = {
             ],
             "hints": [
               "Combine conditions with logical or and and."
-            ]
+            ],
+            "analogy": "The Earth takes about 365.2422 days to orbit the Sun — not an exact 365 days! That extra fraction of a day adds up, so every 4 years our calendar adds February 29 to keep our seasons from drifting out of sync.",
+            "stepByStep": [
+              "Step 1 (Input): Receive the data entered by the user into labeled storage boxes (variables).",
+              "Step 2 (Logic): Follow the rules of the recipe (calculate, check conditions with if/else, or loop step-by-step).",
+              "Step 3 (Output): Print the final result clearly on the screen exactly as requested."
+            ],
+            "whyItMatters": "Foundational logic used in smartphone apps, smart microwaves, ATM cash dispensers, and space rovers.",
+            "beginnerTrap": "In Python, input() always reads text (strings)! Remember to wrap it with int(input()) when dealing with numbers, and watch indentation."
           },
           {
             "id": "py_m2_p3",
@@ -1181,7 +1526,15 @@ export const CURRICULUM = {
             ],
             "hints": [
               "max(a, b, c)"
-            ]
+            ],
+            "analogy": "Like a game of 'King of the Hill': Start by picking the first contestant as the reigning champion. Each new challenger steps up; if a challenger is taller than the champion, they become the new champion!",
+            "stepByStep": [
+              "Step 1 (Input): Receive the data entered by the user into labeled storage boxes (variables).",
+              "Step 2 (Logic): Follow the rules of the recipe (calculate, check conditions with if/else, or loop step-by-step).",
+              "Step 3 (Output): Print the final result clearly on the screen exactly as requested."
+            ],
+            "whyItMatters": "Foundational logic used in smartphone apps, smart microwaves, ATM cash dispensers, and space rovers.",
+            "beginnerTrap": "In Python, input() always reads text (strings)! Remember to wrap it with int(input()) when dealing with numbers, and watch indentation."
           },
           {
             "id": "py_m2_p4",
@@ -1208,7 +1561,15 @@ export const CURRICULUM = {
             ],
             "hints": [
               "Use elif chain starting from highest score down."
-            ]
+            ],
+            "analogy": "Think of a train track switch or a vending machine dial: You push the button for '+' (Addition), and the track switches instantly to the Addition tunnel without testing all other tunnels one by one.",
+            "stepByStep": [
+              "Step 1 (Input): Receive the data entered by the user into labeled storage boxes (variables).",
+              "Step 2 (Logic): Follow the rules of the recipe (calculate, check conditions with if/else, or loop step-by-step).",
+              "Step 3 (Output): Print the final result clearly on the screen exactly as requested."
+            ],
+            "whyItMatters": "Foundational logic used in smartphone apps, smart microwaves, ATM cash dispensers, and space rovers.",
+            "beginnerTrap": "In Python, input() always reads text (strings)! Remember to wrap it with int(input()) when dealing with numbers, and watch indentation."
           },
           {
             "id": "py_m2_p5",
@@ -1231,7 +1592,15 @@ export const CURRICULUM = {
             ],
             "hints": [
               "Check all 3 conditions: a + b > c, a + c > b, b + c > a."
-            ]
+            ],
+            "analogy": "Imagine three wooden sticks. If one stick is 10 meters long and the other two are only 1 meter each, their tips can never reach each other to close the triangle! Any two sides together must always be longer than the third.",
+            "stepByStep": [
+              "Step 1 (Input): Receive the data entered by the user into labeled storage boxes (variables).",
+              "Step 2 (Logic): Follow the rules of the recipe (calculate, check conditions with if/else, or loop step-by-step).",
+              "Step 3 (Output): Print the final result clearly on the screen exactly as requested."
+            ],
+            "whyItMatters": "Foundational logic used in smartphone apps, smart microwaves, ATM cash dispensers, and space rovers.",
+            "beginnerTrap": "In Python, input() always reads text (strings)! Remember to wrap it with int(input()) when dealing with numbers, and watch indentation."
           }
         ]
       },
@@ -1262,7 +1631,15 @@ export const CURRICULUM = {
             ],
             "hints": [
               "Loop over range(1, n + 1)."
-            ]
+            ],
+            "analogy": "Imagine you have 5 differently colored books on a shelf. How many different ways can you arrange them? 5 choices for the first slot × 4 for the second × 3 for the third × 2 × 1 = 120 unique arrangements!",
+            "stepByStep": [
+              "Step 1 (Input): Receive the data entered by the user into labeled storage boxes (variables).",
+              "Step 2 (Logic): Follow the rules of the recipe (calculate, check conditions with if/else, or loop step-by-step).",
+              "Step 3 (Output): Print the final result clearly on the screen exactly as requested."
+            ],
+            "whyItMatters": "Used in modern banking, WhatsApp end-to-end encryption, and password security keys.",
+            "beginnerTrap": "In Python, input() always reads text (strings)! Remember to wrap it with int(input()) when dealing with numbers, and watch indentation."
           },
           {
             "id": "py_m3_p2",
@@ -1285,7 +1662,15 @@ export const CURRICULUM = {
             ],
             "hints": [
               "Start with a, b = 0, 1 and update a, b = b, a + b."
-            ]
+            ],
+            "analogy": "Nature's favorite pattern! Look at how sunflower seeds or pinecones spiral: each new number is born by adding the previous two numbers together (0, 1, 1, 2, 3, 5, 8, 13...).",
+            "stepByStep": [
+              "Step 1 (Input): Receive the data entered by the user into labeled storage boxes (variables).",
+              "Step 2 (Logic): Follow the rules of the recipe (calculate, check conditions with if/else, or loop step-by-step).",
+              "Step 3 (Output): Print the final result clearly on the screen exactly as requested."
+            ],
+            "whyItMatters": "Foundational logic used in smartphone apps, smart microwaves, ATM cash dispensers, and space rovers.",
+            "beginnerTrap": "In Python, input() always reads text (strings)! Remember to wrap it with int(input()) when dealing with numbers, and watch indentation."
           },
           {
             "id": "py_m3_p3",
@@ -1308,7 +1693,15 @@ export const CURRICULUM = {
             ],
             "hints": [
               "sum(int(c) for c in n)"
-            ]
+            ],
+            "analogy": "Think of a computer program like a baking recipe: It reads your ingredients (inputs), follows clear numbered instructions step-by-step, and serves a finished cake (output).",
+            "stepByStep": [
+              "Step 1 (Input): Receive the data entered by the user into labeled storage boxes (variables).",
+              "Step 2 (Logic): Follow the rules of the recipe (calculate, check conditions with if/else, or loop step-by-step).",
+              "Step 3 (Output): Print the final result clearly on the screen exactly as requested."
+            ],
+            "whyItMatters": "Foundational logic used in smartphone apps, smart microwaves, ATM cash dispensers, and space rovers.",
+            "beginnerTrap": "In Python, input() always reads text (strings)! Remember to wrap it with int(input()) when dealing with numbers, and watch indentation."
           },
           {
             "id": "py_m3_p4",
@@ -1331,7 +1724,15 @@ export const CURRICULUM = {
             ],
             "hints": [
               "Primes up to 10 are 2, 3, 5, 7 (total 4)."
-            ]
+            ],
+            "analogy": "Think of prime numbers as the unbreakable 'atomic building blocks' of mathematics. You cannot divide 7 candies into equal smaller groups without cutting candies in half!",
+            "stepByStep": [
+              "Step 1 (Input): Receive the data entered by the user into labeled storage boxes (variables).",
+              "Step 2 (Logic): Follow the rules of the recipe (calculate, check conditions with if/else, or loop step-by-step).",
+              "Step 3 (Output): Print the final result clearly on the screen exactly as requested."
+            ],
+            "whyItMatters": "Used in modern banking, WhatsApp end-to-end encryption, and password security keys.",
+            "beginnerTrap": "In Python, input() always reads text (strings)! Remember to wrap it with int(input()) when dealing with numbers, and watch indentation."
           },
           {
             "id": "py_m3_p5",
@@ -1350,7 +1751,15 @@ export const CURRICULUM = {
             ],
             "hints": [
               "for i in range(1, 6): print(f\"{n} x {i} = {n * i}\")"
-            ]
+            ],
+            "analogy": "Like marching troops in neat rows: 4 rows of 5 soldiers = 20 soldiers. A loop prints each row step-by-step from 1 to 5.",
+            "stepByStep": [
+              "Step 1 (Input): Receive the data entered by the user into labeled storage boxes (variables).",
+              "Step 2 (Logic): Follow the rules of the recipe (calculate, check conditions with if/else, or loop step-by-step).",
+              "Step 3 (Output): Print the final result clearly on the screen exactly as requested."
+            ],
+            "whyItMatters": "Foundational logic used in smartphone apps, smart microwaves, ATM cash dispensers, and space rovers.",
+            "beginnerTrap": "In Python, input() always reads text (strings)! Remember to wrap it with int(input()) when dealing with numbers, and watch indentation."
           }
         ]
       },
@@ -1381,7 +1790,15 @@ export const CURRICULUM = {
             ],
             "hints": [
               "print(min(arr)) then print(max(arr))"
-            ]
+            ],
+            "analogy": "Like a game of 'King of the Hill': Start by picking the first contestant as the reigning champion. Each new challenger steps up; if a challenger is taller than the champion, they become the new champion!",
+            "stepByStep": [
+              "Step 1 (Input): Receive the data entered by the user into labeled storage boxes (variables).",
+              "Step 2 (Logic): Follow the rules of the recipe (calculate, check conditions with if/else, or loop step-by-step).",
+              "Step 3 (Output): Print the final result clearly on the screen exactly as requested."
+            ],
+            "whyItMatters": "Foundational logic used in smartphone apps, smart microwaves, ATM cash dispensers, and space rovers.",
+            "beginnerTrap": "In Python, input() always reads text (strings)! Remember to wrap it with int(input()) when dealing with numbers, and watch indentation."
           },
           {
             "id": "py_m4_p2",
@@ -1404,7 +1821,15 @@ export const CURRICULUM = {
             ],
             "hints": [
               "Keep a set of seen elements."
-            ]
+            ],
+            "analogy": "Think of a computer program like a baking recipe: It reads your ingredients (inputs), follows clear numbered instructions step-by-step, and serves a finished cake (output).",
+            "stepByStep": [
+              "Step 1 (Input): Receive the data entered by the user into labeled storage boxes (variables).",
+              "Step 2 (Logic): Follow the rules of the recipe (calculate, check conditions with if/else, or loop step-by-step).",
+              "Step 3 (Output): Print the final result clearly on the screen exactly as requested."
+            ],
+            "whyItMatters": "Foundational logic used in smartphone apps, smart microwaves, ATM cash dispensers, and space rovers.",
+            "beginnerTrap": "In Python, input() always reads text (strings)! Remember to wrap it with int(input()) when dealing with numbers, and watch indentation."
           },
           {
             "id": "py_m4_p3",
@@ -1427,7 +1852,15 @@ export const CURRICULUM = {
             ],
             "hints": [
               "[x**2 for x in arr if x % 2 == 0]"
-            ]
+            ],
+            "analogy": "Imagine you have a bag of candies and you share them equally between 2 friends. If every candy finds a pair with zero leftovers, it's EVEN. If there's 1 lonely candy left over, it's ODD!",
+            "stepByStep": [
+              "Step 1 (Input): Receive the data entered by the user into labeled storage boxes (variables).",
+              "Step 2 (Logic): Follow the rules of the recipe (calculate, check conditions with if/else, or loop step-by-step).",
+              "Step 3 (Output): Print the final result clearly on the screen exactly as requested."
+            ],
+            "whyItMatters": "Foundational logic used in smartphone apps, smart microwaves, ATM cash dispensers, and space rovers.",
+            "beginnerTrap": "In Python, input() always reads text (strings)! Remember to wrap it with int(input()) when dealing with numbers, and watch indentation."
           },
           {
             "id": "py_m4_p4",
@@ -1451,7 +1884,15 @@ export const CURRICULUM = {
             "hints": [
               "k = k % len(arr)",
               "arr[-k:] + arr[:-k]"
-            ]
+            ],
+            "analogy": "Think of a carousel or Ferris wheel: Every rider shifts one seat forward. The rider at the very front loops all the way around to the back!",
+            "stepByStep": [
+              "Step 1 (Input): Receive the data entered by the user into labeled storage boxes (variables).",
+              "Step 2 (Logic): Follow the rules of the recipe (calculate, check conditions with if/else, or loop step-by-step).",
+              "Step 3 (Output): Print the final result clearly on the screen exactly as requested."
+            ],
+            "whyItMatters": "Powers Spotify playlist shuffling, Amazon product price sorting, and video game leaderboard rankings.",
+            "beginnerTrap": "In Python, input() always reads text (strings)! Remember to wrap it with int(input()) when dealing with numbers, and watch indentation."
           },
           {
             "id": "py_m4_p5",
@@ -1470,7 +1911,15 @@ export const CURRICULUM = {
             ],
             "hints": [
               "sorted(l1 + l2)"
-            ]
+            ],
+            "analogy": "Think of a computer program like a baking recipe: It reads your ingredients (inputs), follows clear numbered instructions step-by-step, and serves a finished cake (output).",
+            "stepByStep": [
+              "Step 1 (Input): Receive the data entered by the user into labeled storage boxes (variables).",
+              "Step 2 (Logic): Follow the rules of the recipe (calculate, check conditions with if/else, or loop step-by-step).",
+              "Step 3 (Output): Print the final result clearly on the screen exactly as requested."
+            ],
+            "whyItMatters": "Powers Spotify playlist shuffling, Amazon product price sorting, and video game leaderboard rankings.",
+            "beginnerTrap": "In Python, input() always reads text (strings)! Remember to wrap it with int(input()) when dealing with numbers, and watch indentation."
           }
         ]
       },
@@ -1501,7 +1950,15 @@ export const CURRICULUM = {
             ],
             "hints": [
               "Use [::-1] for reversal."
-            ]
+            ],
+            "analogy": "Hold a word or number up to a mirror. If the reflection in the mirror reads character-for-character identical to the original (like 'RACECAR' or '1221'), it's a Palindrome!",
+            "stepByStep": [
+              "Step 1 (Input): Receive the data entered by the user into labeled storage boxes (variables).",
+              "Step 2 (Logic): Follow the rules of the recipe (calculate, check conditions with if/else, or loop step-by-step).",
+              "Step 3 (Output): Print the final result clearly on the screen exactly as requested."
+            ],
+            "whyItMatters": "Drives Google search autocorrect, DNA sequence genetics analysis, and spam email filters.",
+            "beginnerTrap": "In Python, input() always reads text (strings)! Remember to wrap it with int(input()) when dealing with numbers, and watch indentation."
           },
           {
             "id": "py_m5_p2",
@@ -1520,7 +1977,15 @@ export const CURRICULUM = {
             ],
             "hints": [
               "Use freq.get(w, 0) + 1 and sorted(freq.keys())."
-            ]
+            ],
+            "analogy": "Think of a computer program like a baking recipe: It reads your ingredients (inputs), follows clear numbered instructions step-by-step, and serves a finished cake (output).",
+            "stepByStep": [
+              "Step 1 (Input): Receive the data entered by the user into labeled storage boxes (variables).",
+              "Step 2 (Logic): Follow the rules of the recipe (calculate, check conditions with if/else, or loop step-by-step).",
+              "Step 3 (Output): Print the final result clearly on the screen exactly as requested."
+            ],
+            "whyItMatters": "Foundational logic used in smartphone apps, smart microwaves, ATM cash dispensers, and space rovers.",
+            "beginnerTrap": "In Python, input() always reads text (strings)! Remember to wrap it with int(input()) when dealing with numbers, and watch indentation."
           },
           {
             "id": "py_m5_p3",
@@ -1543,7 +2008,15 @@ export const CURRICULUM = {
             ],
             "hints": [
               "Compare sorted(w1) == sorted(w2)."
-            ]
+            ],
+            "analogy": "Scrabble tiles! If you take the letter tiles for 'LISTEN' and rearrange them on the table, they spell 'SILENT' using the exact same tile count.",
+            "stepByStep": [
+              "Step 1 (Input): Receive the data entered by the user into labeled storage boxes (variables).",
+              "Step 2 (Logic): Follow the rules of the recipe (calculate, check conditions with if/else, or loop step-by-step).",
+              "Step 3 (Output): Print the final result clearly on the screen exactly as requested."
+            ],
+            "whyItMatters": "Drives Google search autocorrect, DNA sequence genetics analysis, and spam email filters.",
+            "beginnerTrap": "In Python, input() always reads text (strings)! Remember to wrap it with int(input()) when dealing with numbers, and watch indentation."
           },
           {
             "id": "py_m5_p4",
@@ -1562,7 +2035,15 @@ export const CURRICULUM = {
             ],
             "hints": [
               "c in \"aeiou\""
-            ]
+            ],
+            "analogy": "Vowels (A, E, I, O, U) are the open-mouthed vocal cords of human speech. Imagine filtering pebbles from sand: each character passes through a filter that rings a bell whenever a vowel appears.",
+            "stepByStep": [
+              "Step 1 (Input): Receive the data entered by the user into labeled storage boxes (variables).",
+              "Step 2 (Logic): Follow the rules of the recipe (calculate, check conditions with if/else, or loop step-by-step).",
+              "Step 3 (Output): Print the final result clearly on the screen exactly as requested."
+            ],
+            "whyItMatters": "Foundational logic used in smartphone apps, smart microwaves, ATM cash dispensers, and space rovers.",
+            "beginnerTrap": "In Python, input() always reads text (strings)! Remember to wrap it with int(input()) when dealing with numbers, and watch indentation."
           },
           {
             "id": "py_m5_p5",
@@ -1585,7 +2066,15 @@ export const CURRICULUM = {
             ],
             "hints": [
               "Base case: if not arr: return 0."
-            ]
+            ],
+            "analogy": "Russian Nesting Dolls (Matryoshka)! You open a large doll to find a slightly smaller doll inside. You keep opening dolls until you find the tiny solid baby doll at the center (Base Case), then close them back up.",
+            "stepByStep": [
+              "Step 1 (Input): Receive the data entered by the user into labeled storage boxes (variables).",
+              "Step 2 (Logic): Follow the rules of the recipe (calculate, check conditions with if/else, or loop step-by-step).",
+              "Step 3 (Output): Print the final result clearly on the screen exactly as requested."
+            ],
+            "whyItMatters": "Foundational logic used in smartphone apps, smart microwaves, ATM cash dispensers, and space rovers.",
+            "beginnerTrap": "In Python, input() always reads text (strings)! Remember to wrap it with int(input()) when dealing with numbers, and watch indentation."
           }
         ]
       }
@@ -1626,7 +2115,15 @@ export const CURRICULUM = {
             ],
             "hints": [
               "Use cout << a + b << \"\\n\";"
-            ]
+            ],
+            "analogy": "Think of variables as labeled storage jars. If you put 10 marbles in jar A and 5 in jar B, finding the sum is simply pouring both jars into a bowl and counting the total marbles (15).",
+            "stepByStep": [
+              "Step 1 (Input): Receive the data entered by the user into labeled storage boxes (variables).",
+              "Step 2 (Logic): Follow the rules of the recipe (calculate, check conditions with if/else, or loop step-by-step).",
+              "Step 3 (Output): Print the final result clearly on the screen exactly as requested."
+            ],
+            "whyItMatters": "Foundational logic used in smartphone apps, smart microwaves, ATM cash dispensers, and space rovers.",
+            "beginnerTrap": "Don't confuse '=' (storing a value) with '==' (checking if two values are equal). Also, make sure arrays don't go out of bounds."
           },
           {
             "id": "cpp_m1_p2",
@@ -1649,7 +2146,15 @@ export const CURRICULUM = {
             ],
             "hints": [
               "int temp = a; a = b; b = temp;"
-            ]
+            ],
+            "analogy": "Imagine you have a glass of blue juice in your left hand and green juice in your right hand. To swap them without an extra glass or spilling, you combine their quantities mathematically, then separate them step by step!",
+            "stepByStep": [
+              "Step 1 (Input): Receive the data entered by the user into labeled storage boxes (variables).",
+              "Step 2 (Logic): Follow the rules of the recipe (calculate, check conditions with if/else, or loop step-by-step).",
+              "Step 3 (Output): Print the final result clearly on the screen exactly as requested."
+            ],
+            "whyItMatters": "Foundational logic used in smartphone apps, smart microwaves, ATM cash dispensers, and space rovers.",
+            "beginnerTrap": "Don't confuse '=' (storing a value) with '==' (checking if two values are equal). Also, make sure arrays don't go out of bounds."
           },
           {
             "id": "cpp_m1_p3",
@@ -1672,7 +2177,15 @@ export const CURRICULUM = {
             ],
             "hints": [
               "cout << fixed << setprecision(2) << (double)a / b;"
-            ]
+            ],
+            "analogy": "Think of a computer program like a baking recipe: It reads your ingredients (inputs), follows clear numbered instructions step-by-step, and serves a finished cake (output).",
+            "stepByStep": [
+              "Step 1 (Input): Receive the data entered by the user into labeled storage boxes (variables).",
+              "Step 2 (Logic): Follow the rules of the recipe (calculate, check conditions with if/else, or loop step-by-step).",
+              "Step 3 (Output): Print the final result clearly on the screen exactly as requested."
+            ],
+            "whyItMatters": "Foundational logic used in smartphone apps, smart microwaves, ATM cash dispensers, and space rovers.",
+            "beginnerTrap": "Don't confuse '=' (storing a value) with '==' (checking if two values are equal). Also, make sure arrays don't go out of bounds."
           },
           {
             "id": "cpp_m1_p4",
@@ -1695,7 +2208,15 @@ export const CURRICULUM = {
             ],
             "hints": [
               "min({a, b, c}) and max({a, b, c})"
-            ]
+            ],
+            "analogy": "Like a game of 'King of the Hill': Start by picking the first contestant as the reigning champion. Each new challenger steps up; if a challenger is taller than the champion, they become the new champion!",
+            "stepByStep": [
+              "Step 1 (Input): Receive the data entered by the user into labeled storage boxes (variables).",
+              "Step 2 (Logic): Follow the rules of the recipe (calculate, check conditions with if/else, or loop step-by-step).",
+              "Step 3 (Output): Print the final result clearly on the screen exactly as requested."
+            ],
+            "whyItMatters": "Foundational logic used in smartphone apps, smart microwaves, ATM cash dispensers, and space rovers.",
+            "beginnerTrap": "Don't confuse '=' (storing a value) with '==' (checking if two values are equal). Also, make sure arrays don't go out of bounds."
           },
           {
             "id": "cpp_m1_p5",
@@ -1714,7 +2235,15 @@ export const CURRICULUM = {
             ],
             "hints": [
               "Bitwise operations take place at the bit level."
-            ]
+            ],
+            "analogy": "Think of a computer program like a baking recipe: It reads your ingredients (inputs), follows clear numbered instructions step-by-step, and serves a finished cake (output).",
+            "stepByStep": [
+              "Step 1 (Input): Receive the data entered by the user into labeled storage boxes (variables).",
+              "Step 2 (Logic): Follow the rules of the recipe (calculate, check conditions with if/else, or loop step-by-step).",
+              "Step 3 (Output): Print the final result clearly on the screen exactly as requested."
+            ],
+            "whyItMatters": "Foundational logic used in smartphone apps, smart microwaves, ATM cash dispensers, and space rovers.",
+            "beginnerTrap": "Don't confuse '=' (storing a value) with '==' (checking if two values are equal). Also, make sure arrays don't go out of bounds."
           }
         ]
       },
@@ -1753,7 +2282,15 @@ export const CURRICULUM = {
             ],
             "hints": [
               "Check signs of x and y."
-            ]
+            ],
+            "analogy": "Think of a computer program like a baking recipe: It reads your ingredients (inputs), follows clear numbered instructions step-by-step, and serves a finished cake (output).",
+            "stepByStep": [
+              "Step 1 (Input): Receive the data entered by the user into labeled storage boxes (variables).",
+              "Step 2 (Logic): Follow the rules of the recipe (calculate, check conditions with if/else, or loop step-by-step).",
+              "Step 3 (Output): Print the final result clearly on the screen exactly as requested."
+            ],
+            "whyItMatters": "Foundational logic used in smartphone apps, smart microwaves, ATM cash dispensers, and space rovers.",
+            "beginnerTrap": "Don't confuse '=' (storing a value) with '==' (checking if two values are equal). Also, make sure arrays don't go out of bounds."
           },
           {
             "id": "cpp_m2_p2",
@@ -1776,7 +2313,15 @@ export const CURRICULUM = {
             ],
             "hints": [
               "(y % 400 == 0) || (y % 4 == 0 && y % 100 != 0)"
-            ]
+            ],
+            "analogy": "The Earth takes about 365.2422 days to orbit the Sun — not an exact 365 days! That extra fraction of a day adds up, so every 4 years our calendar adds February 29 to keep our seasons from drifting out of sync.",
+            "stepByStep": [
+              "Step 1 (Input): Receive the data entered by the user into labeled storage boxes (variables).",
+              "Step 2 (Logic): Follow the rules of the recipe (calculate, check conditions with if/else, or loop step-by-step).",
+              "Step 3 (Output): Print the final result clearly on the screen exactly as requested."
+            ],
+            "whyItMatters": "Foundational logic used in smartphone apps, smart microwaves, ATM cash dispensers, and space rovers.",
+            "beginnerTrap": "Don't confuse '=' (storing a value) with '==' (checking if two values are equal). Also, make sure arrays don't go out of bounds."
           },
           {
             "id": "cpp_m2_p3",
@@ -1799,7 +2344,15 @@ export const CURRICULUM = {
             ],
             "hints": [
               "cout << (n % 2 == 0 ? \"Even\" : \"Odd\");"
-            ]
+            ],
+            "analogy": "Imagine you have a bag of candies and you share them equally between 2 friends. If every candy finds a pair with zero leftovers, it's EVEN. If there's 1 lonely candy left over, it's ODD!",
+            "stepByStep": [
+              "Step 1 (Input): Receive the data entered by the user into labeled storage boxes (variables).",
+              "Step 2 (Logic): Follow the rules of the recipe (calculate, check conditions with if/else, or loop step-by-step).",
+              "Step 3 (Output): Print the final result clearly on the screen exactly as requested."
+            ],
+            "whyItMatters": "Foundational logic used in smartphone apps, smart microwaves, ATM cash dispensers, and space rovers.",
+            "beginnerTrap": "Don't confuse '=' (storing a value) with '==' (checking if two values are equal). Also, make sure arrays don't go out of bounds."
           },
           {
             "id": "cpp_m2_p4",
@@ -1822,7 +2375,15 @@ export const CURRICULUM = {
             ],
             "hints": [
               "Switch on op character."
-            ]
+            ],
+            "analogy": "Think of a train track switch or a vending machine dial: You push the button for '+' (Addition), and the track switches instantly to the Addition tunnel without testing all other tunnels one by one.",
+            "stepByStep": [
+              "Step 1 (Input): Receive the data entered by the user into labeled storage boxes (variables).",
+              "Step 2 (Logic): Follow the rules of the recipe (calculate, check conditions with if/else, or loop step-by-step).",
+              "Step 3 (Output): Print the final result clearly on the screen exactly as requested."
+            ],
+            "whyItMatters": "Foundational logic used in smartphone apps, smart microwaves, ATM cash dispensers, and space rovers.",
+            "beginnerTrap": "Don't confuse '=' (storing a value) with '==' (checking if two values are equal). Also, make sure arrays don't go out of bounds."
           },
           {
             "id": "cpp_m2_p5",
@@ -1853,7 +2414,15 @@ export const CURRICULUM = {
             ],
             "hints": [
               "Use an if-else chain."
-            ]
+            ],
+            "analogy": "Think of a computer program like a baking recipe: It reads your ingredients (inputs), follows clear numbered instructions step-by-step, and serves a finished cake (output).",
+            "stepByStep": [
+              "Step 1 (Input): Receive the data entered by the user into labeled storage boxes (variables).",
+              "Step 2 (Logic): Follow the rules of the recipe (calculate, check conditions with if/else, or loop step-by-step).",
+              "Step 3 (Output): Print the final result clearly on the screen exactly as requested."
+            ],
+            "whyItMatters": "Foundational logic used in smartphone apps, smart microwaves, ATM cash dispensers, and space rovers.",
+            "beginnerTrap": "Don't confuse '=' (storing a value) with '==' (checking if two values are equal). Also, make sure arrays don't go out of bounds."
           }
         ]
       },
@@ -1884,7 +2453,15 @@ export const CURRICULUM = {
             ],
             "hints": [
               "Formula: n * (n + 1) / 2"
-            ]
+            ],
+            "analogy": "Think of a computer program like a baking recipe: It reads your ingredients (inputs), follows clear numbered instructions step-by-step, and serves a finished cake (output).",
+            "stepByStep": [
+              "Step 1 (Input): Receive the data entered by the user into labeled storage boxes (variables).",
+              "Step 2 (Logic): Follow the rules of the recipe (calculate, check conditions with if/else, or loop step-by-step).",
+              "Step 3 (Output): Print the final result clearly on the screen exactly as requested."
+            ],
+            "whyItMatters": "Foundational logic used in smartphone apps, smart microwaves, ATM cash dispensers, and space rovers.",
+            "beginnerTrap": "Don't confuse '=' (storing a value) with '==' (checking if two values are equal). Also, make sure arrays don't go out of bounds."
           },
           {
             "id": "cpp_m3_p2",
@@ -1907,7 +2484,15 @@ export const CURRICULUM = {
             ],
             "hints": [
               "rev = rev * 10 + (n % 10); n /= 10;"
-            ]
+            ],
+            "analogy": "Think of a computer program like a baking recipe: It reads your ingredients (inputs), follows clear numbered instructions step-by-step, and serves a finished cake (output).",
+            "stepByStep": [
+              "Step 1 (Input): Receive the data entered by the user into labeled storage boxes (variables).",
+              "Step 2 (Logic): Follow the rules of the recipe (calculate, check conditions with if/else, or loop step-by-step).",
+              "Step 3 (Output): Print the final result clearly on the screen exactly as requested."
+            ],
+            "whyItMatters": "Powers Spotify playlist shuffling, Amazon product price sorting, and video game leaderboard rankings.",
+            "beginnerTrap": "Don't confuse '=' (storing a value) with '==' (checking if two values are equal). Also, make sure arrays don't go out of bounds."
           },
           {
             "id": "cpp_m3_p3",
@@ -1934,7 +2519,15 @@ export const CURRICULUM = {
             ],
             "hints": [
               "Calculate sum of cubes of each digit."
-            ]
+            ],
+            "analogy": "Think of a computer program like a baking recipe: It reads your ingredients (inputs), follows clear numbered instructions step-by-step, and serves a finished cake (output).",
+            "stepByStep": [
+              "Step 1 (Input): Receive the data entered by the user into labeled storage boxes (variables).",
+              "Step 2 (Logic): Follow the rules of the recipe (calculate, check conditions with if/else, or loop step-by-step).",
+              "Step 3 (Output): Print the final result clearly on the screen exactly as requested."
+            ],
+            "whyItMatters": "Foundational logic used in smartphone apps, smart microwaves, ATM cash dispensers, and space rovers.",
+            "beginnerTrap": "Don't confuse '=' (storing a value) with '==' (checking if two values are equal). Also, make sure arrays don't go out of bounds."
           },
           {
             "id": "cpp_m3_p4",
@@ -1961,7 +2554,15 @@ export const CURRICULUM = {
             ],
             "hints": [
               "Loop i * i <= n."
-            ]
+            ],
+            "analogy": "Think of prime numbers as the unbreakable 'atomic building blocks' of mathematics. You cannot divide 7 candies into equal smaller groups without cutting candies in half!",
+            "stepByStep": [
+              "Step 1 (Input): Receive the data entered by the user into labeled storage boxes (variables).",
+              "Step 2 (Logic): Follow the rules of the recipe (calculate, check conditions with if/else, or loop step-by-step).",
+              "Step 3 (Output): Print the final result clearly on the screen exactly as requested."
+            ],
+            "whyItMatters": "Used in modern banking, WhatsApp end-to-end encryption, and password security keys.",
+            "beginnerTrap": "Don't confuse '=' (storing a value) with '==' (checking if two values are equal). Also, make sure arrays don't go out of bounds."
           },
           {
             "id": "cpp_m3_p5",
@@ -1988,7 +2589,15 @@ export const CURRICULUM = {
             ],
             "hints": [
               "While n > 1, update n and increment steps."
-            ]
+            ],
+            "analogy": "Think of a computer program like a baking recipe: It reads your ingredients (inputs), follows clear numbered instructions step-by-step, and serves a finished cake (output).",
+            "stepByStep": [
+              "Step 1 (Input): Receive the data entered by the user into labeled storage boxes (variables).",
+              "Step 2 (Logic): Follow the rules of the recipe (calculate, check conditions with if/else, or loop step-by-step).",
+              "Step 3 (Output): Print the final result clearly on the screen exactly as requested."
+            ],
+            "whyItMatters": "Foundational logic used in smartphone apps, smart microwaves, ATM cash dispensers, and space rovers.",
+            "beginnerTrap": "Don't confuse '=' (storing a value) with '==' (checking if two values are equal). Also, make sure arrays don't go out of bounds."
           }
         ]
       },
@@ -2015,7 +2624,15 @@ export const CURRICULUM = {
             ],
             "hints": [
               "sort(v.begin(), v.end()) and sort(v.rbegin(), v.rend())"
-            ]
+            ],
+            "analogy": "Think of a computer program like a baking recipe: It reads your ingredients (inputs), follows clear numbered instructions step-by-step, and serves a finished cake (output).",
+            "stepByStep": [
+              "Step 1 (Input): Receive the data entered by the user into labeled storage boxes (variables).",
+              "Step 2 (Logic): Follow the rules of the recipe (calculate, check conditions with if/else, or loop step-by-step).",
+              "Step 3 (Output): Print the final result clearly on the screen exactly as requested."
+            ],
+            "whyItMatters": "Powers Spotify playlist shuffling, Amazon product price sorting, and video game leaderboard rankings.",
+            "beginnerTrap": "Don't confuse '=' (storing a value) with '==' (checking if two values are equal). Also, make sure arrays don't go out of bounds."
           },
           {
             "id": "cpp_m4_p2",
@@ -2034,7 +2651,15 @@ export const CURRICULUM = {
             ],
             "hints": [
               "reverse(v.begin(), v.end());"
-            ]
+            ],
+            "analogy": "Picture two people standing at opposite ends of a row of parked cars. Person A and Person B swap cars, take one step inward toward each other, swap the next cars, until they meet in the middle.",
+            "stepByStep": [
+              "Step 1 (Input): Receive the data entered by the user into labeled storage boxes (variables).",
+              "Step 2 (Logic): Follow the rules of the recipe (calculate, check conditions with if/else, or loop step-by-step).",
+              "Step 3 (Output): Print the final result clearly on the screen exactly as requested."
+            ],
+            "whyItMatters": "Powers Spotify playlist shuffling, Amazon product price sorting, and video game leaderboard rankings.",
+            "beginnerTrap": "Don't confuse '=' (storing a value) with '==' (checking if two values are equal). Also, make sure arrays don't go out of bounds."
           },
           {
             "id": "cpp_m4_p3",
@@ -2057,7 +2682,15 @@ export const CURRICULUM = {
             ],
             "hints": [
               "count(v.begin(), v.end(), x)"
-            ]
+            ],
+            "analogy": "Think of a computer program like a baking recipe: It reads your ingredients (inputs), follows clear numbered instructions step-by-step, and serves a finished cake (output).",
+            "stepByStep": [
+              "Step 1 (Input): Receive the data entered by the user into labeled storage boxes (variables).",
+              "Step 2 (Logic): Follow the rules of the recipe (calculate, check conditions with if/else, or loop step-by-step).",
+              "Step 3 (Output): Print the final result clearly on the screen exactly as requested."
+            ],
+            "whyItMatters": "Foundational logic used in smartphone apps, smart microwaves, ATM cash dispensers, and space rovers.",
+            "beginnerTrap": "Don't confuse '=' (storing a value) with '==' (checking if two values are equal). Also, make sure arrays don't go out of bounds."
           },
           {
             "id": "cpp_m4_p4",
@@ -2076,7 +2709,15 @@ export const CURRICULUM = {
             ],
             "hints": [
               "v.erase(unique(v.begin(), v.end()), v.end());"
-            ]
+            ],
+            "analogy": "Think of a computer program like a baking recipe: It reads your ingredients (inputs), follows clear numbered instructions step-by-step, and serves a finished cake (output).",
+            "stepByStep": [
+              "Step 1 (Input): Receive the data entered by the user into labeled storage boxes (variables).",
+              "Step 2 (Logic): Follow the rules of the recipe (calculate, check conditions with if/else, or loop step-by-step).",
+              "Step 3 (Output): Print the final result clearly on the screen exactly as requested."
+            ],
+            "whyItMatters": "Foundational logic used in smartphone apps, smart microwaves, ATM cash dispensers, and space rovers.",
+            "beginnerTrap": "Don't confuse '=' (storing a value) with '==' (checking if two values are equal). Also, make sure arrays don't go out of bounds."
           },
           {
             "id": "cpp_m4_p5",
@@ -2095,7 +2736,15 @@ export const CURRICULUM = {
             ],
             "hints": [
               "Since elements are distinct, sort and access v[n - 2]."
-            ]
+            ],
+            "analogy": "Like a game of 'King of the Hill': Start by picking the first contestant as the reigning champion. Each new challenger steps up; if a challenger is taller than the champion, they become the new champion!",
+            "stepByStep": [
+              "Step 1 (Input): Receive the data entered by the user into labeled storage boxes (variables).",
+              "Step 2 (Logic): Follow the rules of the recipe (calculate, check conditions with if/else, or loop step-by-step).",
+              "Step 3 (Output): Print the final result clearly on the screen exactly as requested."
+            ],
+            "whyItMatters": "Foundational logic used in smartphone apps, smart microwaves, ATM cash dispensers, and space rovers.",
+            "beginnerTrap": "Don't confuse '=' (storing a value) with '==' (checking if two values are equal). Also, make sure arrays don't go out of bounds."
           }
         ]
       },
@@ -2126,7 +2775,15 @@ export const CURRICULUM = {
             ],
             "hints": [
               "string rev = s; reverse(rev.begin(), rev.end());"
-            ]
+            ],
+            "analogy": "Hold a word or number up to a mirror. If the reflection in the mirror reads character-for-character identical to the original (like 'RACECAR' or '1221'), it's a Palindrome!",
+            "stepByStep": [
+              "Step 1 (Input): Receive the data entered by the user into labeled storage boxes (variables).",
+              "Step 2 (Logic): Follow the rules of the recipe (calculate, check conditions with if/else, or loop step-by-step).",
+              "Step 3 (Output): Print the final result clearly on the screen exactly as requested."
+            ],
+            "whyItMatters": "Drives Google search autocorrect, DNA sequence genetics analysis, and spam email filters.",
+            "beginnerTrap": "Don't confuse '=' (storing a value) with '==' (checking if two values are equal). Also, make sure arrays don't go out of bounds."
           },
           {
             "id": "cpp_m5_p2",
@@ -2149,7 +2806,15 @@ export const CURRICULUM = {
             ],
             "hints": [
               "sort both strings and compare with ==."
-            ]
+            ],
+            "analogy": "Scrabble tiles! If you take the letter tiles for 'LISTEN' and rearrange them on the table, they spell 'SILENT' using the exact same tile count.",
+            "stepByStep": [
+              "Step 1 (Input): Receive the data entered by the user into labeled storage boxes (variables).",
+              "Step 2 (Logic): Follow the rules of the recipe (calculate, check conditions with if/else, or loop step-by-step).",
+              "Step 3 (Output): Print the final result clearly on the screen exactly as requested."
+            ],
+            "whyItMatters": "Powers Spotify playlist shuffling, Amazon product price sorting, and video game leaderboard rankings.",
+            "beginnerTrap": "Don't confuse '=' (storing a value) with '==' (checking if two values are equal). Also, make sure arrays don't go out of bounds."
           },
           {
             "id": "cpp_m5_p3",
@@ -2172,7 +2837,15 @@ export const CURRICULUM = {
             ],
             "hints": [
               "binary_search(v.begin(), v.end(), x)"
-            ]
+            ],
+            "analogy": "Think of a computer program like a baking recipe: It reads your ingredients (inputs), follows clear numbered instructions step-by-step, and serves a finished cake (output).",
+            "stepByStep": [
+              "Step 1 (Input): Receive the data entered by the user into labeled storage boxes (variables).",
+              "Step 2 (Logic): Follow the rules of the recipe (calculate, check conditions with if/else, or loop step-by-step).",
+              "Step 3 (Output): Print the final result clearly on the screen exactly as requested."
+            ],
+            "whyItMatters": "Foundational logic used in smartphone apps, smart microwaves, ATM cash dispensers, and space rovers.",
+            "beginnerTrap": "Don't confuse '=' (storing a value) with '==' (checking if two values are equal). Also, make sure arrays don't go out of bounds."
           },
           {
             "id": "cpp_m5_p4",
@@ -2191,7 +2864,15 @@ export const CURRICULUM = {
             ],
             "hints": [
               "Check each character against vowels."
-            ]
+            ],
+            "analogy": "Vowels (A, E, I, O, U) are the open-mouthed vocal cords of human speech. Imagine filtering pebbles from sand: each character passes through a filter that rings a bell whenever a vowel appears.",
+            "stepByStep": [
+              "Step 1 (Input): Receive the data entered by the user into labeled storage boxes (variables).",
+              "Step 2 (Logic): Follow the rules of the recipe (calculate, check conditions with if/else, or loop step-by-step).",
+              "Step 3 (Output): Print the final result clearly on the screen exactly as requested."
+            ],
+            "whyItMatters": "Foundational logic used in smartphone apps, smart microwaves, ATM cash dispensers, and space rovers.",
+            "beginnerTrap": "Don't confuse '=' (storing a value) with '==' (checking if two values are equal). Also, make sure arrays don't go out of bounds."
           },
           {
             "id": "cpp_m5_p5",
@@ -2214,7 +2895,15 @@ export const CURRICULUM = {
             ],
             "hints": [
               "Insert characters into a set and check if size() == 26."
-            ]
+            ],
+            "analogy": "Think of a computer program like a baking recipe: It reads your ingredients (inputs), follows clear numbered instructions step-by-step, and serves a finished cake (output).",
+            "stepByStep": [
+              "Step 1 (Input): Receive the data entered by the user into labeled storage boxes (variables).",
+              "Step 2 (Logic): Follow the rules of the recipe (calculate, check conditions with if/else, or loop step-by-step).",
+              "Step 3 (Output): Print the final result clearly on the screen exactly as requested."
+            ],
+            "whyItMatters": "Foundational logic used in smartphone apps, smart microwaves, ATM cash dispensers, and space rovers.",
+            "beginnerTrap": "Don't confuse '=' (storing a value) with '==' (checking if two values are equal). Also, make sure arrays don't go out of bounds."
           }
         ]
       }
@@ -2255,7 +2944,15 @@ export const CURRICULUM = {
             ],
             "hints": [
               "System.out.println(a + b);"
-            ]
+            ],
+            "analogy": "Think of variables as labeled storage jars. If you put 10 marbles in jar A and 5 in jar B, finding the sum is simply pouring both jars into a bowl and counting the total marbles (15).",
+            "stepByStep": [
+              "Step 1 (Input): Receive the data entered by the user into labeled storage boxes (variables).",
+              "Step 2 (Logic): Follow the rules of the recipe (calculate, check conditions with if/else, or loop step-by-step).",
+              "Step 3 (Output): Print the final result clearly on the screen exactly as requested."
+            ],
+            "whyItMatters": "Foundational logic used in smartphone apps, smart microwaves, ATM cash dispensers, and space rovers.",
+            "beginnerTrap": "In Java, always name your public class 'Main', and remember array indices start at 0 and end at length - 1."
           },
           {
             "id": "java_m1_p2",
@@ -2274,7 +2971,15 @@ export const CURRICULUM = {
             ],
             "hints": [
               "a = a + b; b = a - b; a = a - b;"
-            ]
+            ],
+            "analogy": "Imagine you have a glass of blue juice in your left hand and green juice in your right hand. To swap them without an extra glass or spilling, you combine their quantities mathematically, then separate them step by step!",
+            "stepByStep": [
+              "Step 1 (Input): Receive the data entered by the user into labeled storage boxes (variables).",
+              "Step 2 (Logic): Follow the rules of the recipe (calculate, check conditions with if/else, or loop step-by-step).",
+              "Step 3 (Output): Print the final result clearly on the screen exactly as requested."
+            ],
+            "whyItMatters": "Foundational logic used in smartphone apps, smart microwaves, ATM cash dispensers, and space rovers.",
+            "beginnerTrap": "In Java, always name your public class 'Main', and remember array indices start at 0 and end at length - 1."
           },
           {
             "id": "java_m1_p3",
@@ -2297,7 +3002,15 @@ export const CURRICULUM = {
             ],
             "hints": [
               "(f - 32) * 5 / 9"
-            ]
+            ],
+            "analogy": "Like a dual-scale outdoor thermometer: Celsius measures water freezing at 0° and boiling at 100°, while Fahrenheit measures freezing at 32° and boiling at 212°. The formula is just a mathematical gear translating between the two rulers!",
+            "stepByStep": [
+              "Step 1 (Input): Receive the data entered by the user into labeled storage boxes (variables).",
+              "Step 2 (Logic): Follow the rules of the recipe (calculate, check conditions with if/else, or loop step-by-step).",
+              "Step 3 (Output): Print the final result clearly on the screen exactly as requested."
+            ],
+            "whyItMatters": "Foundational logic used in smartphone apps, smart microwaves, ATM cash dispensers, and space rovers.",
+            "beginnerTrap": "In Java, always name your public class 'Main', and remember array indices start at 0 and end at length - 1."
           },
           {
             "id": "java_m1_p4",
@@ -2316,7 +3029,15 @@ export const CURRICULUM = {
             ],
             "hints": [
               "System.out.println(l * w);"
-            ]
+            ],
+            "analogy": "Imagine laying floor tiles in your bedroom. The Area is how many square tiles fit on the whole floor, while the Perimeter is how many footsteps it takes to walk along the walls around the whole room.",
+            "stepByStep": [
+              "Step 1 (Input): Receive the data entered by the user into labeled storage boxes (variables).",
+              "Step 2 (Logic): Follow the rules of the recipe (calculate, check conditions with if/else, or loop step-by-step).",
+              "Step 3 (Output): Print the final result clearly on the screen exactly as requested."
+            ],
+            "whyItMatters": "Foundational logic used in smartphone apps, smart microwaves, ATM cash dispensers, and space rovers.",
+            "beginnerTrap": "In Java, always name your public class 'Main', and remember array indices start at 0 and end at length - 1."
           },
           {
             "id": "java_m1_p5",
@@ -2339,7 +3060,15 @@ export const CURRICULUM = {
             ],
             "hints": [
               "n % 10"
-            ]
+            ],
+            "analogy": "Think of a computer program like a baking recipe: It reads your ingredients (inputs), follows clear numbered instructions step-by-step, and serves a finished cake (output).",
+            "stepByStep": [
+              "Step 1 (Input): Receive the data entered by the user into labeled storage boxes (variables).",
+              "Step 2 (Logic): Follow the rules of the recipe (calculate, check conditions with if/else, or loop step-by-step).",
+              "Step 3 (Output): Print the final result clearly on the screen exactly as requested."
+            ],
+            "whyItMatters": "Foundational logic used in smartphone apps, smart microwaves, ATM cash dispensers, and space rovers.",
+            "beginnerTrap": "In Java, always name your public class 'Main', and remember array indices start at 0 and end at length - 1."
           }
         ]
       },
@@ -2374,7 +3103,15 @@ export const CURRICULUM = {
             ],
             "hints": [
               "if (n > 0) ... else if (n < 0) ..."
-            ]
+            ],
+            "analogy": "Think of a computer program like a baking recipe: It reads your ingredients (inputs), follows clear numbered instructions step-by-step, and serves a finished cake (output).",
+            "stepByStep": [
+              "Step 1 (Input): Receive the data entered by the user into labeled storage boxes (variables).",
+              "Step 2 (Logic): Follow the rules of the recipe (calculate, check conditions with if/else, or loop step-by-step).",
+              "Step 3 (Output): Print the final result clearly on the screen exactly as requested."
+            ],
+            "whyItMatters": "Foundational logic used in smartphone apps, smart microwaves, ATM cash dispensers, and space rovers.",
+            "beginnerTrap": "In Java, always name your public class 'Main', and remember array indices start at 0 and end at length - 1."
           },
           {
             "id": "java_m2_p2",
@@ -2397,7 +3134,15 @@ export const CURRICULUM = {
             ],
             "hints": [
               "Combine conditions with || and &&."
-            ]
+            ],
+            "analogy": "The Earth takes about 365.2422 days to orbit the Sun — not an exact 365 days! That extra fraction of a day adds up, so every 4 years our calendar adds February 29 to keep our seasons from drifting out of sync.",
+            "stepByStep": [
+              "Step 1 (Input): Receive the data entered by the user into labeled storage boxes (variables).",
+              "Step 2 (Logic): Follow the rules of the recipe (calculate, check conditions with if/else, or loop step-by-step).",
+              "Step 3 (Output): Print the final result clearly on the screen exactly as requested."
+            ],
+            "whyItMatters": "Foundational logic used in smartphone apps, smart microwaves, ATM cash dispensers, and space rovers.",
+            "beginnerTrap": "In Java, always name your public class 'Main', and remember array indices start at 0 and end at length - 1."
           },
           {
             "id": "java_m2_p3",
@@ -2420,7 +3165,15 @@ export const CURRICULUM = {
             ],
             "hints": [
               "Math.max(a, Math.max(b, c))"
-            ]
+            ],
+            "analogy": "Like a game of 'King of the Hill': Start by picking the first contestant as the reigning champion. Each new challenger steps up; if a challenger is taller than the champion, they become the new champion!",
+            "stepByStep": [
+              "Step 1 (Input): Receive the data entered by the user into labeled storage boxes (variables).",
+              "Step 2 (Logic): Follow the rules of the recipe (calculate, check conditions with if/else, or loop step-by-step).",
+              "Step 3 (Output): Print the final result clearly on the screen exactly as requested."
+            ],
+            "whyItMatters": "Foundational logic used in smartphone apps, smart microwaves, ATM cash dispensers, and space rovers.",
+            "beginnerTrap": "In Java, always name your public class 'Main', and remember array indices start at 0 and end at length - 1."
           },
           {
             "id": "java_m2_p4",
@@ -2443,7 +3196,15 @@ export const CURRICULUM = {
             ],
             "hints": [
               "if-else ladder."
-            ]
+            ],
+            "analogy": "Think of a computer program like a baking recipe: It reads your ingredients (inputs), follows clear numbered instructions step-by-step, and serves a finished cake (output).",
+            "stepByStep": [
+              "Step 1 (Input): Receive the data entered by the user into labeled storage boxes (variables).",
+              "Step 2 (Logic): Follow the rules of the recipe (calculate, check conditions with if/else, or loop step-by-step).",
+              "Step 3 (Output): Print the final result clearly on the screen exactly as requested."
+            ],
+            "whyItMatters": "Foundational logic used in smartphone apps, smart microwaves, ATM cash dispensers, and space rovers.",
+            "beginnerTrap": "In Java, always name your public class 'Main', and remember array indices start at 0 and end at length - 1."
           },
           {
             "id": "java_m2_p5",
@@ -2470,7 +3231,15 @@ export const CURRICULUM = {
             ],
             "hints": [
               "Use fall-through cases in switch."
-            ]
+            ],
+            "analogy": "Think of a train track switch or a vending machine dial: You push the button for '+' (Addition), and the track switches instantly to the Addition tunnel without testing all other tunnels one by one.",
+            "stepByStep": [
+              "Step 1 (Input): Receive the data entered by the user into labeled storage boxes (variables).",
+              "Step 2 (Logic): Follow the rules of the recipe (calculate, check conditions with if/else, or loop step-by-step).",
+              "Step 3 (Output): Print the final result clearly on the screen exactly as requested."
+            ],
+            "whyItMatters": "Foundational logic used in smartphone apps, smart microwaves, ATM cash dispensers, and space rovers.",
+            "beginnerTrap": "In Java, always name your public class 'Main', and remember array indices start at 0 and end at length - 1."
           }
         ]
       },
@@ -2501,7 +3270,15 @@ export const CURRICULUM = {
             ],
             "hints": [
               "fact *= i in loop."
-            ]
+            ],
+            "analogy": "Imagine you have 5 differently colored books on a shelf. How many different ways can you arrange them? 5 choices for the first slot × 4 for the second × 3 for the third × 2 × 1 = 120 unique arrangements!",
+            "stepByStep": [
+              "Step 1 (Input): Receive the data entered by the user into labeled storage boxes (variables).",
+              "Step 2 (Logic): Follow the rules of the recipe (calculate, check conditions with if/else, or loop step-by-step).",
+              "Step 3 (Output): Print the final result clearly on the screen exactly as requested."
+            ],
+            "whyItMatters": "Used in modern banking, WhatsApp end-to-end encryption, and password security keys.",
+            "beginnerTrap": "In Java, always name your public class 'Main', and remember array indices start at 0 and end at length - 1."
           },
           {
             "id": "java_m3_p2",
@@ -2520,7 +3297,15 @@ export const CURRICULUM = {
             ],
             "hints": [
               "n * (n + 1) / 2"
-            ]
+            ],
+            "analogy": "Think of a computer program like a baking recipe: It reads your ingredients (inputs), follows clear numbered instructions step-by-step, and serves a finished cake (output).",
+            "stepByStep": [
+              "Step 1 (Input): Receive the data entered by the user into labeled storage boxes (variables).",
+              "Step 2 (Logic): Follow the rules of the recipe (calculate, check conditions with if/else, or loop step-by-step).",
+              "Step 3 (Output): Print the final result clearly on the screen exactly as requested."
+            ],
+            "whyItMatters": "Foundational logic used in smartphone apps, smart microwaves, ATM cash dispensers, and space rovers.",
+            "beginnerTrap": "In Java, always name your public class 'Main', and remember array indices start at 0 and end at length - 1."
           },
           {
             "id": "java_m3_p3",
@@ -2539,7 +3324,15 @@ export const CURRICULUM = {
             ],
             "hints": [
               "rev = rev * 10 + (n % 10);"
-            ]
+            ],
+            "analogy": "Think of a computer program like a baking recipe: It reads your ingredients (inputs), follows clear numbered instructions step-by-step, and serves a finished cake (output).",
+            "stepByStep": [
+              "Step 1 (Input): Receive the data entered by the user into labeled storage boxes (variables).",
+              "Step 2 (Logic): Follow the rules of the recipe (calculate, check conditions with if/else, or loop step-by-step).",
+              "Step 3 (Output): Print the final result clearly on the screen exactly as requested."
+            ],
+            "whyItMatters": "Powers Spotify playlist shuffling, Amazon product price sorting, and video game leaderboard rankings.",
+            "beginnerTrap": "In Java, always name your public class 'Main', and remember array indices start at 0 and end at length - 1."
           },
           {
             "id": "java_m3_p4",
@@ -2562,7 +3355,15 @@ export const CURRICULUM = {
             ],
             "hints": [
               "Check i * i <= n."
-            ]
+            ],
+            "analogy": "Think of prime numbers as the unbreakable 'atomic building blocks' of mathematics. You cannot divide 7 candies into equal smaller groups without cutting candies in half!",
+            "stepByStep": [
+              "Step 1 (Input): Receive the data entered by the user into labeled storage boxes (variables).",
+              "Step 2 (Logic): Follow the rules of the recipe (calculate, check conditions with if/else, or loop step-by-step).",
+              "Step 3 (Output): Print the final result clearly on the screen exactly as requested."
+            ],
+            "whyItMatters": "Used in modern banking, WhatsApp end-to-end encryption, and password security keys.",
+            "beginnerTrap": "In Java, always name your public class 'Main', and remember array indices start at 0 and end at length - 1."
           },
           {
             "id": "java_m3_p5",
@@ -2581,7 +3382,15 @@ export const CURRICULUM = {
             ],
             "hints": [
               "Loop i from 1 to 5."
-            ]
+            ],
+            "analogy": "Like marching troops in neat rows: 4 rows of 5 soldiers = 20 soldiers. A loop prints each row step-by-step from 1 to 5.",
+            "stepByStep": [
+              "Step 1 (Input): Receive the data entered by the user into labeled storage boxes (variables).",
+              "Step 2 (Logic): Follow the rules of the recipe (calculate, check conditions with if/else, or loop step-by-step).",
+              "Step 3 (Output): Print the final result clearly on the screen exactly as requested."
+            ],
+            "whyItMatters": "Foundational logic used in smartphone apps, smart microwaves, ATM cash dispensers, and space rovers.",
+            "beginnerTrap": "In Java, always name your public class 'Main', and remember array indices start at 0 and end at length - 1."
           }
         ]
       },
@@ -2608,7 +3417,15 @@ export const CURRICULUM = {
             ],
             "hints": [
               "sum += arr[i] in loop."
-            ]
+            ],
+            "analogy": "Think of variables as labeled storage jars. If you put 10 marbles in jar A and 5 in jar B, finding the sum is simply pouring both jars into a bowl and counting the total marbles (15).",
+            "stepByStep": [
+              "Step 1 (Input): Receive the data entered by the user into labeled storage boxes (variables).",
+              "Step 2 (Logic): Follow the rules of the recipe (calculate, check conditions with if/else, or loop step-by-step).",
+              "Step 3 (Output): Print the final result clearly on the screen exactly as requested."
+            ],
+            "whyItMatters": "Foundational logic used in smartphone apps, smart microwaves, ATM cash dispensers, and space rovers.",
+            "beginnerTrap": "In Java, always name your public class 'Main', and remember array indices start at 0 and end at length - 1."
           },
           {
             "id": "java_m4_p2",
@@ -2627,7 +3444,15 @@ export const CURRICULUM = {
             ],
             "hints": [
               "Compare each element with min and max."
-            ]
+            ],
+            "analogy": "Like a game of 'King of the Hill': Start by picking the first contestant as the reigning champion. Each new challenger steps up; if a challenger is taller than the champion, they become the new champion!",
+            "stepByStep": [
+              "Step 1 (Input): Receive the data entered by the user into labeled storage boxes (variables).",
+              "Step 2 (Logic): Follow the rules of the recipe (calculate, check conditions with if/else, or loop step-by-step).",
+              "Step 3 (Output): Print the final result clearly on the screen exactly as requested."
+            ],
+            "whyItMatters": "Foundational logic used in smartphone apps, smart microwaves, ATM cash dispensers, and space rovers.",
+            "beginnerTrap": "In Java, always name your public class 'Main', and remember array indices start at 0 and end at length - 1."
           },
           {
             "id": "java_m4_p3",
@@ -2646,7 +3471,15 @@ export const CURRICULUM = {
             ],
             "hints": [
               "Two pointers left and right."
-            ]
+            ],
+            "analogy": "Think of a computer program like a baking recipe: It reads your ingredients (inputs), follows clear numbered instructions step-by-step, and serves a finished cake (output).",
+            "stepByStep": [
+              "Step 1 (Input): Receive the data entered by the user into labeled storage boxes (variables).",
+              "Step 2 (Logic): Follow the rules of the recipe (calculate, check conditions with if/else, or loop step-by-step).",
+              "Step 3 (Output): Print the final result clearly on the screen exactly as requested."
+            ],
+            "whyItMatters": "Powers Spotify playlist shuffling, Amazon product price sorting, and video game leaderboard rankings.",
+            "beginnerTrap": "In Java, always name your public class 'Main', and remember array indices start at 0 and end at length - 1."
           },
           {
             "id": "java_m4_p4",
@@ -2669,7 +3502,15 @@ export const CURRICULUM = {
             ],
             "hints": [
               "Break as soon as element is found."
-            ]
+            ],
+            "analogy": "Think of a computer program like a baking recipe: It reads your ingredients (inputs), follows clear numbered instructions step-by-step, and serves a finished cake (output).",
+            "stepByStep": [
+              "Step 1 (Input): Receive the data entered by the user into labeled storage boxes (variables).",
+              "Step 2 (Logic): Follow the rules of the recipe (calculate, check conditions with if/else, or loop step-by-step).",
+              "Step 3 (Output): Print the final result clearly on the screen exactly as requested."
+            ],
+            "whyItMatters": "Foundational logic used in smartphone apps, smart microwaves, ATM cash dispensers, and space rovers.",
+            "beginnerTrap": "In Java, always name your public class 'Main', and remember array indices start at 0 and end at length - 1."
           },
           {
             "id": "java_m4_p5",
@@ -2688,7 +3529,15 @@ export const CURRICULUM = {
             ],
             "hints": [
               "Nested loops with swap condition arr[j] > arr[j + 1]."
-            ]
+            ],
+            "analogy": "Imagine air bubbles floating upward in fizzy soda: In each pass, the biggest bubble naturally rises past smaller bubbles until the biggest is floating at the very top.",
+            "stepByStep": [
+              "Step 1 (Input): Receive the data entered by the user into labeled storage boxes (variables).",
+              "Step 2 (Logic): Follow the rules of the recipe (calculate, check conditions with if/else, or loop step-by-step).",
+              "Step 3 (Output): Print the final result clearly on the screen exactly as requested."
+            ],
+            "whyItMatters": "Powers Spotify playlist shuffling, Amazon product price sorting, and video game leaderboard rankings.",
+            "beginnerTrap": "In Java, always name your public class 'Main', and remember array indices start at 0 and end at length - 1."
           }
         ]
       },
@@ -2719,7 +3568,15 @@ export const CURRICULUM = {
             ],
             "hints": [
               "new StringBuilder(s).reverse().toString()"
-            ]
+            ],
+            "analogy": "Think of a computer program like a baking recipe: It reads your ingredients (inputs), follows clear numbered instructions step-by-step, and serves a finished cake (output).",
+            "stepByStep": [
+              "Step 1 (Input): Receive the data entered by the user into labeled storage boxes (variables).",
+              "Step 2 (Logic): Follow the rules of the recipe (calculate, check conditions with if/else, or loop step-by-step).",
+              "Step 3 (Output): Print the final result clearly on the screen exactly as requested."
+            ],
+            "whyItMatters": "Powers Spotify playlist shuffling, Amazon product price sorting, and video game leaderboard rankings.",
+            "beginnerTrap": "In Java, always name your public class 'Main', and remember array indices start at 0 and end at length - 1."
           },
           {
             "id": "java_m5_p2",
@@ -2742,7 +3599,15 @@ export const CURRICULUM = {
             ],
             "hints": [
               "s.equals(rev)"
-            ]
+            ],
+            "analogy": "Hold a word or number up to a mirror. If the reflection in the mirror reads character-for-character identical to the original (like 'RACECAR' or '1221'), it's a Palindrome!",
+            "stepByStep": [
+              "Step 1 (Input): Receive the data entered by the user into labeled storage boxes (variables).",
+              "Step 2 (Logic): Follow the rules of the recipe (calculate, check conditions with if/else, or loop step-by-step).",
+              "Step 3 (Output): Print the final result clearly on the screen exactly as requested."
+            ],
+            "whyItMatters": "Drives Google search autocorrect, DNA sequence genetics analysis, and spam email filters.",
+            "beginnerTrap": "In Java, always name your public class 'Main', and remember array indices start at 0 and end at length - 1."
           },
           {
             "id": "java_m5_p3",
@@ -2765,7 +3630,15 @@ export const CURRICULUM = {
             ],
             "hints": [
               "\"aeiou\".indexOf(c) != -1"
-            ]
+            ],
+            "analogy": "Vowels (A, E, I, O, U) are the open-mouthed vocal cords of human speech. Imagine filtering pebbles from sand: each character passes through a filter that rings a bell whenever a vowel appears.",
+            "stepByStep": [
+              "Step 1 (Input): Receive the data entered by the user into labeled storage boxes (variables).",
+              "Step 2 (Logic): Follow the rules of the recipe (calculate, check conditions with if/else, or loop step-by-step).",
+              "Step 3 (Output): Print the final result clearly on the screen exactly as requested."
+            ],
+            "whyItMatters": "Drives Google search autocorrect, DNA sequence genetics analysis, and spam email filters.",
+            "beginnerTrap": "In Java, always name your public class 'Main', and remember array indices start at 0 and end at length - 1."
           },
           {
             "id": "java_m5_p4",
@@ -2788,7 +3661,15 @@ export const CURRICULUM = {
             ],
             "hints": [
               "Arrays.equals(a1, a2)"
-            ]
+            ],
+            "analogy": "Scrabble tiles! If you take the letter tiles for 'LISTEN' and rearrange them on the table, they spell 'SILENT' using the exact same tile count.",
+            "stepByStep": [
+              "Step 1 (Input): Receive the data entered by the user into labeled storage boxes (variables).",
+              "Step 2 (Logic): Follow the rules of the recipe (calculate, check conditions with if/else, or loop step-by-step).",
+              "Step 3 (Output): Print the final result clearly on the screen exactly as requested."
+            ],
+            "whyItMatters": "Powers Spotify playlist shuffling, Amazon product price sorting, and video game leaderboard rankings.",
+            "beginnerTrap": "In Java, always name your public class 'Main', and remember array indices start at 0 and end at length - 1."
           },
           {
             "id": "java_m5_p5",
@@ -2807,7 +3688,15 @@ export const CURRICULUM = {
             ],
             "hints": [
               "Character.isLowerCase(c)"
-            ]
+            ],
+            "analogy": "Like a light switch: If the room is dark (lowercase), flip the switch ON (uppercase). If already ON, flip it OFF!",
+            "stepByStep": [
+              "Step 1 (Input): Receive the data entered by the user into labeled storage boxes (variables).",
+              "Step 2 (Logic): Follow the rules of the recipe (calculate, check conditions with if/else, or loop step-by-step).",
+              "Step 3 (Output): Print the final result clearly on the screen exactly as requested."
+            ],
+            "whyItMatters": "Drives Google search autocorrect, DNA sequence genetics analysis, and spam email filters.",
+            "beginnerTrap": "In Java, always name your public class 'Main', and remember array indices start at 0 and end at length - 1."
           }
         ]
       }

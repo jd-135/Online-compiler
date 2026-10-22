@@ -4563,15 +4563,126 @@ public class Main {
   }
 };
 
+// =========================================================================
+// BEGINNER-EMPOWERING ENRICHMENT ENGINE
+// Makes coding intuitive for anyone regardless of background
+// =========================================================================
+function enrichCurriculumForBeginners(curr) {
+  Object.keys(curr).forEach((langKey) => {
+    const lang = curr[langKey];
+    lang.modules.forEach((mod) => {
+      mod.problems.forEach((prob) => {
+        const titleLower = prob.title.toLowerCase();
+        const descLower = (prob.description || '').toLowerCase();
+
+        // 1. Everyday Real-World Analogy
+        if (!prob.analogy) {
+          if (titleLower.includes('swap')) {
+            prob.analogy = "Imagine you have a glass of blue juice in your left hand and green juice in your right hand. To swap them without an extra glass or spilling, you combine their quantities mathematically, then separate them step by step!";
+          } else if (titleLower.includes('arithmetic') || titleLower.includes('sum and average') || titleLower.includes('two sum')) {
+            prob.analogy = "Think of variables as labeled storage jars. If you put 10 marbles in jar A and 5 in jar B, finding the sum is simply pouring both jars into a bowl and counting the total marbles (15).";
+          } else if (titleLower.includes('temperature') || titleLower.includes('celsius') || titleLower.includes('fahrenheit')) {
+            prob.analogy = "Like a dual-scale outdoor thermometer: Celsius measures water freezing at 0° and boiling at 100°, while Fahrenheit measures freezing at 32° and boiling at 212°. The formula is just a mathematical gear translating between the two rulers!";
+          } else if (titleLower.includes('circle') || titleLower.includes('rectangle') || titleLower.includes('area')) {
+            prob.analogy = "Imagine laying floor tiles in your bedroom. The Area is how many square tiles fit on the whole floor, while the Perimeter is how many footsteps it takes to walk along the walls around the whole room.";
+          } else if (titleLower.includes('even') || titleLower.includes('odd')) {
+            prob.analogy = "Imagine you have a bag of candies and you share them equally between 2 friends. If every candy finds a pair with zero leftovers, it's EVEN. If there's 1 lonely candy left over, it's ODD!";
+          } else if (titleLower.includes('leap year')) {
+            prob.analogy = "The Earth takes about 365.2422 days to orbit the Sun — not an exact 365 days! That extra fraction of a day adds up, so every 4 years our calendar adds February 29 to keep our seasons from drifting out of sync.";
+          } else if (titleLower.includes('maximum') || titleLower.includes('largest') || titleLower.includes('greatest') || titleLower.includes('min & max')) {
+            prob.analogy = "Like a game of 'King of the Hill': Start by picking the first contestant as the reigning champion. Each new challenger steps up; if a challenger is taller than the champion, they become the new champion!";
+          } else if (titleLower.includes('triangle')) {
+            prob.analogy = "Imagine three wooden sticks. If one stick is 10 meters long and the other two are only 1 meter each, their tips can never reach each other to close the triangle! Any two sides together must always be longer than the third.";
+          } else if (titleLower.includes('switch') || titleLower.includes('calculator')) {
+            prob.analogy = "Think of a train track switch or a vending machine dial: You push the button for '+' (Addition), and the track switches instantly to the Addition tunnel without testing all other tunnels one by one.";
+          } else if (titleLower.includes('factorial')) {
+            prob.analogy = "Imagine you have 5 differently colored books on a shelf. How many different ways can you arrange them? 5 choices for the first slot × 4 for the second × 3 for the third × 2 × 1 = 120 unique arrangements!";
+          } else if (titleLower.includes('fibonacci')) {
+            prob.analogy = "Nature's favorite pattern! Look at how sunflower seeds or pinecones spiral: each new number is born by adding the previous two numbers together (0, 1, 1, 2, 3, 5, 8, 13...).";
+          } else if (titleLower.includes('palindrome')) {
+            prob.analogy = "Hold a word or number up to a mirror. If the reflection in the mirror reads character-for-character identical to the original (like 'RACECAR' or '1221'), it's a Palindrome!";
+          } else if (titleLower.includes('prime')) {
+            prob.analogy = "Think of prime numbers as the unbreakable 'atomic building blocks' of mathematics. You cannot divide 7 candies into equal smaller groups without cutting candies in half!";
+          } else if (titleLower.includes('multiplication') || titleLower.includes('table')) {
+            prob.analogy = "Like marching troops in neat rows: 4 rows of 5 soldiers = 20 soldiers. A loop prints each row step-by-step from 1 to 5.";
+          } else if (titleLower.includes('reverse array') || titleLower.includes('reverse vector') || titleLower.includes('reverse string')) {
+            prob.analogy = "Picture two people standing at opposite ends of a row of parked cars. Person A and Person B swap cars, take one step inward toward each other, swap the next cars, until they meet in the middle.";
+          } else if (titleLower.includes('rotate')) {
+            prob.analogy = "Think of a carousel or Ferris wheel: Every rider shifts one seat forward. The rider at the very front loops all the way around to the back!";
+          } else if (titleLower.includes('bubble sort')) {
+            prob.analogy = "Imagine air bubbles floating upward in fizzy soda: In each pass, the biggest bubble naturally rises past smaller bubbles until the biggest is floating at the very top.";
+          } else if (titleLower.includes('merge sort')) {
+            prob.analogy = "Divide and Conquer: If you have a deck of 100 shuffled cards, sort 50 cards on the left, sort 50 on the right, then zip them together by always picking the smallest top card from either pile.";
+          } else if (titleLower.includes('vowel')) {
+            prob.analogy = "Vowels (A, E, I, O, U) are the open-mouthed vocal cords of human speech. Imagine filtering pebbles from sand: each character passes through a filter that rings a bell whenever a vowel appears.";
+          } else if (titleLower.includes('toggle case') || titleLower.includes('case')) {
+            prob.analogy = "Like a light switch: If the room is dark (lowercase), flip the switch ON (uppercase). If already ON, flip it OFF!";
+          } else if (titleLower.includes('anagram')) {
+            prob.analogy = "Scrabble tiles! If you take the letter tiles for 'LISTEN' and rearrange them on the table, they spell 'SILENT' using the exact same tile count.";
+          } else if (titleLower.includes('pointer')) {
+            prob.analogy = "Imagine a treasure map. Instead of hauling a 500-pound gold safe with you everywhere, you carry a tiny slip of paper with GPS coordinates written on it. The slip of paper is your pointer!";
+          } else if (titleLower.includes('dynamic') || titleLower.includes('malloc')) {
+            prob.analogy = "Like reserving hotel rooms on demand: Instead of building an entire empty hotel in advance, you ask the front desk (malloc) for exactly N rooms right when guests arrive, and check out (free) when you leave.";
+          } else if (titleLower.includes('recursive') || titleLower.includes('recursion')) {
+            prob.analogy = "Russian Nesting Dolls (Matryoshka)! You open a large doll to find a slightly smaller doll inside. You keep opening dolls until you find the tiny solid baby doll at the center (Base Case), then close them back up.";
+          } else {
+            prob.analogy = "Think of a computer program like a baking recipe: It reads your ingredients (inputs), follows clear numbered instructions step-by-step, and serves a finished cake (output).";
+          }
+        }
+
+        // 2. The 3-Step Human Recipe (How to think like a coder before typing)
+        if (!prob.stepByStep) {
+          prob.stepByStep = [
+            "Step 1 (Input): Receive the data entered by the user into labeled storage boxes (variables).",
+            "Step 2 (Logic): Follow the rules of the recipe (calculate, check conditions with if/else, or loop step-by-step).",
+            "Step 3 (Output): Print the final result clearly on the screen exactly as requested."
+          ];
+        }
+
+        // 3. Why This Matters in the Real World
+        if (!prob.whyItMatters) {
+          if (titleLower.includes('sort') || titleLower.includes('rotate') || titleLower.includes('reverse')) {
+            prob.whyItMatters = "Powers Spotify playlist shuffling, Amazon product price sorting, and video game leaderboard rankings.";
+          } else if (titleLower.includes('prime') || titleLower.includes('factor') || titleLower.includes('gcd')) {
+            prob.whyItMatters = "Used in modern banking, WhatsApp end-to-end encryption, and password security keys.";
+          } else if (titleLower.includes('string') || titleLower.includes('palindrome') || titleLower.includes('anagram')) {
+            prob.whyItMatters = "Drives Google search autocorrect, DNA sequence genetics analysis, and spam email filters.";
+          } else if (titleLower.includes('pointer') || titleLower.includes('malloc')) {
+            prob.whyItMatters = "Powers 3D video game engines (Unreal Engine), operating systems, and high-speed web browsers.";
+          } else {
+            prob.whyItMatters = "Foundational logic used in smartphone apps, smart microwaves, ATM cash dispensers, and space rovers.";
+          }
+        }
+
+        // 4. Common Beginner Trap
+        if (!prob.beginnerTrap) {
+          if (langKey === 'c') {
+            prob.beginnerTrap = "In C, scanf() needs the '&' address symbol before variable names, but printf() does not! Also, remember \\n to print on a new line.";
+          } else if (langKey === 'python') {
+            prob.beginnerTrap = "In Python, input() always reads text (strings)! Remember to wrap it with int(input()) when dealing with numbers, and watch indentation.";
+          } else if (langKey === 'cpp') {
+            prob.beginnerTrap = "Don't confuse '=' (storing a value) with '==' (checking if two values are equal). Also, make sure arrays don't go out of bounds.";
+          } else if (langKey === 'java') {
+            prob.beginnerTrap = "In Java, always name your public class 'Main', and remember array indices start at 0 and end at length - 1.";
+          }
+        }
+      });
+    });
+  });
+}
+
+enrichCurriculumForBeginners(curriculum);
+
 const outputContent = `/**
  * Comprehensive Programming University & Interactive Curriculum
  * Covers Python, C, C++, and Java with progressive locking/unlocking,
  * theory concepts, practical challenges, and test cases.
  * Every topic contains at least 5 interactive challenges with hidden answers.
+ * Enriched with real-world analogies, step-by-step human recipes, and beginner pitfall traps.
  */
 
 export const CURRICULUM = ${JSON.stringify(curriculum, null, 2)};
 `;
 
 fs.writeFileSync(path.join(__dirname, '..', 'src', 'constants', 'curriculum.js'), outputContent, 'utf8');
-console.log('Successfully generated curriculum.js with at least 5 problems per module!');
+console.log('Successfully generated enriched curriculum.js for beginners!');
