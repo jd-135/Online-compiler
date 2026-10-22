@@ -40,6 +40,13 @@ const DEFAULT_WORKSPACE = {
 export default function App() {
   const [selectedLanguage, setSelectedLanguage] = useState(LANGUAGES[0]);
   const [appMode, setAppMode] = useState('compiler'); // 'compiler' | 'university'
+  const [modeDirection, setModeDirection] = useState('forward'); // 'forward' (to Univ) | 'backward' (to Compiler)
+
+  const handleSwitchMode = (newMode) => {
+    if (newMode === appMode) return;
+    setModeDirection(newMode === 'university' ? 'forward' : 'backward');
+    setAppMode(newMode);
+  };
   const [showSplash, setShowSplash] = useState(() => {
     try {
       return sessionStorage.getItem('jd_splash_seen') !== 'true';
@@ -517,19 +524,25 @@ export default function App() {
         installPrompt={installPrompt}
         onInstallApp={handleInstallApp}
         appMode={appMode}
-        onToggleAppMode={setAppMode}
+        onToggleAppMode={handleSwitchMode}
       />
 
-      {/* Main Work Area: JD University Page vs Compiler IDE Studio (Smooth Animated Transition) */}
+      {/* Cyber Scanning Laser Beam (Real-time Code Execution Effect) */}
+      {isRunning && <div className="anim-laser-scan" />}
+
+      {/* Main Work Area: Directional Sliding Transition (Compiler IDE <-> JD University) */}
       {appMode === 'university' ? (
-        <div key="mode-university" className="flex-1 flex overflow-hidden relative anim-mode-enter">
+        <div 
+          key="mode-university" 
+          className="flex-1 flex overflow-hidden relative anim-slide-from-right"
+        >
           <UniversityView
-            onBackToCompiler={() => setAppMode('compiler')}
+            onBackToCompiler={() => handleSwitchMode('compiler')}
             onLoadCodeInCompiler={(code, langId) => {
               const langObj = LANGUAGES.find(l => l.id === langId) || LANGUAGES[0];
               setSelectedLanguage(langObj);
               handleChangeCode(code);
-              setAppMode('compiler');
+              handleSwitchMode('compiler');
               setSharedToast(`Loaded ${langObj.name} challenge code into Compiler IDE!`);
               setTimeout(() => setSharedToast(null), 4000);
             }}
@@ -537,7 +550,10 @@ export default function App() {
           />
         </div>
       ) : (
-        <div key="mode-compiler" className="flex-1 flex overflow-hidden relative anim-mode-enter">
+        <div 
+          key="mode-compiler" 
+          className="flex-1 flex overflow-hidden relative anim-slide-from-left"
+        >
           {/* Leftmost Activity Bar */}
           <ActivityBar
             activeView={activeView}
@@ -547,7 +563,7 @@ export default function App() {
             onToggleShortcuts={() => setShowShortcuts(true)}
             onToggleSettings={() => setShowSettings(true)}
             appMode={appMode}
-            onToggleAppMode={setAppMode}
+            onToggleAppMode={handleSwitchMode}
           />
 
           {/* Collapsible Sidebar (Toggles open/close cleanly) */}

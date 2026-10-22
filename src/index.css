@@ -149,6 +149,66 @@
    Strictly uses transform & opacity for 60/120fps with zero layout reflow
    ========================================================================= */
 
+/* Directional Sliding Transitions for Mode Switching (Compiler <-> University) */
+@keyframes slideInFromRight {
+  0% {
+    opacity: 0;
+    transform: translate3d(40px, 0, 0) scale(0.99);
+  }
+  100% {
+    opacity: 1;
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+}
+
+@keyframes slideInFromLeft {
+  0% {
+    opacity: 0;
+    transform: translate3d(-40px, 0, 0) scale(0.99);
+  }
+  100% {
+    opacity: 1;
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+}
+
+/* Cyber Scanning Laser Beam (Active Code Execution Effect) */
+@keyframes laserScan {
+  0% {
+    transform: translate3d(-100%, 0, 0);
+  }
+  100% {
+    transform: translate3d(250%, 0, 0);
+  }
+}
+
+/* Floating Gamified XP Celebration Particles */
+@keyframes floatAndFade {
+  0% {
+    opacity: 0;
+    transform: translate3d(0, 14px, 0) scale(0.85);
+  }
+  25% {
+    opacity: 1;
+    transform: translate3d(0, -6px, 0) scale(1.15);
+  }
+  80% {
+    opacity: 1;
+    transform: translate3d(0, -22px, 0) scale(1.0);
+  }
+  100% {
+    opacity: 0;
+    transform: translate3d(0, -38px, 0) scale(0.9);
+  }
+}
+
+/* Iridescent Animated Gradient Flow */
+@keyframes gradientShift {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
 @keyframes modeFadeIn {
   0% {
     opacity: 0;
@@ -209,6 +269,41 @@
   50% {
     box-shadow: 0 0 16px rgba(163, 113, 247, 0.35);
   }
+}
+
+/* Classes for Directional Sliding */
+.anim-slide-from-right {
+  animation: slideInFromRight 0.32s cubic-bezier(0.16, 1, 0.3, 1) both;
+  will-change: transform, opacity;
+}
+
+.anim-slide-from-left {
+  animation: slideInFromLeft 0.32s cubic-bezier(0.16, 1, 0.3, 1) both;
+  will-change: transform, opacity;
+}
+
+.anim-laser-scan {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 2px;
+  width: 35%;
+  background: linear-gradient(90deg, transparent, #58a6ff, #3fb950, #a371f7, transparent);
+  animation: laserScan 1.4s infinite cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 0 0 8px rgba(88, 166, 255, 0.8), 0 0 14px rgba(63, 185, 80, 0.6);
+  z-index: 40;
+  pointer-events: none;
+}
+
+.anim-float-xp {
+  animation: floatAndFade 1.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  will-change: transform, opacity;
+  pointer-events: none;
+}
+
+.anim-shimmer-flow {
+  background-size: 200% 200%;
+  animation: gradientShift 4s ease infinite;
 }
 
 .anim-mode-enter {

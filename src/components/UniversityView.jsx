@@ -396,8 +396,14 @@ export function UniversityView({ onBackToCompiler, onLoadCodeInCompiler, setting
             })}
           </div>
 
-          {/* Gamified XP & Rank Badge */}
-          <div className="flex items-center gap-2 bg-[#21262d] border border-[#30363d] px-3 py-1.5 rounded-xl text-xs font-mono" style={{ backgroundColor: 'var(--bg-tertiary)', borderColor: 'var(--border-color)' }}>
+          {/* Gamified XP & Rank Badge with Floating Particle Burst on Completion */}
+          <div className="relative flex items-center gap-2 bg-[#21262d] border border-[#30363d] px-3 py-1.5 rounded-xl text-xs font-mono" style={{ backgroundColor: 'var(--bg-tertiary)', borderColor: 'var(--border-color)' }}>
+            {showCelebration && (
+              <div className="absolute -top-7 right-3 flex items-center gap-1 font-bold font-mono text-amber-300 text-xs anim-float-xp bg-amber-400/20 border border-amber-400/40 px-2 py-0.5 rounded-full shadow-lg">
+                <Sparkles size={11} className="text-amber-300" />
+                <span>+{activeProblem?.xp || 50} XP!</span>
+              </div>
+            )}
             <span className="flex items-center gap-1 text-[11px] font-sans font-semibold text-[#e6edf3]" title={`Rank Level: ${rankInfo.title}`}>
               <span>{rankInfo.emoji}</span>
               <span className="hidden lg:inline">{rankInfo.title}</span>
